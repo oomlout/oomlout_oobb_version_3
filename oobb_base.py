@@ -63,9 +63,12 @@ def load(mode="json"):
     elif mode == "folder":
         ##load all the details.json files from the fodlers in things directory
         for thing in os.listdir("things"):
-            with open(f'things/{thing}/details.json') as json_file:
-                oobb.things.update({thing: json.load(json_file)})
-
+            try: 
+                with open(f'things/{thing}/details.json') as json_file:
+                    oobb.things.update({thing: json.load(json_file)})
+            except FileNotFoundError:                
+                pass
+            
         
 def build_things(mode = "all", overwrite = True):
     for thing in oobb.things:
