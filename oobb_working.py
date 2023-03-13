@@ -15,7 +15,9 @@ oobb_make_sets.make_all()
 oobb_base.dump("folder")
 #oobb_base.load("folder")
 #oobb_base.load("json")
-oobb_base.build_things(mode="none",overwrite=True)
+mode = "none"
+mode = "all"
+oobb_base.build_things(mode=mode,overwrite=True)
 oobb_markdown.make_markdown()
 pass
 
