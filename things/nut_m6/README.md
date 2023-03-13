@@ -1,4 +1,5 @@
 # nut_m6
+# details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | description | nut m6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -9,7 +10,26 @@
 | width_oobb  | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | height_mm   | 5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | height_oobb | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| components  | [{'type': 'positive', 'shape': 'polyg', 'r': 5.77, 'inclusion': 'laser', 'sides': 6, 'height': 6}, {'type': 'positive', 'shape': 'polyg', 'r': 6.3469999999999995, 'inclusion': '3dpr', 'sides': 6, 'height': 6.5}, {'type': 'positive', 'shape': 'polyg', 'r': 5.77, 'inclusion': 'true', 'sides': 6, 'height': 6}, {'type': 'negative', 'shape': 'cylinder', 'r': 3.0, 'h': 20, 'z': -10, 'inclusion': 'laser', 'm': ''}, {'type': 'negative', 'shape': 'cylinder', 'r': 3.25, 'h': 20, 'z': -10, 'inclusion': '3dpr', 'm': ''}, {'type': 'negative', 'shape': 'cylinder', 'r': 3.0, 'h': 20, 'z': -10, 'inclusion': 'true', 'm': ''}] |
+| components  | # details
+| Key | Value                                                                                                           |
+| --- | --------------------------------------------------------------------------------------------------------------- |
+| 0   | {'type': 'positive', 'shape': 'polyg', 'r': 5.77, 'inclusion': 'laser', 'sides': 6, 'height': 6}                |
+| 1   | {'type': 'positive', 'shape': 'polyg', 'r': 6.3469999999999995, 'inclusion': '3dpr', 'sides': 6, 'height': 6.5} |
+| 2   | {'type': 'positive', 'shape': 'polyg', 'r': 5.77, 'inclusion': 'true', 'sides': 6, 'height': 6}                 |
+| 3   | {'type': 'negative', 'shape': 'cylinder', 'r': 3.0, 'h': 20, 'z': -10, 'inclusion': 'laser', 'm': ''}           |
+| 4   | {'type': 'negative', 'shape': 'cylinder', 'r': 3.25, 'h': 20, 'z': -10, 'inclusion': '3dpr', 'm': ''}           |
+| 5   | {'type': 'negative', 'shape': 'cylinder', 'r': 3.0, 'h': 20, 'z': -10, 'inclusion': 'true', 'm': ''}            |
+ |
 | depth_mm    | 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
-/n/n
+# images
+
+
+| files |
+| --- |
+| 3dpr.scad |
+| details.json |
+| laser-flat.scad |
+| laser.scad |
+| README.md |
+| true.scad |

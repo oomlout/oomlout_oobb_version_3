@@ -65,10 +65,16 @@ def markdown_format(data_dict):
     # Create the table rows
     rows = ""
     for key, value in data_dict.items():
+        if isinstance(value, list):
+            my_array = value
+            my_dict = {i: my_array[i] for i in range(len(my_array))}
+            value = markdown_format(my_dict)
+        #if isinstance(value, dict):
+        #    value = markdown_format(value)
         rows += f"| {str(key):<{key_column_width}} | {str(value):<{value_column_width}} |\n"
 
     # Combine the headers, separator, and rows into a single string
-    table_string = f"{headers}{separator}{rows}"
+    table_string = f"# details\n{headers}{separator}{rows}"
 
     return table_string
 
@@ -91,18 +97,18 @@ def get_directory_details(directory_path):
               
 
     # Create a Markdown table of PNG images
-    png_table = ""
+    png_table = "# images\n"
     if png_images:
         png_table = "| PNG Images |\n| --- |\n"
         for image in png_images:
             png_table += f"| {image} |\n"
     
-    file_table = ""
+    file_table = "# files\n"
     if files:
         file_table = "| files |\n| --- |\n"
         for file in files:
-            png_table += f"| {image} |\n"            
+            file_table += f"| {file} |\n"            
 
     # Combine the tables and return the result
-    return f"{png_table}/n/n{file_table}"
+    return f"{png_table}\n\n{file_table}"
 

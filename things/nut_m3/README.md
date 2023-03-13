@@ -1,4 +1,5 @@
 # nut_m3
+# details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | description | nut m3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -9,6 +10,26 @@
 | width_oobb  | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | height_mm   | 2.75                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | height_oobb | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| components  | [{'type': 'positive', 'shape': 'polyg', 'r': 3.1734999999999998, 'inclusion': 'laser', 'sides': 6, 'height': 2.5}, {'type': 'positive', 'shape': 'polyg', 'r': 3.8947499999999997, 'inclusion': '3dpr', 'sides': 6, 'height': 3}, {'type': 'positive', 'shape': 'polyg', 'r': 3.1734999999999998, 'inclusion': 'true', 'sides': 6, 'height': 2.5}, {'type': 'negative', 'shape': 'cylinder', 'r': 1.5, 'h': 20, 'z': -10, 'inclusion': 'laser', 'm': ''}, {'type': 'negative', 'shape': 'cylinder', 'r': 1.7, 'h': 20, 'z': -10, 'inclusion': '3dpr', 'm': ''}, {'type': 'negative', 'shape': 'cylinder', 'r': 1.5, 'h': 20, 'z': -10, 'inclusion': 'true', 'm': ''}] |
+| components  | # details
+| Key | Value                                                                                                            |
+| --- | ---------------------------------------------------------------------------------------------------------------- |
+| 0   | {'type': 'positive', 'shape': 'polyg', 'r': 3.1734999999999998, 'inclusion': 'laser', 'sides': 6, 'height': 2.5} |
+| 1   | {'type': 'positive', 'shape': 'polyg', 'r': 3.8947499999999997, 'inclusion': '3dpr', 'sides': 6, 'height': 3}    |
+| 2   | {'type': 'positive', 'shape': 'polyg', 'r': 3.1734999999999998, 'inclusion': 'true', 'sides': 6, 'height': 2.5}  |
+| 3   | {'type': 'negative', 'shape': 'cylinder', 'r': 1.5, 'h': 20, 'z': -10, 'inclusion': 'laser', 'm': ''}            |
+| 4   | {'type': 'negative', 'shape': 'cylinder', 'r': 1.7, 'h': 20, 'z': -10, 'inclusion': '3dpr', 'm': ''}             |
+| 5   | {'type': 'negative', 'shape': 'cylinder', 'r': 1.5, 'h': 20, 'z': -10, 'inclusion': 'true', 'm': ''}             |
+ |
 | depth_mm    | 2.5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
+# images
+
+
+| files |
+| --- |
+| 3dpr.scad |
+| details.json |
+| laser-flat.scad |
+| laser.scad |
+| README.md |
+| true.scad |

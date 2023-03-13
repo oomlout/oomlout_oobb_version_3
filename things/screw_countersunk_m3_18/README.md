@@ -1,4 +1,5 @@
 # screw_countersunk_m3_18
+# details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | description | screw countersunk m3x18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -9,7 +10,26 @@
 | width_oobb  | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | height_mm   | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | height_oobb | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| components  | [{'type': 'positive', 'shape': 'cylinder', 'r1': 1.5, 'r2': 2.9, 'h': 1.7, 'pos': [0, 0, -1.7], 'inclusion': 'laser'}, {'type': 'positive', 'shape': 'cylinder', 'r1': 1.7, 'r2': 3.6, 'h': 1.9, 'pos': [0, 0, -1.9], 'inclusion': '3dpr'}, {'type': 'positive', 'shape': 'cylinder', 'r1': 1.5, 'r2': 2.9, 'h': 1.7, 'pos': [0, 0, -1.7], 'inclusion': 'true'}, {'type': 'positive', 'shape': 'cylinder', 'r': 1.5, 'h': 18, 'pos': [0, 0, -18], 'inclusion': 'laser'}, {'type': 'positive', 'shape': 'cylinder', 'r': 1.7, 'h': 18, 'pos': [0, 0, -18], 'inclusion': '3dpr'}, {'type': 'positive', 'shape': 'cylinder', 'r': 1.5, 'h': 18, 'pos': [0, 0, -18], 'inclusion': 'true'}] |
+| components  | # details
+| Key | Value                                                                                                                |
+| --- | -------------------------------------------------------------------------------------------------------------------- |
+| 0   | {'type': 'positive', 'shape': 'cylinder', 'r1': 1.5, 'r2': 2.9, 'h': 1.7, 'pos': [0, 0, -1.7], 'inclusion': 'laser'} |
+| 1   | {'type': 'positive', 'shape': 'cylinder', 'r1': 1.7, 'r2': 3.6, 'h': 1.9, 'pos': [0, 0, -1.9], 'inclusion': '3dpr'}  |
+| 2   | {'type': 'positive', 'shape': 'cylinder', 'r1': 1.5, 'r2': 2.9, 'h': 1.7, 'pos': [0, 0, -1.7], 'inclusion': 'true'}  |
+| 3   | {'type': 'positive', 'shape': 'cylinder', 'r': 1.5, 'h': 18, 'pos': [0, 0, -18], 'inclusion': 'laser'}               |
+| 4   | {'type': 'positive', 'shape': 'cylinder', 'r': 1.7, 'h': 18, 'pos': [0, 0, -18], 'inclusion': '3dpr'}                |
+| 5   | {'type': 'positive', 'shape': 'cylinder', 'r': 1.5, 'h': 18, 'pos': [0, 0, -18], 'inclusion': 'true'}                |
+ |
 | depth_mm    | 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
-/n/n
+# images
+
+
+| files |
+| --- |
+| 3dpr.scad |
+| details.json |
+| laser-flat.scad |
+| laser.scad |
+| README.md |
+| true.scad |
