@@ -86,3 +86,13 @@ def make_screws_countersunk():
         for depth in depths:
             thing = oobb_get_items_other.get_screw_countersunk(screw,depth)
             oobb_base.add_thing(thing)
+
+
+def male_test():
+    things = []
+    things.append(oobb_get_items_other.get_test_nut("m3"))
+    
+
+
+    for thing in things:
+        oobb_base.add_thing(thing)            

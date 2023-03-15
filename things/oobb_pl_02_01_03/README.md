@@ -22,6 +22,7 @@
 | 6   | {'type': 'negative', 'shape': 'hole', 'r': 3.0, 'pos': [7.5, 0.0, 0], 'inclusion': 'true'}             |
  |
 | inclusion   | all                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| depth_mm    | 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 # images
 

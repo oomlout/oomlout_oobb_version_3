@@ -70,16 +70,47 @@ def load(mode="json"):
                 pass
             
         
-def build_things(mode = "all", overwrite = True):
+def build_things(save_type = "none", overwrite = True, filter = ""):
     for thing in oobb.things:
-        build_thing(thing)
+        if filter in thing:
+            print(f'building {thing}')
+            build_thing(thing, save_type, overwrite)
 
-def build_thing(thing, mode = "all",overwrite = True):
+
+
+def build_thing(thing, save_type = "all",overwrite = True):
     modes = ["3dpr", "laser", "true"]
     for mode in modes:
-        opsc.opsc_make_object(f'things/{thing}/{mode}.scad', oobb.things[thing]["components"], mode=mode,save_type=mode, overwrite=overwrite)
+        depth = oobb.things[thing].get("depth_mm",3)
+        height = oobb.things[thing].get("height_mm",100)
+        layers = depth / 3
+        tilediff = height + 10
+        start=1.5
+        if layers != 1:
+            start = 1.5 - (layers / 2)*3
+        opsc.opsc_make_object(f'things/{thing}/{mode}.scad', oobb.things[thing]["components"], mode=mode,save_type=save_type, overwrite=overwrite, layers=layers, tilediff=tilediff, start=start)
 
-def oobb_easy(**kwargs):    
+def oe(**kwargs):
+    return oobb_easy(**kwargs)
+
+def oobb_easy(**kwargs):
+    try:
+        kwargs["type"] = kwargs["t"]
+        del kwargs["t"]
+    except KeyError:
+        pass
+    try:
+        kwargs["shape"] = kwargs["s"]
+        del kwargs["s"]
+    except KeyError:
+        pass
+    try:
+        kwargs["radius_name"] = kwargs["rn"]
+        del kwargs["rn"]
+    except KeyError:
+        pass
+    
+
     if "oobb" in kwargs["shape"]:
         # if its an oobb_plat then call get_oobb_plate
         shape = kwargs["shape"]

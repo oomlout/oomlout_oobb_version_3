@@ -25,15 +25,30 @@
 | 9   | {'type': 'negative', 'shape': 'hole', 'r': 3.0, 'pos': [15.0, 0.0, 0], 'inclusion': 'true'}            |
  |
 | inclusion   | all                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| depth_mm    | 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser-flat.png](laser-flat.png) |
+| ![laser.png](laser.png) |
+| ![true.png](true.png) |
 
 
 | files |
 | --- |
+| 3dpr.png |
 | 3dpr.scad |
+| 3dpr.stl |
 | details.json |
+| laser-flat.dxf |
+| laser-flat.png |
 | laser-flat.scad |
+| laser-flat.svg |
+| laser.png |
 | laser.scad |
+| laser.stl |
 | README.md |
+| true.png |
 | true.scad |
+| true.stl |

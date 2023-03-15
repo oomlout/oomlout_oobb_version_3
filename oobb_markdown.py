@@ -20,7 +20,7 @@ def make_markdown():
             categories[category].append(directory)
 
     # Generate the index page
-    with open(base_dir + "index.md", "w") as f:
+    with open(base_dir + "/index.md", "w") as f:
         # Loop through the categories
         for category, directories in categories.items():
             # Write the category header
