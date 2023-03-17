@@ -1,9 +1,35 @@
 # oobe_pl_01_01_6d0
-oobe_pl_01_01_6d0
 ![true.png](true.png)
+oobe plate 1 wide and 1 high and 6.0 deep
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                           |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| description | oobe plate 1 wide and 1 high and 6.0 deep                                                                                                                                                                                                                                                                                                                                       |
+| id          | oobe_pl_01_01_6d0                                                                                                                                                                                                                                                                                                                                                               |
+| type        | oobe_base                                                                                                                                                                                                                                                                                                                                                                       |
+| type_oobb   | pl                                                                                                                                                                                                                                                                                                                                                                              |
+| width_mm    | 7.0                                                                                                                                                                                                                                                                                                                                                                             |
+| width_oobb  | 1                                                                                                                                                                                                                                                                                                                                                                               |
+| height_mm   | 7.0                                                                                                                                                                                                                                                                                                                                                                             |
+| height_oobb | 1                                                                                                                                                                                                                                                                                                                                                                               |
+| components  | list with 4 items                                                                                                                                                                                                                                                                                                                                                               |
+| inclusion   | all                                                                                                                                                                                                                                                                                                                                                                             |
+| depth_mm    | 6.0                                                                                                                                                                                                                                                                                                                                                                             |
+
+# details
+| Key         | Value                                                                                                                                                                                                                                                                                                                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| description | oobe plate 1 wide and 1 high and 6.0 deep                                                                                                                                                                                                                                                                                                                                       |
+| id          | oobe_pl_01_01_6d0                                                                                                                                                                                                                                                                                                                                                               |
+| type        | oobe_base                                                                                                                                                                                                                                                                                                                                                                       |
+| type_oobb   | pl                                                                                                                                                                                                                                                                                                                                                                              |
+| width_mm    | 7.0                                                                                                                                                                                                                                                                                                                                                                             |
+| width_oobb  | 1                                                                                                                                                                                                                                                                                                                                                                               |
+| height_mm   | 7.0                                                                                                                                                                                                                                                                                                                                                                             |
+| height_oobb | 1                                                                                                                                                                                                                                                                                                                                                                               |
+| components  | list with 4 items                                                                                                                                                                                                                                                                                                                                                               |
+| inclusion   | all                                                                                                                                                                                                                                                                                                                                                                             |
+| depth_mm    | 6.0                                                                                                                                                                                                                                                                                                                                                                             |
 
 | PNG Images |
 | --- |
@@ -12,24 +38,3 @@ oobe_pl_01_01_6d0
 | ![laser.png](laser.png) |
 | ![true.png](true.png) |
 
-
-| files |
-| --- |
-| 3dpr.png |
-| 3dpr.scad |
-| 3dpr.stl |
-| 3dpr.stp |
-| details.json |
-| laser-flat.dxf |
-| laser-flat.png |
-| laser-flat.scad |
-| laser-flat.svg |
-| laser.png |
-| laser.scad |
-| laser.stl |
-| laser.stp |
-| README.md |
-| true.png |
-| true.scad |
-| true.stl |
-| true.stp |

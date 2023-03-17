@@ -186,8 +186,6 @@
 - [oobe_pl_32_01_1d5](./oobe_pl_32_01_1d5/README.md)
 - [oobe_pl_33_01_1d5](./oobe_pl_33_01_1d5/README.md)
 - [oobe_pl_34_01_1d5](./oobe_pl_34_01_1d5/README.md)
-## readme.md
-- [readme.md](./readme.md/README.md)
 ## screw
 - [screw_countersunk_m3_08](./screw_countersunk_m3_08/README.md)
 - [screw_countersunk_m3_10](./screw_countersunk_m3_10/README.md)
@@ -203,5 +201,6 @@
 - [test_oobb_nut_nut_depth_m3_depth_0d15](./test_oobb_nut_nut_depth_m3_depth_0d15/README.md)
 - [test_oobb_nut_nut_depth_m6_depth_0d5](./test_oobb_nut_nut_depth_m6_depth_0d5/README.md)
 - [test_oobb_nut_nut_radius_m3_radius_0d15](./test_oobb_nut_nut_radius_m3_radius_0d15/README.md)
+- [test_oobb_nut_nut_radius_m6_radius_0d2](./test_oobb_nut_nut_radius_m6_radius_0d2/README.md)
 ## working
 - [working_mp.cdr](./working_mp.cdr/README.md)

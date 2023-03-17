@@ -1,9 +1,35 @@
 # oobb_pl_01_01_12
-oobb_pl_01_01_12
 ![true.png](true.png)
+oobb plate 1 wide and 1 high and 12 deep
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                               |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| description | oobb plate 1 wide and 1 high and 12 deep                                                                                                                                                                                                                                                                                                                            |
+| id          | oobb_pl_01_01_12                                                                                                                                                                                                                                                                                                                                                    |
+| type        | oobb_base                                                                                                                                                                                                                                                                                                                                                           |
+| type_oobb   | pl                                                                                                                                                                                                                                                                                                                                                                  |
+| width_mm    | 14                                                                                                                                                                                                                                                                                                                                                                  |
+| width_oobb  | 1                                                                                                                                                                                                                                                                                                                                                                   |
+| height_mm   | 14                                                                                                                                                                                                                                                                                                                                                                  |
+| height_oobb | 1                                                                                                                                                                                                                                                                                                                                                                   |
+| components  | list with 4 items                                                                                                                                                                                                                                                                                                                                                   |
+| inclusion   | all                                                                                                                                                                                                                                                                                                                                                                 |
+| depth_mm    | 12                                                                                                                                                                                                                                                                                                                                                                  |
+
+# details
+| Key         | Value                                                                                                                                                                                                                                                                                                                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| description | oobb plate 1 wide and 1 high and 12 deep                                                                                                                                                                                                                                                                                                                            |
+| id          | oobb_pl_01_01_12                                                                                                                                                                                                                                                                                                                                                    |
+| type        | oobb_base                                                                                                                                                                                                                                                                                                                                                           |
+| type_oobb   | pl                                                                                                                                                                                                                                                                                                                                                                  |
+| width_mm    | 14                                                                                                                                                                                                                                                                                                                                                                  |
+| width_oobb  | 1                                                                                                                                                                                                                                                                                                                                                                   |
+| height_mm   | 14                                                                                                                                                                                                                                                                                                                                                                  |
+| height_oobb | 1                                                                                                                                                                                                                                                                                                                                                                   |
+| components  | list with 4 items                                                                                                                                                                                                                                                                                                                                                   |
+| inclusion   | all                                                                                                                                                                                                                                                                                                                                                                 |
+| depth_mm    | 12                                                                                                                                                                                                                                                                                                                                                                  |
 
 | PNG Images |
 | --- |
@@ -12,24 +38,3 @@ oobb_pl_01_01_12
 | ![laser.png](laser.png) |
 | ![true.png](true.png) |
 
-
-| files |
-| --- |
-| 3dpr.png |
-| 3dpr.scad |
-| 3dpr.stl |
-| 3dpr.stp |
-| details.json |
-| laser-flat.dxf |
-| laser-flat.png |
-| laser-flat.scad |
-| laser-flat.svg |
-| laser.png |
-| laser.scad |
-| laser.stl |
-| laser.stp |
-| README.md |
-| true.png |
-| true.scad |
-| true.stl |
-| true.stp |

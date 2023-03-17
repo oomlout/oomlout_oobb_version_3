@@ -5,7 +5,7 @@ import oomB
 import oobb_markdown
 
 
-#oobb_make_sets.make_all()
+oobb_make_sets.make_all()
 #oobb_make_sets.make_jacks()
 #oobb_make_sets.make_jacks(size = "oobe")
 #oobb_make_sets.make_nuts()
@@ -32,7 +32,7 @@ filter = "mp_"
 #filter = "oobe_"
 #filter = "oobb_"   
 #filter = "test_"   
-#filter = ""
+filter = ""
 
 
 oobb_base.build_things(overwrite=True,filter=filter, save_type=save_type)
