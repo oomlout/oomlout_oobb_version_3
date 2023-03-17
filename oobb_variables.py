@@ -34,7 +34,7 @@ def initialize_variables():
     vl["nut_depth_m15d"] = [1.3, 1.3, 1.5]
     vl["nut_radius_m3"] = [5.5*1.154/2, 5.5*1.154/2, 5.8 * 1.154/2]
     vl["nut_depth_m3"] = [2.5, 2.5, 3]
-    vl["nut_radius_m6"] = [10*1.154/2, 10*1.154/2, 10.6 * 1.154/2]
+    vl["nut_radius_m6"] = [10*1.154/2, 10*1.154/2, 10.25 * 1.154/2]
     vl["nut_depth_m6"] = [5, 5, 5.5]
 
     #loose nuts
@@ -50,7 +50,7 @@ def initialize_variables():
     vl["nut_depth_loose_m3"] = [vl["nut_depth_m3"][0] + m3_extra_depth, vl["nut_depth_m3"][1] + m3_extra_depth, vl["nut_depth_m3"][2] + m3_extra_depth]
 
     m6_extra_radius = 0.4
-    m6_extra_depth = 0.1
+    m6_extra_depth = 0.4
     vl["nut_radius_loose_m6"] = [vl["nut_radius_m6"][0] + m6_extra_radius, vl["nut_radius_m6"][1] + m6_extra_radius, vl["nut_radius_m6"][2] + m6_extra_radius]
     vl["nut_depth_loose_m6"] = [vl["nut_depth_m6"][0] + m6_extra_depth, vl["nut_depth_m6"][1] + m6_extra_depth, vl["nut_depth_m6"][2] + m6_extra_depth]
     

@@ -104,8 +104,8 @@ def make_screws_countersunk():
 
 def make_tests():
     things = []
-    #things.append(oobb_get_items_test.get_test_nut("m3"))
-    #things.append(oobb_get_items_test.get_test_nut("m3", test="depth"))
+    things.append(oobb_get_items_test.get_test_nut("m3", difference=0.15))
+    things.append(oobb_get_items_test.get_test_nut("m3", difference=0.15, test="depth"))
     things.append(oobb_get_items_test.get_test_nut("m6", depth = 8, difference = 0.2))
     things.append(oobb_get_items_test.get_test_nut("m6", test="depth", difference = 0.5, depth = 8))
     

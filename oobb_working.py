@@ -6,13 +6,13 @@ import oobb_markdown
 
 
 #oobb_make_sets.make_all()
-#oobb_make_sets.make_jacks()
+oobb_make_sets.make_jacks()
 #oobb_make_sets.make_jacks(size = "oobe")
 #oobb_make_sets.make_nuts()
 #oobb_make_sets.make_screws_countersunk()
 #oobb_make_sets.make_plates()
 #oobb_make_sets.make_plates(size = "oobe")
-oobb_make_sets.make_tests()
+#oobb_make_sets.make_tests()
 #oobb_make_sets.make_mounting_plates()
 
 oobb_base.dump("json")
@@ -31,7 +31,7 @@ filter = "ja_"
 #filter = "mp_"
 #filter = "oobe_"
 #filter = "oobb_"   
-filter = "test_"   
+#filter = "test_"   
 #filter = ""
 
 

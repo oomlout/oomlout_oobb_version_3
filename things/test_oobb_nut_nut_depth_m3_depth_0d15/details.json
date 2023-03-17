@@ -1,6 +1,6 @@
 {
-    "description": "test oobb_nut with variable nut_radius_m3  portion radius difference 0.1 \n sizes \ntotal_itterations: 1 size: [2.7735, 2.7735, 2.9465999999999997]\ntotal_itterations: 2 size: [2.8735, 2.8735, 3.0465999999999998]\ntotal_itterations: 3 size: [2.9734999999999996, 2.9734999999999996, 3.1465999999999994]\ntotal_itterations: 4 size: [3.0734999999999997, 3.0734999999999997, 3.2465999999999995]\ntotal_itterations: 5 size: [3.1734999999999998, 3.1734999999999998, 3.3465999999999996]\ntotal_itterations: 6 size: [3.2735, 3.2735, 3.4465999999999997]\ntotal_itterations: 7 size: [3.3735, 3.3735, 3.5465999999999998]\ntotal_itterations: 8 size: [3.4734999999999996, 3.4734999999999996, 3.6465999999999994]\ntotal_itterations: 9 size: [3.5734999999999997, 3.5734999999999997, 3.7465999999999995]\n",
-    "id": "test_oobb_nut_nut_radius_m3_radius_0d1",
+    "description": "test oobb_nut with variable nut_depth_m3  portion depth difference 0.15 \n sizes \ntotal_itterations: 1 size: [1.9, 1.9, 2.4]\ntotal_itterations: 2 size: [2.05, 2.05, 2.55]\ntotal_itterations: 3 size: [2.2, 2.2, 2.7]\ntotal_itterations: 4 size: [2.35, 2.35, 2.85]\ntotal_itterations: 5 size: [2.5, 2.5, 3.0]\ntotal_itterations: 6 size: [2.65, 2.65, 3.15]\ntotal_itterations: 7 size: [2.8, 2.8, 3.3]\ntotal_itterations: 8 size: [2.95, 2.95, 3.45]\ntotal_itterations: 9 size: [3.0999999999999996, 3.0999999999999996, 3.5999999999999996]\n",
+    "id": "test_oobb_nut_nut_depth_m3_depth_0d15",
     "type": "test",
     "type_oobb": "test",
     "width_mm": 40.041,
@@ -20,32 +20,35 @@
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.7735,
+            "r": 3.1734999999999998,
             "x": -13.346999999999998,
             "y": -11.332755632582325,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 1.9,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.9465999999999997,
+            "r": 3.3465999999999996,
             "x": -13.346999999999998,
             "y": -11.332755632582325,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 2.4,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.7735,
+            "r": 3.1734999999999998,
             "x": -13.346999999999998,
             "y": -11.332755632582325,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 1.9,
+            "m": "#"
         },
         {
             "type": "n",
@@ -55,7 +58,7 @@
             "x": -13.346999999999998,
             "y": -11.332755632582325,
             "inclusion": "laser",
-            "m": "#"
+            "m": ""
         },
         {
             "type": "n",
@@ -65,7 +68,7 @@
             "x": -13.346999999999998,
             "y": -11.332755632582325,
             "inclusion": "3dpr",
-            "m": "#"
+            "m": ""
         },
         {
             "type": "n",
@@ -75,37 +78,40 @@
             "x": -13.346999999999998,
             "y": -11.332755632582325,
             "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.1734999999999998,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.05,
             "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.8735,
-            "x": -13.346999999999998,
-            "y": -1.7763568394002505e-15,
-            "inclusion": "laser",
-            "sides": 6,
-            "height": 2.5
-        },
-        {
-            "type": "negative",
-            "shape": "polyg",
-            "r": 3.0465999999999998,
+            "r": 3.3465999999999996,
             "x": -13.346999999999998,
             "y": -1.7763568394002505e-15,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 2.55,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.8735,
+            "r": 3.1734999999999998,
             "x": -13.346999999999998,
             "y": -1.7763568394002505e-15,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.05,
+            "m": "#"
         },
         {
             "type": "n",
@@ -115,7 +121,7 @@
             "x": -13.346999999999998,
             "y": -1.7763568394002505e-15,
             "inclusion": "laser",
-            "m": "#"
+            "m": ""
         },
         {
             "type": "n",
@@ -125,7 +131,7 @@
             "x": -13.346999999999998,
             "y": -1.7763568394002505e-15,
             "inclusion": "3dpr",
-            "m": "#"
+            "m": ""
         },
         {
             "type": "n",
@@ -135,67 +141,73 @@
             "x": -13.346999999999998,
             "y": -1.7763568394002505e-15,
             "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.1734999999999998,
+            "x": -13.346999999999998,
+            "y": 11.332755632582321,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.2,
             "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.9734999999999996,
-            "x": -13.346999999999998,
-            "y": 11.332755632582321,
-            "inclusion": "laser",
-            "sides": 6,
-            "height": 2.5
-        },
-        {
-            "type": "negative",
-            "shape": "polyg",
-            "r": 3.1465999999999994,
+            "r": 3.3465999999999996,
             "x": -13.346999999999998,
             "y": 11.332755632582321,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 2.7,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 2.9734999999999996,
+            "r": 3.1734999999999998,
             "x": -13.346999999999998,
             "y": 11.332755632582321,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.2,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.0734999999999997,
+            "r": 3.1734999999999998,
             "x": 1.7763568394002505e-15,
             "y": -11.332755632582325,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 2.35,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.2465999999999995,
+            "r": 3.3465999999999996,
             "x": 1.7763568394002505e-15,
             "y": -11.332755632582325,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 2.85,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.0734999999999997,
+            "r": 3.1734999999999998,
             "x": 1.7763568394002505e-15,
             "y": -11.332755632582325,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.35,
+            "m": "#"
         },
         {
             "type": "negative",
@@ -205,7 +217,8 @@
             "y": -1.7763568394002505e-15,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 2.5,
+            "m": "#"
         },
         {
             "type": "negative",
@@ -215,7 +228,8 @@
             "y": -1.7763568394002505e-15,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 3.0,
+            "m": "#"
         },
         {
             "type": "negative",
@@ -225,127 +239,140 @@
             "y": -1.7763568394002505e-15,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.5,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.2735,
+            "r": 3.1734999999999998,
             "x": 1.7763568394002505e-15,
             "y": 11.332755632582321,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 2.65,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.4465999999999997,
+            "r": 3.3465999999999996,
             "x": 1.7763568394002505e-15,
             "y": 11.332755632582321,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 3.15,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.2735,
+            "r": 3.1734999999999998,
             "x": 1.7763568394002505e-15,
             "y": 11.332755632582321,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.65,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.3735,
+            "r": 3.1734999999999998,
             "x": 13.347000000000001,
             "y": -11.332755632582325,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 2.8,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.5465999999999998,
+            "r": 3.3465999999999996,
             "x": 13.347000000000001,
             "y": -11.332755632582325,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 3.3,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.3735,
+            "r": 3.1734999999999998,
             "x": 13.347000000000001,
             "y": -11.332755632582325,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.8,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.4734999999999996,
+            "r": 3.1734999999999998,
             "x": 13.347000000000001,
             "y": -1.7763568394002505e-15,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 2.95,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.6465999999999994,
+            "r": 3.3465999999999996,
             "x": 13.347000000000001,
             "y": -1.7763568394002505e-15,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 3.45,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.4734999999999996,
+            "r": 3.1734999999999998,
             "x": 13.347000000000001,
             "y": -1.7763568394002505e-15,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 2.95,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.5734999999999997,
+            "r": 3.1734999999999998,
             "x": 13.347000000000001,
             "y": 11.332755632582321,
             "inclusion": "laser",
             "sides": 6,
-            "height": 2.5
+            "height": 3.0999999999999996,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.7465999999999995,
+            "r": 3.3465999999999996,
             "x": 13.347000000000001,
             "y": 11.332755632582321,
             "inclusion": "3dpr",
             "sides": 6,
-            "height": 3
+            "height": 3.5999999999999996,
+            "m": "#"
         },
         {
             "type": "negative",
             "shape": "polyg",
-            "r": 3.5734999999999997,
+            "r": 3.1734999999999998,
             "x": 13.347000000000001,
             "y": 11.332755632582321,
             "inclusion": "true",
             "sides": 6,
-            "height": 2.5
+            "height": 3.0999999999999996,
+            "m": "#"
         }
     ],
     "depth_mm": 4.5
