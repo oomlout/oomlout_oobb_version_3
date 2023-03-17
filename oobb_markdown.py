@@ -43,6 +43,7 @@ def make_markdown():
                         detail_string = markdown_format(details)
                         md_file.write(f"{detail_string}\n")
                         md_file.write(get_directory_details(os.path.join(base_dir, directory)))
+                        print(f"Created {os.path.join(base_dir, directory, 'README.md')}")
                 except FileNotFoundError:
                     pass
 

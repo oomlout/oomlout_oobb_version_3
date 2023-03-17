@@ -1,0 +1,352 @@
+{
+    "description": "test oobb_nut with variable nut_radius_m3  portion radius difference 0.1 \n sizes \ntotal_itterations: 1 size: [2.7735, 2.7735, 2.9465999999999997]\ntotal_itterations: 2 size: [2.8735, 2.8735, 3.0465999999999998]\ntotal_itterations: 3 size: [2.9734999999999996, 2.9734999999999996, 3.1465999999999994]\ntotal_itterations: 4 size: [3.0734999999999997, 3.0734999999999997, 3.2465999999999995]\ntotal_itterations: 5 size: [3.1734999999999998, 3.1734999999999998, 3.3465999999999996]\ntotal_itterations: 6 size: [3.2735, 3.2735, 3.4465999999999997]\ntotal_itterations: 7 size: [3.3735, 3.3735, 3.5465999999999998]\ntotal_itterations: 8 size: [3.4734999999999996, 3.4734999999999996, 3.6465999999999994]\ntotal_itterations: 9 size: [3.5734999999999997, 3.5734999999999997, 3.7465999999999995]\n",
+    "id": "test_oobb_nut_nut_radius_m3_radius_0d1",
+    "type": "test",
+    "type_oobb": "test",
+    "width_mm": 40.041,
+    "width_oobb": 0,
+    "height_mm": 33.99826689774697,
+    "height_oobb": 0,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "rounded_rectangle",
+            "size": [
+                40.041,
+                33.99826689774697,
+                4.5
+            ]
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.7735,
+            "x": -13.346999999999998,
+            "y": -11.332755632582325,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.9465999999999997,
+            "x": -13.346999999999998,
+            "y": -11.332755632582325,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.7735,
+            "x": -13.346999999999998,
+            "y": -11.332755632582325,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 4.5,
+            "x": -13.346999999999998,
+            "y": -11.332755632582325,
+            "inclusion": "laser",
+            "m": "#"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.7,
+            "h": 4.5,
+            "x": -13.346999999999998,
+            "y": -11.332755632582325,
+            "inclusion": "3dpr",
+            "m": "#"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 4.5,
+            "x": -13.346999999999998,
+            "y": -11.332755632582325,
+            "inclusion": "true",
+            "m": "#"
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.8735,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.0465999999999998,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.8735,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 4.5,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "laser",
+            "m": "#"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.7,
+            "h": 4.5,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "3dpr",
+            "m": "#"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 4.5,
+            "x": -13.346999999999998,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "true",
+            "m": "#"
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.9734999999999996,
+            "x": -13.346999999999998,
+            "y": 11.332755632582321,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.1465999999999994,
+            "x": -13.346999999999998,
+            "y": 11.332755632582321,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 2.9734999999999996,
+            "x": -13.346999999999998,
+            "y": 11.332755632582321,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.0734999999999997,
+            "x": 1.7763568394002505e-15,
+            "y": -11.332755632582325,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.2465999999999995,
+            "x": 1.7763568394002505e-15,
+            "y": -11.332755632582325,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.0734999999999997,
+            "x": 1.7763568394002505e-15,
+            "y": -11.332755632582325,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.1734999999999998,
+            "x": 1.7763568394002505e-15,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.3465999999999996,
+            "x": 1.7763568394002505e-15,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.1734999999999998,
+            "x": 1.7763568394002505e-15,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.2735,
+            "x": 1.7763568394002505e-15,
+            "y": 11.332755632582321,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.4465999999999997,
+            "x": 1.7763568394002505e-15,
+            "y": 11.332755632582321,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.2735,
+            "x": 1.7763568394002505e-15,
+            "y": 11.332755632582321,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.3735,
+            "x": 13.347000000000001,
+            "y": -11.332755632582325,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.5465999999999998,
+            "x": 13.347000000000001,
+            "y": -11.332755632582325,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.3735,
+            "x": 13.347000000000001,
+            "y": -11.332755632582325,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.4734999999999996,
+            "x": 13.347000000000001,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.6465999999999994,
+            "x": 13.347000000000001,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.4734999999999996,
+            "x": 13.347000000000001,
+            "y": -1.7763568394002505e-15,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.5734999999999997,
+            "x": 13.347000000000001,
+            "y": 11.332755632582321,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.7465999999999995,
+            "x": 13.347000000000001,
+            "y": 11.332755632582321,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "negative",
+            "shape": "polyg",
+            "r": 3.5734999999999997,
+            "x": 13.347000000000001,
+            "y": 11.332755632582321,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        }
+    ],
+    "depth_mm": 4.5
+}

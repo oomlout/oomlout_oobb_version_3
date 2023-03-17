@@ -1,8 +1,7 @@
 import oobb
-from oobb_get_items_base import *
-
 import os
 import json
+import oomB
 
 ##### base functions
 def get_default_thing():
@@ -111,13 +110,18 @@ def oobb_easy(**kwargs):
         pass
     
 
-    if "oobb" in kwargs["shape"]:
+    if "oobb" in kwargs["shape"] or "oobe" in kwargs["shape"]:
         # if its an oobb_plat then call get_oobb_plate
         shape = kwargs["shape"]
         if shape == "oobb_pl":
             return_value = []
             return_value.append(get_oobb_plate(**kwargs))
             return_value.extend(get_oobb_holes(**kwargs))
+            return return_value
+        if shape == "oobe_pl":
+            return_value = []
+            return_value.append(get_oobe_plate(**kwargs))
+            return_value.extend(get_oobe_holes(**kwargs))
             return return_value
         else:
             # Call the function dynamically using its string name
@@ -144,3 +148,5 @@ def oobb_easy_array(**kwargs):
                 kwargs.update({"pos": pos})
                 return_objects.append(oobb_easy(**kwargs))
     return return_objects 
+
+from oobb_get_items_base import *

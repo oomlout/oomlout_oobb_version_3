@@ -39,34 +39,6 @@ def get_screw_countersunk(wid, depth):
 
     return thing
 
-def get_test_nut(size):
-    # switch to making it a test for variable take variable and shape 
-    # add tight and loose tolerances
-    width = ob.gv("osp") * 3 - ob.gv("osp_minus")
-    height = ob.gv("osp") * 3 - ob.gv("osp_minus")
-    depth = 3
 
-    thing = ob.get_default_thing()
-    thing.update({"description": f"test nut {size}"})
-    thing.update({"id": f"test_nut_{size}"})
-    thing.update({"type": "hardware"})
-    thing.update({"type_oobb": "test_nut"})
-    thing.update({"width_mm": size})
-    thing.update({"height_mm": size})
-    thing.update({"depth_mm": size})
-
-    thing.update({"components": []})
-    thing["components"].extend(ob.oobb_easy(type="positive",shape="oobb_plate", width=width, height=height, depth=depth))
-
-    num_test=5
-    test_dif = 0.1
-    test_spacing = 7
-    test_variable = "nut_radius_m3"    
-    for i in range(0, num_test):
-        pass
-
-
-
-    return thing
 
 

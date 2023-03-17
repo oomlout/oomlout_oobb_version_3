@@ -1,17 +1,22 @@
 
 import oobb_get_items_oobb
 import oobb_get_items_other
+import oobb_get_items_test  
 import oobb_base
 
 def make_all():
     make_jacks()
+    make_jacks(size = "oobe")
     make_plates()   
+    make_plates(size = "oobe")   
     make_nuts()
     make_screws_countersunk()
+    make_tests()
+    make_mounting_plates()
 
 #oobb makes
 
-def make_jacks(overwrite=True):
+def make_jacks(overwrite=True, size="oobb"):
     jacks = []
     for wid in range(3,10):        
                 jacks.append([wid,1,12])
@@ -20,10 +25,20 @@ def make_jacks(overwrite=True):
     jacks.append([3,3,12])
 
     for jack in jacks:
-        thing = oobb_get_items_oobb.get_ja(jack[0],jack[1],jack[2],overwrite)
+        thing = oobb_get_items_oobb.get_ja(jack[0],jack[1],jack[2],size,overwrite)
         oobb_base.add_thing(thing)
 
-def make_plates(overwrite=True):
+def make_mounting_plates(overwrite=True, size="oobb"):
+    mounting_plates = []
+    mounting_plates.append([13,9,3,150,90,"m3"])
+    mounting_plates.append([6,5,3,54,30,"m3"])
+    mounting_plates.append([4,4,3,26,26,"m3"])
+
+    for mounting_plate in mounting_plates:
+        thing = oobb_get_items_oobb.get_mp(width=mounting_plate[0],height=mounting_plate[1],thickness=mounting_plate[2],hole_width=mounting_plate[3],hole_height=mounting_plate[4],hole_type=mounting_plate[5],overwrite=overwrite)
+        oobb_base.add_thing(thing)
+
+def make_plates(overwrite=True, size="oobb"):
     plates = []
     for wid in range(1,7):
         for hei in range(1,7):
@@ -68,7 +83,7 @@ def make_plates(overwrite=True):
     plates.append([15,11,3])
 
     for plate in plates:
-        thing = oobb_get_items_oobb.get_pl(plate[0],plate[1],plate[2])
+        thing = oobb_get_items_oobb.get_pl(plate[0],plate[1],plate[2],size=size)
         oobb_base.add_thing(thing)
 
 #other makes
@@ -87,10 +102,12 @@ def make_screws_countersunk():
             thing = oobb_get_items_other.get_screw_countersunk(screw,depth)
             oobb_base.add_thing(thing)
 
-
-def male_test():
+def make_tests():
     things = []
-    things.append(oobb_get_items_other.get_test_nut("m3"))
+    #things.append(oobb_get_items_test.get_test_nut("m3"))
+    #things.append(oobb_get_items_test.get_test_nut("m3", test="depth"))
+    #things.append(oobb_get_items_test.get_test_nut("m6", depth = 8))
+    things.append(oobb_get_items_test.get_test_nut("m6", test="depth", difference = 0.5, depth = 8))
     
 
 
