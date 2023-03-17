@@ -1,5 +1,5 @@
-# oobe_pl_02_02_1d5
-![true.png](true.png)
+# oobe_pl_02_02_1d5  
+![true.png](true.png)  
 oobe plate 2 wide and 2 high and 1.5 deep
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |

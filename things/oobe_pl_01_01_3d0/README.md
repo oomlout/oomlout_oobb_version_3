@@ -1,5 +1,5 @@
-# oobe_pl_01_01_3d0
-![true.png](true.png)
+# oobe_pl_01_01_3d0  
+![true.png](true.png)  
 oobe plate 1 wide and 1 high and 3.0 deep
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                           |

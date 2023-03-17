@@ -1,5 +1,5 @@
-# test_oobb_nut_nut_radius_m6_radius_0d2
-
+# test_oobb_nut_nut_radius_m6_radius_0d2  
+  
 test oobb_nut with variable nut_radius_m6  portion radius difference 0.2 
  sizes 
 total_itterations: 1 size: [4.97, 4.97, 5.114249999999999]

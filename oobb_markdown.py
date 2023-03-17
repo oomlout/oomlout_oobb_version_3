@@ -11,17 +11,23 @@ def make_markdown():
     # Loop through all the directories in the base directory
     for directory in os.listdir(base_dir):
         # Get the category by taking the first word before a '_'
-        category = directory.split("_")[0]
-        
-        # Add the directory to the corresponding category
-        if category not in categories:
-            categories[category] = [directory]
-        else:
-            categories[category].append(directory)
+        if "." not in directory:
+            category = directory.split("_")[0]
+            sub_category = directory.split("_")[1]
+            #if sub_category isn't a number
+            if category == "oobb" or category == "oobe"  or category == "ooba":
+                category = category + "_" + sub_category
+            # Add the directory to the corresponding category
+            if category not in categories:
+                categories[category] = [directory]
+            else:
+                categories[category].append(directory)
 
     # Generate the index page
     with open(base_dir + "/README.md", "w") as f:
         # Loop through the categories
+        #add github toc
+        f.write("[TOC]\n")
         for category, directories in categories.items():
             # Write the category header
             f.write(f"## {category}\n")
@@ -39,9 +45,9 @@ def make_markdown():
                     # Create the directory markdown file
                     with open(os.path.join(base_dir, directory, "README.md"), "w") as md_file:
                         # Write the details
-                        md_file.write(f"# {directory}\n")                        
+                        md_file.write(f"# {directory}  \n")                        
                         image_string = get_directory_details(os.path.join(base_dir, directory))[1]
-                        md_file.write(f"{image_string}\n")                        
+                        md_file.write(f"{image_string}  \n")                        
                         description_string = details["description"]
                         md_file.write(f"{description_string}\n")
                         detail_string = markdown_format(details)

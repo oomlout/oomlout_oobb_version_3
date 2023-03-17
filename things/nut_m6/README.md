@@ -1,5 +1,5 @@
-# nut_m6
-
+# nut_m6  
+![true.png](true.png)  
 nut m6
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -29,5 +29,10 @@ nut m6
 | components  | list with 6 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | depth_mm    | 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser-flat.png](laser-flat.png) |
+| ![laser.png](laser.png) |
+| ![true.png](true.png) |
 

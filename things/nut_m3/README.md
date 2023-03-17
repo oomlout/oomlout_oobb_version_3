@@ -1,5 +1,5 @@
-# nut_m3
-
+# nut_m3  
+![true.png](true.png)  
 nut m3
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
@@ -29,5 +29,10 @@ nut m3
 | components  | list with 6 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | depth_mm    | 2.5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser-flat.png](laser-flat.png) |
+| ![laser.png](laser.png) |
+| ![true.png](true.png) |
 
