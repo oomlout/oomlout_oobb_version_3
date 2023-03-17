@@ -12,8 +12,8 @@ import oobb_markdown
 #oobb_make_sets.make_screws_countersunk()
 #oobb_make_sets.make_plates()
 #oobb_make_sets.make_plates(size = "oobe")
-#oobb_make_sets.make_tests()
-oobb_make_sets.make_mounting_plates()
+oobb_make_sets.make_tests()
+#oobb_make_sets.make_mounting_plates()
 
 oobb_base.dump("json")
 oobb_base.dump("folder")

@@ -124,7 +124,6 @@
 | 3dpr.png |
 | 3dpr.scad |
 | 3dpr.stl |
-| 3dpr.stp |
 | details.json |
 | laser-flat.dxf |
 | laser-flat.png |
@@ -133,9 +132,7 @@
 | laser.png |
 | laser.scad |
 | laser.stl |
-| laser.stp |
 | README.md |
 | true.png |
 | true.scad |
 | true.stl |
-| true.stp |

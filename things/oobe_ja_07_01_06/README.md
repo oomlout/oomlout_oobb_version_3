@@ -158,9 +158,7 @@
 | laser.png |
 | laser.scad |
 | laser.stl |
-| laser.stp |
 | README.md |
 | true.png |
 | true.scad |
 | true.stl |
-| true.stp |
