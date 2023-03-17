@@ -20,7 +20,7 @@ def make_markdown():
             categories[category].append(directory)
 
     # Generate the index page
-    with open(base_dir + "/index.md", "w") as f:
+    with open(base_dir + "/readme.md", "w") as f:
         # Loop through the categories
         for category, directories in categories.items():
             # Write the category header
@@ -41,8 +41,13 @@ def make_markdown():
                         # Write the details
                         md_file.write(f"# {directory}\n")
                         detail_string = markdown_format(details)
+                        image_string = get_directory_details(os.path.join(base_dir, directory))[1]
+                        ### add heading
+                        detail_string = f'{details["id"]}\n' + image_string + "\n" + detail_string
+
                         md_file.write(f"{detail_string}\n")
-                        md_file.write(get_directory_details(os.path.join(base_dir, directory)))
+                        directory_details = get_directory_details(os.path.join(base_dir, directory))[0]
+                        md_file.write(directory_details)
                         print(f"Created {os.path.join(base_dir, directory, 'README.md')}")
                 except FileNotFoundError:
                     pass
@@ -66,13 +71,8 @@ def markdown_format(data_dict):
     # Create the table rows
     rows = ""
     for key, value in data_dict.items():
-        if isinstance(value, list):
-            my_array = value
-            my_dict = {i: my_array[i] for i in range(len(my_array))}
-            value = markdown_format(my_dict)
-        #if isinstance(value, dict):
-        #    value = markdown_format(value)
-        rows += f"| {str(key):<{key_column_width}} | {str(value):<{value_column_width}} |\n"
+        if isinstance(value, list):            
+            value = f'list with {len(value)} items'        
 
     # Combine the headers, separator, and rows into a single string
     table_string = f"# details\n{headers}{separator}{rows}"
@@ -87,10 +87,12 @@ def get_directory_details(directory_path):
 
     # Get a list of all files in the directory
     files = os.listdir(directory_path)
-
+    image_string = ""
     # Create a list of PNG images in the directory
     png_images = []
     for file in files:
+        if file == "3dpr.png":
+            image_string = f"![{file}]({file})"            
         if file.endswith(".png"):
             image_string = f"![{file}]({file})"
             png_images.append(image_string)
@@ -111,5 +113,5 @@ def get_directory_details(directory_path):
             file_table += f"| {file} |\n"            
 
     # Combine the tables and return the result
-    return f"{png_table}\n\n{file_table}"
+    return [f"{png_table}\n\n{file_table}", image_string]
 

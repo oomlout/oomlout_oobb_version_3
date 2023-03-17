@@ -38,6 +38,48 @@ def make_mounting_plates(overwrite=True, size="oobb"):
         thing = oobb_get_items_oobb.get_mp(width=mounting_plate[0],height=mounting_plate[1],thickness=mounting_plate[2],hole_width=mounting_plate[3],hole_height=mounting_plate[4],hole_type=mounting_plate[5],overwrite=overwrite)
         oobb_base.add_thing(thing)
 
+    mounting_plates_u = []
+    mounting_plates_u.append([4,4,3,26,26,"m3"])
+
+    for mounting_plate_u in mounting_plates_u:
+        thing = oobb_get_items_oobb.get_mpu(width=mounting_plate_u[0],height=mounting_plate_u[1],thickness=mounting_plate_u[2],width_mounting=mounting_plate_u[3],height_mounting=mounting_plate_u[4],radius_hole=mounting_plate_u[5],overwrite=overwrite)
+        oobb_base.add_thing(thing)
+
+    mounting_plate_s = []
+    mounting_plate_s.append([4,3,3,26,26,"m3"])
+
+    for mounting_plate_s in mounting_plate_s:
+        thing = oobb_get_items_oobb.get_mps(width=mounting_plate_s[0],height=mounting_plate_s[1],thickness=mounting_plate_s[2],width_mounting=mounting_plate_s[3],height_mounting=mounting_plate_s[4],radius_hole=mounting_plate_s[5],overwrite=overwrite)
+        oobb_base.add_thing(thing)
+
+
+    mounting_plates_named = []
+    mounting_plates_named.append(["oobb_mp_13_09_03_ty_bigtreetech_octopus",[13,9,3,150,90,"m3"]])
+    mounting_plates_named.append(["oobb_mp_06_05_03_ty_e3d_extruder_titan",[6,5,3,54,30,"m3"]])
+    mounting_plates_named.append(["oobb_mp_04_04_03_ty_aliexpress_motor_controller_speed_26_26",[4,4,3,26,26,"m3"]])
+
+    for mounting_plate_named in mounting_plates_named:
+        thing = oobb_get_items_oobb.get_mp(width=mounting_plate_named[1][0],height=mounting_plate_named[1][1],thickness=mounting_plate_named[1][2],hole_width=mounting_plate_named[1][3],hole_height=mounting_plate_named[1][4],hole_type=mounting_plate_named[1][5],overwrite=overwrite)
+        thing["id"] = mounting_plate_named[0]
+        oobb_base.add_thing(thing)
+    
+    mounting_plates_named_u = []
+    mounting_plates_named_u.append(["oobb_mp_u_04_04_03_ty_aliexpress_motor_controller_speed_26_26",[4,4,3,26,26,"m3"]])
+
+    for mounting_plate_named_u in mounting_plates_named_u:
+        thing = oobb_get_items_oobb.get_mpu(width=mounting_plate_named_u[1][0],height=mounting_plate_named_u[1][1],thickness=mounting_plate_named_u[1][2],width_mounting=mounting_plate_named_u[1][3],height_mounting=mounting_plate_named_u[1][4],radius_hole=mounting_plate_named_u[1][5],overwrite=overwrite)
+        thing["id"] = mounting_plate_named_u[0]
+        oobb_base.add_thing(thing)
+
+    mounting_plates_named_s = []
+    mounting_plates_named_s.append(["oobb_mp_s_04_03_03_ty_aliexpress_motor_controller_speed_26_26",[4,3,3,26,26,"m3"]])
+
+    for mounting_plate_named_s in mounting_plates_named_s:
+        thing = oobb_get_items_oobb.get_mps(width=mounting_plate_named_s[1][0],height=mounting_plate_named_s[1][1],thickness=mounting_plate_named_s[1][2],width_mounting=mounting_plate_named_s[1][3],height_mounting=mounting_plate_named_s[1][4],radius_hole=mounting_plate_named_s[1][5],overwrite=overwrite)
+        thing["id"] = mounting_plate_named_s[0]
+        oobb_base.add_thing(thing)
+
+
 def make_plates(overwrite=True, size="oobb"):
     plates = []
     for wid in range(1,7):

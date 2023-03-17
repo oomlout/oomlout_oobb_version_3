@@ -141,12 +141,63 @@ def get_mp(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radi
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
     th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0,0,0], holes="perimeter", radius_name=radius_hole))
     ## add mounting holes
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,height_mounting/2,0], holes="perimeter", radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,height_mounting/2,0], holes="perimeter", radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,-height_mounting/2,0], holes="perimeter", radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,-height_mounting/2,0], holes="perimeter", radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,-height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,-height_mounting/2,0], radius_name=radius_hole, m=""))
 
     return thing
+
+def get_mps(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radius_hole="m3", overwrite=True,**kwargs):
+    thing = ob.get_default_thing()
+    thing.update({"description": f"mounting plate {width} wide and {height} high and {depth} deep. with mounting holes for a rectangluar board {width_mounting} wide and {height_mounting} high with holes of radius {radius_hole}"})
+    thing.update({"id": f"oobb_mp_s_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}_mh_{str(width_mounting).zfill(2)}_{str(height_mounting).zfill(2)}_{radius_hole}"})
+    thing.update({"inclusion": "all"})
+    thing.update({"type": "oobb_base"})
+    thing.update({"type_oobb": "mp"})
+    thing.update({"width_mm": width*ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"width_oobb": width})
+    thing.update({"height_mm": height*ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"height_oobb": height})
+    thing.update({"depth_mm": depth})
+    thing.update({"components": []})
+
+    th = thing["components"]
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0,0,0], holes="top", radius_name=radius_hole))
+    ## add mounting holes
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2+ob.gv("osp")/2,height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2+ob.gv("osp")/2,height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2+ob.gv("osp")/2,-height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2+ob.gv("osp")/2,-height_mounting/2,0], radius_name=radius_hole, m=""))
+
+    return thing
+
+def get_mpu(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radius_hole="m3", overwrite=True,**kwargs):
+    thing = ob.get_default_thing()
+    thing.update({"description": f"mounting plate {width} wide and {height} high and {depth} deep. with mounting holes for a rectangluar board {width_mounting} wide and {height_mounting} high with holes of radius {radius_hole}"})
+    thing.update({"id": f"oobb_mp_u_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}_mh_{str(width_mounting).zfill(2)}_{str(height_mounting).zfill(2)}_{radius_hole}"})
+    thing.update({"inclusion": "all"})
+    thing.update({"type": "oobb_base"})
+    thing.update({"type_oobb": "mp"})
+    thing.update({"width_mm": width*ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"width_oobb": width})
+    thing.update({"height_mm": height*ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"height_oobb": height})
+    thing.update({"depth_mm": depth})
+    thing.update({"components": []})
+
+    th = thing["components"]
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0,0,0], holes="u", radius_name=radius_hole))
+    ## add mounting holes
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,height_mounting/2+ob.gv("osp")/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,height_mounting/2+ob.gv("osp")/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,-height_mounting/2+ob.gv("osp")/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,-height_mounting/2+ob.gv("osp")/2,0], radius_name=radius_hole, m=""))
+
+    return thing
+
 
 def get_pl(width,height,depth=3,overwrite=True,size="oobb",**kwargs):    
     if size == "oobb":

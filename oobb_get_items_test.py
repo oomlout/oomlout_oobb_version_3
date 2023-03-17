@@ -73,7 +73,7 @@ def get_test(name_variable, switch_portion, difference, wid, hei,**kwargs):
                 p2["type"] = "n"
                 p2["m"]= ""
                 thing["components"].extend(ob.oobb_easy(**p2))
-
+                
                 
             
     thing.update({"description": f"test {shape} with variable {name_variable}  portion {switch_portion} difference {difference} \n sizes \n{sizes}"})

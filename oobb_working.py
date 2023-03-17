@@ -6,14 +6,14 @@ import oobb_markdown
 
 
 #oobb_make_sets.make_all()
-oobb_make_sets.make_jacks()
+#oobb_make_sets.make_jacks()
 #oobb_make_sets.make_jacks(size = "oobe")
 #oobb_make_sets.make_nuts()
 #oobb_make_sets.make_screws_countersunk()
 #oobb_make_sets.make_plates()
 #oobb_make_sets.make_plates(size = "oobe")
 #oobb_make_sets.make_tests()
-#oobb_make_sets.make_mounting_plates()
+oobb_make_sets.make_mounting_plates()
 
 oobb_base.dump("json")
 oobb_base.dump("folder")
@@ -21,14 +21,14 @@ oobb_base.dump("folder")
 #oobb_base.load("json")
 save_type = "none"
 
-save_type = "all"
+#save_type = "all"
 overwrite = True
 #overwrite = False
 filter = "oobb_ja_03_02_12"
 filter = "oobb_pl_03_01"
 filter = "pl_"
 filter = "ja_"
-#filter = "mp_"
+filter = "mp_"
 #filter = "oobe_"
 #filter = "oobb_"   
 #filter = "test_"   

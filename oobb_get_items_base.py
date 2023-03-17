@@ -36,7 +36,26 @@ def get_oobb_holes(holes="all", **kwargs):
                     x = pos_start[0] + w*ob.gv("osp")
                     y = pos_start[1] + h*ob.gv("osp")
                     objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
-
+    elif holes == "u":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if w == 0 or w == width-1 or h == 0:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
+    elif holes == "top":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if w == 0:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
                 
             
     return objects
