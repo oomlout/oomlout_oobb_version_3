@@ -1,5 +1,5 @@
 # test_oobb_nut_nut_radius_m3_radius_0d15  
-  
+![true.png](true.png)  
 test oobb_nut with variable nut_radius_m3  portion radius difference 0.15 
  sizes 
 total_itterations: 1 size: [2.5734999999999997, 2.5734999999999997, 2.7465999999999995]
@@ -67,4 +67,5 @@ total_itterations: 9 size: [3.7734999999999994, 3.7734999999999994, 3.9465999999
 | ![3dpr.png](3dpr.png) |
 | ![laser-flat.png](laser-flat.png) |
 | ![laser.png](laser.png) |
+| ![true.png](true.png) |
 
