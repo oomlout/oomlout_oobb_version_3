@@ -199,13 +199,13 @@ def get_mpu(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, rad
     return thing
 
 
-def get_pl(width,height,depth=3,overwrite=True,size="oobb",**kwargs):    
+def get_pl(width,height,depth=3,holes=True,overwrite=True,size="oobb",**kwargs):    
     if size == "oobb":
         return get_pl_oobb(width,height,depth,overwrite,**kwargs)
     if size == "oobe":
         return get_pl_oobe(width,height,depth/2,overwrite,**kwargs)
 
-def get_pl_oobb(width,height,depth=3,overwrite=True,**kwargs):    
+def get_pl_oobb(width,height,depth=3,holes=True,overwrite=True,**kwargs):    
     thing = ob.get_default_thing()
     thing.update({"description": f"oobb plate {width} wide and {height} high and {depth} deep"})
     thing.update({"id": f"oobb_pl_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}"})
@@ -223,15 +223,16 @@ def get_pl_oobb(width,height,depth=3,overwrite=True,**kwargs):
 
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
     modes = ["laser", "3dpr", "true"]
-    for mode in modes:
-        #find the start point needs to be half the width_mm plus half ob.gv("osp")
-        pos_start = [-(width*ob.gv("osp")/2) + ob.gv("osp")/2, -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
-        
-        th.extend(ob.oobb_easy_array(t="n", s="hole", inclusion=mode,repeats=[width,height], pos_start = pos_start, shift_arr = [ob.gv("osp"),ob.gv("osp")], r=ob.gv("hole_radius_m6", mode) ))
+    if holes:
+        for mode in modes:
+            #find the start point needs to be half the width_mm plus half ob.gv("osp")
+            pos_start = [-(width*ob.gv("osp")/2) + ob.gv("osp")/2, -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+            
+            th.extend(ob.oobb_easy_array(t="n", s="hole", inclusion=mode,repeats=[width,height], pos_start = pos_start, shift_arr = [ob.gv("osp"),ob.gv("osp")], r=ob.gv("hole_radius_m6", mode) ))
     
     return thing
 
-def get_pl_oobe(width,height,depth=1.5,overwrite=True,**kwargs):    
+def get_pl_oobe(width,height,depth=1.5,holes=True,overwrite=True,**kwargs):    
     thing = ob.get_default_thing()
     thing.update({"description": f"oobe plate {width} wide and {height} high and {depth} deep"})
     dep = str(depth).replace(".","d")
@@ -250,10 +251,66 @@ def get_pl_oobe(width,height,depth=1.5,overwrite=True,**kwargs):
 
     th.append(ob.oobb_easy(t="p", s="oobe_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
     modes = ["laser", "3dpr", "true"]
-    for mode in modes:
-        #find the start point needs to be half the width_mm plus half ob.gv("osp")
-        pos_start = [-(width*ob.gv("ospe")/2) + ob.gv("ospe")/2, -(height*ob.gv("ospe")/2) + ob.gv("ospe")/2, 0]
-        
-        th.extend(ob.oobb_easy_array(t="n", s="hole", inclusion=mode,repeats=[width,height], pos_start = pos_start, shift_arr = [ob.gv("ospe"),ob.gv("ospe")], r=ob.gv("hole_radius_m3", mode) ))
+    if holes:
+        for mode in modes:
+            #find the start point needs to be half the width_mm plus half ob.gv("osp")
+            pos_start = [-(width*ob.gv("ospe")/2) + ob.gv("ospe")/2, -(height*ob.gv("ospe")/2) + ob.gv("ospe")/2, 0]
+            
+            th.extend(ob.oobb_easy_array(t="n", s="hole", inclusion=mode,repeats=[width,height], pos_start = pos_start, shift_arr = [ob.gv("ospe"),ob.gv("ospe")], r=ob.gv("hole_radius_m3", mode) ))
     
+    return thing
+
+def get_zt_oobb(wid,overwrite=True):
+    thick = 12
+    thing = ob.get_default_thing()
+    thing.update({"description": f"zip tie holder {wid}x{thick}"})
+    thing.update({"id": f"oobb_zt_{str(wid).zfill(2)}"})
+    thing.update({"type": "zt"})
+    thing.update({"type_oobb": "ziptie holder"})
+    thing.update({"width_mm": wid})
+    thing.update({"width_oobb": wid * ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"depth_mm": thick})
+    thing.update({"height_mm": 1 * ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"height_oobb": 1})
+    thing.update({"components": []})
+
+    # solid piece
+    
+    th = thing["components"]
+
+    height_cube = 13.5
+    y_plate = height_cube
+    
+    th.extend(ob.oe(t="p",s="oobb_pl", holes=False, width=wid, height=1, depth_mm=thick, pos=[0,y_plate,-thick/2], mode="all"))
+    
+    width_cube = ob.gv("osp")*wid-ob.gv("osp_minus")
+    
+    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thick], pos=[-width_cube/2,0,-thick/2], mode="all"))    
+    
+    # bolt holes
+    mode = "all"
+    for x in range(0,wid):
+        x = (-wid/2*ob.gv("osp")+ob.gv("osp")/2)+x*ob.gv("osp")
+        y = height_cube
+        z= 0
+
+        pos_zt = [x,height_cube+1.5,0]
+        th.extend(ob.oobb_easy(t="n",s="oobb_ziptie", pos=pos_zt, mode=mode, m=""))
+
+        x2 = x
+        y2 = 8
+        z2 = z
+        th.extend(ob.oobb_easy(t="n",s="oobb_hole", radius_name="m6", depth=y2, pos=[x2,y2,z2], rotX=90, mode=mode, m=""))
+        
+        # nut height
+        y = 9    
+        th.extend(ob.oobb_easy(t="n",s="oobb_nut_through", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
+    #add m3 countersunk joining screws
+           
+
+
+    # halfing it if 3dpr
+    #inclusion = "3dpr"
+    #th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion))
+
     return thing

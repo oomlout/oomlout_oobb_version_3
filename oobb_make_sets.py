@@ -79,7 +79,6 @@ def make_mounting_plates(overwrite=True, size="oobb"):
         thing["id"] = mounting_plate_named_s[0]
         oobb_base.add_thing(thing)
 
-
 def make_plates(overwrite=True, size="oobb"):
     plates = []
     for wid in range(1,7):
@@ -125,8 +124,20 @@ def make_plates(overwrite=True, size="oobb"):
     plates.append([15,11,3])
 
     for plate in plates:
-        thing = oobb_get_items_oobb.get_pl(plate[0],plate[1],plate[2],size=size)
+        thing = oobb_get_items_oobb.get_pl(plate[0],plate[1],plate[2])
         oobb_base.add_thing(thing)
+
+    plates_named = []
+    plates_named.append(["oobb_pl_a3_28_20",[28,20,3]])
+    plates_named.append(["oobb_pl_a4_20_14",[20,14,3]])
+    plates_named.append(["oobb_pl_a5_14_10",[14,10,3]])
+    plates_named.append(["oobb_pl_a6_14_10",[10,7,3]])
+
+    for plate_named in plates_named:
+        thing = oobb_get_items_oobb.get_pl(width=plate_named[1][0],height=plate_named[1][1],thickness=plate_named[1][2],overwrite=overwrite)
+        thing["id"] = plate_named[0]
+        oobb_base.add_thing(thing)
+
 
 #other makes
 
@@ -145,6 +156,7 @@ def make_screws_countersunk():
             oobb_base.add_thing(thing)
 
 def make_tests():
+    
     things = []
     things.append(oobb_get_items_test.get_test_nut("m3", difference=0.15))
     things.append(oobb_get_items_test.get_test_nut("m3", difference=0.15, test="depth"))
@@ -155,3 +167,17 @@ def make_tests():
 
     for thing in things:
         oobb_base.add_thing(thing)            
+
+def make_zts():
+
+    names = []
+    names.append([1])
+    names.append([2])
+    names.append([3])
+
+
+    for name in names:
+        thing = oobb_get_items_oobb.get_zt_oobb(name[0])
+        oobb_base.add_thing(thing)
+    
+

@@ -78,7 +78,9 @@ def initialize_variables():
         vl["screw__countersunk_width_" + screw] = [vl[f'screw_countersunk_height_{screw}'][0], vl[f'screw_countersunk_height_{screw}'][1], vl[f'screw_countersunk_height_{screw}'][2]]
 
 
-
+    # zip tie
+    vl["ziptie_height"] = [1, 1, 2]
+    vl["ziptie_width"] = [3, 3, 4]
 
     for var in vl:
         values = vl[var]

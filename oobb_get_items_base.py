@@ -4,6 +4,12 @@ import oobb_base as ob
 from oobb_variables import *
 
 
+def get_oobb_cube_center(**kwargs):
+    kwargs.update({"shape": "cube"})
+    new_pos = [kwargs["pos"][0] - kwargs["size"][0]/2, kwargs["pos"][1] - kwargs["size"][1]/2, kwargs["pos"][2]]
+    kwargs.update({"pos": new_pos})
+    return opsc.opsc_easy(**kwargs)
+
 def get_oobb_plate(**kwargs):
     kwargs.update({"width_mm": kwargs["width"] * ob.gv("osp") - ob.gv("osp_minus")})
     kwargs.update({"height_mm": (kwargs["height"] * ob.gv("osp")) - ob.gv("osp_minus")})
@@ -178,7 +184,12 @@ def get_oobb_nut_loose(**kwargs):
     kwargs["loose"] = True
     return get_oobb_nut(**kwargs)
 
-def get_oobb_nut(loose=False,**kwargs):
+def get_oobb_nut_through(**kwargs):
+    kwargs["through"] = True
+    return get_oobb_nut(**kwargs)
+
+
+def get_oobb_nut(loose=False,through=False,**kwargs):
     l_string = ""
     if loose:
         l_string = "loose_"
@@ -186,11 +197,41 @@ def get_oobb_nut(loose=False,**kwargs):
     modes = ["laser", "3dpr", "true"]
     return_value = []
     for mode in modes:
-        kwargs["shape"] = "polyg"
-        kwargs["sides"] = 6
+        if not through:
+            kwargs["shape"] = "polyg"
+            kwargs["sides"] = 6
+            kwargs["inclusion"] = mode
+            radius_name = kwargs["radius_name"]
+            kwargs.update({"r": ob.gv(f"nut_radius_{l_string}{radius_name}", mode)})
+            kwargs.update({"height": ob.gv(f"nut_depth_{l_string}{radius_name}", mode)})
+            return_value.append(opsc.opsc_easy(**kwargs))
+        else: ## if through
+            radius_name = kwargs["radius_name"]
+            kwargs["shape"] = "cube"
+            kwargs["inclusion"] = mode
+            dep =  ob.gv(f"nut_radius_loose_{radius_name}", mode)
+            wid = ob.gv(f"nut_depth_loose_{radius_name}", mode) * 2 / 1.154
+            hei = 100
+            kwargs.update({"pos": [kwargs["pos"][0]-wid/4, kwargs["pos"][1], kwargs["pos"][2]-25]})
+            kwargs.update({"size": [wid,hei,dep]})
+            return_value.append(opsc.opsc_easy(**kwargs))
+    return return_value
+
+def get_oobb_ziptie(**kwargs):
+    modes = ["laser", "3dpr", "true"]
+    return_value = []
+    for mode in modes:        
+        kwargs["shape"] = "oobb_cube_center"
+        kwargs["center"] = True
         kwargs["inclusion"] = mode
-        radius_name = kwargs["radius_name"]
-        kwargs.update({"r": ob.gv(f"nut_radius_{l_string}{radius_name}", mode)})
-        kwargs.update({"height": ob.gv(f"nut_depth_{l_string}{radius_name}", mode)})
-        return_value.append(opsc.opsc_easy(**kwargs))
+        kwargs.update({"size": [ob.gv("ziptie_width", mode), ob.gv("ziptie_height", mode), 100]})
+        spacing_zt = 5
+        p3 = copy.deepcopy(kwargs)
+        p3.update({"pos": [kwargs["pos"][0], kwargs["pos"][1]-spacing_zt/2, kwargs["pos"][2] - 50]})
+        return_value.append(ob.oobb_easy(**p3))
+        p2 = copy.deepcopy(kwargs)
+        p2.update({"pos": [kwargs["pos"][0], kwargs["pos"][1]+spacing_zt/2, kwargs["pos"][2]-50]})
+        return_value.append(ob.oobb_easy(**p2))
+        
+
     return return_value
