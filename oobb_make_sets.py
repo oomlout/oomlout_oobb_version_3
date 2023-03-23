@@ -4,150 +4,159 @@ import oobb_get_items_other
 import oobb_get_items_test  
 import oobb_base
 
-def make_all():
-    make_jacks()
-    make_jacks(size = "oobe")
-    make_plates()   
-    make_plates(size = "oobe")   
-    make_nuts()
-    make_screws_countersunk()
-    make_tests()
-    make_mounting_plates()
+def make_all(filter=""):
+    #typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
+    typs = ["bps","jas","mps","pls","shs","zts"]
+    all_things = []
+
+    for type in typs:
+        if filter in type:
+            func = globals()["get_"+type]
+            all_things.extend(func())
+            pass
+    
+    for thing in all_things:
+        func = getattr(oobb_get_items_oobb,"get_"+thing["type"])
+        thing = func(**thing)
+        oobb_base.add_thing(thing)
+        pass
+
 
 #oobb makes
 
-def make_jacks(overwrite=True, size="oobb"):
-    jacks = []
-    for wid in range(3,10):        
-                jacks.append([wid,1,12])
-    jacks.append([3,2,12])
-    jacks.append([5,2,12])
-    jacks.append([3,3,12])
+def get_bps(size="oobb"):
+    bps = []
+    bps.append({"type":"bp", "width":3,"height":3,"thickness":12,"bearing_type":"6704","size":size})
+    bps.append({"type":"bp", "width":3,"height":3,"thickness":12,"bearing_type":"6803","size":size})
+    bps.append({"type":"bp", "width":3,"height":3,"thickness":15,"bearing_type":"6804","size":size})
+    bps.append({"type":"bp", "width":5,"height":5,"thickness":12,"bearing_type":"6808","size":size})
 
-    for jack in jacks:
-        thing = oobb_get_items_oobb.get_ja(jack[0],jack[1],jack[2],size,overwrite)
-        oobb_base.add_thing(thing)
-
-def make_mounting_plates(overwrite=True, size="oobb"):
-    mounting_plates = []
-    mounting_plates.append([13,9,3,150,90,"m3"])
-    mounting_plates.append([6,5,3,54,30,"m3"])
-    mounting_plates.append([4,4,3,26,26,"m3"])
-
-    for mounting_plate in mounting_plates:
-        thing = oobb_get_items_oobb.get_mp(width=mounting_plate[0],height=mounting_plate[1],thickness=mounting_plate[2],hole_width=mounting_plate[3],hole_height=mounting_plate[4],hole_type=mounting_plate[5],overwrite=overwrite)
-        oobb_base.add_thing(thing)
-
-    mounting_plates_u = []
-    mounting_plates_u.append([4,4,3,26,26,"m3"])
-
-    for mounting_plate_u in mounting_plates_u:
-        thing = oobb_get_items_oobb.get_mpu(width=mounting_plate_u[0],height=mounting_plate_u[1],thickness=mounting_plate_u[2],width_mounting=mounting_plate_u[3],height_mounting=mounting_plate_u[4],radius_hole=mounting_plate_u[5],overwrite=overwrite)
-        oobb_base.add_thing(thing)
-
-    mounting_plate_s = []
-    mounting_plate_s.append([4,3,3,26,26,"m3"])
-
-    for mounting_plate_s in mounting_plate_s:
-        thing = oobb_get_items_oobb.get_mps(width=mounting_plate_s[0],height=mounting_plate_s[1],thickness=mounting_plate_s[2],width_mounting=mounting_plate_s[3],height_mounting=mounting_plate_s[4],radius_hole=mounting_plate_s[5],overwrite=overwrite)
-        oobb_base.add_thing(thing)
-
-
-    mounting_plates_named = []
-    mounting_plates_named.append(["oobb_mp_13_09_03_ty_bigtreetech_octopus",[13,9,3,150,90,"m3"]])
-    mounting_plates_named.append(["oobb_mp_06_05_03_ty_e3d_extruder_titan",[6,5,3,54,30,"m3"]])
-    mounting_plates_named.append(["oobb_mp_04_04_03_ty_aliexpress_motor_controller_speed_26_26",[4,4,3,26,26,"m3"]])
-
-    for mounting_plate_named in mounting_plates_named:
-        thing = oobb_get_items_oobb.get_mp(width=mounting_plate_named[1][0],height=mounting_plate_named[1][1],thickness=mounting_plate_named[1][2],hole_width=mounting_plate_named[1][3],hole_height=mounting_plate_named[1][4],hole_type=mounting_plate_named[1][5],overwrite=overwrite)
-        thing["id"] = mounting_plate_named[0]
-        oobb_base.add_thing(thing)
     
-    mounting_plates_named_u = []
-    mounting_plates_named_u.append(["oobb_mp_u_04_04_03_ty_aliexpress_motor_controller_speed_26_26",[4,4,3,26,26,"m3"]])
+    return bps
 
-    for mounting_plate_named_u in mounting_plates_named_u:
-        thing = oobb_get_items_oobb.get_mpu(width=mounting_plate_named_u[1][0],height=mounting_plate_named_u[1][1],thickness=mounting_plate_named_u[1][2],width_mounting=mounting_plate_named_u[1][3],height_mounting=mounting_plate_named_u[1][4],radius_hole=mounting_plate_named_u[1][5],overwrite=overwrite)
-        thing["id"] = mounting_plate_named_u[0]
-        oobb_base.add_thing(thing)
+def get_jas(size="oobb"):
+    jas = []
+    for wid in range(3,10):  
+        jas.append({"type":"ja","width":wid, "height":1, "thickness":12,"size":size})
+        
+    jas.append({"type":"ja","width":3, "height":2, "thickness":12,"size":size})
+    jas.append({"type":"ja","width":5, "height":2, "thickness":12,"size":size})
+    jas.append({"type":"ja","width":3, "height":3, "thickness":12,"size":size})
+    
+    return jas
 
-    mounting_plates_named_s = []
-    mounting_plates_named_s.append(["oobb_mp_s_04_03_03_ty_aliexpress_motor_controller_speed_26_26",[4,3,3,26,26,"m3"]])
+def get_mps(size="oobb"):
+    mounting_plates = []
+    # bigtree octopur driver board
+    mounting_plates.append({"type":"mp", "width":13,"height":9,"thickness":3,"width_mounting":150,"height_mounting":90,"radius_hole":"m3", "name":"bigtreetech_octopus","size":size})
+    
+    #e3d titan extruder
+    mounting_plates.append({"type":"mpu", "width":6,"height":3,"thickness":3,"width_mounting":54,"height_mounting":15,"radius_hole":"m4", "name":"e3d_extruder_titan","size":size})
+    mounting_plates.append({"type":"mps", "width":5,"height":3,"thickness":3,"width_mounting":54,"height_mounting":15,"radius_hole":"m4", "name":"e3d_extruder_titan","size":size})
+    mounting_plates.append({"type":"mpt", "width":6,"height":2,"thickness":3,"width_mounting":54,"height_mounting":15,"radius_hole":"m4", "name":"e3d_extruder_titan","size":size})
+    
 
-    for mounting_plate_named_s in mounting_plates_named_s:
-        thing = oobb_get_items_oobb.get_mps(width=mounting_plate_named_s[1][0],height=mounting_plate_named_s[1][1],thickness=mounting_plate_named_s[1][2],width_mounting=mounting_plate_named_s[1][3],height_mounting=mounting_plate_named_s[1][4],radius_hole=mounting_plate_named_s[1][5],overwrite=overwrite)
-        thing["id"] = mounting_plate_named_s[0]
-        oobb_base.add_thing(thing)
+    # aliexpress motor controller
+    mounting_plates.append({"type":"mp", "width":4,"height":4,"thickness":3,"width_mounting":26,"height_mounting":26,"radius_hole":"m3", "name":"aliexpress_motor_controller_speed","size":size})
+    mounting_plates.append({"type":"mpu", "width":3,"height":3,"thickness":3,"width_mounting":26,"height_mounting":26,"radius_hole":"m3", "name":"aliexpress_motor_controller_speed","size":size})
+    mounting_plates.append({"type":"mps", "width":3,"height":3,"thickness":3,"width_mounting":26,"height_mounting":26,"radius_hole":"m3", "name":"aliexpress_motor_controller_speed","size":size})    
 
-def make_plates(overwrite=True, size="oobb"):
+    return mounting_plates
+
+def get_pls(size="oobb"):
     plates = []
     for wid in range(1,7):
         for hei in range(1,7):
             if wid >= hei:
-                plates.append([wid,hei,3])
+                plates.append({"type":"pl", "width":wid,"height":hei,"thickness":3,"size":size})
     
-    plates.append([1,1,6])    
-    plates.append([1,1,9])    
-    plates.append([1,1,12])   
-
+    plates.append({"type":"pl", "width":1,"height":1,"thickness":6,"size":size})
+    plates.append({"type":"pl", "width":1,"height":1,"thickness":9,"size":size})
+    plates.append({"type":"pl", "width":1,"height":1,"thickness":12,"size":size})
+    
     for len in range(2,35):
-        plates.append([len,1,3])
+        plates.append({"type":"pl", "width":len,"height":1,"thickness":3,"size":size})
         
-    plates.append([7,3,3])    
-    plates.append([8,3,3])    
-    plates.append([9,3,3])    
-    
-    plates.append([7,5,3])    
-    plates.append([8,5,3])    
-    plates.append([9,5,3])    
+    plates.append({"type":"pl", "width":7,"height":3,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":8,"height":3,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":9,"height":3,"thickness":3,"size":size})
 
-    plates.append([12,12,3])    
-    plates.append([14,14,3])   
-    plates.append([15,15,3])     
-    plates.append([20,20,3])   
+    plates.append({"type":"pl", "width":7,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":8,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":9,"height":5,"thickness":3,"size":size})
+
+    plates.append({"type":"pl", "width":12,"height":12,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":13,"height":13,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":14,"height":14,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":15,"height":15,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":20,"height":20,"thickness":3,"size":size})
     
     # larger plates of desire
-    plates.append([15,9,3]) 
+    plates.append({"type":"pl", "width":15,"height":9,"thickness":3,"size":size})
     
     #extra fives
-    plates.append([15,5,3])
-    plates.append([14,5,3])
-    plates.append([13,5,3])
-    plates.append([12,5,3])
-    plates.append([11,5,3])
-    plates.append([10,5,3])
+    plates.append({"type":"pl", "width":15,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":14,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":13,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":12,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":11,"height":5,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":10,"height":5,"thickness":3,"size":size})
 
     #extra fifteens
-    plates.append([15,14,3])
-    plates.append([15,13,3])
-    plates.append([15,12,3])
-    plates.append([15,11,3])
+    plates.append({"type":"pl", "width":15,"height":14,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":15,"height":13,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":15,"height":12,"thickness":3,"size":size})
+    plates.append({"type":"pl", "width":15,"height":11,"thickness":3,"size":size})
 
-    for plate in plates:
-        thing = oobb_get_items_oobb.get_pl(plate[0],plate[1],plate[2])
-        oobb_base.add_thing(thing)
+    plates.append({"type":"pl", "width":28,"height":20,"thickness":3,"size":size,"name":"oobb_pl_a3"})
+    plates.append({"type":"pl", "width":20,"height":14,"thickness":3,"size":size,"name":"oobb_pl_a4"})
+    plates.append({"type":"pl", "width":14,"height":10,"thickness":3,"size":size,"name":"oobb_pl_a5"})
+    plates.append({"type":"pl", "width":10,"height":7,"thickness":3,"size":size,"name":"oobb_pl_a6"})
 
-    plates_named = []
-    plates_named.append(["oobb_pl_a3_28_20",[28,20,3]])
-    plates_named.append(["oobb_pl_a4_20_14",[20,14,3]])
-    plates_named.append(["oobb_pl_a5_14_10",[14,10,3]])
-    plates_named.append(["oobb_pl_a6_14_10",[10,7,3]])
+    return plates
 
-    for plate_named in plates_named:
-        thing = oobb_get_items_oobb.get_pl(width=plate_named[1][0],height=plate_named[1][1],thickness=plate_named[1][2],overwrite=overwrite)
-        thing["id"] = plate_named[0]
-        oobb_base.add_thing(thing)
+def get_shs(size="oobb"):
+    shafts = []
+    shafts.append({"type":"sh", "thickness":0,"size":size})
+    shafts.append({"type":"sh", "thickness":0.5,"size":size})
+    shafts.append({"type":"sh", "thickness":1,"size":size})
+    shafts.append({"type":"sh", "thickness":3,"size":size})
+    shafts.append({"type":"sh", "thickness":3.5,"size":size})
+    
+    shafts.append({"type":"sh", "thickness":4,"size":size})
+    shafts.append({"type":"sh", "thickness":6,"size":size})
+    shafts.append({"type":"sh", "thickness":9,"size":size})
+    shafts.append({"type":"sh", "thickness":12,"size":size})
+    shafts.append({"type":"sh", "thickness":15,"size":size})
+    
+    return shafts
 
+def get_zts(size="oobb"):
 
+    zts = []
+
+    zts.append({"type":"ztj", "width":1,"thickness":12,"size":size})
+    zts.append({"type":"ztj", "width":1,"height":2,"thickness":12,"size":size})
+    zts.append({"type":"ztj", "width":2,"thickness":12,"size":size})
+    zts.append({"type":"ztj", "width":2,"height":2,"thickness":12,"size":size})
+    zts.append({"type":"ztj", "width":2,"height":3,"thickness":12,"size":size})
+    zts.append({"type":"ztj", "width":3,"thickness":12,"size":size})
+
+    zts.append({"type":"zt", "width":2,"height":3,"thickness":6,"size":size})
+    zts.append({"type":"zt", "width":2,"height":4,"thickness":6,"size":size})
+    zts.append({"type":"zt", "width":2,"height":5,"thickness":6,"size":size})
+
+    return zts
+    
 #other makes
 
-def make_nuts():
+def get_nuts():
     nuts = ["m3","m6"]
     for nut in nuts:
         thing = oobb_get_items_other.get_nut(nut)
         oobb_base.add_thing(thing)
 
-def make_screws_countersunk():
+def get_screws_countersunk():
     screws = ["m3"]
     depths = [8,10,12,16,18,20,25,30,35,40]
     for screw in screws:
@@ -155,7 +164,7 @@ def make_screws_countersunk():
             thing = oobb_get_items_other.get_screw_countersunk(screw,depth)
             oobb_base.add_thing(thing)
 
-def make_tests():
+def get_tests():
     
     things = []
     things.append(oobb_get_items_test.get_test_nut("m3", difference=0.15))
@@ -167,17 +176,3 @@ def make_tests():
 
     for thing in things:
         oobb_base.add_thing(thing)            
-
-def make_zts():
-
-    names = []
-    names.append([1])
-    names.append([2])
-    names.append([3])
-
-
-    for name in names:
-        thing = oobb_get_items_oobb.get_zt_oobb(name[0])
-        oobb_base.add_thing(thing)
-    
-

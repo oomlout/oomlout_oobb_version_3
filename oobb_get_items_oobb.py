@@ -1,45 +1,105 @@
 from oobb_get_items_base import *
 import oobb_base as ob
 
-def get_ja(wid,hei,thick,size,overwrite=True):
-    if size == "oobb":
-        return get_ja_oobb(wid,hei,thick,overwrite)
-    elif size == "oobe":
-        return get_ja_oobe(wid,hei,thick,overwrite)
-    else:
-        print("size not recognized")
-        return None
 
-def get_ja_oobb(wid,hei,thick,overwrite=True):
-    thing = ob.get_default_thing()
-    thing.update({"description": f"jack {wid}x{hei}x{thick}"})
-    thing.update({"id": f"oobb_ja_{str(wid).zfill(2)}_{str(hei).zfill(2)}_{str(thick).zfill(2)}"})
-    thing.update({"type": "ja"})
-    thing.update({"type_oobb": "jack"})
-    thing.update({"width_mm": wid})
-    thing.update({"width_oobb": wid * ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"depth_mm": thick})
-    thing.update({"height_mm": hei * ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": hei})
-    thing.update({"components": []})
+def get_bp(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", "")
+    height = kwargs.get("height", "")
+    thickness = kwargs.get("thickness", "")
+    bearing_type = kwargs.get("bearing_type", "608")
+    overwrite = kwargs.get("overwrite", False)
+
 
     # solid piece
+    th = thing["components"]
+    th.extend(ob.oe(t="p",s="oobb_pl", width=width, height=height, depth_mm=thickness, pos=[0,0,-thickness/2], holes=False, mode="all"))
+
+    # bearing
+    th.extend(ob.oobb_easy(t="n",s="oobb_bearing", bearing_type=bearing_type, pos=[0,0,0], mode="all", overwrite=overwrite, m=""))
     
+
+    # adding corner holes
+    #hole_positions = [1,1],[1,height],[width,1],[width,height]
+    #for pos in hole_positions:
+    #    x,y = ob.get_hole_pos(pos[0],pos[1],width,height)
+    #    th.extend(ob.oobb_easy(t="n",s="oobb_hole", pos=[x,y,0], radius_name="m6", overwrite=overwrite, m=""))
+    ## adding perimieter miss middle holes
+    th.extend(ob.oobb_easy(t="n",s="oobb_holes", pos=[0,0,0], width=width, height = width, holes="perimeter_miss_middle",m="#"))
+
+
+    # adding middle holes
+    wid = ob.gv(f'bearing_{bearing_type}_inner_holes_true')
+    th.extend(ob.oobb_easy(t="n",s="oobb_holes", pos=[0,0,0], width=wid, height = wid, holes="circle", circle_dif=5,m=""))
+    #adding middle slot
+    #th.extend(ob.oobb_easy(t="n",s="oobb_slot", pos=[0,0,0], radius_name="m3", w=10, m=""))
+    hole_dist = 15
+    th.extend(ob.oobb_easy(t="n",s="oobb_hole",radius_name="m3", pos=[hole_dist/2,0,0],m=""))
+    th.extend(ob.oobb_easy(t="n",s="oobb_hole",radius_name="m3", pos=[-hole_dist/2,0,0],m=""))
+
+    # adding connecting screws
+    mid_w = (width - 1) / 2 + 1
+    mid_h = (height - 1) / 2 + 1
+    adj = 0 / ob.gv("osp")
+    if bearing_type == "6803": 
+        adj = 2 / ob.gv("osp")
+    elif bearing_type == "6804" or bearing_type == "6704":
+        adj = 3 / ob.gv("osp")
+        
+    
+    hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
+    rot_current = 0
+    for pos in hole_positions:
+        x,y = ob.get_hole_pos(pos[0],pos[1],width,height)
+        z = thickness/2
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current))
+        if rot_current == 0:
+            rot_current = 180
+        else:
+            rot_current = 0
+    
+    joint_dis = 15
+    hole_positions_mm = [0,joint_dis/2],[0,-joint_dis/2]
+    for pos in hole_positions_mm:
+        x,y = pos
+        z = thickness/2
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current))
+        if rot_current == 0:
+            rot_current = 180
+        else:
+            rot_current = 0
+
+    # halfing it if 3dpr
+    inclusion = "3dpr"
+    th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion,m=""))
+
+    return thing
+
+def get_ja(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 2)
+    height = kwargs.get("height", 2)
+    thickness = kwargs.get("thickness", 3)
+
+
+    # solid piece    
     th = thing["components"]
 
     height_cube = 13.5
-    y_plate = height_cube + (hei-1)*ob.gv("osp")/2
+    y_plate = height_cube + (height-1)*ob.gv("osp")/2
     
-    th.extend(ob.oe(t="p",s="oobb_pl", width=wid, height=hei, depth_mm=thick, pos=[0,y_plate,-thick/2], mode="all"))
+    th.extend(ob.oe(t="p",s="oobb_pl", width=width, height=height, depth_mm=thickness, pos=[0,y_plate,-thickness/2], mode="all"))
     
-    width_cube = ob.gv("osp")*wid-ob.gv("osp_minus")
+    width_cube = ob.gv("osp")*width-ob.gv("osp_minus")
     
-    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thick], pos=[-width_cube/2,0,-thick/2], mode="all"))    
+    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thickness], pos=[-width_cube/2,0,-thickness/2], mode="all"))    
     
     # bolt holes
     mode = "all"
-    for x in range(0,wid):
-        x = (-wid/2*ob.gv("osp")+ob.gv("osp")/2)+x*ob.gv("osp")
+    for x in range(0,width):
+        x = (-width/2*ob.gv("osp")+ob.gv("osp")/2)+x*ob.gv("osp")
         y = height_cube
         z= 0
 
@@ -50,12 +110,12 @@ def get_ja_oobb(wid,hei,thick,overwrite=True):
         th.extend(ob.oobb_easy(t="n",s="oobb_nut_loose", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m="#"))
     #add m3 countersunk joining screws
     rot_current = 0
-    for x in range(0,wid-1):
-        x = (-wid/2*ob.gv("osp")+ob.gv("osp"))+x*ob.gv("osp")
+    for x in range(0,width-1):
+        x = (-width/2*ob.gv("osp")+ob.gv("osp"))+x*ob.gv("osp")
         y = height_cube
-        z= thick/2
+        z= thickness/2
     
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=12, pos=[x,y,z], mode=mode, m="", rotY=rot_current))
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode=mode, m="", rotY=rot_current))
         rot_current = rot_current + 180
            
 
@@ -66,76 +126,16 @@ def get_ja_oobb(wid,hei,thick,overwrite=True):
 
     return thing
 
-def get_ja_oobe(wid,hei,thick,overwrite=True):
-    thick = int(thick / 2)
-    thing = ob.get_default_thing()
-    thing.update({"description": f"oobe jack {wid}x{hei}x{thick}"})
-    thing.update({"id": f"oobe_ja_{str(wid).zfill(2)}_{str(hei).zfill(2)}_{str(thick).zfill(2)}"})
-    thing.update({"type": "ja"})
-    thing.update({"type_oobb": "jack"})
-    thing.update({"width_mm": wid})
-    thing.update({"width_oobb": wid * ob.gv("ospe") - ob.gv("ospe_minus")})
-    thing.update({"depth_mm": thick})
-    thing.update({"height_mm": hei * ob.gv("ospe") - ob.gv("ospe_minus")})
-    thing.update({"height_oobb": hei})
-    thing.update({"components": []})
-
-    # solid piece
+def get_mp(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
     
-    th = thing["components"]
+    width = kwargs.get("width", 2)
+    height = kwargs.get("height", 2)
+    depth = kwargs.get("depth", 3)
+    width_mounting = kwargs.get("width_mounting", 10)
+    height_mounting = kwargs.get("height_mounting", 10)
+    radius_hole = kwargs.get("radius_hole", "m3")
 
-    height_cube = 13.5/2
-    y_plate = height_cube + (hei-1)*ob.gv("ospe")/2
-    
-    th.extend(ob.oe(t="p",s="oobe_pl", width=wid, height=hei, depth_mm=thick, pos=[0,y_plate,-thick/2], mode="all"))
-    
-    width_cube = ob.gv("ospe")*wid-ob.gv("ospe_minus")
-    
-    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thick], pos=[-width_cube/2,0,-thick/2], mode="all"))    
-    
-    # bolt holes
-    mode = "all"
-    for x in range(0,wid):
-        x = (-wid/2*ob.gv("ospe")+ob.gv("ospe")/2)+x*ob.gv("ospe")
-        y = height_cube
-        z= 0
-
-        th.extend(ob.oobb_easy(t="n",s="oobb_hole", radius_name="m3", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
-        
-        y = 4    
-        th.extend(ob.oobb_easy(t="n",s="oobb_nut", radius_name="m3", depth=height_cube, pos=[x,y,z], rotX=90, rotY=360/12, mode=mode, m='#'))
-    #add m3 countersunk joining screws
-    rot_current = 0
-    for x in range(0,wid-1):
-        x = (-wid/2*ob.gv("ospe")+ob.gv("ospe"))+x*ob.gv("ospe")
-        y = height_cube
-        z= thick/2
-    
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m15d", depth=12/2, pos=[x,y,z], mode=mode, m="", rotY=rot_current))
-        rot_current = rot_current + 180
-        
-        
-
-
-    # halfing it if 3dpr
-    inclusion = "3dpr"
-    th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion))
-
-    return thing
-
-def get_mp(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radius_hole="m3", overwrite=True,**kwargs):
-    thing = ob.get_default_thing()
-    thing.update({"description": f"mounting plate {width} wide and {height} high and {depth} deep. with mounting holes for a rectangluar board {width_mounting} wide and {height_mounting} high with holes of radius {radius_hole}"})
-    thing.update({"id": f"oobb_mp_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}_mh_{str(width_mounting).zfill(2)}_{str(height_mounting).zfill(2)}_{radius_hole}"})
-    thing.update({"inclusion": "all"})
-    thing.update({"type": "oobb_base"})
-    thing.update({"type_oobb": "mp"})
-    thing.update({"width_mm": width*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"width_oobb": width})
-    thing.update({"height_mm": height*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": height})
-    thing.update({"depth_mm": depth})
-    thing.update({"components": []})
 
     th = thing["components"]
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
@@ -148,22 +148,20 @@ def get_mp(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radi
 
     return thing
 
-def get_mps(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radius_hole="m3", overwrite=True,**kwargs):
-    thing = ob.get_default_thing()
-    thing.update({"description": f"mounting plate {width} wide and {height} high and {depth} deep. with mounting holes for a rectangluar board {width_mounting} wide and {height_mounting} high with holes of radius {radius_hole}"})
-    thing.update({"id": f"oobb_mp_s_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}_mh_{str(width_mounting).zfill(2)}_{str(height_mounting).zfill(2)}_{radius_hole}"})
-    thing.update({"inclusion": "all"})
-    thing.update({"type": "oobb_base"})
-    thing.update({"type_oobb": "mp"})
-    thing.update({"width_mm": width*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"width_oobb": width})
-    thing.update({"height_mm": height*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": height})
-    thing.update({"depth_mm": depth})
-    thing.update({"components": []})
+def get_mps(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
 
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    width_mounting = kwargs.get("width_mounting", 10)
+    height_mounting = kwargs.get("height_mounting", 10)
+    radius_hole = kwargs.get("radius_hole", "m3")
+    overwrite = kwargs.get("overwrite", True)
+
+    
     th = thing["components"]
-    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=thickness, pos=[0,0,0]))
     th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0,0,0], holes="top", radius_name=radius_hole))
     ## add mounting holes
     th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2+ob.gv("osp")/2,height_mounting/2,0], radius_name=radius_hole, m=""))
@@ -173,19 +171,41 @@ def get_mps(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, rad
 
     return thing
 
-def get_mpu(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, radius_hole="m3", overwrite=True,**kwargs):
-    thing = ob.get_default_thing()
-    thing.update({"description": f"mounting plate {width} wide and {height} high and {depth} deep. with mounting holes for a rectangluar board {width_mounting} wide and {height_mounting} high with holes of radius {radius_hole}"})
-    thing.update({"id": f"oobb_mp_u_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}_mh_{str(width_mounting).zfill(2)}_{str(height_mounting).zfill(2)}_{radius_hole}"})
-    thing.update({"inclusion": "all"})
-    thing.update({"type": "oobb_base"})
-    thing.update({"type_oobb": "mp"})
-    thing.update({"width_mm": width*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"width_oobb": width})
-    thing.update({"height_mm": height*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": height})
-    thing.update({"depth_mm": depth})
-    thing.update({"components": []})
+def get_mpt(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    width_mounting = kwargs.get("width_mounting", 10)
+    height_mounting = kwargs.get("height_mounting", 10)
+    radius_hole = kwargs.get("radius_hole", "m3")
+    overwrite = kwargs.get("overwrite", True)
+
+    
+    th = thing["components"]
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=thickness, pos=[0,0,0]))
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0,0,0], holes="top", radius_name=radius_hole))
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0,0,0], holes="bottom", radius_name=radius_hole))
+    ## add mounting holes
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[width_mounting/2,-height_mounting/2,0], radius_name=radius_hole, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2,-height_mounting/2,0], radius_name=radius_hole, m=""))
+
+    return thing
+
+def get_mpu(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
+    
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    depth = kwargs.get("depth", 3)
+    width_mounting = kwargs.get("width_mounting", 10)
+    height_mounting = kwargs.get("height_mounting", 10)
+    radius_hole = kwargs.get("radius_hole", "m3")
+    overwrite = kwargs.get("overwrite", True)
+
 
     th = thing["components"]
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
@@ -198,32 +218,19 @@ def get_mpu(width=1,height=1,depth=3, width_mounting=10, height_mounting=10, rad
 
     return thing
 
+def get_pl(**kwargs):    
+    
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", True)
 
-def get_pl(width,height,depth=3,holes=True,overwrite=True,size="oobb",**kwargs):    
-    if size == "oobb":
-        return get_pl_oobb(width,height,depth,overwrite,**kwargs)
-    if size == "oobe":
-        return get_pl_oobe(width,height,depth/2,overwrite,**kwargs)
-
-def get_pl_oobb(width,height,depth=3,holes=True,overwrite=True,**kwargs):    
-    thing = ob.get_default_thing()
-    thing.update({"description": f"oobb plate {width} wide and {height} high and {depth} deep"})
-    thing.update({"id": f"oobb_pl_{str(width).zfill(2)}_{str(height).zfill(2)}_{str(depth).zfill(2)}"})
-    thing.update({"inclusion": "all"})
-    thing.update({"type": "oobb_base"})
-    thing.update({"type_oobb": "pl"})
-    thing.update({"width_mm": width*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"width_oobb": width})
-    thing.update({"height_mm": height*ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": height})
-    thing.update({"depth_mm": depth})
-    thing.update({"components": []})
-
+    thing = ob.get_default_thing(**kwargs)
     th = thing["components"]
 
-    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=thickness, pos=[0,0,0]))
     modes = ["laser", "3dpr", "true"]
-    if holes:
+    if holes == True:
         for mode in modes:
             #find the start point needs to be half the width_mm plus half ob.gv("osp")
             pos_start = [-(width*ob.gv("osp")/2) + ob.gv("osp")/2, -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
@@ -232,70 +239,49 @@ def get_pl_oobb(width,height,depth=3,holes=True,overwrite=True,**kwargs):
     
     return thing
 
-def get_pl_oobe(width,height,depth=1.5,holes=True,overwrite=True,**kwargs):    
-    thing = ob.get_default_thing()
-    thing.update({"description": f"oobe plate {width} wide and {height} high and {depth} deep"})
-    dep = str(depth).replace(".","d")
-    thing.update({"id": f"oobe_pl_{str(width).zfill(2)}_{str(height).zfill(2)}_{dep}"})
-    thing.update({"inclusion": "all"})
-    thing.update({"type": "oobe_base"})
-    thing.update({"type_oobb": "pl"})
-    thing.update({"width_mm": width*ob.gv("ospe") - ob.gv("ospe_minus")})
-    thing.update({"width_oobb": width})
-    thing.update({"height_mm": height*ob.gv("ospe") - ob.gv("ospe_minus")})
-    thing.update({"height_oobb": height})
-    thing.update({"depth_mm": depth})
-    thing.update({"components": []})
-
-    th = thing["components"]
-
-    th.append(ob.oobb_easy(t="p", s="oobe_plate", width=width, height=height, depth_mm=depth, pos=[0,0,0]))
-    modes = ["laser", "3dpr", "true"]
-    if holes:
-        for mode in modes:
-            #find the start point needs to be half the width_mm plus half ob.gv("osp")
-            pos_start = [-(width*ob.gv("ospe")/2) + ob.gv("ospe")/2, -(height*ob.gv("ospe")/2) + ob.gv("ospe")/2, 0]
-            
-            th.extend(ob.oobb_easy_array(t="n", s="hole", inclusion=mode,repeats=[width,height], pos_start = pos_start, shift_arr = [ob.gv("ospe"),ob.gv("ospe")], r=ob.gv("hole_radius_m3", mode) ))
+def get_sh(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
     
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    radius_hole = kwargs.get("radius_hole", "m3")
+    
+    th = thing["components"]
+    th.extend(ob.oobb_easy(t="p", s="oobb_cylinder", radius=14/2, depth=3, pos=[0,0,0]))
+    th.extend(ob.oobb_easy(t="p", s="oobb_cylinder", radius_name="hole_radius_little_m6", depth=thickness+3, pos=[0,0,0]))
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole", radius_name="m3", pos=[0,0,0]))
+    
+
     return thing
 
-def get_zt_oobb(wid,overwrite=True):
-    thick = 12
-    thing = ob.get_default_thing()
-    thing.update({"description": f"zip tie holder {wid}x{thick}"})
-    thing.update({"id": f"oobb_zt_{str(wid).zfill(2)}"})
-    thing.update({"type": "zt"})
-    thing.update({"type_oobb": "ziptie holder"})
-    thing.update({"width_mm": wid})
-    thing.update({"width_oobb": wid * ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"depth_mm": thick})
-    thing.update({"height_mm": 1 * ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": 1})
-    thing.update({"components": []})
-
-    # solid piece
+def get_ztj(**kwargs):
+    thickness = 12
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thing = ob.get_default_thing(**kwargs)
     
+    # solid piece
     th = thing["components"]
 
     height_cube = 13.5
-    y_plate = height_cube
+    y_plate = height_cube + (height-1)*ob.gv("osp") /2
     
-    th.extend(ob.oe(t="p",s="oobb_pl", holes=False, width=wid, height=1, depth_mm=thick, pos=[0,y_plate,-thick/2], mode="all"))
+    th.extend(ob.oe(t="p",s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=[0,y_plate,-thickness/2], mode="all"))
     
-    width_cube = ob.gv("osp")*wid-ob.gv("osp_minus")
+    width_cube = ob.gv("osp")*width-ob.gv("osp_minus")
     
-    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thick], pos=[-width_cube/2,0,-thick/2], mode="all"))    
+    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thickness], pos=[-width_cube/2,0,-thickness/2], mode="all"))    
     
     # bolt holes
     mode = "all"
-    for x in range(0,wid):
-        x = (-wid/2*ob.gv("osp")+ob.gv("osp")/2)+x*ob.gv("osp")
+    for x in range(0,width):
+        x = (-width/2*ob.gv("osp")+ob.gv("osp")/2)+x*ob.gv("osp")
         y = height_cube
         z= 0
-
-        pos_zt = [x,height_cube+1.5,0]
-        th.extend(ob.oobb_easy(t="n",s="oobb_ziptie", pos=pos_zt, mode=mode, m=""))
+        for hei in range(0,height):
+            pos_zt = [x,height_cube+1.5+ob.gv("osp")*hei,0]
+            th.extend(ob.oobb_easy(t="n",s="oobb_ziptie", pos=pos_zt, mode=mode, m=""))
 
         x2 = x
         y2 = 8
@@ -305,12 +291,34 @@ def get_zt_oobb(wid,overwrite=True):
         # nut height
         y = 9    
         th.extend(ob.oobb_easy(t="n",s="oobb_nut_through", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
-    #add m3 countersunk joining screws
-           
-
-
-    # halfing it if 3dpr
-    #inclusion = "3dpr"
-    #th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion))
 
     return thing
+
+def get_zt(**kwargs):
+    thickness = 6
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thing = ob.get_default_thing(**kwargs)
+    
+    # solid piece
+    th = thing["components"]
+
+    height_cube = 13.5
+        
+    th.extend(ob.oe(t="p",s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=[0,0,-thickness/2], m=""))
+    th.extend(ob.oe(t="n",s="oobb_holes", holes="right",width=width, height=height, m=""))
+    th.extend(ob.oe(t="n",s="oobb_holes", holes="left",width=width, height=height, m=""))
+    
+    width_cube = ob.gv("osp")*width-ob.gv("osp_minus")
+    
+       
+    # bolt holes
+    mode = "all"    
+    for hei in range(2,height):        
+        for wid in range(1,width+1):
+            x,y = ob.get_hole_pos(wid,hei,width,height)
+            th.extend(ob.oobb_easy(t="n",s="oobb_ziptie", clearance=True, pos=[x,y,0], mode=mode, m=""))
+        
+
+    return thing
+

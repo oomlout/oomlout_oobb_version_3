@@ -4,22 +4,69 @@ import json
 import oomB
 
 ##### base functions
-def get_default_thing():
+def get_default_thing(**kwargs):
+
+    width = kwargs.get("width", "")
+    height = kwargs.get("height", "")
+    thickness = kwargs.get("thickness", "")
+    size = kwargs.get("size", "")
+    type = kwargs.get("type", "ja")
+    radius_hole = kwargs.get("radius_hole", "")
+    width_mounting = kwargs.get("width_mounting", "")
+    height_mounting = kwargs.get("height_mounting", "")
+    name = kwargs.get("name", "")
+    bearing_type = kwargs.get("bearing_type", "")
+
     thing = {}
-    thing.update({"description": ""})
-    thing.update({"id": ""})
 
-    thing.update({"type": ""})
-    thing.update({"type_oobb": ""})
+    type_dict = {}
+    type_dict.update({"bp": "bearing plate"})
+    type_dict.update({"ja": "jack"})
+    type_dict.update({"mp": "mounting plate"})
+    type_dict.update({"mps": "mounting plate single sided holes"})
+    type_dict.update({"mpt": "mounting plate top and bottom holes"})
+    type_dict.update({"mpu": "mounting plate u holes"})
+    type_dict.update({"pl": "plate"})
+    type_dict.update({"sh": "shaft"})
+    type_dict.update({"zt": "zip tie mount"})
+    type_dict.update({"ztj": "zip tie mount jack"})
     
-    thing.update({"width_mm": 0})
-    thing.update({"width_oobb": 0})
-    thing.update({"height_mm": 0})
-    thing.update({"height_oobb": 0})
+    thing.update({"description": f"{type_dict[type]} {width}x{height}x{thickness}"})
+    widths = width
+    if widths != "":
+        widths = f'_{str(width).zfill(2)}'
+    heights = height
+    if heights != "":
+        heights = f'_{str(height).zfill(2)}'
+    thicknesss = thickness
+    if thicknesss != "":
+        thicknesss = f'_{str(thickness).zfill(2).replace(".","d")}'
+    sizes = size
+    if size != "":
+        sizes = size
+    types = type
+    if type != "":
+        types = f"_{type}"
+    if name != "":
+        name = f"_na_{name}"
+    if radius_hole != "":
+        radius_hole = f"_rh_{radius_hole}"
+    if width_mounting != "":
+        width_mounting = F"_mo_{width_mounting}_{height_mounting}"
+    if bearing_type != "":
+        bearing_type = F"_bt_{bearing_type}"
 
+    thing.update({"id": f"{sizes}{types}{widths}{heights}{thicknesss}{bearing_type}{radius_hole}{width_mounting}{name}"})
+    thing.update({"type": f"{type}"})
+    thing.update({"type_oobb": f"{type_dict[type]}"})
+    thing.update({"width_mm": width})
+    if width != "":
+        thing.update({"width_oobb": width * ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"depth_mm": thickness})
+    if height != "":
+        thing.update({"height_mm": height * ob.gv("osp") - ob.gv("osp_minus")})
+    thing.update({"height_oobb": height})
     thing.update({"components": []})
-
-
     return thing
 
 
@@ -35,6 +82,15 @@ def get_variable(name, mode=""):
     if mode != "":
         name = name + "_" + mode
     return oobb.variables[name]
+
+def get_hole_pos(x,y,wid,hei):
+    x_mm = -(wid-1) * gv("osp") / 2 + (x - 1) * gv("osp")
+    y_mm = -(hei-1) * gv("osp") / 2 + (y - 1) * gv("osp")
+    return x_mm, y_mm
+
+
+
+
 
 def add_thing(thing):
     oobb.things.update({thing["id"]: thing})

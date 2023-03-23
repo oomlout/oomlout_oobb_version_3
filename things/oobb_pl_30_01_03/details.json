@@ -1,10 +1,11 @@
 {
-    "description": "oobb plate 30 wide and 1 high and 3 deep",
+    "description": "plate 30x1x3",
     "id": "oobb_pl_30_01_03",
-    "type": "oobb_base",
-    "type_oobb": "pl",
-    "width_mm": 449,
-    "width_oobb": 30,
+    "type": "pl",
+    "type_oobb": "plate",
+    "width_mm": 30,
+    "width_oobb": 449,
+    "depth_mm": 3,
     "height_mm": 14,
     "height_oobb": 1,
     "components": [
@@ -1013,7 +1014,5 @@
             ],
             "inclusion": "true"
         }
-    ],
-    "inclusion": "all",
-    "depth_mm": 3
+    ]
 }

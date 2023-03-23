@@ -2,7 +2,31 @@ import oobb
 import opsc
 import oobb_base as ob
 from oobb_variables import *
+import solid as sp
 
+def get_oobb_bearing(**kwargs):
+    objects = []
+    bearing_type = kwargs["bearing_type"]
+    
+    
+
+    modes = ["laser", "true", "3dpr"]
+    for mode in modes:        
+        kwargs["inclusion"] = mode
+        kwargs["id"] = ob.gv(f"bearing_{bearing_type}_id", mode)
+        kwargs["od"] = ob.gv(f"bearing_{bearing_type}_od", mode)
+        kwargs["depth"] = ob.gv(f"bearing_{bearing_type}_depth", mode)
+        kwargs["shape"] = "bearing"
+        objects.append(opsc.opsc_easy(**kwargs))
+        
+        
+    return objects
+    
+
+    
+    
+    
+    return 
 
 def get_oobb_cube_center(**kwargs):
     kwargs.update({"shape": "cube"})
@@ -19,14 +43,19 @@ def get_oobb_plate(**kwargs):
     kwargs.update({"shape": "rounded_rectangle"})
     return opsc.opsc_easy(**kwargs)    
 
+import math
+
 def get_oobb_holes(holes="all", **kwargs):
     objects = []
     modes = ["laser", "3dpr", "true"]
     width = kwargs["width"]
     height = kwargs["height"]
-    x = kwargs["pos"][0]
-    y = kwargs["pos"][1]
-    z = kwargs["pos"][2]
+    pos = kwargs.get("pos", [0,0,0])
+    x = pos[0]
+    y = pos[1]
+    z = pos[2]
+    
+    
     if holes == "all":
         for mode in modes:
             #find the start point needs to be half the width_mm plus half osp
@@ -42,6 +71,19 @@ def get_oobb_holes(holes="all", **kwargs):
                     x = pos_start[0] + w*ob.gv("osp")
                     y = pos_start[1] + h*ob.gv("osp")
                     objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
+    elif holes == "perimeter_miss_middle":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if w == 0 or w == width-1 or h == 0 or h == height-1:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    w_test = math.floor(width/2)
+                    h_test = math.floor(height/2)
+                    if h != h_test and w != w_test:
+                        objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))  
     elif holes == "u":
         #find the start point needs to be half the width_mm plus half osp
         pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
@@ -62,6 +104,60 @@ def get_oobb_holes(holes="all", **kwargs):
                     x = pos_start[0] + w*ob.gv("osp")
                     y = pos_start[1] + h*ob.gv("osp")
                     objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
+    elif holes == "bottom":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if w == width-1:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
+    elif holes == "right":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if h == height-1:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
+    elif holes == "left":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if h == 0:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))                    
+    elif holes == "bottom":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        for w in range(0,width):
+            for h in range(0,height):
+                if w == width-1:
+                    x = pos_start[0] + w*ob.gv("osp")
+                    y = pos_start[1] + h*ob.gv("osp")
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
+    elif holes == "circle":
+        #find the start point needs to be half the width_mm plus half osp
+        pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
+        #pos_start = [0,0,0]
+        objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[0,0,0], radius_name="m6", m="" ))
+        circle_dif = kwargs.get("circle_dif", 0)
+        for w in range(0,width):
+            for h in range(0,height):
+                x = pos_start[0] + w*ob.gv("osp")
+                y = pos_start[1] + h*ob.gv("osp")
+                # only include if inside a circle of radius width * ob,gv("osp")/2
+                r = ((width*ob.gv("osp")) - circle_dif)/2
+                if math.sqrt(x**2 + y**2) <= r:
+                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[x,y,0], radius_name="m6", m="" ))
                 
             
     return objects
@@ -77,6 +173,22 @@ def get_oobe_plate(**kwargs):
     kwargs.update({"r": 2.5})
     
     return opsc.opsc_easy(**kwargs)    
+
+def get_oobb_slot(**kwargs):
+    objects = []
+    modes = ["laser", "3dpr", "true"]
+    w = kwargs["w"]
+    for mode in modes:
+        radius_name = kwargs.get("radius_name")
+        radius = ob.gv(f"hole_radius_{radius_name}",mode)
+        kwargs.update({"inclusion": mode})
+        kwargs.update({"shape": "slot"})
+        kwargs.update({"r": radius})
+        kwargs["w"] = w + radius*2 
+
+        objects.append(opsc.opsc_easy(**kwargs))
+    
+    return objects
 
 def get_oobb_holes_old(**kwargs):
     objects = []
@@ -159,6 +271,8 @@ def get_oobb_countersunk(include_nut=True, **kwargs):
 
     return objects
 
+
+
 def get_oobb_hole(**kwargs):
     modes = ["laser", "3dpr", "true"]
     return_value = []
@@ -178,6 +292,36 @@ def get_oobb_hole(**kwargs):
         kwargs.update({"inclusion": mode})
         return_value.append(opsc.opsc_easy(**kwargs))
     return return_value
+
+def get_oobb_cylinder(**kwargs):
+
+    radius_name = kwargs.get("radius_name", "")
+
+    modes = ["laser", "3dpr", "true"]
+    return_value = []
+    try:
+        depth = kwargs["depth"]
+    except:
+        depth = 250
+        try:
+            kwargs["pos"][2] = kwargs["pos"][2] - depth /2
+        except:
+            kwargs["z"] = kwargs["z"] - depth /2
+
+    for mode in modes:
+        kwargs["shape"] = "cylinder"
+        if radius_name != "":
+            kwargs.update({"r": ob.gv(radius_name, mode)})
+        else:
+            try:
+                kwargs.update({"r": kwargs["radius"]})
+            except:
+                kwargs.update({"r": kwargs["r"]})
+        kwargs.update({"h": depth})
+        kwargs.update({"inclusion": mode})
+        return_value.append(opsc.opsc_easy(**kwargs))
+    return return_value
+
 
 
 def get_oobb_nut_loose(**kwargs):
@@ -220,18 +364,25 @@ def get_oobb_nut(loose=False,through=False,**kwargs):
 def get_oobb_ziptie(**kwargs):
     modes = ["laser", "3dpr", "true"]
     return_value = []
+    clearance = kwargs.get("clearance", False)
     for mode in modes:        
         kwargs["shape"] = "oobb_cube_center"
         kwargs["center"] = True
         kwargs["inclusion"] = mode
         kwargs.update({"size": [ob.gv("ziptie_width", mode), ob.gv("ziptie_height", mode), 100]})
         spacing_zt = 5
+
         p3 = copy.deepcopy(kwargs)
         p3.update({"pos": [kwargs["pos"][0], kwargs["pos"][1]-spacing_zt/2, kwargs["pos"][2] - 50]})
         return_value.append(ob.oobb_easy(**p3))
         p2 = copy.deepcopy(kwargs)
         p2.update({"pos": [kwargs["pos"][0], kwargs["pos"][1]+spacing_zt/2, kwargs["pos"][2]-50]})
         return_value.append(ob.oobb_easy(**p2))
+        if clearance:
+            p4 = copy.deepcopy(kwargs)
+            p4.update({"pos": [kwargs["pos"][0], kwargs["pos"][1], kwargs["pos"][2]]})
+            p4.update({"size": [ob.gv("ziptie_width", mode), ob.gv("ziptie_height", mode)+spacing_zt, 3], "m":""})
+            return_value.append(ob.oobb_easy(**p4))
         
 
     return return_value

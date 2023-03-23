@@ -12,19 +12,49 @@ def initialize_variables():
     oobb_base.set_variable("ospe_minus", 1/2)
     oobb_base.set_variable("ospe_hole", "m3")
 
-    # radiuses
+    # bearing variables
+    bearing_d = {}
+    
+    # experience
+    #   15 prints as 15 id
+    #   27 prints as 26.8 od  01 too big
+    #   25.6 prints as 25.4 od 02 too small
+
+    bearing_d["6704"] = {"id":20, "id_e":0, "od":27, "od_e":0.2, "depth":4, "depth_e":0, "inner_holes":1}
+
+    bearing_d["6803"] = {"id":17, "id_e":0, "od":26, "od_e":0.2, "depth":5, "depth_e":0.5, "inner_holes":1}
+    bearing_d["6804"] = {"id":20, "id_e":0, "od":32, "od_e":0.2, "depth":7, "depth_e":0.5, "inner_holes":1}
+    bearing_d["6808"] = {"id":40, "id_e":0, "od":52, "od_e":0.2, "depth":7, "depth_e":0.5, "inner_holes":3}
+
+    for bn in bearing_d:
+        vl[f'bearing_{bn}_id'] = [bearing_d[bn]["id"]/2, bearing_d[bn]["id"]/2, bearing_d[bn]["id"]/2 + bearing_d[bn]["id_e"]]
+        vl[f'bearing_{bn}_od'] = [bearing_d[bn]["od"]/2, bearing_d[bn]["od"]/2, bearing_d[bn]["od"]/2 + bearing_d[bn]["od_e"]]
+        vl[f'bearing_{bn}_depth'] = [bearing_d[bn]["depth"], bearing_d[bn]["depth"], bearing_d[bn]["depth"] + bearing_d[bn]["depth_e"]]
+        vl[f'bearing_{bn}_inner_holes'] = [bearing_d[bn]["inner_holes"], bearing_d[bn]["inner_holes"], bearing_d[bn]["inner_holes"]]
+
+    
+    ##### radiuses
     m = {}
     m["15d"] = 1.6
     m["15d_3dpr"] = 1.8
     m["3"] = 3
     m["3_3dpr"] = 3.4
+    m["4"] = 4
+    m["4_3dpr"] = 4.5
+    m["5"] = 5
+    m["5_3dpr"] = 5.5
     m["6"] = 6
     m["6_3dpr"] = 6.5
 
-    # hole variables
+    ##### hole variables
     vl["hole_radius_m15d"] = [m["15d"]/2, m["15d"]/2, m["15d_3dpr"]/2]
     vl["hole_radius_m3"] = [m["3"]/2, m["3"]/2, m["3_3dpr"]/2]
+    vl["hole_radius_m4"] = [m["4"]/2, m["4"]/2, m["4_3dpr"]/2]
+    vl["hole_radius_m5"] = [m["5"]/2, m["5"]/2, m["5_3dpr"]/2]
     vl["hole_radius_m6"] = [m["6"]/2, m["6"]/2, m["6_3dpr"]/2]
+    vl["hole_radius_little_m6"] = [m["6"]/2, m["6"]/2, m["6_3dpr"]/2-.2]
+
+
 
     # nut variables
     nuts = ["m15d", "m3", "m6"]
@@ -79,8 +109,8 @@ def initialize_variables():
 
 
     # zip tie
-    vl["ziptie_height"] = [1, 1, 2]
-    vl["ziptie_width"] = [3, 3, 4]
+    vl["ziptie_height"] = [2.5, 1, 2.5]
+    vl["ziptie_width"] = [5, 3, 5]
 
     for var in vl:
         values = vl[var]

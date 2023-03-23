@@ -1,0 +1,125 @@
+{
+    "description": "shaft xx9",
+    "id": "oobb_sh_09",
+    "type": "sh",
+    "type_oobb": "shaft",
+    "width_mm": "",
+    "depth_mm": 9,
+    "height_oobb": "",
+    "components": [
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 7.0,
+            "h": 3,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "laser",
+            "depth": 3
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 7.0,
+            "h": 3,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "3dpr",
+            "depth": 3
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 7.0,
+            "h": 3,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "true",
+            "depth": 3
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 12,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "laser",
+            "depth": 12
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 3.05,
+            "h": 12,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "3dpr",
+            "depth": 12
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 12,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "true",
+            "depth": 12
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 250,
+            "pos": [
+                0,
+                0,
+                -125.0
+            ],
+            "inclusion": "laser"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.7,
+            "h": 250,
+            "pos": [
+                0,
+                0,
+                -125.0
+            ],
+            "inclusion": "3dpr"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 250,
+            "pos": [
+                0,
+                0,
+                -125.0
+            ],
+            "inclusion": "true"
+        }
+    ]
+}
