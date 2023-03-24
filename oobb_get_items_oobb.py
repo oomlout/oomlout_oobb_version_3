@@ -48,17 +48,27 @@ def get_bp(**kwargs):
         adj = 3 / ob.gv("osp")
         
     
-    hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
+    #hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
+
+    hole_positions = [1-adj,mid_h],[width+adj,mid_h],[mid_w,1-adj],[mid_w,height+adj]
     rot_current = 0
+    rotz_current = 360/12
+    times_through = 0
     for pos in hole_positions:
         x,y = ob.get_hole_pos(pos[0],pos[1],width,height)
         z = thickness/2
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current))
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current, rotZ=rotz_current))
         if rot_current == 0:
-            rot_current = 180
+            rot_current = 180            
         else:
             rot_current = 0
-    
+        #doing nut twist on the outside ones
+        if times_through == 1 or times_through == 2:
+            rotz_current = 0
+        else:
+            rotz_current = 360/12
+        times_through += 1
+
     joint_dis = 15
     hole_positions_mm = [0,joint_dis/2],[0,-joint_dis/2]
     for pos in hole_positions_mm:
@@ -74,6 +84,32 @@ def get_bp(**kwargs):
     inclusion = "3dpr"
     th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion,m=""))
 
+    return thing
+
+def get_ci(**kwargs):    
+    
+    diameter = kwargs.get("diameter", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", True)
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    th.extend(ob.oobb_easy(t="p", s="oobb_circle", diameter=diameter, depth_mm=thickness, pos=[0,0,0]))
+    #find the start point needs to be half the width_mm plus half ob.gv("osp")
+    if holes:
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", circle_dif=13,width=diameter, height=diameter, holes="circle", m=""))
+        if diameter ==  3:
+            #add 45 degree rotated ones but do the math
+            a = 10.607
+            positions = [a,a,0],[a,-a,0],[-a,a,0],[-a,-a,0]
+            for pos in positions:
+                th.extend(ob.oobb_easy(t="n", s="oobb_hole", radius_name="m6", pos=pos, m=""))
+        #add m3 holes
+        a = 7.5
+        positions = [0,a,0],[0,-a,0],[a,0,0],[-a,0,0]
+        for pos in positions:
+            th.extend(ob.oobb_easy(t="n", s="oobb_hole", radius_name="m3", pos=pos, m=""))
     return thing
 
 def get_ja(**kwargs):
@@ -117,13 +153,43 @@ def get_ja(**kwargs):
     
         th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode=mode, m="", rotY=rot_current))
         rot_current = rot_current + 180
-           
 
 
-    # halfing it if 3dpr
-    inclusion = "3dpr"
-    th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion))
+    return thing
 
+def get_jab(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 2)
+    height = kwargs.get("height", 2)
+    thickness = kwargs.get("thickness", 3)
+
+
+    # solid piece    
+    th = thing["components"]
+
+    height_cube = 13.5
+    y_plate = height_cube + (height-1)*ob.gv("osp")/2
+    
+    th.extend(ob.oe(t="p",s="oobb_pl", width=width, height=height, depth_mm=thickness, pos=[0,y_plate,-thickness/2], mode="all"))
+    
+    width_cube = ob.gv("osp")*width-ob.gv("osp_minus")
+    
+    th.append(ob.oobb_easy(t="p",s="cube", size=[width_cube,height_cube,thickness], pos=[-width_cube/2,0,-thickness/2], mode="all"))    
+    
+    # bolt holes
+    mode = "all"
+    for x in range(0,width):
+        x = (-width/2*ob.gv("osp")+ob.gv("osp")/2)+x*ob.gv("osp")
+        y = height_cube
+        z= 0
+
+        th.extend(ob.oobb_easy(t="n",s="oobb_hole", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
+        
+        # nut height
+        y = 9    
+        th.extend(ob.oobb_easy(t="n",s="oobb_nut_through", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
+    
     return thing
 
 def get_mp(**kwargs):
@@ -229,13 +295,9 @@ def get_pl(**kwargs):
     th = thing["components"]
 
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=thickness, pos=[0,0,0]))
-    modes = ["laser", "3dpr", "true"]
-    if holes == True:
-        for mode in modes:
-            #find the start point needs to be half the width_mm plus half ob.gv("osp")
-            pos_start = [-(width*ob.gv("osp")/2) + ob.gv("osp")/2, -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
-            
-            th.extend(ob.oobb_easy_array(t="n", s="hole", inclusion=mode,repeats=[width,height], pos_start = pos_start, shift_arr = [ob.gv("osp"),ob.gv("osp")], r=ob.gv("hole_radius_m6", mode) ))
+    #find the start point needs to be half the width_mm plus half ob.gv("osp")
+    if holes:
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height))
     
     return thing
 

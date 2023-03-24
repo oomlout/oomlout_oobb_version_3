@@ -3,11 +3,12 @@
     "id": "oobb_ja_05_02_12",
     "type": "ja",
     "type_oobb": "jack",
-    "width_mm": 5,
-    "width_oobb": 74,
-    "depth_mm": 12,
+    "width": 5,
+    "height": 2,
+    "thickness": 12,
+    "width_mm": 74,
+    "thickness_mm": 12,
     "height_mm": 29,
-    "height_oobb": 2,
     "components": [
         {
             "type": "p",
@@ -936,7 +937,6 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -953,7 +953,6 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -970,7 +969,6 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
@@ -1080,7 +1078,6 @@
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -1097,7 +1094,6 @@
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -1114,7 +1110,6 @@
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
@@ -1224,7 +1219,6 @@
                 -6.0
             ],
             "rotY": 360,
-            "rotZ": 30.0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -1241,7 +1235,6 @@
                 -6.0
             ],
             "rotY": 360,
-            "rotZ": 30.0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -1258,7 +1251,6 @@
                 -6.0
             ],
             "rotY": 360,
-            "rotZ": 30.0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
@@ -1368,7 +1360,6 @@
                 -6.0
             ],
             "rotY": 540,
-            "rotZ": 30.0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -1385,7 +1376,6 @@
                 -6.0
             ],
             "rotY": 540,
-            "rotZ": 30.0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -1402,27 +1392,11 @@
                 -6.0
             ],
             "rotY": 540,
-            "rotZ": 30.0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
             "m": "",
             "depth": 12
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                500,
-                500,
-                500
-            ],
-            "pos": [
-                -250.0,
-                -250.0,
-                0
-            ],
-            "inclusion": "3dpr"
         }
     ]
 }

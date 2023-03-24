@@ -1,0 +1,89 @@
+{
+    "description": "screw socket cap m3x30",
+    "id": "hardware_screw_socket_cap_m3_30",
+    "type": "screw_socket_cap",
+    "type_oobb": "screw socket cap",
+    "radius_name": "m3",
+    "depth": 30,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.9,
+            "h": 3,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "laser",
+            "depth": 30
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 3.2,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "3dpr",
+            "depth": 30
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.9,
+            "h": 3,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "true",
+            "depth": 30
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 30,
+            "pos": [
+                0,
+                0,
+                -30
+            ],
+            "inclusion": "laser",
+            "depth": 30
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.7,
+            "h": 30,
+            "pos": [
+                0,
+                0,
+                -30
+            ],
+            "inclusion": "3dpr",
+            "depth": 30
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 30,
+            "pos": [
+                0,
+                0,
+                -30
+            ],
+            "inclusion": "true",
+            "depth": 30
+        }
+    ],
+    "depth_mm": 30
+}

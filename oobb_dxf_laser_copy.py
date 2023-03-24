@@ -19,6 +19,18 @@ def folders_to_folder_stl():
     filename = "3dpr.stl"
     copy_and_rename_file(input_dir, output_dir, filename)
     
+def folders_to_folder_svg():
+    input_dir = fr'C:\GH\oomlout_oobb_v3\things'
+    output_dir = fr'C:\GH\oomlout_oobb_v3\useful_files\oobb_svg'
+    filename = "laser-flat.svg"
+    copy_and_rename_file(input_dir, output_dir, filename)
+
+def folders_to_folder_png():
+    input_dir = fr'C:\GH\oomlout_oobb_v3\things'
+    output_dir = fr'C:\GH\oomlout_oobb_v3\useful_files\oobb_png'
+    filename = "3dpr.png"
+    copy_and_rename_file(input_dir, output_dir, filename)
+
 
 
 import os
@@ -36,8 +48,13 @@ def copy_and_rename_file(input_dir, output_dir, filename):
                     os.makedirs(output_dir)
                 shutil.copy(file_path, output_file_path)
 
-if __name__ == "__main__":
-    #dxf_copy_to_laser()
+def folders_to_folder_all():
     folders_to_folder_dxf()
     folders_to_folder_stl()
+    folders_to_folder_svg()    
+    folders_to_folder_png()
+
+if __name__ == "__main__":
+    #dxf_copy_to_laser()
+    folders_to_folder_all()
 

@@ -28,11 +28,69 @@ def get_oobb_bearing(**kwargs):
     
     return 
 
+def get_oobb_bolt(include_nut=True, **kwargs):
+    objects = []
+    modes = ["laser", "3dpr", "true"]
+    shifts = []
+
+    for mode in modes:  
+        radius = kwargs["radius_name"]      
+        # countersink bit
+        p2 = copy.deepcopy(kwargs)
+        h = ob.gv(f'bolt_depth_{radius}', mode)
+        depth = kwargs["depth"]
+        rot = kwargs.get("rotY", 0)        
+        if rot == 180:
+            shifts = [0,depth,depth]
+        else:
+            shifts = [0,-depth,-depth]
+        
+        pos = kwargs.get("pos", [0,0,0])
+        pos1 = kwargs.get("pos", [0,0,0])
+        p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0]]
+        
+
+        
+        p2["r"] = ob.gv(f"bolt_radius_{radius}", mode)
+        p2["h"] = h
+        
+        p2["shape"] = "polyg"
+        p2["sides"] = 6
+        p2["inclusion"] = mode
+        objects.append(ob.oobb_easy(**p2))      
+    # hole
+    p2 = copy.deepcopy(kwargs)
+    p2["shape"] = "oobb_hole"
+    p2["inclusion"] = mode
+    
+    p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[1]]
+    objects.extend(ob.oobb_easy(**p2))
+    # nut
+    if include_nut:
+        p2 = copy.deepcopy(kwargs)
+        ##maybe add a nut level argument later
+        p2["shape"] = "oobb_nut"
+        p2["inclusion"] = mode
+        pos1 = kwargs.get("pos", [0,0,0])
+        p2["pos"] = [pos[0], pos[1], pos[2] + shifts[2]]
+        #p2["rotZ"] = 360/12
+        objects.extend(ob.oobb_easy(**p2))
+    
+
+    return objects
+
 def get_oobb_cube_center(**kwargs):
     kwargs.update({"shape": "cube"})
     new_pos = [kwargs["pos"][0] - kwargs["size"][0]/2, kwargs["pos"][1] - kwargs["size"][1]/2, kwargs["pos"][2]]
     kwargs.update({"pos": new_pos})
     return opsc.opsc_easy(**kwargs)
+
+def get_oobb_circle(**kwargs):
+    kwargs.update({"radius": kwargs["diameter"]/2 * ob.gv("osp") - ob.gv("osp_minus")})
+    #set the size    
+    kwargs.update({"shape": "oobb_cylinder"})
+    return oobb.oobb_easy(**kwargs)  
+
 
 def get_oobb_plate(**kwargs):
     kwargs.update({"width_mm": kwargs["width"] * ob.gv("osp") - ob.gv("osp_minus")})
@@ -41,7 +99,8 @@ def get_oobb_plate(**kwargs):
     kwargs.update({"size": [kwargs["width_mm"], kwargs["height_mm"], kwargs["depth_mm"]]})
 
     kwargs.update({"shape": "rounded_rectangle"})
-    return opsc.opsc_easy(**kwargs)    
+    return opsc.opsc_easy(**kwargs) 
+  
 
 import math
 
@@ -147,8 +206,7 @@ def get_oobb_holes(holes="all", **kwargs):
     elif holes == "circle":
         #find the start point needs to be half the width_mm plus half osp
         pos_start = [x + -(width*ob.gv("osp")/2) + ob.gv("osp")/2, y + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
-        #pos_start = [0,0,0]
-        objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[0,0,0], radius_name="m6", m="" ))
+        #pos_start = [0,0,0]        
         circle_dif = kwargs.get("circle_dif", 0)
         for w in range(0,width):
             for h in range(0,height):
@@ -221,6 +279,10 @@ def get_oobe_holes(**kwargs):
     return objects
 
 import copy
+
+def get_oobb_screw_countersunk(include_nut=True, **kwargs):
+    return get_oobb_countersunk(**kwargs)
+
 def get_oobb_countersunk(include_nut=True, **kwargs):
     objects = []
     modes = ["laser", "3dpr", "true"]
@@ -265,7 +327,58 @@ def get_oobb_countersunk(include_nut=True, **kwargs):
         p2["shape"] = "oobb_nut"
         p2["inclusion"] = mode
         p2["pos"] = [kwargs["pos"][0], kwargs["pos"][1], kwargs["pos"][2] + shifts[2]]
-        p2["rotZ"] = 360/12
+        #p2["rotZ"] = 360/12
+        objects.extend(ob.oobb_easy(**p2))
+    
+
+    return objects
+
+
+def get_oobb_screw_socket_cap(include_nut=True, **kwargs):
+    objects = []
+    modes = ["laser", "3dpr", "true"]
+    shifts = []
+
+    for mode in modes:  
+        radius = kwargs["radius_name"]      
+        # countersink bit
+        p2 = copy.deepcopy(kwargs)
+        h = ob.gv(f'screw_socket_cap_height_{radius}', mode)
+        depth = kwargs["depth"]
+        rot = kwargs.get("rotY", 0)        
+        if rot == 180:
+            shifts = [0,depth,depth]
+        else:
+            shifts = [0,-depth,-depth]
+        
+        pos = kwargs.get("pos", [0,0,0])
+        pos1 = kwargs.get("pos", [0,0,0])
+        p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0]]
+        
+
+        
+        p2["r"] = ob.gv(f"screw_socket_cap_radius_{radius}", mode)
+        p2["h"] = h
+        
+        p2["shape"] = "cylinder"
+        p2["inclusion"] = mode
+        objects.append(ob.oobb_easy(**p2))      
+    # hole
+    p2 = copy.deepcopy(kwargs)
+    p2["shape"] = "oobb_hole"
+    p2["inclusion"] = mode
+    
+    p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[1]]
+    objects.extend(ob.oobb_easy(**p2))
+    # nut
+    if include_nut:
+        p2 = copy.deepcopy(kwargs)
+        ##maybe add a nut level argument later
+        p2["shape"] = "oobb_nut"
+        p2["inclusion"] = mode
+        pos1 = kwargs.get("pos", [0,0,0])
+        p2["pos"] = [pos[0], pos[1], pos[2] + shifts[2]]
+        #p2["rotZ"] = 360/12
         objects.extend(ob.oobb_easy(**p2))
     
 
@@ -299,14 +412,22 @@ def get_oobb_cylinder(**kwargs):
 
     modes = ["laser", "3dpr", "true"]
     return_value = []
+    ## deciding how to define depth either string or name
     try:
         depth = kwargs["depth"]
     except:
-        depth = 250
         try:
-            kwargs["pos"][2] = kwargs["pos"][2] - depth /2
+            depth = kwargs["depth_mm"]
         except:
+            depth = 250
+    ## figuring out z so it is in the middle of the object
+    try:
+        kwargs["pos"][2] = kwargs["pos"][2] - depth /2
+    except:
+        try:
             kwargs["z"] = kwargs["z"] - depth /2
+        except:
+            pass
 
     for mode in modes:
         kwargs["shape"] = "cylinder"
@@ -317,7 +438,10 @@ def get_oobb_cylinder(**kwargs):
                 kwargs.update({"r": kwargs["radius"]})
             except:
                 kwargs.update({"r": kwargs["r"]})
-        kwargs.update({"h": depth})
+        if isinstance(depth, str):
+            kwargs.update({"h": ob.gv(depth, mode)})
+        else:
+            kwargs.update({"h": depth})
         kwargs.update({"inclusion": mode})
         return_value.append(opsc.opsc_easy(**kwargs))
     return return_value
@@ -361,6 +485,24 @@ def get_oobb_nut(loose=False,through=False,**kwargs):
             return_value.append(opsc.opsc_easy(**kwargs))
     return return_value
 
+def get_oobb_standoff(loose=False,**kwargs):
+    l_string = ""
+    if loose:
+        l_string = "loose_"
+
+    modes = ["laser", "3dpr", "true"]
+    return_value = []
+    depth = kwargs["depth"]
+    for mode in modes:    
+        kwargs["shape"] = "polyg"
+        kwargs["sides"] = 6
+        kwargs["inclusion"] = mode
+        radius_name = kwargs["radius_name"]
+        kwargs.update({"r": ob.gv(f"nut_radius_{l_string}{radius_name}", mode)})
+        kwargs.update({"height": depth})
+        return_value.append(opsc.opsc_easy(**kwargs))        
+    return return_value
+
 def get_oobb_ziptie(**kwargs):
     modes = ["laser", "3dpr", "true"]
     return_value = []
@@ -370,7 +512,7 @@ def get_oobb_ziptie(**kwargs):
         kwargs["center"] = True
         kwargs["inclusion"] = mode
         kwargs.update({"size": [ob.gv("ziptie_width", mode), ob.gv("ziptie_height", mode), 100]})
-        spacing_zt = 5
+        spacing_zt = 7
 
         p3 = copy.deepcopy(kwargs)
         p3.update({"pos": [kwargs["pos"][0], kwargs["pos"][1]-spacing_zt/2, kwargs["pos"][2] - 50]})

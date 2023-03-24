@@ -1,11 +1,9 @@
 {
-    "description": "shaft xx4",
+    "description": "shaft",
     "id": "oobb_sh_04",
     "type": "sh",
     "type_oobb": "shaft",
-    "width_mm": "",
-    "depth_mm": 4,
-    "height_oobb": "",
+    "thickness": 4,
     "components": [
         {
             "type": "p",
@@ -15,7 +13,7 @@
             "pos": [
                 0,
                 0,
-                0
+                -1.5
             ],
             "inclusion": "laser",
             "depth": 3
@@ -28,7 +26,7 @@
             "pos": [
                 0,
                 0,
-                0
+                -1.5
             ],
             "inclusion": "3dpr",
             "depth": 3
@@ -41,7 +39,7 @@
             "pos": [
                 0,
                 0,
-                0
+                -1.5
             ],
             "inclusion": "true",
             "depth": 3
@@ -54,7 +52,7 @@
             "pos": [
                 0,
                 0,
-                0
+                -3.5
             ],
             "inclusion": "laser",
             "depth": 7
@@ -62,12 +60,12 @@
         {
             "type": "p",
             "shape": "cylinder",
-            "r": 3.05,
+            "r": 2.85,
             "h": 7,
             "pos": [
                 0,
                 0,
-                0
+                -3.5
             ],
             "inclusion": "3dpr",
             "depth": 7
@@ -80,7 +78,7 @@
             "pos": [
                 0,
                 0,
-                0
+                -3.5
             ],
             "inclusion": "true",
             "depth": 7

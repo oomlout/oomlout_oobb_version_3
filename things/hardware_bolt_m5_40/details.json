@@ -1,0 +1,98 @@
+{
+    "description": "bolt m5x40",
+    "id": "hardware_bolt_m5_40",
+    "type": "bolt",
+    "type_oobb": "bolt",
+    "radius_name": "m5",
+    "depth": 40,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "polyg",
+            "r": 4.616,
+            "h": 3.5,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "rotY": 0,
+            "inclusion": "laser",
+            "sides": 6,
+            "depth": 40
+        },
+        {
+            "type": "positive",
+            "shape": "polyg",
+            "r": 4.8468,
+            "h": 3.6,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "rotY": 0,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "depth": 40
+        },
+        {
+            "type": "positive",
+            "shape": "polyg",
+            "r": 4.616,
+            "h": 3.5,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "rotY": 0,
+            "inclusion": "true",
+            "sides": 6,
+            "depth": 40
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.5,
+            "h": 40,
+            "pos": [
+                0,
+                0,
+                -40
+            ],
+            "rotY": 0,
+            "inclusion": "laser",
+            "depth": 40
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.75,
+            "h": 40,
+            "pos": [
+                0,
+                0,
+                -40
+            ],
+            "rotY": 0,
+            "inclusion": "3dpr",
+            "depth": 40
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.5,
+            "h": 40,
+            "pos": [
+                0,
+                0,
+                -40
+            ],
+            "rotY": 0,
+            "inclusion": "true",
+            "depth": 40
+        }
+    ],
+    "depth_mm": 40
+}

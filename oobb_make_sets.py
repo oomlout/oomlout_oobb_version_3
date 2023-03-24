@@ -1,12 +1,13 @@
 
 import oobb_get_items_oobb
 import oobb_get_items_other
+import oobb_get_items_base
 import oobb_get_items_test  
 import oobb_base
 
 def make_all(filter=""):
     #typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
-    typs = ["bps","jas","mps","pls","shs","zts"]
+    typs = ["bps","cis","jas","mps","pls","shs","zts","nuts","screws","bearings"]
     all_things = []
 
     for type in typs:
@@ -16,7 +17,10 @@ def make_all(filter=""):
             pass
     
     for thing in all_things:
-        func = getattr(oobb_get_items_oobb,"get_"+thing["type"])
+        try:
+            func = getattr(oobb_get_items_oobb,"get_"+thing["type"])
+        except AttributeError:
+            func = getattr(oobb_get_items_other,"get_"+thing["type"])
         thing = func(**thing)
         oobb_base.add_thing(thing)
         pass
@@ -34,15 +38,26 @@ def get_bps(size="oobb"):
     
     return bps
 
+
+def get_cis(size="oobb"):
+    circles = []
+    circle_size = [3,5,7,9,11,13,15,17,19,21]
+    for s in circle_size:
+        circles.append({"type":"ci", "diameter":s,"thickness":3,"size":size})
+    return circles
+                        
+
 def get_jas(size="oobb"):
     jas = []
     for wid in range(3,10):  
         jas.append({"type":"ja","width":wid, "height":1, "thickness":12,"size":size})
+        jas.append({"type":"jab","width":wid, "height":1, "thickness":12,"size":size})
         
     jas.append({"type":"ja","width":3, "height":2, "thickness":12,"size":size})
     jas.append({"type":"ja","width":5, "height":2, "thickness":12,"size":size})
     jas.append({"type":"ja","width":3, "height":3, "thickness":12,"size":size})
     
+
     return jas
 
 def get_mps(size="oobb"):
@@ -149,20 +164,51 @@ def get_zts(size="oobb"):
     return zts
     
 #other makes
+def get_bearings():
+    bearings = []
+    bearing_names = ['6701', '6702', '6703', '6704', '6705', '6706', '6707', '6800', '6801', '6802', '6803', '6804', '6805', '6806', '6807', '6808', '6809', '6810', '6811', '6812', '6813', '6814', '6815', '6816', '6817', '6818', '6819', '6820', '6821', '6822', '6824', '6826', '6828', '6830']
+
+    for bearing in bearing_names:
+        bearings.append({"type":"bearing", "bearing_name":bearing, "size":"hardware"})
+
+    return bearings
 
 def get_nuts():
-    nuts = ["m3","m6"]
-    for nut in nuts:
-        thing = oobb_get_items_other.get_nut(nut)
-        oobb_base.add_thing(thing)
+    nuts = []
+    nut_sizes = ["m1d5","m2","m3","m4","m5", "m6", "m8", "m10", "m12"]
+    #nut_sizes = ["m10", "m12"]
+    for nut_size in nut_sizes:
+        nuts.append({"type":"nut", "radius_name":nut_size, "size":"hardware"})
 
-def get_screws_countersunk():
-    screws = ["m3"]
-    depths = [8,10,12,16,18,20,25,30,35,40]
-    for screw in screws:
-        for depth in depths:
-            thing = oobb_get_items_other.get_screw_countersunk(screw,depth)
-            oobb_base.add_thing(thing)
+
+    standoff_lengths = [6,8,10,12,15,20,25,30]
+    standoff_radiuses = ["m3"]
+    for standoff_radius in standoff_radiuses:
+        for standoff_length in standoff_lengths:
+            nuts.append({"type":"standoff", "radius_name":standoff_radius, "depth":standoff_length, "size":"hardware"})
+
+    return nuts
+
+
+def get_screws():
+    screws = []
+    sizes = {}
+    sizes["m3"] = [8,10,12,16,18,20,25,30,35,40]
+    for size in sizes:
+        for depth in sizes[size]:
+            screws.append({"type":"screw_countersunk", "radius_name":size, "depth":depth, "size":"hardware"})
+            screws.append({"type":"screw_socket_cap", "radius_name":size, "depth":depth, "size":"hardware"})
+
+    sizes = {}
+    lengths = [6,12,16,18,20,25,30,35,40,45,50,55,60]
+    sizes["m5"] = lengths
+    sizes["m6"] = lengths
+    for size in sizes:
+        for depth in sizes[size]:
+            screws.append({"type":"bolt", "radius_name":size, "depth":depth, "size":"hardware"})
+
+
+    return screws
 
 def get_tests():
     

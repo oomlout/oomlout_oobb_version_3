@@ -1,0 +1,66 @@
+{
+    "description": "nut m8x6.5",
+    "id": "hardware_nut_m8",
+    "type": "nut",
+    "type_oobb": "nut",
+    "radius_name": "m8",
+    "components": [
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 7.5009999999999994,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 6.5
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 7.789499999999999,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 6.8
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 7.5009999999999994,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 6.5
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 4.0,
+            "h": 100,
+            "z": -10,
+            "inclusion": "laser",
+            "m": "",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 4.25,
+            "h": 100,
+            "z": -10,
+            "inclusion": "3dpr",
+            "m": "",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 4.0,
+            "h": 100,
+            "z": -10,
+            "inclusion": "true",
+            "m": "",
+            "depth": 100
+        }
+    ],
+    "width_mm": 7.5009999999999994,
+    "depth_mm": 6.5,
+    "height_mm": 6.5
+}

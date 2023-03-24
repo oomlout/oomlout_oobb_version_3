@@ -163,7 +163,7 @@ difference() {
 			}
 		}
 		translate(v = [-15.0000000000, 13.5000000000, -6.0000000000]) {
-			rotate(a = [0, 0, 30.0000000000]) {
+			rotate(a = [0, 0, 0]) {
 				translate(v = [0, 0, 0]) {
 					rotate(a = [0, 0, 0]) {
 						linear_extrude(height = 3) {
@@ -184,7 +184,7 @@ difference() {
 			}
 		}
 		translate(v = [0.0000000000, 13.5000000000, 6.0000000000]) {
-			rotate(a = [0, 180, 30.0000000000]) {
+			rotate(a = [0, 180, 0]) {
 				translate(v = [0, 0, 0]) {
 					rotate(a = [0, 0, 0]) {
 						linear_extrude(height = 3) {
@@ -205,7 +205,7 @@ difference() {
 			}
 		}
 		translate(v = [15.0000000000, 13.5000000000, -6.0000000000]) {
-			rotate(a = [0, 360, 30.0000000000]) {
+			rotate(a = [0, 360, 0]) {
 				translate(v = [0, 0, 0]) {
 					rotate(a = [0, 0, 0]) {
 						linear_extrude(height = 3) {
@@ -213,11 +213,6 @@ difference() {
 						}
 					}
 				}
-			}
-		}
-		translate(v = [-250.0000000000, -250.0000000000, 0]) {
-			rotate(a = [0, 0, 0]) {
-				cube(size = [500, 500, 500]);
 			}
 		}
 	}

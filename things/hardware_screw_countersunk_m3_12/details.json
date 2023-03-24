@@ -1,0 +1,92 @@
+{
+    "description": "screw countersunk m3x12",
+    "id": "hardware_screw_countersunk_m3_12",
+    "type": "screw_countersunk",
+    "type_oobb": "screw countersunk",
+    "radius_name": "m3",
+    "depth": 12,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r1": 1.5,
+            "r2": 2.9,
+            "h": 1.7,
+            "pos": [
+                0,
+                0,
+                -1.7
+            ],
+            "inclusion": "laser",
+            "depth": 12
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r1": 1.7,
+            "r2": 3.6,
+            "h": 1.9,
+            "pos": [
+                0,
+                0,
+                -1.9
+            ],
+            "inclusion": "3dpr",
+            "depth": 12
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r1": 1.5,
+            "r2": 2.9,
+            "h": 1.7,
+            "pos": [
+                0,
+                0,
+                -1.7
+            ],
+            "inclusion": "true",
+            "depth": 12
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 12,
+            "pos": [
+                0,
+                0,
+                -12
+            ],
+            "inclusion": "laser",
+            "depth": 12
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.7,
+            "h": 12,
+            "pos": [
+                0,
+                0,
+                -12
+            ],
+            "inclusion": "3dpr",
+            "depth": 12
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 12,
+            "pos": [
+                0,
+                0,
+                -12
+            ],
+            "inclusion": "true",
+            "depth": 12
+        }
+    ],
+    "depth_mm": 12
+}

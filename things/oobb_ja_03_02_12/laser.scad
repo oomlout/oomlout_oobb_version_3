@@ -165,7 +165,7 @@ difference() {
 			}
 		}
 		translate(v = [-7.5000000000, 13.5000000000, -6.0000000000]) {
-			rotate(a = [0, 0, 30.0000000000]) {
+			rotate(a = [0, 0, 0]) {
 				translate(v = [0, 0, 0]) {
 					rotate(a = [0, 0, 0]) {
 						linear_extrude(height = 2.5000000000) {
@@ -186,7 +186,7 @@ difference() {
 			}
 		}
 		translate(v = [7.5000000000, 13.5000000000, 6.0000000000]) {
-			rotate(a = [0, 180, 30.0000000000]) {
+			rotate(a = [0, 180, 0]) {
 				translate(v = [0, 0, 0]) {
 					rotate(a = [0, 0, 0]) {
 						linear_extrude(height = 2.5000000000) {

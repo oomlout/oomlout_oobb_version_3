@@ -1,0 +1,66 @@
+{
+    "description": "nut m10x10",
+    "id": "hardware_nut_rn_m10",
+    "type": "nut",
+    "type_oobb": "nut",
+    "width_mm": 9.809,
+    "depth_mm": 10,
+    "height_oobb": "",
+    "components": [
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 9.809,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 10
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 10.0975,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 10.5
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 9.809,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 10
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 5.0,
+            "h": 100,
+            "z": -10,
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 5.25,
+            "h": 100,
+            "z": -10,
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 5.0,
+            "h": 100,
+            "z": -10,
+            "inclusion": "true",
+            "m": "#",
+            "depth": 100
+        }
+    ],
+    "height_mm": 8.5
+}

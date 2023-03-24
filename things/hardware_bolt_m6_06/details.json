@@ -1,0 +1,98 @@
+{
+    "description": "bolt m6x6",
+    "id": "hardware_bolt_m6_06",
+    "type": "bolt",
+    "type_oobb": "bolt",
+    "radius_name": "m6",
+    "depth": 6,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "polyg",
+            "r": 5.77,
+            "h": 4,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "rotY": 0,
+            "inclusion": "laser",
+            "sides": 6,
+            "depth": 6
+        },
+        {
+            "type": "positive",
+            "shape": "polyg",
+            "r": 5.914249999999999,
+            "h": 4.5,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "rotY": 0,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "depth": 6
+        },
+        {
+            "type": "positive",
+            "shape": "polyg",
+            "r": 5.77,
+            "h": 4,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "rotY": 0,
+            "inclusion": "true",
+            "sides": 6,
+            "depth": 6
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 6,
+            "pos": [
+                0,
+                0,
+                -6
+            ],
+            "rotY": 0,
+            "inclusion": "laser",
+            "depth": 6
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 3.25,
+            "h": 6,
+            "pos": [
+                0,
+                0,
+                -6
+            ],
+            "rotY": 0,
+            "inclusion": "3dpr",
+            "depth": 6
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 6,
+            "pos": [
+                0,
+                0,
+                -6
+            ],
+            "rotY": 0,
+            "inclusion": "true",
+            "depth": 6
+        }
+    ],
+    "depth_mm": 6
+}

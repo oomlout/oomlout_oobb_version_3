@@ -1,0 +1,66 @@
+{
+    "description": "nut m3x2.5",
+    "id": "hardware_nut_m3",
+    "type": "nut",
+    "type_oobb": "nut",
+    "radius_name": "m3",
+    "components": [
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 3.1734999999999998,
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 3.3465999999999996,
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 3
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 3.1734999999999998,
+            "inclusion": "true",
+            "sides": 6,
+            "height": 2.5
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 100,
+            "z": -10,
+            "inclusion": "laser",
+            "m": "",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.7,
+            "h": 100,
+            "z": -10,
+            "inclusion": "3dpr",
+            "m": "",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 100,
+            "z": -10,
+            "inclusion": "true",
+            "m": "",
+            "depth": 100
+        }
+    ],
+    "width_mm": 3.1734999999999998,
+    "depth_mm": 2.5,
+    "height_mm": 2.75
+}

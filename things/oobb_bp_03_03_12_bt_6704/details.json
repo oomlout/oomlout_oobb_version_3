@@ -3,11 +3,13 @@
     "id": "oobb_bp_03_03_12_bt_6704",
     "type": "bp",
     "type_oobb": "bearing plate",
-    "width_mm": 3,
-    "width_oobb": 44,
-    "depth_mm": 12,
+    "width": 3,
+    "height": 3,
+    "thickness": 12,
+    "bearing_type": "6704",
+    "width_mm": 44,
+    "thickness_mm": 12,
     "height_mm": 44,
-    "height_oobb": 3,
     "components": [
         {
             "type": "p",
@@ -64,7 +66,7 @@
             "m": "",
             "id": 10.0,
             "od": 13.7,
-            "depth": 4
+            "depth": 3.6
         },
         {
             "type": "negative",
@@ -217,45 +219,6 @@
             "pos": [
                 15.0,
                 15.0,
-                -125.0
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "negative",
-            "shape": "cylinder",
-            "r": 3.0,
-            "h": 250,
-            "pos": [
-                0,
-                0,
-                -125.0
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "negative",
-            "shape": "cylinder",
-            "r": 3.25,
-            "h": 250,
-            "pos": [
-                0,
-                0,
-                -125.0
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "negative",
-            "shape": "cylinder",
-            "r": 3.0,
-            "h": 250,
-            "pos": [
-                0,
-                0,
                 -125.0
             ],
             "inclusion": "true",
@@ -390,6 +353,7 @@
                 4.3
             ],
             "rotY": 0,
+            "rotZ": 30.0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -406,6 +370,7 @@
                 4.1
             ],
             "rotY": 0,
+            "rotZ": 30.0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -422,6 +387,7 @@
                 4.3
             ],
             "rotY": 0,
+            "rotZ": 30.0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -437,6 +403,7 @@
                 -6.0
             ],
             "rotY": 0,
+            "rotZ": 30.0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -452,6 +419,7 @@
                 -6.0
             ],
             "rotY": 0,
+            "rotZ": 30.0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -467,6 +435,7 @@
                 -6.0
             ],
             "rotY": 0,
+            "rotZ": 30.0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -529,11 +498,12 @@
             "r2": 2.9,
             "h": 1.7,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 -4.300000000000001
             ],
             "rotY": 180,
+            "rotZ": 30.0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -545,11 +515,12 @@
             "r2": 3.6,
             "h": 1.9,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 -4.1
             ],
             "rotY": 180,
+            "rotZ": 30.0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -561,11 +532,12 @@
             "r2": 2.9,
             "h": 1.7,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 -4.300000000000001
             ],
             "rotY": 180,
+            "rotZ": 30.0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -576,11 +548,12 @@
             "r": 1.5,
             "h": 12,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 6.0
             ],
             "rotY": 180,
+            "rotZ": 30.0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -591,11 +564,12 @@
             "r": 1.7,
             "h": 12,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 6.0
             ],
             "rotY": 180,
+            "rotZ": 30.0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -606,11 +580,12 @@
             "r": 1.5,
             "h": 12,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 6.0
             ],
             "rotY": 180,
+            "rotZ": 30.0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -620,8 +595,8 @@
             "shape": "polyg",
             "r": 3.1734999999999998,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 6.0
             ],
             "rotY": 180,
@@ -637,8 +612,8 @@
             "shape": "polyg",
             "r": 3.3465999999999996,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 6.0
             ],
             "rotY": 180,
@@ -654,8 +629,8 @@
             "shape": "polyg",
             "r": 3.1734999999999998,
             "pos": [
-                0.0,
                 18.0,
+                0.0,
                 6.0
             ],
             "rotY": 180,
@@ -678,6 +653,7 @@
                 4.3
             ],
             "rotY": 0,
+            "rotZ": 0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -694,6 +670,7 @@
                 4.1
             ],
             "rotY": 0,
+            "rotZ": 0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -710,6 +687,7 @@
                 4.3
             ],
             "rotY": 0,
+            "rotZ": 0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -725,6 +703,7 @@
                 -6.0
             ],
             "rotY": 0,
+            "rotZ": 0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -740,6 +719,7 @@
                 -6.0
             ],
             "rotY": 0,
+            "rotZ": 0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -755,6 +735,7 @@
                 -6.0
             ],
             "rotY": 0,
+            "rotZ": 0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -769,7 +750,7 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
+            "rotZ": 0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -786,7 +767,7 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
+            "rotZ": 0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -803,7 +784,7 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
+            "rotZ": 0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
@@ -817,11 +798,12 @@
             "r2": 2.9,
             "h": 1.7,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 -4.300000000000001
             ],
             "rotY": 180,
+            "rotZ": 0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -833,11 +815,12 @@
             "r2": 3.6,
             "h": 1.9,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 -4.1
             ],
             "rotY": 180,
+            "rotZ": 0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -849,11 +832,12 @@
             "r2": 2.9,
             "h": 1.7,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 -4.300000000000001
             ],
             "rotY": 180,
+            "rotZ": 0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -864,11 +848,12 @@
             "r": 1.5,
             "h": 12,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 6.0
             ],
             "rotY": 180,
+            "rotZ": 0,
             "inclusion": "laser",
             "m": "",
             "depth": 12
@@ -879,11 +864,12 @@
             "r": 1.7,
             "h": 12,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 6.0
             ],
             "rotY": 180,
+            "rotZ": 0,
             "inclusion": "3dpr",
             "m": "",
             "depth": 12
@@ -894,11 +880,12 @@
             "r": 1.5,
             "h": 12,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 6.0
             ],
             "rotY": 180,
+            "rotZ": 0,
             "inclusion": "true",
             "m": "",
             "depth": 12
@@ -908,12 +895,12 @@
             "shape": "polyg",
             "r": 3.1734999999999998,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
+            "rotZ": 0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -925,12 +912,12 @@
             "shape": "polyg",
             "r": 3.3465999999999996,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
+            "rotZ": 0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -942,12 +929,12 @@
             "shape": "polyg",
             "r": 3.1734999999999998,
             "pos": [
-                18.0,
                 0.0,
+                18.0,
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
+            "rotZ": 0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
@@ -1057,7 +1044,6 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -1074,7 +1060,6 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -1091,7 +1076,6 @@
                 -6.0
             ],
             "rotY": 0,
-            "rotZ": 30.0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,
@@ -1201,7 +1185,6 @@
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
             "inclusion": "laser",
             "sides": 6,
             "height": 2.5,
@@ -1218,7 +1201,6 @@
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
             "inclusion": "3dpr",
             "sides": 6,
             "height": 3,
@@ -1235,7 +1217,6 @@
                 6.0
             ],
             "rotY": 180,
-            "rotZ": 30.0,
             "inclusion": "true",
             "sides": 6,
             "height": 2.5,

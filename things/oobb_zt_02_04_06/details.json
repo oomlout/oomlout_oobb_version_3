@@ -3,11 +3,12 @@
     "id": "oobb_zt_02_04_06",
     "type": "zt",
     "type_oobb": "zip tie mount",
-    "width_mm": 2,
-    "width_oobb": 29,
-    "depth_mm": 6,
+    "width": 2,
+    "height": 4,
+    "thickness": 6,
+    "width_mm": 29,
+    "thickness_mm": 6,
     "height_mm": 59,
-    "height_oobb": 4,
     "components": [
         {
             "type": "p",
@@ -185,13 +186,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                -10.0,
-                -11.25,
+                -9.5,
+                -11.75,
                 -50
             ],
             "inclusion": "laser",
@@ -201,13 +202,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                -10.0,
-                -6.25,
+                -9.5,
+                -4.75,
                 -50
             ],
             "inclusion": "laser",
@@ -217,13 +218,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                7.5,
+                4,
+                8.5,
                 3
             ],
             "pos": [
-                -10.0,
-                -11.25,
+                -9.5,
+                -11.75,
                 0
             ],
             "inclusion": "laser",
@@ -233,13 +234,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                -10.0,
-                -11.25,
+                -9.5,
+                -11.75,
                 -50
             ],
             "inclusion": "3dpr",
@@ -249,13 +250,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                -10.0,
-                -6.25,
+                -9.5,
+                -4.75,
                 -50
             ],
             "inclusion": "3dpr",
@@ -265,301 +266,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                7.5,
+                4,
+                8.5,
                 3
             ],
             "pos": [
-                -10.0,
-                -11.25,
-                0
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                3,
-                1,
-                100
-            ],
-            "pos": [
-                -9.0,
-                -10.5,
-                -50
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                3,
-                1,
-                100
-            ],
-            "pos": [
-                -9.0,
-                -5.5,
-                -50
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                3,
-                6,
-                3
-            ],
-            "pos": [
-                -9.0,
-                -10.5,
-                0
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                5.0,
-                -11.25,
-                -50
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                5.0,
-                -6.25,
-                -50
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                7.5,
-                3
-            ],
-            "pos": [
-                5.0,
-                -11.25,
-                0
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                5.0,
-                -11.25,
-                -50
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                5.0,
-                -6.25,
-                -50
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                7.5,
-                3
-            ],
-            "pos": [
-                5.0,
-                -11.25,
-                0
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                3,
-                1,
-                100
-            ],
-            "pos": [
-                6.0,
-                -10.5,
-                -50
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                3,
-                1,
-                100
-            ],
-            "pos": [
-                6.0,
-                -5.5,
-                -50
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                3,
-                6,
-                3
-            ],
-            "pos": [
-                6.0,
-                -10.5,
-                0
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                -10.0,
-                3.75,
-                -50
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                -10.0,
-                8.75,
-                -50
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                7.5,
-                3
-            ],
-            "pos": [
-                -10.0,
-                3.75,
-                0
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                -10.0,
-                3.75,
-                -50
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                2.5,
-                100
-            ],
-            "pos": [
-                -10.0,
-                8.75,
-                -50
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cube",
-            "size": [
-                5,
-                7.5,
-                3
-            ],
-            "pos": [
-                -10.0,
-                3.75,
+                -9.5,
+                -11.75,
                 0
             ],
             "inclusion": "3dpr",
@@ -575,7 +288,7 @@
             ],
             "pos": [
                 -9.0,
-                4.5,
+                -11.5,
                 -50
             ],
             "inclusion": "true",
@@ -591,7 +304,7 @@
             ],
             "pos": [
                 -9.0,
-                9.5,
+                -4.5,
                 -50
             ],
             "inclusion": "true",
@@ -602,12 +315,12 @@
             "shape": "cube",
             "size": [
                 3,
-                6,
+                8,
                 3
             ],
             "pos": [
                 -9.0,
-                4.5,
+                -11.5,
                 0
             ],
             "inclusion": "true",
@@ -617,13 +330,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                5.0,
-                3.75,
+                5.5,
+                -11.75,
                 -50
             ],
             "inclusion": "laser",
@@ -633,13 +346,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                5.0,
-                8.75,
+                5.5,
+                -4.75,
                 -50
             ],
             "inclusion": "laser",
@@ -649,13 +362,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                7.5,
+                4,
+                8.5,
                 3
             ],
             "pos": [
-                5.0,
-                3.75,
+                5.5,
+                -11.75,
                 0
             ],
             "inclusion": "laser",
@@ -665,13 +378,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                5.0,
-                3.75,
+                5.5,
+                -11.75,
                 -50
             ],
             "inclusion": "3dpr",
@@ -681,13 +394,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                2.5,
+                4,
+                1.5,
                 100
             ],
             "pos": [
-                5.0,
-                8.75,
+                5.5,
+                -4.75,
                 -50
             ],
             "inclusion": "3dpr",
@@ -697,13 +410,13 @@
             "type": "n",
             "shape": "cube",
             "size": [
-                5,
-                7.5,
+                4,
+                8.5,
                 3
             ],
             "pos": [
-                5.0,
-                3.75,
+                5.5,
+                -11.75,
                 0
             ],
             "inclusion": "3dpr",
@@ -719,7 +432,7 @@
             ],
             "pos": [
                 6.0,
-                4.5,
+                -11.5,
                 -50
             ],
             "inclusion": "true",
@@ -735,7 +448,7 @@
             ],
             "pos": [
                 6.0,
-                9.5,
+                -4.5,
                 -50
             ],
             "inclusion": "true",
@@ -746,12 +459,300 @@
             "shape": "cube",
             "size": [
                 3,
-                6,
+                8,
                 3
             ],
             "pos": [
                 6.0,
-                4.5,
+                -11.5,
+                0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                -9.5,
+                3.25,
+                -50
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                -9.5,
+                10.25,
+                -50
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                8.5,
+                3
+            ],
+            "pos": [
+                -9.5,
+                3.25,
+                0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                -9.5,
+                3.25,
+                -50
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                -9.5,
+                10.25,
+                -50
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                8.5,
+                3
+            ],
+            "pos": [
+                -9.5,
+                3.25,
+                0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                3,
+                1,
+                100
+            ],
+            "pos": [
+                -9.0,
+                3.5,
+                -50
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                3,
+                1,
+                100
+            ],
+            "pos": [
+                -9.0,
+                10.5,
+                -50
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                3,
+                8,
+                3
+            ],
+            "pos": [
+                -9.0,
+                3.5,
+                0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                5.5,
+                3.25,
+                -50
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                5.5,
+                10.25,
+                -50
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                8.5,
+                3
+            ],
+            "pos": [
+                5.5,
+                3.25,
+                0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                5.5,
+                3.25,
+                -50
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                1.5,
+                100
+            ],
+            "pos": [
+                5.5,
+                10.25,
+                -50
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                4,
+                8.5,
+                3
+            ],
+            "pos": [
+                5.5,
+                3.25,
+                0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                3,
+                1,
+                100
+            ],
+            "pos": [
+                6.0,
+                3.5,
+                -50
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                3,
+                1,
+                100
+            ],
+            "pos": [
+                6.0,
+                10.5,
+                -50
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "cube",
+            "size": [
+                3,
+                8,
+                3
+            ],
+            "pos": [
+                6.0,
+                3.5,
                 0
             ],
             "inclusion": "true",

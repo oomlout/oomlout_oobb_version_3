@@ -1,0 +1,57 @@
+{
+    "description": "bearing 6800",
+    "id": "hardware_bearing_6800",
+    "type": "bearing",
+    "type_oobb": "bearing",
+    "bearing_name": "6800",
+    "components": [
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 9.5,
+            "h": 5,
+            "inclusion": "laser",
+            "depth": "bearing_6800_depth"
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 9.7,
+            "h": 5,
+            "inclusion": "3dpr",
+            "depth": "bearing_6800_depth"
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 9.5,
+            "h": 5,
+            "inclusion": "true",
+            "depth": "bearing_6800_depth"
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 5.0,
+            "h": 5,
+            "inclusion": "laser",
+            "depth": "bearing_6800_depth"
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 5.0,
+            "h": 5,
+            "inclusion": "3dpr",
+            "depth": "bearing_6800_depth"
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 5.0,
+            "h": 5,
+            "inclusion": "true",
+            "depth": "bearing_6800_depth"
+        }
+    ]
+}

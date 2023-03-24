@@ -6,22 +6,15 @@ import oomB
 ##### base functions
 def get_default_thing(**kwargs):
 
-    width = kwargs.get("width", "")
-    height = kwargs.get("height", "")
-    thickness = kwargs.get("thickness", "")
-    size = kwargs.get("size", "")
-    type = kwargs.get("type", "ja")
-    radius_hole = kwargs.get("radius_hole", "")
-    width_mounting = kwargs.get("width_mounting", "")
-    height_mounting = kwargs.get("height_mounting", "")
-    name = kwargs.get("name", "")
-    bearing_type = kwargs.get("bearing_type", "")
 
+    
     thing = {}
 
     type_dict = {}
-    type_dict.update({"bp": "bearing plate"})
+    type_dict.update({"bp": "bearing plate"})    
+    type_dict.update({"ci": "circle"})    
     type_dict.update({"ja": "jack"})
+    type_dict.update({"jab": "jack basic"})
     type_dict.update({"mp": "mounting plate"})
     type_dict.update({"mps": "mounting plate single sided holes"})
     type_dict.update({"mpt": "mounting plate top and bottom holes"})
@@ -31,42 +24,80 @@ def get_default_thing(**kwargs):
     type_dict.update({"zt": "zip tie mount"})
     type_dict.update({"ztj": "zip tie mount jack"})
     
-    thing.update({"description": f"{type_dict[type]} {width}x{height}x{thickness}"})
-    widths = width
-    if widths != "":
-        widths = f'_{str(width).zfill(2)}'
-    heights = height
-    if heights != "":
-        heights = f'_{str(height).zfill(2)}'
-    thicknesss = thickness
-    if thicknesss != "":
-        thicknesss = f'_{str(thickness).zfill(2).replace(".","d")}'
-    sizes = size
-    if size != "":
-        sizes = size
-    types = type
-    if type != "":
-        types = f"_{type}"
-    if name != "":
-        name = f"_na_{name}"
-    if radius_hole != "":
-        radius_hole = f"_rh_{radius_hole}"
-    if width_mounting != "":
-        width_mounting = F"_mo_{width_mounting}_{height_mounting}"
-    if bearing_type != "":
-        bearing_type = F"_bt_{bearing_type}"
+    type_dict.update({"bearing": "bearing"})    
+    type_dict.update({"nut": "nut"})
+    type_dict.update({"screw": "screw"})
+    type_dict.update({"screw_countersunk": "screw countersunk"})
+    type_dict.update({"screw_socket_cap": "screw socket cap"})
+    type_dict.update({"standoff": "standoff"})
+    type_dict.update({"washer": "washer"})
+    type_dict.update({"bolt": "bolt"})
+    try:
+        type = kwargs["type"]
+        width = kwargs["width"]
+        height = kwargs["height"]
+        thickness = kwargs["thickness"]
+        thing.update({"description": f"{type_dict[type]} {width}x{height}x{thickness}"})
+    except:
+        type = kwargs["type"]
+        thing.update({"description": f"{type_dict[type]}"})
 
-    thing.update({"id": f"{sizes}{types}{widths}{heights}{thicknesss}{bearing_type}{radius_hole}{width_mounting}{name}"})
+    var_names = ["type","width","height","diameter","thickness","radius_name","depth","radius_hole","width_mounting","name","bearing_name","bearing_type",]
+    zfill_values = ["width","height","thickness","depth","diameter"]
+    acronyms = {"width":"","height":"","diameter":"","thickness":"","depth":"","size":"","type":"", "radius_hole":"rh","radius_name":"","width_mounting":"mo","height_mounting":"hm","name":"nm","bearing_name":"","bearing_type":""}
+
+    deets = {}
+    for var in var_names:
+        deets[var] = {}
+        
+        #if zfill
+        if var in zfill_values:
+            val = kwargs.get(var,"")
+            if val != "":
+                deets[var].update({"value": str(kwargs.get(var,"")).zfill(2)})
+            else:
+                deets[var].update({"value": kwargs.get(var,"")})
+        else:
+            deets[var].update({"value": kwargs.get(var,"")})
+        deets[var].update({"acronym": acronyms[var]})
+        if deets[var]["acronym"] != "":
+            deets[var]["str"] = f"_{deets[var]['acronym']}_{deets[var]['value']}"
+        else:
+            deets[var]["str"] = f"_{deets[var]['value']}"
+    
+    id = kwargs.get("size","")
+    for var in deets:
+        if deets[var]["value"] != "":
+            if deets[var]["value"] != "":
+                id += deets[var]["str"]
+    print(id)
+    thing.update({"id": id})
     thing.update({"type": f"{type}"})
     thing.update({"type_oobb": f"{type_dict[type]}"})
-    thing.update({"width_mm": width})
-    if width != "":
-        thing.update({"width_oobb": width * ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"depth_mm": thickness})
-    if height != "":
-        thing.update({"height_mm": height * ob.gv("osp") - ob.gv("osp_minus")})
-    thing.update({"height_oobb": height})
+
+
+    for var in var_names:
+        try:
+            thing.update({var: kwargs[var]})
+        except:
+            pass
+    try:
+        thing.update({"width_mm": kwargs["width"] * ob.gv("osp") - ob.gv("osp_minus")})        
+    except:
+        pass
+    try:
+        if thickness != "":
+            thing.update({"thickness_mm": kwargs["thickness"]})
+    except:
+        pass
+    try:
+        thing.update({"height_mm": kwargs["height"] * ob.gv("osp") - ob.gv("osp_minus")})
+    except:
+        pass
     thing.update({"components": []})
+    
+
+
     return thing
 
 
