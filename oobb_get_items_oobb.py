@@ -7,7 +7,7 @@ def get_bp(**kwargs):
 
     width = kwargs.get("width", "")
     height = kwargs.get("height", "")
-    thickness = kwargs.get("thickness", "")
+    thickness = kwargs.get("thickness", "")    
     bearing_type = kwargs.get("bearing_type", "608")
     overwrite = kwargs.get("overwrite", False)
 
@@ -26,7 +26,13 @@ def get_bp(**kwargs):
     #    x,y = ob.get_hole_pos(pos[0],pos[1],width,height)
     #    th.extend(ob.oobb_easy(t="n",s="oobb_hole", pos=[x,y,0], radius_name="m6", overwrite=overwrite, m=""))
     ## adding perimieter miss middle holes
-    th.extend(ob.oobb_easy(t="n",s="oobb_holes", pos=[0,0,0], width=width, height = width, holes="perimeter_miss_middle",m="#"))
+    holes = "perimeter_miss_middle"
+    if bearing_type == "6810":
+        holes = ["top","bottom"]
+        th.extend(ob.oobb_easy(t="n",s="oobb_holes", pos=[0,0,0], width=5, height = 5, holes="corners",m=""))
+
+
+    th.extend(ob.oobb_easy(t="n",s="oobb_holes", pos=[0,0,0], width=width, height = height, holes=holes,m=""))
 
 
     # adding middle holes
@@ -41,23 +47,26 @@ def get_bp(**kwargs):
     # adding connecting screws
     mid_w = (width - 1) / 2 + 1
     mid_h = (height - 1) / 2 + 1
-    adj = 0 / ob.gv("osp")
+    adja = 0 / ob.gv("osp")
+    adjb = 0
+    adjc = 0
     if bearing_type == "6803": 
-        adj = 2 / ob.gv("osp")
+        adja = 2 / ob.gv("osp")
     elif bearing_type == "6804" or bearing_type == "6704":
-        adj = 3 / ob.gv("osp")
-        
-    
+        adja = 3 / ob.gv("osp")
+    elif bearing_type == "6810":
+        adjb = 22 / ob.gv("osp")
+        adjc = 1 
     #hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
 
-    hole_positions = [1-adj,mid_h],[width+adj,mid_h],[mid_w,1-adj],[mid_w,height+adj]
+    hole_positions = [1-adja+adjc,mid_h+adjb],[width+adja-adjc,mid_h-adjb],[mid_w-adjb,1-adja],[mid_w+adjb,height+adja]
     rot_current = 0
     rotz_current = 360/12
     times_through = 0
     for pos in hole_positions:
         x,y = ob.get_hole_pos(pos[0],pos[1],width,height)
         z = thickness/2
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current, rotZ=rotz_current))
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", sandwich=True, radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current, rotZ=rotz_current))
         if rot_current == 0:
             rot_current = 180            
         else:
@@ -69,12 +78,13 @@ def get_bp(**kwargs):
             rotz_current = 360/12
         times_through += 1
 
+    # middle holes
     joint_dis = 15
     hole_positions_mm = [0,joint_dis/2],[0,-joint_dis/2]
     for pos in hole_positions_mm:
         x,y = pos
         z = thickness/2
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current))
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", sandwich=True, radius_name="m3", depth=thickness, pos=[x,y,z], m="", rotY=rot_current))
         if rot_current == 0:
             rot_current = 180
         else:
@@ -143,7 +153,7 @@ def get_ja(**kwargs):
         
         # nut height
         y = 9    
-        th.extend(ob.oobb_easy(t="n",s="oobb_nut_loose", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m="#"))
+        th.extend(ob.oobb_easy(t="n",s="oobb_nut_loose", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
     #add m3 countersunk joining screws
     rot_current = 0
     for x in range(0,width-1):
@@ -151,9 +161,12 @@ def get_ja(**kwargs):
         y = height_cube
         z= thickness/2
     
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode=mode, m="", rotY=rot_current))
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode=mode, sandwich=True, m="", rotY=rot_current))
         rot_current = rot_current + 180
 
+    # halfing it if 3dpr
+    inclusion = "3dpr"
+    th.append(ob.oobb_easy(t="n",s="cube", size=[500,500,500], pos=[-500/2,-500/2,0], inclusion=inclusion,m=""))
 
     return thing
 
@@ -190,6 +203,16 @@ def get_jab(**kwargs):
         y = 9    
         th.extend(ob.oobb_easy(t="n",s="oobb_nut_through", radius_name="m6", depth=height_cube, pos=[x,y,z], rotX=90, mode=mode, m=""))
     
+#add m3 countersunk joining screws
+    rot_current = 0
+    for x in range(0,width-1):
+        x = (-width/2*ob.gv("osp")+ob.gv("osp"))+x*ob.gv("osp")
+        y = height_cube
+        z= thickness/2
+    
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode="laser", rotZ=360/12, sandwich=True, m="", rotY=rot_current))
+        rot_current = rot_current + 180
+
     return thing
 
 def get_mp(**kwargs):

@@ -32,5 +32,6 @@ nut m1d5x1.3
 | ![3dpr.png](3dpr.png) |
 | ![laser-flat.png](laser-flat.png) |
 | ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
 | ![true.png](true.png) |
 

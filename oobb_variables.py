@@ -171,7 +171,7 @@ def initialize_variables():
     vl["screw_countersunk_height_m1d5"] = [1.7/2, 1.7/2, 1.9/2]
     
     vl["screw_radius_m3"] = m["3"]/2, m["3"]/2, m["3_3dpr"]/2
-    vl["screw_countersunk_radius_m3"] = [5.8/2, 5.8/2, 7.2/2]
+    vl["screw_countersunk_radius_m3"] = [4.6/2, 5.8/2, 7.2/2]
     vl["screw_countersunk_height_m3"] = [1.7, 1.7, 1.9]
     vl["screw_socket_cap_radius_m3"] = [5.8/2, 5.8/2, 6/2]
     vl["screw_socket_cap_height_m3"] = [3, 3, 3.2]

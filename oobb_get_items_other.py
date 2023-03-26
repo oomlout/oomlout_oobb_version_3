@@ -87,7 +87,7 @@ def get_standoff(**kwargs):
     thing.update({"height_mm": width/1.154})
     
     th = thing["components"]
-    th.extend(ob.oe(t="p",s="oobb_standoff", rn=wid, depth=depth))
-    th.extend(ob.oe(t="n",s="oobb_hole", rn=wid,depth=100,z=-10,m=""))
+    th.extend(ob.oe(t="p",s="oobb_standoff", rn=wid, hole=True, depth=depth))
+    #th.extend(ob.oe(t="n",s="oobb_hole", rn=wid,depth=100,z=-10,m=""))
 
     return thing

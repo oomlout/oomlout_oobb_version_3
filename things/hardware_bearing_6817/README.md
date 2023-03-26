@@ -1,5 +1,5 @@
 # hardware_bearing_6817  
-  
+![true.png](true.png)  
 bearing 6817
 # details
 | Key          | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -26,4 +26,6 @@ bearing 6817
 | ![3dpr.png](3dpr.png) |
 | ![laser-flat.png](laser-flat.png) |
 | ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
+| ![true.png](true.png) |
 

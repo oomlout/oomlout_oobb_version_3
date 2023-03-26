@@ -1,5 +1,5 @@
 # oobb_sh_3d5  
-  
+![true.png](true.png)  
 shaft xx3.5
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -25,5 +25,9 @@ shaft xx3.5
 | height_oobb |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | components  | list with 9 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser.png](laser.png) |
+| ![true.png](true.png) |
 

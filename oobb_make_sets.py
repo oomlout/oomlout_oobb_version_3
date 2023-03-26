@@ -34,6 +34,7 @@ def get_bps(size="oobb"):
     bps.append({"type":"bp", "width":3,"height":3,"thickness":12,"bearing_type":"6803","size":size})
     bps.append({"type":"bp", "width":3,"height":3,"thickness":15,"bearing_type":"6804","size":size})
     bps.append({"type":"bp", "width":5,"height":5,"thickness":12,"bearing_type":"6808","size":size})
+    bps.append({"type":"bp", "width":7,"height":5,"thickness":12,"bearing_type":"6810","size":size})
 
     
     return bps

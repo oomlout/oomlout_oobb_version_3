@@ -112,7 +112,9 @@ def gv(name, mode=""):
 def get_variable(name, mode=""):
     if mode != "":
         name = name + "_" + mode
-    return oobb.variables[name]
+    rv = oobb.variables[name]
+    #print(f'{name} {rv}')
+    return rv
 
 def get_hole_pos(x,y,wid,hei):
     x_mm = -(wid-1) * gv("osp") / 2 + (x - 1) * gv("osp")
@@ -167,7 +169,7 @@ def build_things(save_type = "none", overwrite = True, filter = ""):
 def build_thing(thing, save_type = "all",overwrite = True):
     modes = ["3dpr", "laser", "true"]
     for mode in modes:
-        depth = oobb.things[thing].get("depth_mm",3)
+        depth = oobb.things[thing].get("depth_mm",oobb.things[thing].get("thickness_mm",3))
         height = oobb.things[thing].get("height_mm",100)
         layers = depth / 3
         tilediff = height + 10

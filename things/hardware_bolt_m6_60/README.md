@@ -30,5 +30,6 @@ bolt m6x60
 | ![3dpr.png](3dpr.png) |
 | ![laser-flat.png](laser-flat.png) |
 | ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
 | ![true.png](true.png) |
 
