@@ -21,7 +21,7 @@ overwrite = False
 save_type = "none"
 save_type = "all"
 
-filter = "jab"
+filter = "ja"
 filter = filt
 oobb_base.build_things(overwrite=True,filter=filter, save_type=save_type)
 

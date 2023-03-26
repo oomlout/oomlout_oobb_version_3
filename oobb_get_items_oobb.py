@@ -161,7 +161,7 @@ def get_ja(**kwargs):
         y = height_cube
         z= thickness/2
     
-        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode=mode, sandwich=True, m="", rotY=rot_current))
+        th.extend(ob.oobb_easy(t="n",s="oobb_countersunk", radius_name="m3", depth=thickness, pos=[x,y,z], mode=mode, sandwich=True, m="", rotY=rot_current, include_nut=True))
         rot_current = rot_current + 180
 
     # halfing it if 3dpr

@@ -34,7 +34,6 @@ zip tie mount jack 2x3x12
 | PNG Images |
 | --- |
 | ![3dpr.png](3dpr.png) |
-| ![laser-flat.png](laser-flat.png) |
 | ![laser.png](laser.png) |
 | ![laser_flat.png](laser_flat.png) |
 | ![true.png](true.png) |

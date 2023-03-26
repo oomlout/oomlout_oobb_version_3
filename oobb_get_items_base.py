@@ -310,10 +310,10 @@ def get_oobe_holes(**kwargs):
 
 import copy
 
-def get_oobb_screw_countersunk(include_nut=True, **kwargs):
+def get_oobb_screw_countersunk(**kwargs):
     return get_oobb_countersunk(**kwargs)
 
-def get_oobb_countersunk(include_nut=True, **kwargs):
+def get_oobb_countersunk(**kwargs):
     objects = []
     modes = kwargs.get("mode",["laser", "3dpr", "true"])
     if modes == "all":
@@ -323,7 +323,7 @@ def get_oobb_countersunk(include_nut=True, **kwargs):
     
     shifts = []
     sandwich = kwargs.get("sandwich", False)
-    
+    include_nut_initial = kwargs.get("include_nut", True)
 
     for mode in modes:  
         radius = kwargs["radius_name"]      
@@ -341,6 +341,7 @@ def get_oobb_countersunk(include_nut=True, **kwargs):
         if mode != "laser":
             p2["r1"] = ob.gv(f"hole_radius_{radius}", mode)
             h = ob.gv(f'screw_countersunk_height_{radius}', mode)
+            include_nut = include_nut_initial
         else:
             #make a cylinder if laser
             p2["r1"] = ob.gv(f"screw_countersunk_radius_{radius}", mode)
@@ -404,6 +405,7 @@ def get_oobb_countersunk(include_nut=True, **kwargs):
         p2["shape"] = "oobb_nut"
         p2["inclusion"] = mode
         p2["pos"] = [kwargs["pos"][0], kwargs["pos"][1], kwargs["pos"][2] + shifts[2]]
+        p2["m"] = "#"
         #p2["rotZ"] = 360/12
         objects.extend(ob.oobb_easy(**p2))
     
