@@ -122,6 +122,45 @@ def get_ci(**kwargs):
             th.extend(ob.oobb_easy(t="n", s="oobb_hole", radius_name="m3", pos=pos, m=""))
     return thing
 
+
+def get_hl(**kwargs):
+    extra = kwargs.get("extra")
+    kwargs.pop("extra")
+    kwargs["type"] = f'hl_{extra}'
+    if extra != "":
+        # Get the module object for the current file
+        current_module = __import__(__name__)
+        function_name = "get_hl_" + extra
+        # Call the function using the string variable
+        function_to_call = getattr(current_module, function_name)        
+        return function_to_call(**kwargs) 
+    else:
+        Exception("No extra")
+
+def get_hl_gm_01(**kwargs):
+    
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [-ob.gv("osp")/2,0,0]
+
+    th.extend(ob.oe(t="p",s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=plate_pos, mode="all"))    
+    holes = [[1,1,"m6"],[2,1,"m6"],[4,1,"m6"],[1,3,"m6"],[2,3,"m6"],[4,3,"m6"],[3,1,"m3"],[3,3,"m3"],[4,2,"m3"]]
+    for hole in holes:
+        loc = hole
+        th.extend(ob.oobb_easy(t="n",s="oobb_holes",width = width, loc=loc, height=height, holes="single", radius_name=hole[2],pos=plate_pos,m=""))
+
+    th.extend(ob.oobb_easy(t="n",s="oobb_motor_gearmotor_01",width = width, loc=loc, height=height, holes="single", pos=[0,0,0],m=""))
+
+
+
+    return thing
+
 def get_ja(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 

@@ -12,17 +12,18 @@ def get_default_thing(**kwargs):
 
     type_dict = {}
     type_dict.update({"bp": "bearing plate"})    
-    type_dict.update({"ci": "circle"})    
-    type_dict.update({"ja": "jack"})
-    type_dict.update({"jab": "jack basic"})
-    type_dict.update({"mp": "mounting plate"})
+    type_dict.update({"ci": "circle"})     
+    type_dict.update({"hl": "holder"}) 
+    type_dict.update({"jab": "jack basic"})       
+    type_dict.update({"ja": "jack"})    
     type_dict.update({"mps": "mounting plate single sided holes"})
     type_dict.update({"mpt": "mounting plate top and bottom holes"})
     type_dict.update({"mpu": "mounting plate u holes"})
+    type_dict.update({"mp": "mounting plate"})
     type_dict.update({"pl": "plate"})
-    type_dict.update({"sh": "shaft"})
-    type_dict.update({"zt": "zip tie mount"})
+    type_dict.update({"sh": "shaft"})    
     type_dict.update({"ztj": "zip tie mount jack"})
+    type_dict.update({"zt": "zip tie mount"})
     
     type_dict.update({"bearing": "bearing"})    
     type_dict.update({"nut": "nut"})
@@ -32,14 +33,15 @@ def get_default_thing(**kwargs):
     type_dict.update({"standoff": "standoff"})
     type_dict.update({"washer": "washer"})
     type_dict.update({"bolt": "bolt"})
-    try:
-        type = kwargs["type"]
-        width = kwargs["width"]
-        height = kwargs["height"]
-        thickness = kwargs["thickness"]
-        thing.update({"description": f"{type_dict[type]} {width}x{height}x{thickness}"})
-    except:
-        type = kwargs["type"]
+
+    type = kwargs["type"]
+    width = kwargs["width"]
+    height = kwargs["height"]
+    thickness = kwargs["thickness"]
+    for key in type_dict:
+        if type.startswith(key):
+            thing.update({"description": f"{type_dict[key]} {width}x{height}x{thickness}"})
+    if thing.get("description", "") == "":
         thing.update({"description": f"{type_dict[type]}"})
 
     var_names = ["type","width","height","diameter","thickness","radius_name","depth","radius_hole","width_mounting","name","bearing_name","bearing_type",]
@@ -73,7 +75,10 @@ def get_default_thing(**kwargs):
     print(id)
     thing.update({"id": id})
     thing.update({"type": f"{type}"})
-    thing.update({"type_oobb": f"{type_dict[type]}"})
+    try:
+        thing.update({"type_oobb": f"{type_dict[type]}"})
+    except:
+        pass
 
 
     for var in var_names:

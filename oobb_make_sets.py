@@ -7,7 +7,7 @@ import oobb_base
 
 def make_all(filter=""):
     #typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
-    typs = ["bps","cis","jas","mps","pls","shs","zts","nuts","screws","bearings"]
+    typs = ["bps","cis","hls","jas","mps","pls","shs","zts","nuts","screws","bearings"]
     all_things = []
 
     for type in typs:
@@ -47,6 +47,11 @@ def get_cis(size="oobb"):
         circles.append({"type":"ci", "diameter":s,"thickness":3,"size":size})
     return circles
                         
+
+def get_hls(size="oobb"):
+    hls = []
+    hls.append({"type":"hl", "extra":"gm_01", "width":4,"height":3,"thickness":3,"size":size})
+    return hls
 
 def get_jas(size="oobb"):
     jas = []

@@ -10,7 +10,7 @@ difference() {
 		}
 		translate(v = [0, 0, -35]) {
 			rotate(a = [0, 0, 0]) {
-				cylinder(h = 35, r = 1.7000000000);
+				cylinder(h = 35, r = 1.8000000000);
 			}
 		}
 	}

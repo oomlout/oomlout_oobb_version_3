@@ -69,8 +69,10 @@ def initialize_variables():
     m["1d5_3dpr"] = 1.8
     m["2"] = 2
     m["2_3dpr"] = 2.2
+    m["2d5"] = 2.5
+    m["2d5_3dpr"] = 2.7
     m["3"] = 3
-    m["3_3dpr"] = 3.4
+    m["3_3dpr"] = 3.6
     m["4"] = 4
     m["4_3dpr"] = 4.5
     m["5"] = 5
@@ -87,6 +89,7 @@ def initialize_variables():
     ##### hole variables
     vl["hole_radius_m1d5"] = [m["1d5"]/2, m["1d5"]/2, m["1d5_3dpr"]/2]
     vl["hole_radius_m2"] = [m["2"]/2, m["2"]/2, m["2_3dpr"]/2]
+    vl["hole_radius_m2d5"] = [m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2]
     vl["hole_radius_m3"] = [m["3"]/2, m["3"]/2, m["3_3dpr"]/2]
     vl["hole_radius_m4"] = [m["4"]/2, m["4"]/2, m["4_3dpr"]/2]
     vl["hole_radius_m5"] = [m["5"]/2, m["5"]/2, m["5_3dpr"]/2]
@@ -108,7 +111,10 @@ def initialize_variables():
     vl["nut_radius_m2"] = [4*1.154/2, 4*1.154/2, 4.2 * 1.154/2]
     vl["nut_depth_m2"] = [1.6, 1.6, 1.8]    
 
-    vl["nut_radius_m3"] = [5.5*1.154/2, 5.5*1.154/2, 5.8 * 1.154/2]
+    vl["nut_radius_m2d5"] = [5*1.154/2, 5*1.154/2, 5.4 * 1.154/2]
+    vl["nut_depth_m2d5"] = [1.9, 1.9, 2.1]
+
+    vl["nut_radius_m3"] = [5.5*1.154/2, 5.5*1.154/2, 6 * 1.154/2]
     vl["nut_depth_m3"] = [2.5, 2.5, 3]
 
     vl["nut_radius_m4"] = [7*1.154/2, 7*1.154/2, 7.4 * 1.154/2]
@@ -167,9 +173,13 @@ def initialize_variables():
     screws = ["m1d5", "m3", "m6"]
 
     vl["screw_radius_m1d5"] = m["1d5"]/2, m["1d5"]/2, m["1d5_3dpr"]/2
-    vl["screw_countersunk_radius_m1d5"] = [5.8/2/2, 5.8/2/2, 7.2/2/2]    
+    vl["screw_countersunk_radius_m1d5"] = [5.8/2, 5.8/2, 7.2/2]    
     vl["screw_countersunk_height_m1d5"] = [1.7/2, 1.7/2, 1.9/2]
     
+    vl["screw_radius_m2d5"] = m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2
+    vl["screw_countersunk_radius_m2d5"] = [4.5/2, 4.5/2, 4.9/2]    
+    vl["screw_countersunk_height_m2d5"] = [1.5/2, 1.5/2, 1.7/2]
+
     vl["screw_radius_m3"] = m["3"]/2, m["3"]/2, m["3_3dpr"]/2
     vl["screw_countersunk_radius_m3"] = [4.6/2, 5.8/2, 7.2/2]
     vl["screw_countersunk_height_m3"] = [1.7, 1.7, 1.9]

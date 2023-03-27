@@ -40,7 +40,6 @@ mounting plate single sided holes 5x3x3
 | PNG Images |
 | --- |
 | ![3dpr.png](3dpr.png) |
-| ![laser-flat.png](laser-flat.png) |
 | ![laser.png](laser.png) |
 | ![laser_flat.png](laser_flat.png) |
 | ![true.png](true.png) |

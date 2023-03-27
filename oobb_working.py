@@ -6,7 +6,7 @@ import oobb_markdown
 import oobb_dxf_laser_copy
 
 
-filt = "ja"
+filt = "hl"
 #filt=""
 oobb_make_sets.make_all(filter=filt + "s") 
 
