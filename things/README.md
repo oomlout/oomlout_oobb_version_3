@@ -1,4 +1,4 @@
-[TOC]
+{:toc}
 ## hardware
 - [hardware_bearing_6701](./hardware_bearing_6701/README.md)
 - [hardware_bearing_6702](./hardware_bearing_6702/README.md)
