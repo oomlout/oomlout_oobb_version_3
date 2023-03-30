@@ -1,0 +1,82 @@
+{
+    "description": "bearing plate 0x0x2",
+    "id": "oobb_bp_shim_02_6704",
+    "type": "bp_shim",
+    "thickness": 2,
+    "bearing_type": "6704",
+    "thickness_mm": 2,
+    "components": [
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 12.5,
+            "h": 2,
+            "pos": [
+                0,
+                0,
+                -1.0
+            ],
+            "inclusion": "laser"
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 12.7,
+            "h": 2,
+            "pos": [
+                0,
+                0,
+                -1.0
+            ],
+            "inclusion": "3dpr"
+        },
+        {
+            "type": "p",
+            "shape": "cylinder",
+            "r": 12.5,
+            "h": 2,
+            "pos": [
+                0,
+                0,
+                -1.0
+            ],
+            "inclusion": "true"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 10.0,
+            "h": 2,
+            "pos": [
+                0,
+                0,
+                -1.0
+            ],
+            "inclusion": "laser"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 10.0,
+            "h": 2,
+            "pos": [
+                0,
+                0,
+                -1.0
+            ],
+            "inclusion": "3dpr"
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 10.0,
+            "h": 2,
+            "pos": [
+                0,
+                0,
+                -1.0
+            ],
+            "inclusion": "true"
+        }
+    ]
+}

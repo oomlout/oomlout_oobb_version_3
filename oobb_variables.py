@@ -57,11 +57,15 @@ def initialize_variables():
 
 
     for bn in bearing_d:
+
         vl[f'bearing_{bn}_id'] = [bearing_d[bn]["id"]/2, bearing_d[bn]["id"]/2, bearing_d[bn]["id"]/2 + bearing_d[bn]["id_e"]]
         vl[f'bearing_{bn}_od'] = [bearing_d[bn]["od"]/2, bearing_d[bn]["od"]/2, bearing_d[bn]["od"]/2 + bearing_d[bn]["od_e"]]
         vl[f'bearing_{bn}_depth'] = [bearing_d[bn]["depth"], bearing_d[bn]["depth"], bearing_d[bn]["depth"] + bearing_d[bn]["depth_e"]]
         vl[f'bearing_{bn}_inner_holes'] = [bearing_d[bn]["inner_holes"], bearing_d[bn]["inner_holes"], bearing_d[bn]["inner_holes"]]
-
+        clear = 2
+        vl[f'bearing_{bn}_clearance'] = [clear, clear, clear]
+        vl[f'bearing_{bn}_id_catch'] = [vl[f'bearing_{bn}_id'][0]+clear/2, vl[f'bearing_{bn}_id'][1]+clear/2, vl[f'bearing_{bn}_id'][2]+clear/2]
+        vl[f'bearing_{bn}_od_catch'] = [vl[f'bearing_{bn}_od'][0]-clear/2, vl[f'bearing_{bn}_od'][1]-clear/2, vl[f'bearing_{bn}_od'][2]-clear/2]
     
     ##### radiuses
     m = {}
@@ -115,6 +119,10 @@ def initialize_variables():
     vl["nut_depth_m2d5"] = [1.9, 1.9, 2.1]
 
     vl["nut_radius_m3"] = [5.5*1.154/2, 5.5*1.154/2, 6 * 1.154/2]
+    vl["standoff_radius_m3"] = [5.8*1.154/2, 5.8*1.154/2, 6.3 * 1.154/2]
+    #style 01
+    vl["threaded_insert_01_radius_m3"] = [3.8/2, 4.2/2, 4/2]
+    vl["threaded_insert_01_depth_m3"] = [6, 6, 6]
     vl["nut_depth_m3"] = [2.5, 2.5, 3]
 
     vl["nut_radius_m4"] = [7*1.154/2, 7*1.154/2, 7.4 * 1.154/2]
@@ -177,11 +185,11 @@ def initialize_variables():
     vl["screw_countersunk_height_m1d5"] = [1.7/2, 1.7/2, 1.9/2]
     
     vl["screw_radius_m2d5"] = m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2
-    vl["screw_countersunk_radius_m2d5"] = [4.5/2, 4.5/2, 4.9/2]    
+    vl["screw_countersunk_radius_m2d5"] = [3.1/2, 4.5/2, 4.9/2]    
     vl["screw_countersunk_height_m2d5"] = [1.5/2, 1.5/2, 1.7/2]
 
     vl["screw_radius_m3"] = m["3"]/2, m["3"]/2, m["3_3dpr"]/2
-    vl["screw_countersunk_radius_m3"] = [4.6/2, 5.8/2, 7.2/2]
+    vl["screw_countersunk_radius_m3"] = [4.8/2, 5.8/2, 7.2/2]
     vl["screw_countersunk_height_m3"] = [1.7, 1.7, 1.9]
     vl["screw_socket_cap_radius_m3"] = [5.8/2, 5.8/2, 6/2]
     vl["screw_socket_cap_height_m3"] = [3, 3, 3.2]

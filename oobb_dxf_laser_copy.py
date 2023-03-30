@@ -8,7 +8,7 @@ def dxf_copy_to_laser():
 def folders_to_folder_dxf():
     input_dir = fr'C:\GH\oomlout_oobb_v3\things'
     output_dir = fr'C:\GH\oomlout_oobb_v3\useful_files\oobb_laser'
-    filename = "laser-flat.dxf"
+    filename = "laser_flat.dxf"
     copy_and_rename_file(input_dir, output_dir, filename)
     copy_dir = fr"C:\DB\Dropbox\LALA-Laser Files\oobb_files"
     oomB.file_copy_filter(input_dir=output_dir, output_dir=copy_dir, filter_str="")
@@ -46,7 +46,10 @@ def copy_and_rename_file(input_dir, output_dir, filename):
                 #check for directory if not there make it
                 if not os.path.exists(output_dir):
                     os.makedirs(output_dir)
-                shutil.copy(file_path, output_file_path)
+                try:    
+                    shutil.copy(file_path, output_file_path)
+                except:
+                    print("Error copying file: " + file_path)
 
 def folders_to_folder_all():
     folders_to_folder_dxf()
