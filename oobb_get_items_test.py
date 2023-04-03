@@ -2,7 +2,7 @@ import copy
 from oobb_get_items_base import *
 import oobb_base as ob
 
-
+## no longer used
 def get_test_nut(size, depth=4.5, test="radius", difference=0.1, loose=False, **kwargs):
     shape = f"oobb_nut"
     radius_name = size

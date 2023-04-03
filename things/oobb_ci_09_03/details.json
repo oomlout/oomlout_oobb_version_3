@@ -1,10 +1,11 @@
 {
-    "description": "circle",
+    "description": "circle 0x0x3",
     "id": "oobb_ci_09_03",
     "type": "ci",
     "type_oobb": "circle",
     "diameter": 9,
     "thickness": 3,
+    "thickness_mm": 3,
     "components": [
         {
             "type": "p",
@@ -1948,6 +1949,45 @@
             "pos": [
                 60.0,
                 0.0,
+                -125.0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                0,
+                0,
+                -125.0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.25,
+            "h": 250,
+            "pos": [
+                0,
+                0,
+                -125.0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                0,
+                0,
                 -125.0
             ],
             "inclusion": "true",

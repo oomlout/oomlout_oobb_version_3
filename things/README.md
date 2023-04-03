@@ -1,4 +1,4 @@
-{:toc}
+[TOC]
 ## hardware
 - [hardware_bearing_6701](./hardware_bearing_6701/README.md)
 - [hardware_bearing_6702](./hardware_bearing_6702/README.md)
@@ -119,9 +119,10 @@
 - [oobb_ci_15_03](./oobb_ci_15_03/README.md)
 - [oobb_ci_17_03](./oobb_ci_17_03/README.md)
 - [oobb_ci_19_03](./oobb_ci_19_03/README.md)
+- [oobb_ci_1d5_03](./oobb_ci_1d5_03/README.md)
 - [oobb_ci_21_03](./oobb_ci_21_03/README.md)
 ## oobb_hl
-- [oobb_hl_motor_gearmotor_01_04_03_03](./oobb_hl_motor_gearmotor_01_04_03_03/README.md)
+- [oobb_hl_motor_gearmotor_01_06_03_03](./oobb_hl_motor_gearmotor_01_06_03_03/README.md)
 ## oobb_jab
 - [oobb_jab_01_01_12](./oobb_jab_01_01_12/README.md)
 - [oobb_jab_02_01_12](./oobb_jab_02_01_12/README.md)

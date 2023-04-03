@@ -177,7 +177,7 @@ def get_ci(**kwargs):
     # find the start point needs to be half the width_mm plus half ob.gv("osp")
     if holes:
         th.extend(ob.oobb_easy(t="n", s="oobb_holes", circle_dif=13,
-                  width=diameter, height=diameter, holes="circle", m=""))
+                  width=diameter, height=diameter, holes=["circle","just_middle"], m=""))
         if diameter == 3:
             # add 45 degree rotated ones but do the math
             a = 10.607
@@ -223,8 +223,7 @@ def get_hl_motor_gearmotor_01(**kwargs):
 
     th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width,
               height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
-    holes = [[1, 1, "m6"], [2, 1, "m6"], [4, 1, "m6"], [1, 3, "m6"], [2, 3, "m6"], [
-        4, 3, "m6"], [3, 1-3/ob.gv("osp"), "m3"], [3, 3+3/ob.gv("osp"), "m3"], [4, 2, "m3"]]
+    holes = [[1, 1, "m6"], [2, 1, "m6"],  [3, 1, "m6"], [5, 1, "m6"], [1, 3, "m6"], [2, 3, "m6"],[3, 3, "m6"], [5, 3, "m6"], [6, 1, "m6"], [6, 2, "m6"], [6, 3, "m6"], [4, 1-3/ob.gv("osp"), "m3"], [4, 3+3/ob.gv("osp"), "m3"] ]#, [4, 2, "m3"]]
     for hole in holes:
         loc = hole
         th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, loc=loc,

@@ -240,8 +240,8 @@ def get_oobb_holes(holes=["all"], **kwargs):
                      yy + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
         # pos_start = [0,0,0]
         circle_dif = kwargs.get("circle_dif", 0)
-        for w in range(0, width):
-            for h in range(0, height):
+        for w in range(0, math.floor(width)):
+            for h in range(0, math.floor(height)):
                 x = pos_start[0] + w*ob.gv("osp")
                 y = pos_start[1] + h*ob.gv("osp")
                 # only include if inside a circle of radius width * ob,gv("osp")/2
@@ -305,16 +305,8 @@ def get_oobb_holes(holes=["all"], **kwargs):
                                    x, y, 0], radius_name=radius_name, m=m))
     if "just_middle" in holes:
         # find the start point needs to be half the width_mm plus half osp
-        pos_start = [xx + -(width*ob.gv("osp")/2) + ob.gv("osp")/2,
-                     yy + -(height*ob.gv("osp")/2) + ob.gv("osp")/2, 0]
-        # pos_start = [0,0,0]
-        for w in range(0, width):
-            for h in range(0, height):
-                if w == math.floor(width/2) and h == math.floor(height/2):
-                    x = pos_start[0] + w*ob.gv("osp")
-                    y = pos_start[1] + h*ob.gv("osp")
-                    objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
-                                   x, y, 0], radius_name=radius_name, m=m))
+        pos = [0,0,0]
+        objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=pos, radius_name=radius_name, m=m))
 
     return objects
 
@@ -414,8 +406,7 @@ def get_oobb_motor_gearmotor_01(**kwargs):
         objects.extend(ob.oobb_easy(**p3))
 
         # mounting holes
-        poss = [-20, 8.5, thickness], [-20, -
-                                       8.5, thickness], [12, 0, thickness]
+        poss = [-20, 8.5, thickness], [-20, -8.5, thickness] #, [12, 0, thickness]
         for pos in poss:
             p4 = copy.deepcopy(kwargs)
             p4["pos"] = [x+pos[0], y+pos[1], z+pos[2]]

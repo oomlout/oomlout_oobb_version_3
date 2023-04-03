@@ -6,7 +6,7 @@ import oobb_markdown
 import oobb_dxf_laser_copy
 
 
-filt = "ja"
+filt = "ci"
 # filt=""
 oobb_make_sets.make_all(filter=filt + "s")
 
@@ -20,10 +20,10 @@ overwrite = False
 
 save_type = "none"
 save_type = "laser"
-save_type = "all"
+#save_type = "all"
 
-filter = "jab_03"
-# filter = filt
+filter = "05"
+#filter = filt
 oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)
 
 copy_files = True

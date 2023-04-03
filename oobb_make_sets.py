@@ -57,7 +57,7 @@ def get_bps(size="oobb"):
 
 def get_cis(size="oobb"):
     circles = []
-    circle_size = [3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
+    circle_size = [1.5,3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
     for s in circle_size:
         circles.append({"type": "ci", "diameter": s,
                        "thickness": 3, "size": size})
@@ -67,7 +67,7 @@ def get_cis(size="oobb"):
 def get_hls(size="oobb"):
     hls = []
     hls.append({"type": "hl", "extra": "motor_gearmotor_01",
-               "width": 4, "height": 3, "thickness": 3, "size": size})
+               "width": 6, "height": 3, "thickness": 3, "size": size})
     return hls
 
 

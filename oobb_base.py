@@ -86,6 +86,7 @@ def get_default_thing(**kwargs):
         if deets[var]["value"] != "":
             if deets[var]["value"] != "":
                 id += deets[var]["str"]
+    id = id.replace(".","d")
     print(id)
     thing.update({"id": id})
     thing.update({"type": f"{type}"})
