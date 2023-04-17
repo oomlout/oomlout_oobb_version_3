@@ -232,8 +232,9 @@ def get_hl_motor_gearmotor_01(**kwargs):
 
     th = thing["components"]
 
-    plate_pos = [-ob.gv("osp")/2, 0, 0]
+    plate_pos = [-ob.gv("osp")/2, 0, -6]
 
+    #add m6 holes
     th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width,
               height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
     holes = [[1, 1, "m6"], [2, 1, "m6"],  [3, 1, "m6"], [5, 1, "m6"], [1, 3, "m6"], [2, 3, "m6"],[3, 3, "m6"], [5, 3, "m6"], [6, 1, "m6"], [6, 2, "m6"], [6, 3, "m6"], [4, 1-3/ob.gv("osp"), "m3"], [4, 3+3/ob.gv("osp"), "m3"] ]#, [4, 2, "m3"]]
@@ -248,9 +249,37 @@ def get_hl_motor_gearmotor_01(**kwargs):
               radius_name=f'bearing_6704_od_catch', m=""))
 
     th.extend(ob.oobb_easy(t="n", s="oobb_motor_gearmotor_01", width=width,
-              loc=loc, height=height, holes="single", pos=[0, 0, 0], m=""))
+              loc=loc, height=height, holes="single", pos=[0, 0, plate_pos[2]], m=""))
+
+    #adding half a bearing face to 3dpr version
+    p2 = {  "type": "bp", 
+            "width": 3, 
+            "height": 3, 
+            "thickness": 12,
+            "bearing_type": "6704", 
+            "size": "oobb", 
+            "shaft": "motor_gearmotor_01",
+            "pos": [0, 0, 9]}
+    add_items = get_bp(**p2)["components"]
+    for item in add_items:
+        inclusion = item.get("inclusion", "all")
+        if inclusion == "all" or inclusion == "3dpr":
+            #include
+            item.update({"inclusion": "3dpr"})
+        else:
+            #exclude
+            add_items.remove(item)
+        
+    th.extend(add_items)
+
+
+    # halfing it if 3dpr
+    inclusion = "3dpr"
+    th.append(ob.oobb_easy(t="n", s="cube", size=[
+              500, 500, 500], pos=[-500/2, -500/2, 0], inclusion=inclusion, m=""))
 
     return thing
+
 
 def get_hl_motor_stepper_motor_nema_17_flat(**kwargs):
 

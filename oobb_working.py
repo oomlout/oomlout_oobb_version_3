@@ -22,7 +22,7 @@ save_type = "none"
 #save_type = "laser"
 save_type = "all"
 
-filter = "both"
+filter = "gearmotor"
 #filter = filt
 oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)
 

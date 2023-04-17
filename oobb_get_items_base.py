@@ -430,6 +430,7 @@ def get_oobb_motor_gearmotor_01(**kwargs):
             p4["radius_name"] = "m3"
             p4["include_nut"] = False
             p4["depth"] = 25
+            p4["top_clearance"] = True
             objects.extend(ob.oobb_easy(**p4))
 
         # rear clearance cube
@@ -488,6 +489,7 @@ def get_oobb_screw_countersunk(**kwargs):
 
 def get_oobb_countersunk(**kwargs):
     objects = []
+    top_clearance = kwargs.get("top_clearance", False)
     modes = kwargs.get("mode", ["laser", "3dpr", "true"])
     if "all" in modes:
         modes = ["laser", "3dpr", "true"]
@@ -564,6 +566,16 @@ def get_oobb_countersunk(**kwargs):
             p4["hole"] = True
             # p4["m"] = ""
             objects.extend(ob.oobb_easy(**p4))
+        p3 = copy.deepcopy(p2)
+        # addinf top clearance not a great implementation only really works with 3dpr
+        if top_clearance and mode == "3dpr":
+            p3["shape"] = "cylinder"
+            p3["r1"] = p2["r2"]
+            p3['h'] = 250
+            p3["pos"][2] = p3["pos"][2] + p2['h']
+            #p3['m'] = "#"
+            objects.append(ob.oobb_easy(**p3))
+
 
     # hole
     p2 = copy.deepcopy(kwargs)
