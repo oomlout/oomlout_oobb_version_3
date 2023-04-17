@@ -5,44 +5,7 @@ difference() {
 	union() {
 		translate(v = [0, 0, 0]) {
 			rotate(a = [0, 0, 0]) {
-				hull() {
-					translate(v = [-2.0000000000, 2.0000000000, 0]) {
-						rotate(a = [0, 0, 0]) {
-							translate(v = [0, 0, 0]) {
-								rotate(a = [0, 0, 0]) {
-									cylinder(h = 6, r = 5);
-								}
-							}
-						}
-					}
-					translate(v = [2.0000000000, 2.0000000000, 0]) {
-						rotate(a = [0, 0, 0]) {
-							translate(v = [0, 0, 0]) {
-								rotate(a = [0, 0, 0]) {
-									cylinder(h = 6, r = 5);
-								}
-							}
-						}
-					}
-					translate(v = [-2.0000000000, -2.0000000000, 0]) {
-						rotate(a = [0, 0, 0]) {
-							translate(v = [0, 0, 0]) {
-								rotate(a = [0, 0, 0]) {
-									cylinder(h = 6, r = 5);
-								}
-							}
-						}
-					}
-					translate(v = [2.0000000000, -2.0000000000, 0]) {
-						rotate(a = [0, 0, 0]) {
-							translate(v = [0, 0, 0]) {
-								rotate(a = [0, 0, 0]) {
-									cylinder(h = 6, r = 5);
-								}
-							}
-						}
-					}
-				}
+				cylinder(h = 6, r = 7.0000000000);
 			}
 		}
 	}

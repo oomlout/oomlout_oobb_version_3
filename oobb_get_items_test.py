@@ -18,10 +18,12 @@ def get_test(**kwargs):
     radius = True
     wid = 3
     hei = 3
-    padding = 7
+    padding = kwargs.get("padding", 7)
+
     name_variable = kwargs["name_variable"]
     radius_name = kwargs["radius_name"]
     difference = kwargs["difference"]
+    depth_adjust = kwargs.get("depth_adjust", 0)
     if radius:
         name_variable_full = f'{name_variable}_{radius_name}'
         radius_mm = ob.gv(f'{name_variable_full}', "true")
@@ -32,11 +34,8 @@ def get_test(**kwargs):
 
     # switch to making it a test for variable take variable and shape
     # add tight and loose tolerances
-
-    try:
-        depth = kwargs["depth"]
-    except:
-        depth = 3
+    depth = kwargs.get("depth", 3)
+    depth_item = depth + depth_adjust
 
     shape = kwargs["shape"]
 
@@ -62,7 +61,7 @@ def get_test(**kwargs):
         for h in range(hei):
             x = start_x + w * (wid_mm + padding)
             y = start_y + h * (hei_mm + padding)
-            z = depth
+            z = depth_item
             total_iterations += 1
             kwargs["pos"] = [x, y, z]
             kwargs["name_variable_full"] = name_variable_full
@@ -77,6 +76,7 @@ def get_test(**kwargs):
             rv = get_test_item(**p2)
             sizes += f"total_itterations: {total_iterations} size: {rv[1]}\n"
             thing["components"].extend(rv[0])
+            #insert holes for marking 0 point and direction
             if total_iterations == 1 or total_iterations == 2:
                 p2 = copy.deepcopy(kwargs)
                 p2.pop("depth", None)
@@ -104,7 +104,7 @@ def get_test_item(**kwargs):
         nv = orig_value[mode] + difference
         ob.set_variable(name_variable_full, nv, mode)
         new_value.append(nv)
-    kwargs["m"] = "#"
+    kwargs["m"] = ""
     obj = ob.oobb_easy(**kwargs)
     for mode in modes:
         ob.set_variable(name_variable_full, orig_value[mode], mode)

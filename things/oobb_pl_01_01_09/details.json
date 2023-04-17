@@ -12,18 +12,16 @@
     "components": [
         {
             "type": "p",
-            "shape": "rounded_rectangle",
-            "size": [
-                14,
-                14,
-                9
-            ],
+            "shape": "cylinder",
+            "r": 7.0,
+            "h": 9,
             "pos": [
                 0,
                 0,
                 0
             ],
-            "height": 1
+            "height": 1,
+            "m": ""
         },
         {
             "type": "negative",

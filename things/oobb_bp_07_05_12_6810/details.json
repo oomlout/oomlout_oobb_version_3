@@ -1010,84 +1010,6 @@
         {
             "type": "n",
             "shape": "cylinder",
-            "r": 1.5,
-            "h": 250,
-            "pos": [
-                7.5,
-                0,
-                -125.0
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 1.8,
-            "h": 250,
-            "pos": [
-                7.5,
-                0,
-                -125.0
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 1.5,
-            "h": 250,
-            "pos": [
-                7.5,
-                0,
-                -125.0
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 1.5,
-            "h": 250,
-            "pos": [
-                -7.5,
-                0,
-                -125.0
-            ],
-            "inclusion": "laser",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 1.8,
-            "h": 250,
-            "pos": [
-                -7.5,
-                0,
-                -125.0
-            ],
-            "inclusion": "3dpr",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 1.5,
-            "h": 250,
-            "pos": [
-                -7.5,
-                0,
-                -125.0
-            ],
-            "inclusion": "true",
-            "m": ""
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
             "r1": 2.4,
             "r2": 2.4,
             "h": 3,
@@ -2163,118 +2085,92 @@
         },
         {
             "type": "n",
-            "shape": "cylinder",
-            "r": 1.9,
-            "h": 6,
-            "pos": [
-                7.5,
-                0,
-                0.0
-            ],
-            "rotY": 180,
-            "inclusion": "laser",
-            "m": "",
-            "depth": 6
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 2.0,
-            "h": 6,
-            "pos": [
-                7.5,
-                0,
-                0.0
-            ],
-            "rotY": 180,
-            "inclusion": "3dpr",
-            "m": "",
-            "depth": 6
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 2.1,
-            "h": 6,
-            "pos": [
-                7.5,
-                0,
-                0.0
-            ],
-            "rotY": 180,
-            "inclusion": "true",
-            "m": "",
-            "depth": 6
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 0,
+            "shape": "slot_small",
+            "r": 1.5,
             "h": 250,
             "pos": [
-                7.5,
+                7.75,
                 0,
                 -125.0
             ],
-            "inclusion": "all",
+            "rotZ": 0,
+            "w": 0.5,
+            "inclusion": "laser",
             "m": ""
         },
         {
             "type": "n",
-            "shape": "cylinder",
-            "r": 1.9,
-            "h": 6,
-            "pos": [
-                -7.5,
-                0,
-                0.0
-            ],
-            "rotY": 180,
-            "inclusion": "laser",
-            "m": "",
-            "depth": 6
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 2.0,
-            "h": 6,
-            "pos": [
-                -7.5,
-                0,
-                0.0
-            ],
-            "rotY": 180,
-            "inclusion": "3dpr",
-            "m": "",
-            "depth": 6
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 2.1,
-            "h": 6,
-            "pos": [
-                -7.5,
-                0,
-                0.0
-            ],
-            "rotY": 180,
-            "inclusion": "true",
-            "m": "",
-            "depth": 6
-        },
-        {
-            "type": "n",
-            "shape": "cylinder",
-            "r": 0,
+            "shape": "slot_small",
+            "r": 1.8,
             "h": 250,
             "pos": [
-                -7.5,
+                7.75,
                 0,
                 -125.0
             ],
-            "inclusion": "all",
+            "rotZ": 0,
+            "w": 0.5,
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "slot_small",
+            "r": 1.5,
+            "h": 250,
+            "pos": [
+                7.75,
+                0,
+                -125.0
+            ],
+            "rotZ": 0,
+            "w": 0.5,
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "slot_small",
+            "r": 1.5,
+            "h": 250,
+            "pos": [
+                -7.75,
+                0,
+                -125.0
+            ],
+            "rotZ": 0,
+            "w": 0.5,
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "slot_small",
+            "r": 1.8,
+            "h": 250,
+            "pos": [
+                -7.75,
+                0,
+                -125.0
+            ],
+            "rotZ": 0,
+            "w": 0.5,
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "slot_small",
+            "r": 1.5,
+            "h": 250,
+            "pos": [
+                -7.75,
+                0,
+                -125.0
+            ],
+            "rotZ": 0,
+            "w": 0.5,
+            "inclusion": "true",
             "m": ""
         },
         {

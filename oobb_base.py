@@ -7,6 +7,7 @@ import oomB
 # base functions
 
 
+
 def get_default_thing(**kwargs):
 
     thing = {}
@@ -22,7 +23,9 @@ def get_default_thing(**kwargs):
     type_dict.update({"mpu": "mounting plate u holes"})
     type_dict.update({"mp": "mounting plate"})
     type_dict.update({"pl": "plate"})
+    
     type_dict.update({"sh": "shaft"})
+    type_dict.update({"wi": "wire plate"})
     type_dict.update({"ztj": "zip tie mount jack"})
     type_dict.update({"zt": "zip tie mount"})
 
@@ -61,6 +64,9 @@ def get_default_thing(**kwargs):
         acronyms.update({"shape": "sh"})
         var_names.append("style")
         acronyms.update({"style": "st"})
+
+    
+
 
     deets = {}
     for var in var_names:

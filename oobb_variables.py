@@ -124,6 +124,8 @@ def initialize_variables():
     vl["threaded_insert_01_radius_m3"] = [3.8/2, 4.2/2, 4/2]
     vl["threaded_insert_01_depth_m3"] = [6, 6, 6]
     vl["nut_depth_m3"] = [2.5, 2.5, 3]
+    vl["threaded_insert_01_insertion_cone_m3"] = [0, 0, 0.5]
+
 
     vl["nut_radius_m4"] = [7*1.154/2, 7*1.154/2, 7.4 * 1.154/2]
     vl["nut_depth_m4"] = [3.2, 3.2, 3.5]
@@ -198,7 +200,11 @@ def initialize_variables():
     vl["screw_countersunk_radius_m6"] = [6/2, 6/2, 7.2/2]
     vl["screw_countersunk_height_m6"] = [3.3, 3.3, 3.7]
 
-
+    ##### wire variables
+    wi_extra = 0.2
+    vl["wi_extra"] = [0,0,wi_extra]
+    vl["wi_depth"] = [3, 2.54, 2.54+wi_extra]
+    vl["wi_i01"] = [2.54, 2.54, 2.54+wi_extra]
 
 
     for screw in screws:

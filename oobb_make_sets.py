@@ -9,7 +9,7 @@ import oobb_base
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     typs = ["bps", "cis", "hls", "jas", "mps", "pls",
-            "shs", "zts", "nuts", "screws", "bearings", "tests"]
+            "shs", "zts", "nuts", "wis", "screws", "bearings", "tests"]
     all_things = []
 
     for type in typs:
@@ -66,8 +66,11 @@ def get_cis(size="oobb"):
 
 def get_hls(size="oobb"):
     hls = []
-    hls.append({"type": "hl", "extra": "motor_gearmotor_01",
-               "width": 6, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
+    "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_jack","width": 3, "height": 3, "thickness": 12, "size": size})
+    hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_both","width": 4, "height": 3, "thickness": 12, "size": size})
     return hls
 
 
@@ -200,6 +203,13 @@ def get_pls(size="oobb"):
     plates.append({"type": "pl", "width": 10, "height": 7,
                   "thickness": 3, "size": size, "name": "oobb_pl_a6"})
 
+
+    # oobe plates
+    plates.append({"type": "pl", "width": 14, "height": 10,
+                  "thickness": 3, "size": "oobe"})
+    
+
+
     return plates
 
 
@@ -219,6 +229,12 @@ def get_shs(size="oobb"):
 
     return shafts
 
+
+def get_wis(size="oobb"):
+    wis = []
+    wis.append({"type": "wi", "extra": "m2", "thickness": 3, "width": 3, "height": 3, "size": size})
+
+    return wis
 
 def get_zts(size="oobb"):
 
@@ -311,9 +327,8 @@ def get_tests():
                  "name_variable": "nut_radius", "radius_name": "m3", "depth": 4, "difference": 0.1})
 
     style = "01"
-    tests.append({"type": "test", "size": "test", "shape": "oobb_threaded_insert", "name_variable": f"threaded_insert_{style}_radius",
-                 "style": style, "radius_name": "m3", "depth": 7, "difference": 0.1, "hole": False})
-
+    tests.append({"type": "test", "size": "test", "shape": "oobb_threaded_insert", "name_variable": f"threaded_insert_{style}_radius", "style": style, "radius_name": "m3", "depth": 7, "difference": 0.1, "hole": False})
+    tests.append({"type": "test", "size": "test", "shape": "oobb_threaded_insert", "name_variable": f"threaded_insert_{style}_insertion_cone", "style": style, "radius_name": "m3", "depth": 4, "difference": 0.1, "hole": False, "depth_adjust":3, "insertion_cone":True, "name":"insertion_cone", "padding":9})
     return tests
 
     for thing in things:
