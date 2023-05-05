@@ -1293,8 +1293,14 @@ def get_wi(**kwargs):
             poss = []
             poss.append([7.5+15,15,0])
             poss.append([7.5+15,-15,0])
+            
             for pos in poss:
-                th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=pos, holes="single", radius_name = "m3", m=""))
+                if "base" in extra:
+                    #moze z down 3
+                    posa = [pos[0], pos[1], pos[2]+3]
+                    th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", include_nut=False, depth=thickness, m=""))
+                else:
+                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=pos, holes="single", radius_name = "m3", m=""))
 
         else:
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes=["left","right"], radius_name="m6", size="oobb",m=""))
@@ -1302,10 +1308,58 @@ def get_wi(**kwargs):
             if width > 2:
                 for w in range(3, width+1):
                     th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes="single", loc = [w,2],radius_name="m6", m=""))                    
-                    
+
+        #joining screws in the middle
+        #m3 hole extras
+        holes = []
+        x = 15
+        y = 7.5
+        con_string = "oobb_nut"
+        con_z = 3
+        if "base" in extra :
+            con_string = "oobb_countersunk"
+            con_z = 3
+        holes.extend([[x,y,0,"m3","oobb_hole"],
+                    [x,-y,0,"m3","oobb_hole"],
+                    [x,y,con_z,"m3",con_string],
+                    [x,-y,con_z,"m3",con_string]])
+        pos = kwargs.get("pos", [0, 0, 0])
+        for hole in holes:
+            loc = hole
+            posa = [pos[0] + loc[0], pos[1] + loc[1], pos[2] + loc[2]]
+            th.extend(ob.oobb_easy(t="n", s=hole[4], width=width, loc=loc,
+                    height=height, include_nut=False, radius_name=hole[3], pos=posa, m=""))                             
+
+        #add screw holes for holder piece
+        if "holder" in extra:
+            holes = []
+            start_x = 7.5
+            start_y = -7.5
+            #do a grid 3 x 3 of holes add an array of cordinates to skip
+            skip = []
+            skip.append([1,0])
+            skip.append([1,2])
+            skip.append([3,1])
+
+            wid = 4
+            hei = 3
+            for x in range(wid):
+                for y in range(hei):
+                    if [x,y] not in skip:
+                        holes.append([start_x+x*7.5,start_y+y*7.5])
+            for hole in holes:
+                #moze z down 3
+                posa = [pos[0] + hole[0], pos[1] + hole[1], pos[2] + 3]
+                th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", rotY=180, include_nut=False, depth=thickness, m=""))
+            #add a cube foor wire clearnce using pos and size arrays
+            pos = [29.544,0,0]
+            size = [7, 10, thickness]
+            th.append(ob.oe(t="n", s="oobb_cube_center", holes="none", pos=pos, size=size, mode="all", m=""))
+
 
         #wire piece
-        th.extend(ob.oe(t="n", s=f"oobb_{extra_code}", holes="none", pos=wi_pos, mode="all", width=width, height=height, m=""))
+        if "base" not in extra:
+            th.extend(ob.oe(t="n", s=f"oobb_{extra_code}", holes="none", pos=wi_pos, mode="all", width=width, height=height, m=""))
         
         
         return thing

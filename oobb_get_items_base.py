@@ -686,7 +686,7 @@ def get_oobb_countersunk(**kwargs):
         p2["inclusion"] = mode
         pos = p2.get("pos", [0, 0, 0])
         p2["pos"] = [pos[0], pos[1], pos[2]]
-        depth = kwargs["depth"]
+        depth = kwargs.get("depth", 100)
         rot = kwargs.get("rotY", 0)
 
         # top always countersunk size
@@ -1205,20 +1205,6 @@ def get_oobb_wi_base(**kwargs):
             return_value.append(ob.oe(**p2))
                 
 
-    #m3 hole extras
-    holes = []
-    x = 15
-    y = 7.5
-    holes.extend([[x,y,0,"m3","oobb_hole"],
-                  [x,-y,0,"m3","oobb_hole"],
-                  [x,y,3,"m3","oobb_nut"],
-                  [x,-y,3,"m3","oobb_nut"]])
-    pos = kwargs.get("pos", [0, 0, 0])
-    for hole in holes:
-        loc = hole
-        pos = [kwargs["pos"][0] + loc[0], kwargs["pos"][1] + loc[1], kwargs["pos"][2] + loc[2]]
-        return_value.extend(ob.oobb_easy(t="n", s=hole[4], width=width, loc=loc,
-                height=height, radius_name=hole[3], pos=pos, m=""))    
     #polariation dot
     if polarized:
         p2 = copy.deepcopy(kwargs)
@@ -1315,6 +1301,84 @@ def get_oobb_wi_ba(**kwargs):
 
     return return_value
 
+# hv
+def get_oobb_wi_hv(**kwargs):
+    pos = kwargs.get("pos", [0, 0, 0])    
+    kwargs.update({"polarized": True})
+
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+    return_value = []
+
+    return_value = get_oobb_wi_base(**kwargs)
+    for mode in modes:
+        #depth = ob.gv("wi_depth", mode) 
+        depth = 3
+        extra = ob.gv("wi_extra", mode)
+        i01 = ob.gv("wi_i01", mode)        
+        p2 = copy.deepcopy(kwargs)
+        length = ob.gv("wi_length", mode)
+        ##wire back piece
+        wid = 5
+        hei = i01 * 2 - 2
+        depth = 3
+        size = [wid, hei, depth]
+        x = 25.567
+        y = 1.299
+        z = 0 
+        pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
+        p2["shape"] = "oobb_cube_center"
+        p2["pos"] = pos
+        p2["size"] = size    
+        p2["inclusion"] = mode    
+        ##wire escape =             
+        return_value.append(ob.oe(**p2))
+        
+        ##big piece front
+        wid = length - 8
+        hei = i01 * 3 + extra
+        size = [wid, hei, depth]
+        x = 3.354
+        y = 0
+        z = 0
+        pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
+        p2["shape"] = "oobb_cube_center"
+        p2["pos"] = pos
+        p2["size"] = size    
+        p2["inclusion"] = mode    
+        return_value.append(ob.oe(**p2))
+        ##big piece back
+        wid = length
+        hei = i01 * 2 + extra
+        size = [wid, hei, depth]
+        p3 = copy.deepcopy(p2)        
+        x = 16.038
+        y = 1.27
+        z = 0
+        pos = [kwargs["pos"][0] + x, p3["pos"][1] + y, p3["pos"][2] + z]
+        p3["pos"] = pos
+        p3["size"] = size
+        return_value.append(ob.oe(**p3))
+        ##key piece
+        p4 = copy.deepcopy(p2)
+        wid = i01 + extra
+        hei = i01 * 5 + extra
+        size = [wid, hei, depth]
+        x = 7.77
+        y = 0
+        z = 0
+        pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]        
+        p4["pos"] = pos
+        p4["size"] = size    
+        return_value.append(ob.oe(**p4))
+
+
+    return return_value
+
+
 # 2 wire unpolarized 
 def get_oobb_wi_m2(**kwargs):
     pos = kwargs.get("pos", [0, 0, 0])
@@ -1390,6 +1454,44 @@ def get_oobb_wi_m2(**kwargs):
 
 
     return return_value
+
+# space
+def get_oobb_wi_spacer(**kwargs):
+    pos = kwargs.get("pos", [0, 0, 0])    
+    kwargs.update({"polarized": False})
+    depth = kwargs.get("depth", 3)
+
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+    return_value = []
+
+
+
+    return_value = get_oobb_wi_base(**kwargs)
+    for mode in modes:
+        ##wire back piece
+        p2 = copy.deepcopy(kwargs)
+        wid = 27
+        hei = 24
+        depth = depth
+        size = [wid, hei, depth]
+        x = 20
+        y = 0
+        z = 0 
+        pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
+        p2["shape"] = "rounded_rectangle"
+        p2["pos"] = pos
+        p2["size"] = size    
+        p2["inclusion"] = mode    
+        ##wire escape =             
+        return_value.append(ob.oe(**p2))
+
+    return return_value
+
+
 
 
 def get_oobb_ziptie(**kwargs):

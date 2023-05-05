@@ -298,6 +298,15 @@ def get_wis(size="oobb"):
         for width in widths:
             wis.append({"type": "wi", "extra": "m2", "thickness": thickness, "width": width, "height": 3, "size": size})
             wis.append({"type": "wi", "extra": "ba", "thickness": thickness, "width": width, "height": 3, "size": size})        
+            wis.append({"type": "wi", "extra": "hv", "thickness": thickness, "width": width, "height": 3, "size": size})        
+    
+    #base plates
+    wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 2, "height": 3, "size": size})                    
+    wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    wis.append({"type": "wi", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    #spacer    
+    wis.append({"type": "wi", "extra": "spacer", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    
 
     return wis
 

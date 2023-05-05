@@ -192,10 +192,14 @@ def load(mode="json"):
 
 
 def build_things(save_type="none", overwrite=True, filter=""):
-    for thing in oobb.things:
-        if filter in thing:
-            print(f'building {thing}')
-            build_thing(thing, save_type, overwrite)
+    #turn filter into an array if its a string
+    if type(filter) == str:
+        filter = [filter]
+    for f in filter:
+        for thing in oobb.things:
+            if f in thing:
+                print(f'building {thing}')
+                build_thing(thing, save_type, overwrite)
 
 
 def build_thing(thing, save_type="all", overwrite=True):
