@@ -1,19 +1,22 @@
 
-import oobb_get_items_oobb
+#import oobb_get_items_oobb
 import oobb_get_items_other
 import oobb_get_items_base
+import oobb_get_items_oobb
 import oobb_get_items_test
 import oobb_base
 
 
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
-    typs = ["bps", "cis", "hls", "jas", "mps", "pls",
-            "shs", "zts", "nuts", "wis", "screws", "bearings", "tests"]
+    # add orings make a nice summary page maybe tables of details add 2020 maybe
+    typs = ["bps", "bcs", "cis", "hls", "jas", "mps", "pls", "scs",
+            "shs", "ths", "zts", "nuts", "wis", "whs", "screws", "bearings", "tests"]
+   
     all_things = []
 
     for type in typs:
-        if filter in type:
+        if type in filter:
             func = globals()["get_"+type]
             all_things.extend(func())
             pass
@@ -36,39 +39,58 @@ def make_all(filter=""):
 
 def get_bps(size="oobb"):
     bps = []
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704",
-                "size": size})
-    bps.append({"type": "bp_shim", "thickness": 2,
-               "bearing_type": "6704", "size": size})
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12,
-               "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
-
-    bps.append({"type": "bp", "width": 3, "height": 3,
-               "thickness": 12, "bearing_type": "6803", "size": size})
-    bps.append({"type": "bp", "width": 3, "height": 3,
-               "thickness": 12, "bearing_type": "6804", "size": size})
-    bps.append({"type": "bp", "width": 5, "height": 5,
-               "thickness": 12, "bearing_type": "6808", "size": size})
-    bps.append({"type": "bp", "width": 7, "height": 5,
-               "thickness": 12, "bearing_type": "6810", "size": size})
+    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bps.append({"type": "bpj", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bps.append({"type": "bpjb", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704","size": size})
+    bps.append({"type": "bp_shim", "thickness": 2, "bearing_type": "6704", "size": size})
+    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
+    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
+    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6803", "size": size})
+    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6804", "size": size})
+    bps.append({"type": "bp", "width": 5, "height": 5, "thickness": 12, "bearing_type": "6808", "size": size})
+    bps.append({"type": "bp", "width": 7, "height": 5, "thickness": 12, "bearing_type": "6810", "size": size})
 
     return bps
+
+def get_bcs(size="oobb"):
+    bcs = []
+    bcs.append({"type": "bc", "diameter": 3, "thickness": 12, "bearing_type": "606","size": size})
+
+    return bcs
+
 
 
 def get_cis(size="oobb"):
     circles = []
     circle_size = [1.5,3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
     for s in circle_size:
-        circles.append({"type": "ci", "diameter": s,
-                       "thickness": 3, "size": size})
+        circles.append({"type": "ci", "diameter": s, "thickness": 3, "size": size})
+    
+    circles.append({"type": "ci", "diameter": 1.5, "thickness": 9, "extra":"nut_m6", "size": size})
     return circles
 
 
 def get_hls(size="oobb"):
     hls = []
+    #### gearmotor
     hls.append({"type": "hl", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 3, "size": size})
-    hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
-    "thickness": 3, "size": size})
+    #### micro servo
+    hls.append({"type": "hl", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
+    
+    #### nema 17
+    thicknesses = [3,6]
+    for t in thicknesses:
+        ##shifted nema 17s    
+        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
+        "thickness": t, "size": size, "bearing_type": "shifted"})
+        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 5, 
+        "thickness": t, "size": size, "bearing_type": "shifted"})
+        ##normal nema 17s
+        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
+        "thickness": t, "size": size})
+        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 5, 
+        "thickness": t, "size": size})
     hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_jack","width": 3, "height": 3, "thickness": 12, "size": size})
     hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_both","width": 4, "height": 3, "thickness": 12, "size": size})
     return hls
@@ -124,19 +146,18 @@ def get_mps(size="oobb"):
 
 def get_pls(size="oobb"):
     plates = []
-    for wid in range(1, 7):
-        for hei in range(1, 7):
+    for wid in range(1, 10):
+        for hei in range(1, 10):
             if wid >= hei:
                 plates.append({"type": "pl", "width": wid,
                               "height": hei, "thickness": 3, "size": size})
 
-    plates.append({"type": "pl", "width": 1, "height": 1,
-                  "thickness": 6, "size": size})
-    plates.append({"type": "pl", "width": 1, "height": 1,
-                  "thickness": 9, "size": size})
-    plates.append({"type": "pl", "width": 1, "height": 1,
-                  "thickness": 12, "size": size})
-
+    depths = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+    for dep in depths:
+        plates.append({"type": "pl", "width": 1, "height": 1,
+                  "thickness": dep, "size": size})
+    
+    #one widers
     for len in range(2, 35):
         plates.append({"type": "pl", "width": len, "height": 1,
                       "thickness": 3, "size": size})
@@ -204,10 +225,21 @@ def get_pls(size="oobb"):
                   "thickness": 3, "size": size, "name": "oobb_pl_a6"})
 
 
+
+
+    #add oobe holes to all oobb plates
+    for plate in plates:
+        #add "both_holes" True to all plates
+        plate["both_holes"] = True
+
     # oobe plates
     plates.append({"type": "pl", "width": 14, "height": 10,
                   "thickness": 3, "size": "oobe"})
     
+    #non both_holes ones
+    #gorm plates
+    plates.append({"type": "pl", "width": 7, "height": 4,
+                  "thickness": 3, "extra":"gorm", "size": size})
 
 
     return plates
@@ -229,10 +261,43 @@ def get_shs(size="oobb"):
 
     return shafts
 
+def get_scs(size="oobb"):
+    couplers = []
+    size = "oobb"
+    couplers.append({"type": "sc", "diameter": 2, "thickness": 9,  "size": size})
+    
+    return couplers
+
+def get_ths(size="oobb"):
+    tool_holders = []
+    size = "oobb"
+    tool_holders.append({"type": "th", "width": 7, "height": 9,  "thickness": 66, "extra": "tool_holder_basic", "size": size})
+    
+    return tool_holders
+
+
+
+def get_whs(size="oobb"):
+    wheels = []
+    types = [["wh",6],["bw",9],["bw",15]]
+    for t in types:
+        type, thickness = t
+        wheels.append({"type": type, "thickness": thickness, "oring_type":"314", "size": size})        
+        wheels.append({"type": type, "thickness": thickness, "oring_type":"319", "size": size})
+        wheels.append({"type": type, "thickness": thickness, "oring_type":"323", "size": size})
+        wheels.append({"type": type, "thickness": thickness, "oring_type":"327", "size": size})
+        wheels.append({"type": type, "thickness": thickness, "oring_type":"333", "size": size})
+    return wheels
+
 
 def get_wis(size="oobb"):
     wis = []
-    wis.append({"type": "wi", "extra": "m2", "thickness": 3, "width": 3, "height": 3, "size": size})
+    thicknesses = [3,6]
+    widths = [2,3]
+    for thickness in thicknesses:
+        for width in widths:
+            wis.append({"type": "wi", "extra": "m2", "thickness": thickness, "width": width, "height": 3, "size": size})
+            wis.append({"type": "wi", "extra": "ba", "thickness": thickness, "width": width, "height": 3, "size": size})        
 
     return wis
 
@@ -323,12 +388,19 @@ def get_screws():
 def get_tests():
     tests = []
 
+    #hole test
+    tests.append({"type": "test", "size": "test", "shape": "oobb_hole",
+                 "name_variable": "hole_radius", "radius_name": "m5", "depth": 4, "depth2":3, "difference": 0.1})
+
+
+    # nut test
     tests.append({"type": "test", "size": "test", "shape": "oobb_nut",
-                 "name_variable": "nut_radius", "radius_name": "m3", "depth": 4, "difference": 0.1})
+                 "name_variable": "nut_radius", "radius_name": "m3", "depth": 4, "difference": 0.1, "z": -3})
 
     style = "01"
     tests.append({"type": "test", "size": "test", "shape": "oobb_threaded_insert", "name_variable": f"threaded_insert_{style}_radius", "style": style, "radius_name": "m3", "depth": 7, "difference": 0.1, "hole": False})
     tests.append({"type": "test", "size": "test", "shape": "oobb_threaded_insert", "name_variable": f"threaded_insert_{style}_insertion_cone", "style": style, "radius_name": "m3", "depth": 4, "difference": 0.1, "hole": False, "depth_adjust":3, "insertion_cone":True, "name":"insertion_cone", "padding":9})
+    
     return tests
 
     for thing in things:

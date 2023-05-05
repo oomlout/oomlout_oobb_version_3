@@ -13,7 +13,11 @@ def get_default_thing(**kwargs):
     thing = {}
 
     type_dict = {}
+    type_dict.update({"bc": "bearing circle"})
     type_dict.update({"bp": "bearing plate"})
+    type_dict.update({"bpj": "bearing plate with jack"})
+    type_dict.update({"bpjb": "bearing plate with jack basic"})
+    type_dict.update({"bw": "bearing wheel"})
     type_dict.update({"ci": "circle"})
     type_dict.update({"hl": "holder"})
     type_dict.update({"jab": "jack basic"})
@@ -24,7 +28,10 @@ def get_default_thing(**kwargs):
     type_dict.update({"mp": "mounting plate"})
     type_dict.update({"pl": "plate"})
     
+    type_dict.update({"sc": "shaft coupler"})
     type_dict.update({"sh": "shaft"})
+    type_dict.update({"th": "tool holder"})
+    type_dict.update({"wh": "wheel"})
     type_dict.update({"wi": "wire plate"})
     type_dict.update({"ztj": "zip tie mount jack"})
     type_dict.update({"zt": "zip tie mount"})
@@ -52,10 +59,9 @@ def get_default_thing(**kwargs):
         thing.update({"description": f"{type_dict[type]}"})
 
     var_names = ["type", "width", "height", "diameter", "thickness", "radius_name", "depth",
-                 "radius_hole", "width_mounting", "name", "bearing_name", "bearing_type", "shaft"]
+                 "radius_hole", "width_mounting", "name", "bearing_name", "bearing_type", "oring_type","extra","shaft"]
     zfill_values = ["width", "height", "thickness", "depth", "diameter"]
-    acronyms = {"width": "", "height": "", "diameter": "", "thickness": "", "depth": "", "size": "", "type": "", "radius_hole": "rh",
-                "radius_name": "", "width_mounting": "mo", "height_mounting": "hm", "name": "nm", "bearing_name": "", "bearing_type": "", "shaft": "sh"}
+    acronyms = {"width": "", "height": "", "diameter": "", "thickness": "", "depth": "", "size": "", "type": "", "radius_hole": "rh","radius_name": "", "width_mounting": "mo", "height_mounting": "hm","name": "nm", "bearing_name": "", "bearing_type": "","oring_type":"or", "extra":"ex", "shaft": "sh"}
 
     if type == "test":
         var_names.append("radius_name")
@@ -233,8 +239,10 @@ def oobb_easy(**kwargs):
         shape = kwargs["shape"]
         if shape == "oobb_pl":
             return_value = []
+            holes = kwargs.get("holes", True)
             return_value.append(get_oobb_plate(**kwargs))
-            return_value.extend(get_oobb_holes(**kwargs))
+            if holes:
+                return_value.extend(get_oobb_holes(**kwargs))
             return return_value
         if shape == "oobe_pl":
             return_value = []
@@ -267,3 +275,31 @@ def oobb_easy_array(**kwargs):
                 kwargs.update({"pos": pos})
                 return_objects.append(oobb_easy(**kwargs))
     return return_objects
+
+
+#shifting routines
+def shift(thing,shift):
+    # iterate through by index
+    for i in range(0,len(thing)):
+        component = thing[i]
+        component = copy.deepcopy(component)
+        thing[i] = component
+        component["pos"][0] += shift[0]
+        component["pos"][1] += shift[1]
+        component["pos"][2] += shift[2]
+    return thing
+
+def highlight(thing):
+    add_all(thing,"m","#")
+    return thing
+
+def remove_if(thing, name, value):
+    for component in thing:
+        if component.get(name,"") == value:
+            thing.remove(component)
+    return thing
+
+def add_all(thing, name, value):
+    for component in thing:
+        component.update({name: value})
+    return thing

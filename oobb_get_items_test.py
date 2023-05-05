@@ -8,7 +8,7 @@ def get_test_nut(size, depth=4.5, test="radius", difference=0.1, loose=False, **
     radius_name = size
     name_variable = f"nut_{test}_{size}"
     switch_portion = test
-
+    
     wid = 3
     hei = 3
     return get_test(name_variable, switch_portion, difference, wid, hei, radius_name=radius_name, depth=depth, shape=shape, loose=loose, **kwargs)
@@ -19,7 +19,7 @@ def get_test(**kwargs):
     wid = 3
     hei = 3
     padding = kwargs.get("padding", 7)
-
+    zz = kwargs.get("z", 0)
     name_variable = kwargs["name_variable"]
     radius_name = kwargs["radius_name"]
     difference = kwargs["difference"]
@@ -61,7 +61,7 @@ def get_test(**kwargs):
         for h in range(hei):
             x = start_x + w * (wid_mm + padding)
             y = start_y + h * (hei_mm + padding)
-            z = depth_item
+            z = depth_item + zz
             total_iterations += 1
             kwargs["pos"] = [x, y, z]
             kwargs["name_variable_full"] = name_variable_full
@@ -72,18 +72,26 @@ def get_test(**kwargs):
 
             # kwargs["m"] = "#"
             p2 = copy.deepcopy(kwargs)
-            p2.pop("depth", None)
+            depth2 = p2.get("depth2", None)
+            if depth2 != None:
+                #shift pos z down depth2
+                p2["pos"][2] -= depth2
+
+            p2.update({"depth": depth2})
+            p2.update({"m": "#"})
             rv = get_test_item(**p2)
             sizes += f"total_itterations: {total_iterations} size: {rv[1]}\n"
             thing["components"].extend(rv[0])
             #insert holes for marking 0 point and direction
             if total_iterations == 1 or total_iterations == 2:
                 p2 = copy.deepcopy(kwargs)
-                p2.pop("depth", None)
+                #set pos z to 0
+                p2["pos"][2] = -125
+                p2.pop("depth")
                 p2["shape"] = "oobb_hole"
                 p2["radius_name"] = "m1d5"
                 p2["type"] = "n"
-                # p2["m"]= ""
+                #p2["m"]= "#"
                 thing["components"].extend(ob.oobb_easy(**p2))
 
     thing.update(

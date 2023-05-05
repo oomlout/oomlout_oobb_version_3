@@ -1,0 +1,313 @@
+union() {
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, -13.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 12.75], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, -10.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 25.5], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, -7.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 38.25], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, -4.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 51], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, -1.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 63.75], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, 1.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 76.5], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, 4.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 89.25], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, 7.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 102], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, 10.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 114.75], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, 13.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+									multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+										linear_extrude(height = 30, center = false, convexity = 1, scale = [1, 1], $fn = 50, $fa = 12, $fs = 2) {
+											polygon(points = [[3.3466, 0], [1.6733, 2.89824], [-1.6733, 2.89824], [-3.3466, 0], [-1.6733, -2.89824], [1.6733, -2.89824]], paths = undef, convexity = 1);
+										}
+									}
+								}
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 30, r1 = 1.5, r2 = 1.5, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

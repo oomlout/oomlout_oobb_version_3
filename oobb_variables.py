@@ -20,6 +20,7 @@ def initialize_variables():
     #   27 prints as 26.8 od  01 too big
     #   25.6 prints as 25.4 od 02 too small
 
+    bearing_d["606"] = {"id":6, "id_e":0, "od":17, "od_e":0.05, "depth":6, "depth_e":0, "inner_holes":0}
     bearing_d["6701"] = {"id":12, "id_e":0, "od":18, "od_e":0.2, "depth":4, "depth_e":0, "inner_holes":1}
     bearing_d["6702"] = {"id":15, "id_e":0, "od":21, "od_e":0.2, "depth":4, "depth_e":0, "inner_holes":1}
     bearing_d["6703"] = {"id":17, "id_e":0, "od":23, "od_e":0.2, "depth":4, "depth_e":0, "inner_holes":1}
@@ -57,12 +58,13 @@ def initialize_variables():
 
 
     for bn in bearing_d:
-
         vl[f'bearing_{bn}_id'] = [bearing_d[bn]["id"]/2, bearing_d[bn]["id"]/2, bearing_d[bn]["id"]/2 + bearing_d[bn]["id_e"]]
         vl[f'bearing_{bn}_od'] = [bearing_d[bn]["od"]/2, bearing_d[bn]["od"]/2, bearing_d[bn]["od"]/2 + bearing_d[bn]["od_e"]]
         vl[f'bearing_{bn}_depth'] = [bearing_d[bn]["depth"], bearing_d[bn]["depth"], bearing_d[bn]["depth"] + bearing_d[bn]["depth_e"]]
         vl[f'bearing_{bn}_inner_holes'] = [bearing_d[bn]["inner_holes"], bearing_d[bn]["inner_holes"], bearing_d[bn]["inner_holes"]]
         clear = 2
+        if bn == "606":
+            clear = 7
         vl[f'bearing_{bn}_clearance'] = [clear, clear, clear]
         vl[f'bearing_{bn}_id_catch'] = [vl[f'bearing_{bn}_id'][0]+clear/2, vl[f'bearing_{bn}_id'][1]+clear/2, vl[f'bearing_{bn}_id'][2]+clear/2]
         vl[f'bearing_{bn}_od_catch'] = [vl[f'bearing_{bn}_od'][0]-clear/2, vl[f'bearing_{bn}_od'][1]-clear/2, vl[f'bearing_{bn}_od'][2]-clear/2]
@@ -174,10 +176,47 @@ def initialize_variables():
     vl["nut_depth_loose_m6"] = [vl["nut_depth_m6"][0] + m6_extra_depth, vl["nut_depth_m6"][1] + m6_extra_depth, vl["nut_depth_m6"][2] + m6_extra_depth]
     
 
-    
+    tight = -0.4
     for nut in nuts:
         vl["nut_width_" + nut] = [vl[f'nut_radius_{nut}'][0] * 2, vl[f'nut_radius_{nut}'][1] * 2, vl[f'nut_radius_{nut}'][2] * 2]
+        vl[f"nut_radius_{nut}_tight"] = [vl[f'nut_radius_{nut}'][0] + tight, vl[f'nut_radius_{nut}'][1] +tight, vl[f'nut_radius_{nut}'][2] +tight]
         vl["nut_height_" + nut] = [vl[f'nut_depth_{nut}'][0] * 2 / 1.154, vl[f'nut_depth_{nut}'][1] * 2  / 1.154, vl[f'nut_depth_{nut}'][2] * 2  / 1.154]
+
+    ###### o rings
+    """
+    oring_d = {}
+    id_e_default = 4
+    oring_d["327"] = {"id":43.82, "id_e":id_e_default, "od":54.48, "od_e":0.2, "depth":5.33, "depth_e":0, "inner_holes":3}
+    oring_d["333"] = {"id":62.87, "id_e":id_e_default, "od":73.53, "od_e":0.2, "depth":5.33, "depth_e":0, "inner_holes":2}
+    """
+    directory_oring = "data/oring"
+    #loat oring data from directory
+    oring_data = read_csv_files(directory_oring)
+    oring_d = {}
+    id_e_default = 4
+    for oring in oring_data:
+        try:
+            oring_name = oring["Size"]
+            id = float(oring.get("I.D. MM", oring.get("I.D.", 0.0)))
+            od = float(oring.get("O.D. MM", oring.get("O.D.", 0.0)))
+            id_e_default = int(id / 10)
+            depth = float(oring.get("C.S. MM", oring.get("C.S.", 0.0)))
+            oring_d[oring_name] = {"id":id, "id_e":id_e_default, "od":od, "od_e":0.2, "depth":depth, "depth_e":0, "inner_holes":0}
+        except:
+            print(f"error reading oring data {oring_name}")
+
+
+
+
+
+    for bn in oring_d:
+        vl[f'oring_{bn}_id'] = [oring_d[bn]["id"]/2, oring_d[bn]["id"]/2, oring_d[bn]["id"]/2]
+        vl[f'oring_{bn}_id_tight'] = [oring_d[bn]["id"]/2 + oring_d[bn]["id_e"], oring_d[bn]["id"]/2 + oring_d[bn]["id_e"], oring_d[bn]["id"]/2 + oring_d[bn]["id_e"]]
+        vl[f'oring_{bn}_od'] = [oring_d[bn]["od"]/2, oring_d[bn]["od"]/2, oring_d[bn]["od"]/2 + oring_d[bn]["od_e"]]
+        vl[f'oring_{bn}_depth'] = [oring_d[bn]["depth"], oring_d[bn]["depth"], oring_d[bn]["depth"]]
+        vl[f'oring_{bn}_inner_holes'] = [oring_d[bn]["inner_holes"], oring_d[bn]["inner_holes"], oring_d[bn]["inner_holes"]]
+    
+
 
     # screw variables
     screws = ["m1d5", "m3", "m6"]
@@ -201,11 +240,11 @@ def initialize_variables():
     vl["screw_countersunk_height_m6"] = [3.3, 3.3, 3.7]
 
     ##### wire variables
-    wi_extra = 0.2
+    wi_extra = 0.3
     vl["wi_extra"] = [0,0,wi_extra]
     vl["wi_depth"] = [3, 2.54, 2.54+wi_extra]
-    vl["wi_i01"] = [2.54, 2.54, 2.54+wi_extra]
-
+    vl["wi_i01"] = [2.54, 2.54, 2.54]
+    vl["wi_length"] = [14,14,14+wi_extra]
 
     for screw in screws:
         vl["screw__countersunk_height_" + screw] = [vl[f'screw_countersunk_radius_{screw}'][0] * 2, vl[f'screw_countersunk_radius_{screw}'][1] * 2, vl[f'screw_countersunk_radius_{screw}'][2] * 2]
@@ -220,3 +259,18 @@ def initialize_variables():
         values = vl[var]
         for i in range(0, len(modes)):
             oobb_base.set_variable(var, values[i], modes[i])
+
+import os
+import csv
+
+def read_csv_files(directory):
+    data_dict = []
+    for filename in os.listdir(directory):
+        if filename.endswith(".csv"):
+            filepath = os.path.join(directory, filename)
+            with open(filepath, 'r') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    data_dict.append(row)
+                #data_dict[filename] = rows
+    return data_dict

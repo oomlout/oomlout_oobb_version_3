@@ -1,0 +1,938 @@
+{
+    "description": "tool holder 7x9x66",
+    "id": "oobb_th_tool_holder_basic_07_09_66",
+    "type": "th_tool_holder_basic",
+    "width": 7,
+    "height": 9,
+    "thickness": 66,
+    "width_mm": 104,
+    "thickness_mm": 66,
+    "height_mm": 134,
+    "components": [
+        {
+            "type": "p",
+            "shape": "rounded_rectangle",
+            "size": [
+                104,
+                134,
+                66
+            ],
+            "pos": [
+                0,
+                0,
+                -33.0
+            ],
+            "height": 9
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                -45.0,
+                -60.0,
+                -125.0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.25,
+            "h": 250,
+            "pos": [
+                -45.0,
+                -60.0,
+                -125.0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                -45.0,
+                -60.0,
+                -125.0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                -45.0,
+                60.0,
+                -125.0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.25,
+            "h": 250,
+            "pos": [
+                -45.0,
+                60.0,
+                -125.0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                -45.0,
+                60.0,
+                -125.0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                45.0,
+                -60.0,
+                -125.0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.25,
+            "h": 250,
+            "pos": [
+                45.0,
+                -60.0,
+                -125.0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                45.0,
+                -60.0,
+                -125.0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                45.0,
+                60.0,
+                -125.0
+            ],
+            "inclusion": "laser",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.25,
+            "h": 250,
+            "pos": [
+                45.0,
+                60.0,
+                -125.0
+            ],
+            "inclusion": "3dpr",
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 3.0,
+            "h": 250,
+            "pos": [
+                45.0,
+                60.0,
+                -125.0
+            ],
+            "inclusion": "true",
+            "m": ""
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 11,
+            "pos": [
+                0,
+                -39.5,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                10,
+                10,
+                45,
+                55
+            ],
+            "m": "#",
+            "depth": 11,
+            "points": [
+                [
+                    -10.0,
+                    -30.0
+                ],
+                [
+                    -10.0,
+                    -5.0
+                ],
+                [
+                    -45.0,
+                    30.0
+                ],
+                [
+                    -55.0,
+                    80.0
+                ],
+                [
+                    55.0,
+                    80.0
+                ],
+                [
+                    45.0,
+                    30.0
+                ],
+                [
+                    10.0,
+                    -5.0
+                ],
+                [
+                    10.0,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 10,
+            "pos": [
+                0,
+                -25.0,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                17,
+                17,
+                46,
+                50
+            ],
+            "m": "#",
+            "depth": 10,
+            "points": [
+                [
+                    -17.0,
+                    -30.0
+                ],
+                [
+                    -17.0,
+                    24.0
+                ],
+                [
+                    -46.0,
+                    63.0
+                ],
+                [
+                    -50.0,
+                    95.0
+                ],
+                [
+                    50.0,
+                    95.0
+                ],
+                [
+                    46.0,
+                    63.0
+                ],
+                [
+                    17.0,
+                    24.0
+                ],
+                [
+                    17.0,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 11,
+            "pos": [
+                0,
+                -9.5,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                17,
+                17,
+                33,
+                42
+            ],
+            "m": "#",
+            "depth": 11,
+            "points": [
+                [
+                    -17.0,
+                    -30.0
+                ],
+                [
+                    -17.0,
+                    5.0
+                ],
+                [
+                    -33.0,
+                    50.0
+                ],
+                [
+                    -42.0,
+                    90.0
+                ],
+                [
+                    42.0,
+                    90.0
+                ],
+                [
+                    33.0,
+                    50.0
+                ],
+                [
+                    17.0,
+                    5.0
+                ],
+                [
+                    17.0,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 60,
+            "pos": [
+                -37.5,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 60,
+            "pos": [
+                -37.5,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 60,
+            "pos": [
+                -37.5,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                -37.5,
+                7.5,
+                30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                -37.5,
+                7.5,
+                30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                -37.5,
+                7.5,
+                30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 60,
+            "pos": [
+                -15.0,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 60,
+            "pos": [
+                -15.0,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 60,
+            "pos": [
+                -15.0,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                -15.0,
+                7.5,
+                30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                -15.0,
+                7.5,
+                30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                -15.0,
+                7.5,
+                30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 2,
+            "h": 60,
+            "pos": [
+                7.5,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 2,
+            "h": 60,
+            "pos": [
+                7.5,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 2,
+            "h": 60,
+            "pos": [
+                7.5,
+                7.5,
+                -30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 60
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                7.5,
+                7.5,
+                30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                7.5,
+                7.5,
+                30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 9,
+            "h": 98,
+            "pos": [
+                7.5,
+                7.5,
+                30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 98
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 3.85,
+            "h": 57,
+            "pos": [
+                -30.0,
+                45.0,
+                -30.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 57
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 3.85,
+            "h": 57,
+            "pos": [
+                -30.0,
+                45.0,
+                -30.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 57
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 3.85,
+            "h": 57,
+            "pos": [
+                -30.0,
+                45.0,
+                -30.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 57
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 5.5,
+            "h": 30,
+            "pos": [
+                -30.0,
+                45.0,
+                27.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 30
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 5.5,
+            "h": 30,
+            "pos": [
+                -30.0,
+                45.0,
+                27.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 30
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 5.5,
+            "h": 30,
+            "pos": [
+                -30.0,
+                45.0,
+                27.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 30
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 6.5,
+            "h": 17,
+            "pos": [
+                -30.0,
+                45.0,
+                57.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 17
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 6.5,
+            "h": 17,
+            "pos": [
+                -30.0,
+                45.0,
+                57.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 17
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 6.5,
+            "h": 17,
+            "pos": [
+                -30.0,
+                45.0,
+                57.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 17
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 18.0,
+            "h": 100,
+            "pos": [
+                -30.0,
+                45.0,
+                74.0
+            ],
+            "inclusion": "laser",
+            "m": "#",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 18.0,
+            "h": 100,
+            "pos": [
+                -30.0,
+                45.0,
+                74.0
+            ],
+            "inclusion": "3dpr",
+            "m": "#",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 18.0,
+            "h": 100,
+            "pos": [
+                -30.0,
+                45.0,
+                74.0
+            ],
+            "inclusion": "true",
+            "m": "#",
+            "depth": 100
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 4.5,
+            "pos": [
+                0,
+                9.75,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                8.0,
+                8.0
+            ],
+            "m": "#",
+            "depth": 4.5,
+            "points": [
+                [
+                    22.0,
+                    -30.0
+                ],
+                [
+                    22.0,
+                    80.0
+                ],
+                [
+                    38.0,
+                    80.0
+                ],
+                [
+                    38.0,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 5.5,
+            "pos": [
+                0,
+                25.25,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                8.5,
+                8.5
+            ],
+            "m": "#",
+            "depth": 5.5,
+            "points": [
+                [
+                    21.5,
+                    -30.0
+                ],
+                [
+                    21.5,
+                    90.0
+                ],
+                [
+                    38.5,
+                    90.0
+                ],
+                [
+                    38.5,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 7,
+            "pos": [
+                0,
+                41.0,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                11.5,
+                11.5
+            ],
+            "m": "#",
+            "depth": 7,
+            "points": [
+                [
+                    18.5,
+                    -30.0
+                ],
+                [
+                    18.5,
+                    110.0
+                ],
+                [
+                    41.5,
+                    110.0
+                ],
+                [
+                    41.5,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 7,
+            "pos": [
+                0,
+                56.0,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                11.5,
+                11.5
+            ],
+            "m": "#",
+            "depth": 7,
+            "points": [
+                [
+                    18.5,
+                    -30.0
+                ],
+                [
+                    18.5,
+                    110.0
+                ],
+                [
+                    41.5,
+                    110.0
+                ],
+                [
+                    41.5,
+                    -30.0
+                ]
+            ]
+        },
+        {
+            "type": "n",
+            "shape": "polygon",
+            "h": 27.5,
+            "pos": [
+                0,
+                58.75,
+                0
+            ],
+            "rotX": 90,
+            "w": [
+                8.5,
+                8.5
+            ],
+            "m": "#",
+            "depth": 27.5,
+            "points": [
+                [
+                    -8.5,
+                    -30.0
+                ],
+                [
+                    -8.5,
+                    130.0
+                ],
+                [
+                    8.5,
+                    130.0
+                ],
+                [
+                    8.5,
+                    -30.0
+                ]
+            ]
+        }
+    ]
+}

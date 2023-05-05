@@ -1,0 +1,28 @@
+union() {
+	multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+		projection(cut = false, convexity = 0) {
+			intersection() {
+				multmatrix([[1, 0, 0, -500], [0, 1, 0, -500], [0, 0, 1, 1.5], [0, 0, 0, 1]]) {
+					cube(size = [1000, 1000, 0.1], center = false);
+				}
+				difference() {
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 16, r1 = 75, r2 = 75, center = false);
+							}
+						}
+					}
+					union() {
+						multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+							multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+								cylinder($fn = 50, $fa = 12, $fs = 2, h = 16, r1 = 60, r2 = 60, center = false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
