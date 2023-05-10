@@ -12,7 +12,7 @@ union() {
 					union() {
 						translate(v = [0, 0, -3.0000000000]) {
 							rotate(a = [0, 0, 0]) {
-								cylinder(h = 6, r = 39.6000000000);
+								cylinder(h = 6, r = 38.1000000000);
 							}
 						}
 					}
@@ -169,7 +169,7 @@ union() {
 					union() {
 						translate(v = [0, 0, -3.0000000000]) {
 							rotate(a = [0, 0, 0]) {
-								cylinder(h = 6, r = 39.6000000000);
+								cylinder(h = 6, r = 38.1000000000);
 							}
 						}
 					}
