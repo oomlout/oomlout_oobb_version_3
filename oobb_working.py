@@ -32,13 +32,13 @@ save_type = "none"
 #save_type = "laser"
 save_type = "all"
 
-filter = "hv"
-#filter = ["_holder", "spacer"]
+filter = "wi_m2_02_03_06"
+#filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
 oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)
 
 copy_files = True
-#copy_files = False
+copy_files = False
 if copy_files:
     oobb_markdown.make_markdown()
     # oobb_dxf_laser_copy.folders_to_folder_dxf()

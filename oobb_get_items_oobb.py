@@ -206,6 +206,8 @@ def get_bp(**kwargs):
     rot_current = 0
     rotz_current = 360/12
     times_through = 0
+    #added to allow gearmotor retaininer to have 3 nuts on top
+    gearmotor_screw_twist = True
     for posa in hole_positions:
         x, y = ob.get_hole_pos(pos[0]+posa[0], pos[1]+posa[1], width, height)
         z = pos[2]+thickness/2
@@ -215,7 +217,12 @@ def get_bp(**kwargs):
         connecting_screws.extend(ob.oobb_easy(t="n", s=type, sandwich=True, radius_name="m3", depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=rotz_current))
         micro_servo_screws.extend(ob.oobb_easy(t="n", s="oobb_hole", sandwich=True, radius_name="m3",depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=rotz_current))
         if rot_current == 0:
-            rot_current = 180
+            #added to allow gearmotor retaininer to have 3 nuts on top
+            if shaft == "motor_gearmotor_01" and gearmotor_screw_twist:
+                rot_current = 0
+                gearmotor_screw_twist = False
+            else:
+                rot_current = 180
         else:
             rot_current = 0
         # doing nut twist on the outside ones
@@ -471,8 +478,64 @@ def get_hl(**kwargs):
     else:
         Exception("No extra")
 
-
 def get_hl_motor_gearmotor_01(**kwargs):
+    
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [-ob.gv("osp")/2, 0, 0]
+
+    #add m6 holes
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width,
+              height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
+    #oobb holes
+    holes = [[1, 1, "m6"], [2, 1, "m6"],  [3, 1, "m6"], [5, 1, "m6"], [1, 3, "m6"], [2, 3, "m6"],[3, 3, "m6"], [5, 3, "m6"], [6, 1, "m6"], [6, 2, "m6"], [6, 3, "m6"]]#, [4, 2, "m3"]]
+    ##oobb holes m3
+    holes_oobb = [[1.5, 1, "m3"],[1.5, 3, "m3"],[6, 1.5, "m3"],[6, 2.5, "m3"]]
+    holes.extend(holes_oobb)
+    for hole in holes:
+        loc = hole
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, loc=loc,
+                  height=height, holes="single", radius_name=hole[2], pos=plate_pos, m=""))
+   
+    ##holes for connecting wire retainer
+    holes = []
+    holes.append([0.5, 1.5, 180])
+    holes.append([0.5, 2.5, 180])
+    #for bearing plate
+    holes.append([3, 1-3/ob.gv("osp"), 180])
+    holes.append([3, 3+3/ob.gv("osp"), 180])
+    holes.append([4+3/ob.gv("osp"), 2, 180])
+    
+    for hole in holes:
+        #add countersink
+        xy = oobb_base.get_hole_pos(hole[0], hole[1], width-1, height)        
+        z = thickness
+        rotY = hole[2]
+        pos = [xy[0], xy[1], z]
+        th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", radius_name="m3", depth=thickness, pos=pos, m="", rotY=rotY, include_nut=False))
+        pass
+
+    # add bearing size hole
+
+    th.extend(ob.oobb_easy(t="n", s="oobb_hole",
+              radius_name=f'bearing_6704_od_catch', m=""))
+
+    th.extend(ob.oobb_easy(t="n", s="oobb_motor_gearmotor_01", width=width,
+              loc=loc, height=height, holes="single", pos=[0, 0, plate_pos[2]], screw_lift=3, m=""))
+
+    
+    return thing
+
+
+
+
+def get_hl_motor_gearmotor_01_old_02(**kwargs):
     
     thing = ob.get_default_thing(**kwargs)
 
@@ -523,7 +586,7 @@ def get_hl_motor_gearmotor_01(**kwargs):
     
     return thing
 
-def get_hl_motor_gearmotor_01_old(**kwargs):
+def get_hl_motor_gearmotor_01_old_01(**kwargs):
     ######old
     thing = ob.get_default_thing(**kwargs)
 
@@ -1117,10 +1180,11 @@ def get_pl(**kwargs):
     if "gorm" in extra:
         holes = [10,25,40]
         for h in holes:
-            posa = [h,0,0]
-            th.extend(ob.oobb_easy(t="n", s=f"oobb_hole", radius_name="m6", pos=posa, m=""))
+            y = (math.floor(height/2) + height%2 ) * ob.gv("osp")
+            posa = [h,y,0]
+            th.extend(ob.oobb_easy(t="n", s=f"oobb_hole", radius_name="m6", pos=posa, m="#"))
             posa = [-h,0,0]
-            th.extend(ob.oobb_easy(t="n", s=f"oobb_hole", radius_name="m6", pos=posa, m=""))
+            th.extend(ob.oobb_easy(t="n", s=f"oobb_hole", radius_name="m6", pos=posa, m="#"))
 
 
     return thing
@@ -1351,14 +1415,16 @@ def get_wi(**kwargs):
                 #moze z down 3
                 posa = [pos[0] + hole[0], pos[1] + hole[1], pos[2] + 3]
                 th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", rotY=180, include_nut=False, depth=thickness, m=""))
-            #add a cube foor wire clearnce using pos and size arrays
+        
+        #add a cube foor wire clearnce using pos and size arrays
+        if "holder" in extra or "cap" in extra:
             pos = [29.544,0,0]
             size = [7, 10, thickness]
             th.append(ob.oe(t="n", s="oobb_cube_center", holes="none", pos=pos, size=size, mode="all", m=""))
 
 
         #wire piece
-        if "base" not in extra:
+        if "base" not in extra and "cap" not in extra:
             th.extend(ob.oe(t="n", s=f"oobb_{extra_code}", holes="none", pos=wi_pos, mode="all", width=width, height=height, m=""))
         
         

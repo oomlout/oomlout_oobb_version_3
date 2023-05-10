@@ -16,7 +16,7 @@ def make_all(filter=""):
     all_things = []
 
     for type in typs:
-        if type in filter:
+        if filter in type:
             func = globals()["get_"+type]
             all_things.extend(func())
             pass
@@ -74,7 +74,7 @@ def get_cis(size="oobb"):
 def get_hls(size="oobb"):
     hls = []
     #### gearmotor
-    hls.append({"type": "hl", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 6, "size": size})
     #### micro servo
     hls.append({"type": "hl", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
     
@@ -240,6 +240,8 @@ def get_pls(size="oobb"):
     #gorm plates
     plates.append({"type": "pl", "width": 7, "height": 4,
                   "thickness": 3, "extra":"gorm", "size": size})
+    plates.append({"type": "pl", "width": 5, "height": 2,
+                  "thickness": 3, "extra":"gorm", "size": size})
 
 
     return plates
@@ -299,11 +301,18 @@ def get_wis(size="oobb"):
             wis.append({"type": "wi", "extra": "m2", "thickness": thickness, "width": width, "height": 3, "size": size})
             wis.append({"type": "wi", "extra": "ba", "thickness": thickness, "width": width, "height": 3, "size": size})        
             wis.append({"type": "wi", "extra": "hv", "thickness": thickness, "width": width, "height": 3, "size": size})        
+            wis.append({"type": "wi", "extra": "i2", "thickness": thickness, "width": width, "height": 3, "size": size})        
     
     #base plates
     wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 2, "height": 3, "size": size})                    
     wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     wis.append({"type": "wi", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    
+    #cap    
+    wis.append({"type": "wi", "extra": "cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    
+    
+    
     #spacer    
     wis.append({"type": "wi", "extra": "spacer", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     
