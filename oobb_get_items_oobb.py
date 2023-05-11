@@ -1278,6 +1278,56 @@ def get_th_tool_holder_basic(**kwargs):
     tools.append(["oobb_tool_wrench_m10",6,wera_row+2,3])    
     tools.append(["oobb_tool_wrench_m10",6,wera_row+3,3])
     tools.append(["oobb_tool_knife_exacto_17mm_black",4,8,3])
+    #hex tools
+    tools.append(["oobb_tool_allen_key_set_small_generic",2.5,1,thickness-40])
+    tools.append(["oobb_tool_marker_black_sharpie",6,9.5,3])
+
+    for tool in tools:
+        x,y = oobb_base.get_hole_pos(tool[1], tool[2],width,height)
+        tool_pos = [x, y, pos[2]+tool[3]]
+        rv = ob.oobb_easy(t="n", s=tool[0], pos=tool_pos, m="#")
+        #if rv is an array extend if its an array of arrays append
+        if isinstance(rv[0], list):
+            th.append(rv)
+        else:
+            th.extend(rv)     
+    
+
+    return thing
+
+def get_th_tool_holder_basic_old_01(**kwargs):
+    thing = ob.get_default_thing(**kwargs)
+
+
+    pos = kwargs.get("pos", [0, 0, 0])
+    
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    pos[2] = pos[2] - thickness/2
+
+    # solid piece
+    th = thing["components"]    
+    
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width, height=height, depth_mm=thickness, pos=pos))
+    #add corner holes
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", pos=pos, width=width, height=height, holes="corners", m=""))
+    tool_pos_z = 3
+    tools = []
+    tools.append(["oobb_tool_side_cutters_generic_110_mm_red",4,2,3])
+    tools.append(["oobb_tool_pliers_needlenose_generic_130_mm_blue",4,3,3])
+    tools.append(["oobb_tool_wire_strippers_generic_120_red",4,4,3])    
+    wera_row = 5.5
+    wera_col = 1.5
+    tools.append(["oobb_tool_screwdriver_hex_m1d5_wera_60_mm",wera_col,wera_row,3])
+    tools.append(["oobb_tool_screwdriver_hex_m2_wera_60_mm",wera_col+1.5,wera_row,3])
+    tools.append(["oobb_tool_screwdriver_hex_m2d5_wera_60_mm",wera_col+3,wera_row,3])
+    tools.append(["oobb_tool_screwdriver_multi_quikpik_200_mm",2,8,3])
+    tools.append(["oobb_tool_wrench_m7",6,wera_row,3])
+    tools.append(["oobb_tool_wrench_m8",6,wera_row+1,3])    
+    tools.append(["oobb_tool_wrench_m10",6,wera_row+2,3])    
+    tools.append(["oobb_tool_wrench_m10",6,wera_row+3,3])
+    tools.append(["oobb_tool_knife_exacto_17mm_black",4,8,3])
     
     for tool in tools:
         x,y = oobb_base.get_hole_pos(tool[1], tool[2],width,height)

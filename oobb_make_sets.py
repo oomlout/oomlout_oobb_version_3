@@ -11,7 +11,7 @@ def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
     typs = ["bps", "bcs", "cis", "hls", "jas", "mps", "pls", "scs",
-            "shs", "ths", "zts", "nuts", "wis", "whs", "screws", "bearings", "tests"]
+            "shs", "ths", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -146,83 +146,89 @@ def get_mps(size="oobb"):
 
 def get_pls(size="oobb"):
     plates = []
-    for wid in range(1, 10):
-        for hei in range(1, 10):
-            if wid >= hei:
-                plates.append({"type": "pl", "width": wid,
-                              "height": hei, "thickness": 3, "size": size})
-
-    depths = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
-    for dep in depths:
-        plates.append({"type": "pl", "width": 1, "height": 1,
-                  "thickness": dep, "size": size})
     
-    #one widers
-    for len in range(2, 35):
-        plates.append({"type": "pl", "width": len, "height": 1,
-                      "thickness": 3, "size": size})
+    
+    sizes = ["oobb", "oobe"]
+    
+    for size in sizes:
+        for wid in range(1, 10):
+            for hei in range(1, 10):
+                if wid >= hei:
+                    plates.append({"type": "pl", "width": wid,
+                                "height": hei, "thickness": 3, "size": size})
 
-    plates.append({"type": "pl", "width": 7, "height": 3,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 8, "height": 3,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 9, "height": 3,
-                  "thickness": 3, "size": size})
+        depths = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        for dep in depths:
+            plates.append({"type": "pl", "width": 1, "height": 1,
+                    "thickness": dep, "size": size})
+        
+        #one widers
+        for len in range(2, 35):
+            plates.append({"type": "pl", "width": len, "height": 1,
+                        "thickness": 3, "size": size})
 
-    plates.append({"type": "pl", "width": 7, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 8, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 9, "height": 5,
-                  "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 7, "height": 3,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 8, "height": 3,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 9, "height": 3,
+                    "thickness": 3, "size": size})
 
-    plates.append({"type": "pl", "width": 12, "height": 12,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 13, "height": 13,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 14, "height": 14,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 15, "height": 15,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 20, "height": 20,
-                  "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 7, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 8, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 9, "height": 5,
+                    "thickness": 3, "size": size})
 
-    # larger plates of desire
-    plates.append({"type": "pl", "width": 15, "height": 9,
-                  "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 12, "height": 12,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 13, "height": 13,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 14, "height": 14,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 15, "height": 15,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 20, "height": 20,
+                    "thickness": 3, "size": size})
 
-    # extra fives
-    plates.append({"type": "pl", "width": 15, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 14, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 13, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 12, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 11, "height": 5,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 10, "height": 5,
-                  "thickness": 3, "size": size})
+        # larger plates of desire
+        plates.append({"type": "pl", "width": 15, "height": 9,
+                    "thickness": 3, "size": size})
 
-    # extra fifteens
-    plates.append({"type": "pl", "width": 15, "height": 14,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 15, "height": 13,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 15, "height": 12,
-                  "thickness": 3, "size": size})
-    plates.append({"type": "pl", "width": 15, "height": 11,
-                  "thickness": 3, "size": size})
+        # extra fives
+        plates.append({"type": "pl", "width": 15, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 14, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 13, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 12, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 11, "height": 5,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 10, "height": 5,
+                    "thickness": 3, "size": size})
 
+        # extra fifteens
+        plates.append({"type": "pl", "width": 15, "height": 14,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 15, "height": 13,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 15, "height": 12,
+                    "thickness": 3, "size": size})
+        plates.append({"type": "pl", "width": 15, "height": 11,
+                    "thickness": 3, "size": size})
+
+    size = "oobb"
     plates.append({"type": "pl", "width": 28, "height": 20,
-                  "thickness": 3, "size": size, "name": "oobb_pl_a3"})
+                "thickness": 3, "size": size, "name": "oobb_pl_a3"})
     plates.append({"type": "pl", "width": 20, "height": 14,
-                  "thickness": 3, "size": size, "name": "oobb_pl_a4"})
+                "thickness": 3, "size": size, "name": "oobb_pl_a4"})
     plates.append({"type": "pl", "width": 14, "height": 10,
-                  "thickness": 3, "size": size, "name": "oobb_pl_a5"})
+                "thickness": 3, "size": size, "name": "oobb_pl_a5"})
     plates.append({"type": "pl", "width": 10, "height": 7,
-                  "thickness": 3, "size": size, "name": "oobb_pl_a6"})
+                "thickness": 3, "size": size, "name": "oobb_pl_a6"})
 
 
 
@@ -230,12 +236,13 @@ def get_pls(size="oobb"):
     #add oobe holes to all oobb plates
     for plate in plates:
         #add "both_holes" True to all plates
-        plate["both_holes"] = True
+        if plate["size"] == "oobb":
+            plate["both_holes"] = True
 
-    # oobe plates
-    plates.append({"type": "pl", "width": 14, "height": 10,
-                  "thickness": 3, "size": "oobe"})
     
+
+    size = "oobb"
+
     #non both_holes ones
     #gorm plates
     plates.append({"type": "pl", "width": 7, "height": 4,
@@ -273,7 +280,7 @@ def get_scs(size="oobb"):
 def get_ths(size="oobb"):
     tool_holders = []
     size = "oobb"
-    tool_holders.append({"type": "th", "width": 7, "height": 9,  "thickness": 66, "extra": "tool_holder_basic", "size": size})
+    tool_holders.append({"type": "th", "width": 7, "height": 10,  "thickness": 66, "extra": "tool_holder_basic", "size": size})
     
     return tool_holders
 

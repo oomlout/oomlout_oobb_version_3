@@ -1405,6 +1405,104 @@ def get_oobb_ziptie(**kwargs):
 
 ###### tools
 
+    
+def get_oobb_tool_allen_key_set_small_generic(**kwargs):
+    return_value = []
+    spacing = 5
+    start_offset = -spacing * 5/2 + spacing/2
+    
+    p2 = copy.deepcopy(kwargs)
+    p2["pos"] = [p2["pos"][0]+start_offset+spacing*0, p2["pos"][1], p2["pos"][2]]    
+    return_value.extend(tool_allen_key_hex_m1d5_small_generic(**p2))
+
+    p2 = copy.deepcopy(kwargs)
+    p2["pos"] = [p2["pos"][0]+start_offset+spacing*1, p2["pos"][1], p2["pos"][2]- 5*1]
+    return_value.extend(tool_allen_key_hex_m2_small_generic(**p2))
+    
+    p2 = copy.deepcopy(kwargs)
+    p2["pos"] = [p2["pos"][0]+start_offset+spacing*2, p2["pos"][1], p2["pos"][2]- 5*2]
+    return_value.extend(tool_allen_key_hex_m2d5_small_generic(**p2))
+    
+    p2 = copy.deepcopy(kwargs)
+    p2["pos"] = [p2["pos"][0]+start_offset+spacing*3, p2["pos"][1], p2["pos"][2]- 5*3]
+    return_value.extend(tool_allen_key_hex_m3_small_generic(**p2))
+
+    p2 = copy.deepcopy(kwargs)
+    p2["pos"] = [p2["pos"][0]+start_offset+spacing*4, p2["pos"][1], p2["pos"][2]- 5*4]
+    return_value.extend(tool_allen_key_hex_m4_small_generic(**p2))
+
+    return return_value
+
+def tool_allen_key_hex_m1d5_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m1d5"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def tool_allen_key_hex_m2_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m2"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def tool_allen_key_hex_m2d5_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m2d5"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def tool_allen_key_hex_m3_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m3"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def tool_allen_key_hex_m4_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m4"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def get_oobb_tool_allen_key_generic(**kwargs):
+    hex_r = kwargs.get("hex_r", 1.5)
+    hex_dic = {}
+    clearance = 0.25
+    hex_dic["m1d5"] = {"r": 1.5+clearance, "depth": 55}
+    hex_dic["m2"] = {"r": 2+clearance, "depth": 60}
+    hex_dic["m2d5"] = {"r": 2.5+clearance, "depth": 65}
+    hex_dic["m3"] = {"r": 3+clearance, "depth": 70}
+    hex_dic["m4"] = {"r": 4+clearance, "depth": 75}
+    extra = kwargs.get("extra", "cutout")
+    
+    if extra == "cutout":
+        clearance_up = 10
+        p2 = copy.deepcopy(kwargs)        
+        p2["r"] = [hex_dic[hex_r]["r"]/2]
+        p2["h"] = [hex_dic[hex_r]["depth"]-clearance_up]
+        return_value = (get_tool_cylinders(**p2))
+        
+    return return_value
+
+
+def get_oobb_tool_marker_black_sharpie(**kwargs):
+    return get_oobb_tool_marker_sharpie(**kwargs)
+
+def get_oobb_tool_marker_sharpie(**kwargs):
+    extra = kwargs.get("extra", "cutout")
+    if extra == "cutout":
+        clearance_up = 10
+        p2 = copy.deepcopy(kwargs)        
+        p2["r"] = [13/2]
+        p2["h"] = [137]
+        return_value = (get_tool_cylinders(**p2))
+        
+    return return_value
+
 def get_oobb_tool_knife_exacto_17mm_black(**kwargs):
     kwargs["w"] = 17
     kwargs["h"] = 160
@@ -1470,8 +1568,8 @@ def get_oobb_tool_side_cutters_generic_110_mm_red(**kwargs):
         
         p2 = copy.deepcopy(kwargs)
         p2["depth"] = 11
-        p2["w"] = [10, 10, 45, 55]
-        p2["h"] = [0, 25, 60, 110]
+        p2["w"] = [11.5, 11.5, 33, 42]
+        p2["h"] = [0, 35, 60, 110]
         return_value.append(get_tool_generic(**p2))
         
     return return_value
@@ -1483,7 +1581,7 @@ def get_oobb_tool_wire_strippers_generic_120_red(**kwargs):
         
         p2 = copy.deepcopy(kwargs)
         p2["depth"] = 11
-        p2["w"] = [17, 17, 33, 42]
+        p2["w"] = [17, 17, 45, 55]
         p2["h"] = [0, 35, 80, 120]
         return_value.append(get_tool_generic(**p2))
         

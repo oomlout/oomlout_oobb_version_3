@@ -7,7 +7,7 @@ import oobb_dxf_laser_copy
 import copy
 
 
-filt = "wi"
+filt = "pl"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -32,7 +32,7 @@ save_type = "none"
 #save_type = "laser"
 save_type = "all"
 
-filter = "wi_m2_02_03_06"
+filter = "oobe"
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
 oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)
