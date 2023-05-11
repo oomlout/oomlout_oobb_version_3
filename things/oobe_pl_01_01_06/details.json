@@ -1,0 +1,64 @@
+{
+    "description": "plate 1x1x6",
+    "id": "oobe_pl_01_01_06",
+    "type": "pl",
+    "type_oobb": "plate",
+    "width": 1,
+    "height": 1,
+    "thickness": 6,
+    "width_mm": 14,
+    "thickness_mm": 6,
+    "height_mm": 14,
+    "components": [
+        {
+            "type": "p",
+            "shape": "rounded_rectangle",
+            "size": [
+                7.0,
+                7.0,
+                6
+            ],
+            "r": 2.5,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "height": 1,
+            "m": ""
+        },
+        {
+            "type": "negative",
+            "shape": "hole",
+            "r": 1.5,
+            "pos": [
+                0.0,
+                0.0,
+                0
+            ],
+            "inclusion": "laser"
+        },
+        {
+            "type": "negative",
+            "shape": "hole",
+            "r": 1.8,
+            "pos": [
+                0.0,
+                0.0,
+                0
+            ],
+            "inclusion": "3dpr"
+        },
+        {
+            "type": "negative",
+            "shape": "hole",
+            "r": 1.5,
+            "pos": [
+                0.0,
+                0.0,
+                0
+            ],
+            "inclusion": "true"
+        }
+    ]
+}
