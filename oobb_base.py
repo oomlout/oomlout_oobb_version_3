@@ -298,7 +298,8 @@ def highlight(thing):
     return thing
 
 def remove_if(thing, name, value):
-    for component in thing:
+    thing2 = copy.deepcopy(thing)
+    for component in thing2:
         if component.get(name,"") == value:
             thing.remove(component)
     return thing

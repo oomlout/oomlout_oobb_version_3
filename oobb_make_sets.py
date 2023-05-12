@@ -68,6 +68,11 @@ def get_cis(size="oobb"):
         circles.append({"type": "ci", "diameter": s, "thickness": 3, "size": size})
     
     circles.append({"type": "ci", "diameter": 1.5, "thickness": 9, "extra":"nut_m6", "size": size})
+
+
+    circles.append({"type": "ci_cap", "diameter": 3, "thickness": 9, "shaft":"electronics_potentiometer_17", "size": size})
+    circles.append({"type": "ci_cap", "diameter": 1.5, "thickness": 6, "shaft":"electronics_potentiometer_17", "size": size})
+
     return circles
 
 
@@ -93,6 +98,23 @@ def get_hls(size="oobb"):
         "thickness": t, "size": size})
     hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_jack","width": 3, "height": 3, "thickness": 12, "size": size})
     hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_both","width": 4, "height": 3, "thickness": 12, "size": size})
+
+
+    #electronics
+        #microswitch_standard
+    hls.append({"type": "hl", "extra": "electronics_microswitch_standard","width": 3, "height": 3, "thickness": 3, "size": size}) 
+    hls.append({"type": "hl", "extra": "electronics_microswitch_standard","width": 3, "height": 3, "thickness": 6, "size": size})            
+        #potentimeter_17
+    hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 12, "size": size})
+        #pushbutton_11
+    hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 21, "size": size})
+    hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 21, "size": size})
+        
+
+
     return hls
 
 
@@ -296,6 +318,13 @@ def get_whs(size="oobb"):
         wheels.append({"type": type, "thickness": thickness, "oring_type":"323", "size": size})
         wheels.append({"type": type, "thickness": thickness, "oring_type":"327", "size": size})
         wheels.append({"type": type, "thickness": thickness, "oring_type":"333", "size": size})
+        wheels.append({"type": type, "thickness": thickness, "oring_type":"339", "size": size})
+
+    #make both_holes true for all
+    for wheel in wheels:
+        wheel["both_holes"] = True
+
+
     return wheels
 
 
@@ -303,17 +332,18 @@ def get_wis(size="oobb"):
     wis = []
     thicknesses = [3,6]
     widths = [2,3]
-    for thickness in thicknesses:
+    extras = ["m2","ba","hv","i2"]
+    for thickness in thicknesses:        
         for width in widths:
-            wis.append({"type": "wi", "extra": "m2", "thickness": thickness, "width": width, "height": 3, "size": size})
-            wis.append({"type": "wi", "extra": "ba", "thickness": thickness, "width": width, "height": 3, "size": size})        
-            wis.append({"type": "wi", "extra": "hv", "thickness": thickness, "width": width, "height": 3, "size": size})        
-            wis.append({"type": "wi", "extra": "i2", "thickness": thickness, "width": width, "height": 3, "size": size})        
+            for extra in extras:
+                wis.append({"type": "wi", "extra": extra, "thickness": thickness, "width": width, "height": 3, "size": size})
+    for extra in extras:
+        wis.append({"type": "wi", "extra": f'{extra}_base', "thickness": 6, "width": 3, "height": 3, "size": size})  
     
     #base plates
     wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 2, "height": 3, "size": size})                    
     wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 3, "height": 3, "size": size})                    
-    wis.append({"type": "wi", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    #wis.append({"type": "wi", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     
     #cap    
     wis.append({"type": "wi", "extra": "cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    

@@ -2,7 +2,7 @@ difference() {
 	union() {
 		multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, -3], [0, 0, 0, 1]]) {
 			multmatrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
-				cylinder($fn = 50, $fa = 12, $fs = 2, h = 6, r1 = 39.6, r2 = 39.6, center = false);
+				cylinder($fn = 50, $fa = 12, $fs = 2, h = 6, r1 = 38.1, r2 = 38.1, center = false);
 			}
 		}
 	}
