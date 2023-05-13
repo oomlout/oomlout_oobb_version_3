@@ -748,10 +748,11 @@ def get_oobb_countersunk(**kwargs):
         # index 2 shift for
         # index 3 shift for sandwich
         # index 4 shift for standoff
+        # index 5 shift for top clearance
         if rot == 180:
-            shifts = [-depth+h, 0, 0, depth-3-3, 0]
+            shifts = [-depth+h, 0, -3, depth-3-3, depth/2,2*-ob.gv(f'screw_countersunk_height_{radius}', mode)]
         else:
-            shifts = [-h, -depth, -depth, -depth, depth/2]
+            shifts = [-h, -depth, -depth, -depth, depth/2,0]
 
         pos1 = kwargs.get("pos", [0, 0, 0])
         p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0]]
@@ -773,11 +774,10 @@ def get_oobb_countersunk(**kwargs):
             p4["mode"] = mode
             pos1 = p4.get("pos", [0, 0, 0])
             p4["depth"] = depth - 6
-            p4["pos"] = [pos1[0], pos1[1], pos1[2] +
-                         shifts[0] + shifts[3] + shifts[4]]
+            p4["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0] + shifts[3] + shifts[4]]
 
             p4["hole"] = True
-            # p4["m"] = ""
+            #p4["m"] = "#"
             objects.extend(ob.oobb_easy(**p4))
         p3 = copy.deepcopy(p2)
         # addinf top clearance not a great implementation only really works with 3dpr
@@ -785,8 +785,8 @@ def get_oobb_countersunk(**kwargs):
             p3["shape"] = "cylinder"
             p3["r1"] = p2["r2"]
             p3['h'] = 250
-            p3["pos"][2] = p3["pos"][2] + p2['h']
-            #p3['m'] = "#"
+            p3["pos"][2] = p3["pos"][2] + p2['h']  + shifts[5] - 0
+            p3['m'] = "#"
             objects.append(ob.oobb_easy(**p3))
 
 
@@ -807,7 +807,7 @@ def get_oobb_countersunk(**kwargs):
             p2["inclusion"] = mode
             p2["pos"] = [kwargs["pos"][0], kwargs["pos"]
                          [1], kwargs["pos"][2] + shifts[2]]
-            # p2["m"] = "#"
+            #p2["m"] = "#"
             p2["mode"] = ["3dpr", "true"]
             # p2["rotZ"] = 360/12
             objects.extend(ob.oobb_easy(**p2))
@@ -1447,18 +1447,27 @@ def get_oobb_ziptie(**kwargs):
 def get_oobb_electronics_microswitch_standard(**kwargs):
     return_value = []
     clearance = kwargs.get("clearance", False)
+    rot_z = kwargs.get("rotZ", 0)
+    kwargs["rotZ"] = 0
     m = kwargs.get("m", "")
     nut_offset = kwargs.get("nut_offset", -3)
     pos = kwargs.get("pos", [0, 0, 0])
     p2 = copy.deepcopy(kwargs)
     p2["shape"] = "oobb_cube_center"
     extra = 0
-    p2["size"] = [28+extra, 16+extra, 10+extra]
+    if rot_z == 0:
+        p2["size"] = [28+extra, 16+extra, 10+extra]
+    if rot_z == 90:
+        p2["size"] = [16+extra, 28+extra, 10+extra]
     p2["pos"] = [p2["pos"][0], p2["pos"][1], p2["pos"][2]]
     return_value.append((get_oobb_cube_center(**p2)))        
     holes = []
-    shift_x = 11.1
-    shift_y = 5.15
+    if rot_z == 0:
+        shift_x = 11.1
+        shift_y = 5.15
+    elif rot_z == 90:
+        shift_x = 5.15
+        shift_y = 11.1
     holes.append([shift_x, shift_y])
     holes.append([-shift_x, -shift_y])
     holes.append([-shift_x, shift_y])

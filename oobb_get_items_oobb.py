@@ -375,6 +375,8 @@ def get_bpjb(**kwargs):
     top = copy.deepcopy(th)
     bottom = copy.deepcopy(th)
     bottom = oobb_base.shift(bottom, [50,0,-6])
+    bottom = oobb_base.inclusion(bottom, "3dpr")
+
    
 
     th = bottom + top
@@ -561,20 +563,20 @@ def get_hl_motor_gearmotor_01(**kwargs):
    
     ##holes for connecting wire retainer
     holes = []
-    holes.append([0.5, 1.5, 180])
-    holes.append([0.5, 2.5, 180])
+    holes.append([0.5, 1.5, 180,0])
+    holes.append([0.5, 2.5, 180,0])
     #for bearing plate
-    holes.append([3, 1-3/ob.gv("osp"), 180])
-    holes.append([3, 3+3/ob.gv("osp"), 180])
-    holes.append([4+3/ob.gv("osp"), 2, 180])
+    holes.append([3, 1-3/ob.gv("osp"), 180,1.5])
+    holes.append([3, 3+3/ob.gv("osp"), 180,1.5])
+    holes.append([4+3/ob.gv("osp"), 2, 180,1.5])
     
     for hole in holes:
         #add countersink
         xy = oobb_base.get_hole_pos(hole[0], hole[1], width-1, height)        
-        z = thickness
+        z = thickness + hole[3]
         rotY = hole[2]
         pos = [xy[0], xy[1], z]
-        th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", radius_name="m3", depth=thickness, pos=pos, m="", rotY=rotY, include_nut=False))
+        th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", radius_name="m3", depth=thickness, pos=pos, m="", rotY=rotY, include_nut=False, top_clearance=True))
         pass
 
     # add bearing size hole
@@ -583,7 +585,7 @@ def get_hl_motor_gearmotor_01(**kwargs):
               radius_name=f'bearing_6704_od_catch', m=""))
 
     th.extend(ob.oobb_easy(t="n", s="oobb_motor_gearmotor_01", width=width,
-              loc=loc, height=height, holes="single", pos=[0, 0, plate_pos[2]], screw_lift=3, m=""))
+              loc=loc, height=height, holes="single", pos=[0, 0, plate_pos[2]], screw_lift=1, m=""))
 
     
     return thing
@@ -1078,12 +1080,17 @@ def get_hl_electronics_microswitch_standard(**kwargs):
     if thickness == 12:
         shift = 1.5
 
-    th.extend(ob.oobb_easy(t="n", s="oobb_electronics_microswitch_standard", width=width, height=height, holes="single", nut_offset=-0,clearance=True, pos=[0, 0, thickness], m =""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_electronics_microswitch_standard", width=width, height=height, holes="single", nut_offset=-0,clearance=True, pos=[0, -14, thickness], m =""))
-    #add hole at 0,8
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", radius_name="m6", pos=[0, 8, 0], m =""))
 
-    
+    switches = []
+    switches.append([0, -2.85, 0])
+    switches.append([0, -13.15, 0])
+    switches.append([10.3, -3, 90])
+    switches.append([-10.3, -3, 90])
+
+    for switch in switches:
+        pos = [switch[0], switch[1], thickness+shift]
+        th.extend(ob.oobb_easy(t="n", s="oobb_electronics_microswitch_standard", width=width, height=height, holes="single", rotZ=switch[2], nut_offset=-0,clearance=True, pos=pos, m =""))
+   
     return thing
 
 

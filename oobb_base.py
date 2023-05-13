@@ -308,3 +308,15 @@ def add_all(thing, name, value):
     for component in thing:
         component.update({name: value})
     return thing
+
+def inclusion(thing, include):    
+    thing2 = []
+    for component in thing:
+        inclusion = component.get("inclusion", "all")
+        if include in inclusion or inclusion == "all":
+            component["inclusion"] = include
+            thing2.append(component)
+            pass
+        else:
+            pass
+    return thing
