@@ -7,7 +7,7 @@ import oobb_dxf_laser_copy
 import copy
 
 
-filt = "hl"
+filt = "th"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -32,7 +32,8 @@ save_type = "none"
 #save_type = "laser"
 save_type = "all"
 
-filter = "gearmotor"
+#filter = "thv_07_05_20_ex_tool_screwdriver_hex_wera_60_mm"
+filter = "drill"
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
 oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)

@@ -71,6 +71,12 @@ def initialize_variables():
     
     ##### radiuses
     m = {}
+    m["d5"] = 0.5
+    m["d5_3dpr"] = 0.7
+    m["d75"] = 0.75
+    m["d75_3dpr"] = 0.95
+    m["1"] = 1
+    m["1_3dpr"] = 1.2
     m["1d5"] = 1.6
     m["1d5_3dpr"] = 1.8
     m["2"] = 2
@@ -93,6 +99,9 @@ def initialize_variables():
     m["12_3dpr"] = 12.5
 
     ##### hole variables
+    vl["hole_radius_md5"] = [m["d5"]/2, m["d5"]/2, m["d5_3dpr"]/2]
+    vl["hole_radius_md75"] = [m["d75"]/2, m["d75"]/2, m["d75_3dpr"]/2]
+    vl["hole_radius_m1"] = [m["1"]/2, m["1"]/2, m["1_3dpr"]/2]
     vl["hole_radius_m1d5"] = [m["1d5"]/2, m["1d5"]/2, m["1d5_3dpr"]/2]
     vl["hole_radius_m2"] = [m["2"]/2, m["2"]/2, m["2_3dpr"]/2]
     vl["hole_radius_m2d5"] = [m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2]
@@ -263,8 +272,15 @@ def initialize_variables():
 import os
 import csv
 
+oobb_directory_abs = r'C:\GH\oomlout_oobb_v3'
+
 def read_csv_files(directory):
     data_dict = []
+    #test if directory exists
+    if not os.path.isdir(directory):
+        print("directory does not exist")
+        #add directory abs to it
+        directory = os.path.join(oobb_directory_abs, directory)
     for filename in os.listdir(directory):
         if filename.endswith(".csv"):
             filepath = os.path.join(directory, filename)

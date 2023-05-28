@@ -27,9 +27,11 @@ def get_default_thing(**kwargs):
     type_dict.update({"mpu": "mounting plate u holes"})
     type_dict.update({"mp": "mounting plate"})
     type_dict.update({"pl": "plate"})
+    type_dict.update({"tr": "tray"})
     
     type_dict.update({"sc": "shaft coupler"})
     type_dict.update({"sh": "shaft"})
+    type_dict.update({"sj": "soldering jig"})
     type_dict.update({"th": "tool holder"})
     type_dict.update({"wh": "wheel"})
     type_dict.update({"wi": "wire plate"})
@@ -216,6 +218,19 @@ def build_thing(thing, save_type="all", overwrite=True):
         opsc.opsc_make_object(f'things/{thing}/{mode}.scad', oobb.things[thing]["components"], mode=mode,
                               save_type=save_type, overwrite=overwrite, layers=layers, tilediff=tilediff, start=start)
 
+def build_thing_filename(thing, save_type="all", overwrite=True, filename="", depth=3, height = 200):
+    modes = ["3dpr", "laser", "true"]
+    for mode in modes:
+        depth = depth
+        height = height
+        layers = depth / 3
+        tilediff = height + 10
+        start = 1.5
+        if layers != 1:
+            start = 1.5 - (layers / 2)*3
+        opsc.opsc_make_object(f'{filename}{mode}.scad', thing, mode=mode, save_type=save_type, overwrite=overwrite, layers=layers, tilediff=tilediff, start=start)
+
+
 
 def oe(**kwargs):
     return oobb_easy(**kwargs)
@@ -320,3 +335,40 @@ def inclusion(thing, include):
         else:
             pass
     return thing
+
+
+
+
+
+
+######### convenience functions #########
+
+def get_oobb_hole_with_text(**kwargs):
+    
+    depth = kwargs.get("depth", 3)
+    radius = kwargs.get("radius", 1)
+    #offset_text = kwargs.get("offset_text", -10)
+    offset_text = -radius - 1
+    font_size = kwargs.get("font_size", 14)
+    pos = kwargs.get("pos", [0, 0, 0])
+    kwargs["pos"] = pos
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    return_value.extend(get_oobb_hole(**kwargs))
+    p2 = copy.deepcopy(kwargs)
+    p2["pos"][0] = p2["pos"][0] + offset_text 
+    #shift z up by depth
+    height_extrusion = 0.3
+    p2["pos"][2] = p2["pos"][2] + depth - height_extrusion
+    p2["height"] = height_extrusion
+    p2["m"] = "#"
+    #set halign center and valign center
+    p2["halign"] = "right"
+    p2["valign"] = "center"
+    # deja vu sans mono as font
+    p2["font"] = "DejaVu Sans Mono"
+    #size equals font size
+    p2["size"] = font_size
+    return_value.extend(get_oobb_text(**p2))
+
+    return return_value

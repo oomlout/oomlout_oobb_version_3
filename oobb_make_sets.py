@@ -11,7 +11,7 @@ def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
     typs = ["bps", "bcs", "cis", "hls", "jas", "mps", "pls", "scs",
-            "shs", "ths", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
+            "shs", "ths", "trs", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -72,6 +72,9 @@ def get_cis(size="oobb"):
 
     circles.append({"type": "ci_cap", "diameter": 3, "thickness": 9, "shaft":"electronics_potentiometer_17", "size": size})
     circles.append({"type": "ci_cap", "diameter": 1.5, "thickness": 6, "shaft":"electronics_potentiometer_17", "size": size})
+    
+    circles.append({"type": "ci_cap", "diameter": 3, "thickness": 9, "shaft":"motor_gearmotor_01", "size": size})
+    circles.append({"type": "ci_cap", "diameter": 1.5, "thickness": 9, "shaft":"motor_gearmotor_01", "size": size})
 
     return circles
 
@@ -107,12 +110,16 @@ def get_hls(size="oobb"):
         #potentimeter_17
     hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 3, "size": size})
     hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 12, "size": size})
+    hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 4, "thickness": 12, "size": size})
         #pushbutton_11
     hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 3, "size": size})
     hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 21, "size": size})
+    hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 4, "thickness": 21, "size": size})
     hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 3, "size": size})
     hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 21, "size": size})
-        
+    hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 4, "thickness": 21, "size": size})
+        #mcu
+    hls.append({"type": "hl", "extra": "electronics_mcu_atmega328_shennie","width": 3, "height": 4, "thickness": 6, "size": size})
 
 
     return hls
@@ -120,11 +127,13 @@ def get_hls(size="oobb"):
 
 def get_jas(size="oobb"):
     jas = []
-    for wid in range(3, 10):
-        jas.append({"type": "ja", "width": wid, "height": 1,
-                   "thickness": 12, "size": size})
-        jas.append({"type": "jab", "width": wid, "height": 1,
-                   "thickness": 12, "size": size})
+
+    types = ["ja", "jab"]
+
+    for typ in types:
+        for wid in range(3, 10+1):
+            jas.append({"type": typ, "width": wid, "height": 1,
+                    "thickness": 12, "size": size})
 
     jas.append({"type": "ja", "width": 3, "height": 2,
                "thickness": 12, "size": size})
@@ -173,17 +182,38 @@ def get_pls(size="oobb"):
     sizes = ["oobb", "oobe"]
     
     for size in sizes:
+        #all 3m thicks 1x1 to 10x10
         for wid in range(1, 10):
             for hei in range(1, 10):
                 if wid >= hei:
                     plates.append({"type": "pl", "width": wid,
                                 "height": hei, "thickness": 3, "size": size})
 
+        #all thicknesses 1x1
         depths = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
         for dep in depths:
             plates.append({"type": "pl", "width": 1, "height": 1,
                     "thickness": dep, "size": size})
         
+        #various plates that also have extra thicknesses
+        premo_plates = []
+        premo_plates.append([2,1])
+        premo_plates.append([3,1])
+        premo_plates.append([4,1])
+        premo_plates.append([5,1])
+        premo_plates.append([7,1])
+        premo_plates.append([9,1])
+        premo_plates.append([10,1])
+        premo_plates.append([15,1])
+        premo_plates.append([2,1])
+        premo_plates.append([3,3])
+        premo_plates.append([5,5])
+        premo_thicknesses = [6, 9, 12, 15,21,30]
+        for plate in premo_plates:
+            for thickness in premo_thicknesses:
+                plates.append({"type": "pl", "width": plate[0], "height": plate[1],
+                    "thickness": thickness, "size": size})
+
         #one widers
         for len in range(2, 35):
             plates.append({"type": "pl", "width": len, "height": 1,
@@ -278,17 +308,12 @@ def get_pls(size="oobb"):
 
 def get_shs(size="oobb"):
     shafts = []
-    shafts.append({"type": "sh", "thickness": 0, "size": size})
-    shafts.append({"type": "sh", "thickness": 0.5, "size": size})
-    shafts.append({"type": "sh", "thickness": 1, "size": size})
-    shafts.append({"type": "sh", "thickness": 3, "size": size})
-    shafts.append({"type": "sh", "thickness": 3.5, "size": size})
-
-    shafts.append({"type": "sh", "thickness": 4, "size": size})
-    shafts.append({"type": "sh", "thickness": 6, "size": size})
-    shafts.append({"type": "sh", "thickness": 9, "size": size})
-    shafts.append({"type": "sh", "thickness": 12, "size": size})
-    shafts.append({"type": "sh", "thickness": 15, "size": size})
+    thinesses = [0, 0.5, 1, 3, 3.5, 4, 6, 9, 12, 15]
+    extras = ["","small", "countersunk", "countersunk_small", "nut"]
+    for extra in extras:
+        for dep in thinesses:
+            shafts.append({"type": "sh", "thickness": dep, "size": size, "extra": extra})
+    
 
     return shafts
 
@@ -303,10 +328,61 @@ def get_ths(size="oobb"):
     tool_holders = []
     size = "oobb"
     tool_holders.append({"type": "th", "width": 7, "height": 10,  "thickness": 66, "extra": "tool_holder_basic", "size": size})
+
+
+    #C:\DB\Dropbox\bbbb_product_working\tool\tool_holder
+
+    tools = []
+
+    extra_thick = 2
+
+    tools.append(["tool_pliers_needlenose_generic_130_mm_blue",5,5,10+extra_thick])
+    tools.append(["tool_screwdriver_hex_wera_60_mm",7,5,18+extra_thick])  
+    tools.append(["tool_screwdriver_hex_m1d5_wera_60_mm",3,5,18+extra_thick])  
+    tools.append(["tool_screwdriver_hex_m2_wera_60_mm",3,5,18+extra_thick])  
+    tools.append(["tool_screwdriver_hex_m2d5_wera_60_mm",3,5,18+extra_thick]) 
+
+    tools.append(["tool_marker_sharpie",3,5,13+extra_thick])
+
+    #tools.append(["tool_knife_exacto_17mm_black",3,5,12]) # too thick
+    tools.append(["tool_side_cutters_generic_110_mm_red",5,5,11+extra_thick])
+    tools.append(["tool_wire_strippers_generic_120_red",5,5,11+extra_thick])
+    tools.append(["tool_wrench_m7",3,5,4.5+extra_thick])
+    tools.append(["tool_wrench_m8",3,5,5.5+extra_thick])
+    tools.append(["tool_wrench_m10",3,5,7+extra_thick])
+    tools.append(["tool_wrench_m13",3,5,8+extra_thick])
+    tools.append(["tool_wrench_m21",5,5,10+extra_thick])
     
+    tools.append(["tool_knife_exacto_17mm_black",3,5,27.5+extra_thick])
+
+    #tdpb tools
+    tools.append(["tool_tdpb_nozzle_changer",3,5,12+extra_thick])
+    tools.append(["tool_tdpb_drill_cleaner_m3",3,5,15+extra_thick])
+    tools.append(["tool_tdpb_drill_cleaner_m6",3,5,15+extra_thick])
+
+    #specialty tools
+    tools.append(["tool_electronics_crimp_jst_wc_260",5,5,24+extra_thick])
+
+    for tool in tools:
+        tool_holders.append({"type": "thv", "width": tool[1], "height": tool[2],  "thickness": tool[3], "extra": tool[0], "size": size})
     return tool_holders
 
+def get_trs(size="oobb"):
+    trays = []
 
+    ts = []
+    ts.append([3,3])    
+    ts.append([3,2])    
+    ts.append([3,1])    
+    ts.append([2,1])
+    ts.append([2,2])    
+
+    thicknesses = [12, 15, 18]
+    for tray in ts:
+        for thickness in thicknesses:
+            trays.append({"type": "tr", "width": tray[0], "height": tray[1], "thickness": thickness, "size": size})
+
+    return trays
 
 def get_whs(size="oobb"):
     wheels = []

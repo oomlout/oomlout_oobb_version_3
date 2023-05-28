@@ -1000,8 +1000,12 @@ def get_hl_electronics_base_03_03(**kwargs):
     holes = kwargs.get("holes", "all")
 
     plate_pos = [0, 0, 0]
+    plate_pos_shift = [0, ob.gv("osp")/2 * (height-width), thickness-3]
+    #3x3 main piece
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=3,
+              height=3, depth_mm=thickness, pos=plate_pos, mode="all"))
     th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width,
-              height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
+              height=height, depth_mm=3, pos=plate_pos_shift, mode="all"))
     #oobb holes
     if holes == "all":
         holes = [[1, 1, "m6"],  [1, 3, "m6"], [3, 1, "m6"], [3, 3, "m6"], [2, 3, "m6"]]
@@ -1015,7 +1019,20 @@ def get_hl_electronics_base_03_03(**kwargs):
     holes.extend(holes_oobb)
     for hole in holes:
         loc = hole
-        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, loc=loc,height=height, holes="single", radius_name=hole[2], pos=plate_pos, m=""))
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=3, loc=loc,height=3, holes="single", radius_name=hole[2], pos=plate_pos, m=""))
+
+    ### add all the extra holes for width after 3
+    for y in range(4, height+1):
+        for x in range(1, width+1):
+            loc2 = [x, y]
+            th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, radius_name="m6", holes="single", pos=plate_pos_shift, loc=loc2, m=""))
+            loc2 = [x+.5, y]
+            if x != width:
+                th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, radius_name="m3", holes="single", pos=plate_pos_shift, loc=loc2, m=""))
+            
+            pass
+
+
    
     #add countersink
     ##holes for connecting wire retainer
@@ -1029,7 +1046,7 @@ def get_hl_electronics_base_03_03(**kwargs):
     
     for hole in holes:
         #add countersink
-        xy = oobb_base.get_hole_pos(hole[0], hole[1], width, height)        
+        xy = oobb_base.get_hole_pos(hole[0], hole[1], 3, 3)        
         z = thickness
         rotY = hole[2]
         pos = [xy[0], xy[1], z]
@@ -1060,6 +1077,33 @@ def get_hl_electronics_base_03_03(**kwargs):
     # add bearing size hole
     return th
     
+
+def get_hl_electronics_mcu_atmega328_shennie(**kwargs):
+    kwargs["spacer_clearance"] = True
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    #add plate
+    #th.extend(get_hl_electronics_base_03_03(**kwargs))
+    #add oobb_pl
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
+    #add u holes
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, radius_name="m6", holes=["top","bottom","right"], pos=plate_pos, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobe_holes", width=(width*2)-1, height=(height*2)-1, radius_name="m3", holes=["top","bottom","right"], pos=plate_pos, m=""))
+    
+    th.extend(ob.oobb_easy(t="n", s="oobb_electronics_mcu_atmega328_shennie", width=width, height=height, holes="single", clearance=True, pos=[0, -6, plate_pos[2]+thickness-3], screw_lift=3, m =""))
+
+    
+    return thing
+
+
 
 def get_hl_electronics_microswitch_standard(**kwargs):
     kwargs["spacer_clearance"] = True
@@ -1239,8 +1283,11 @@ def get_jab(**kwargs):
     height_cube = 13.5
     y_plate = height_cube + (height-1)*ob.gv("osp")/2
 
+    plate_pos = [0, y_plate, -thickness/2]
     th.extend(ob.oe(t="p", s="oobb_pl", width=width, height=height,
-              depth_mm=thickness, pos=[0, y_plate, -thickness/2], mode="all"))
+              depth_mm=thickness, both_holes=True, pos=plate_pos, mode="all"))
+
+    th.extend(ob.oe(t="n", s="oobb_holes", size="oobe", radius_name="m3", width=(width*2)-1, height=(height*2)-1,pos = plate_pos, m="#"))
 
     width_cube = ob.gv("osp")*width-ob.gv("osp_minus")
 
@@ -1289,8 +1336,8 @@ def get_mp(**kwargs):
     th = thing["components"]
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width,
               height=height, depth_mm=depth, pos=[0, 0, 0]))
-    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[
-              0, 0, 0], holes="perimeter", radius_name=radius_hole))
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0, 0, 0], holes="perimeter", radius_name="m6"))
+    th.extend(ob.oobb_easy(t="n", s="oobe_holes", width=(width*2)-1, height=(height*2)-1, pos=[0, 0, 0], holes="perimeter", radius_name="m3", m=""))
     # add mounting holes
     th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
               width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
@@ -1462,14 +1509,27 @@ def get_sh(**kwargs):
     height = kwargs.get("height", 1)
     thickness = kwargs.get("thickness", 3)
     radius_hole = kwargs.get("radius_hole", "m3")
+    extra = kwargs.get("extra", "")
+
+    top_radius = 14/2
+    if "small" in extra:
+        top_radius = 10/2
+
 
     th = thing["components"]
+
     th.extend(ob.oobb_easy(t="p", s="oobb_cylinder",
-              radius=14/2, depth=3, pos=[0, 0, 0]))
+              radius=top_radius, depth=3, pos=[0, 0, 0]))
     th.extend(ob.oobb_easy(t="p", s="oobb_cylinder",
-              radius_name="hole_radius_little_m6", depth=thickness+3, pos=[0, 0, thickness/2]))
+              radius_name="hole_radius_little_m6", depth=thickness+3, pos=[0, 0, thickness/2]))    
     th.extend(ob.oobb_easy(t="n", s="oobb_hole",
               radius_name="m3", pos=[0, 0, 0]))
+    if "countersunk" in extra:
+        th.extend(ob.oobb_easy(t="n", s="oobb_countersunk",
+              radius_name="m3", pos=[0, 0, thickness+1.5], depth= thickness + 3, include_nut = False, rotY = 180, m="#"))
+    if "nut" in extra:
+        th.extend(ob.oobb_easy(t="n", s="oobb_nut",
+              radius_name="m3", pos=[0, 0, -1.5-.6], depth= thickness + 3, m="#"))
 
     return thing
 
@@ -1585,6 +1645,143 @@ def get_th_tool_holder_basic_old_01(**kwargs):
     return thing
 
 
+def get_thv(**kwargs):
+    kwargs["spacer_clearance"] = True
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [0, 0, -1]
+
+    #add plate
+    #th.extend(get_hl_electronics_base_03_03(**kwargs))
+    #add oobb_pl
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
+    #add u holes
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, radius_name="m6", holes=["bottom","top","left"], pos=plate_pos, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobe_holes", width=(width*2)-1, height=(height*2)-1, radius_name="m3", holes=["bottom","top","left"], pos=plate_pos, m=""))
+    
+    # if extra is a string turn it itno an array
+    extra = kwargs.get("extra", [])
+    shift = 15
+    cur_x = 0
+    if extra == "tool_screwdriver_hex_wera_60_mm":
+        extra = []
+        extra.append("tool_screwdriver_hex_m1d5_wera_60_mm")
+        extra.append("tool_screwdriver_hex_m2_wera_60_mm")
+        extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
+        extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
+        shift = 25
+        cur_x = -37.5
+
+    
+    
+    if isinstance(extra, str):
+        extra = [extra]
+    
+
+    default_y = -30
+    default_z = 0
+    
+    
+    for e in extra:
+        if "wera_60_mm" in e:
+            default_y = -25
+            default_z = -1
+        elif "tdpb_nozzle_changer" in e:            
+            default_y = -25
+            default_z = -1
+        elif "tool_tdpb_drill_cleaner_m3" in e:            
+            default_y = -25
+            default_z = -1
+        elif "tool_tdpb_drill_cleaner_m6" in e:            
+            default_y = -25
+            default_z = -1
+
+        elif "sharpie" in e:
+            default_y = -25
+            default_z = -1
+        elif "jst" in e:
+            default_y = -25
+            default_z = 1.5            
+
+
+        th.extend(ob.oobb_easy(t="n", s=f"oobb_{e}", rotX=-90, pos=[cur_x, default_y, default_z], m =""))
+        cur_x += shift
+
+        ##test for drawing tools
+        #th.extend(ob.oobb_easy(t="n", s=f"oobb_{e}", rotX=-90, pos=[0,0,0], m ="#"))
+        cur_x += shift
+
+    #add text
+    if "wrench" in e:
+        text = e.replace("tool_wrench_","tw")
+        text = text.replace("_","")
+        th.extend(ob.oobb_easy(t="n", text=text,concate=False,s="oobb_text", pos=[0,0,plate_pos[2]], rotZ=90, m="#"))
+    elif "wera" in e or "tdpb_drill" in e:
+        th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+thickness/2-0.3], rotZ=90, m="#"))
+    else:
+        th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+0.3], rotY=180, m=""))
+
+    ## two faces
+    if "jst" in e:
+        top = copy.deepcopy(th)
+        bottom = copy.deepcopy(th)
+        bottom = oobb_base.shift(bottom, [width*15+5,0,-thickness/2])
+        bottom = oobb_base.inclusion(bottom, "3dpr")
+
+    
+
+        th = bottom + top
+
+        #3dpr silces
+        th.extend(ob.oobb_easy(t="n", s="oobb_slice", pos=[0,0, -500 + plate_pos[2]], mode="3dpr", m="")) 
+        th.extend(ob.oobb_easy(t="n", s="oobb_slice", pos=[0,0, plate_pos[2]+ thickness/2] , mode="3dpr", m="")) 
+
+        thing["components"] = th    
+    else:
+        #single face
+        th.extend(ob.oobb_easy(t="n", s="oobb_slice", pos=[0,0, thickness/2+plate_pos[2]], mode="3dpr", m="")) 
+        
+
+    return thing
+
+
+def get_tr(**kwargs):
+
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=thickness, pos=[0, 0, 0], m=""))
+
+    #take out the inside    
+    th.append(ob.oobb_easy(t="n", s=f"sphere_rectangle", size=[(width*15)-3,(height*15)-3,thickness+20], pos=[0, 0, 3], r=6, m=""))
+
+
+    #add countersunk to four corners
+    holes = [[1,1],[width,1],[1,height],[width,height]]
+    for h in holes:            
+        x,y = ob.get_hole_pos(h[0], h[1], width, height)
+        th.extend(ob.oobb_easy(t="n", s=f"oobb_countersunk", top_clearance=True, width=width, height=height, radius_name="m3", depth=6, pos=[x, y, 3], include_nut=False, m=""))
+
+
+    return thing
+
+
+
 def get_wh(**kwargs):
     oring_type = kwargs.get("oring_type", "327")
     #figuring out radius
@@ -1656,11 +1853,14 @@ def get_wi(**kwargs):
             for pos in poss:
                 #main joining countersunk or standoffs
                 if "_base" in extra:
-                    posa = [pos[0], pos[1], pos[2]+thickness-3]
-                    th.extend(ob.oobb_easy(t="n", s="oobb_nut", width=width, height=height, pos=posa, holes="single", radius_name = "m3", include_nut=False, depth=thickness, m="#"))
+                    thi = 4.5
+                    posa = [pos[0], pos[1], pos[2]+thickness-thi]
+                    #posa = [pos[0], pos[1], pos[2]+thickness-thi+20]
+                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=posa, holes="single", radius_name = "m3", extra="support_bottom", depth=thi, m=""))
                 elif "base" in extra:                    
                     posa = [pos[0], pos[1], pos[2]+thickness]
                     th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", include_nut=False, depth=thickness, m=""))
+                    
                 else:
                     th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=pos, holes="single", radius_name = "m3", m=""))
 
