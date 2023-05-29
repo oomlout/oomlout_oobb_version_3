@@ -456,6 +456,33 @@ def get_oobe_holes(**kwargs):
                                 if extra != "trim_down" or trim_test:
                                     objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
                                             x, y, 0], radius_name=radius_name, m=m))
+            if "corners" in holes:
+                # find the start point needs to be half the width_mm plus half osp
+                pos_start = [xx + -(width*spacing/2) + spacing/2,
+                            yy + -(height*spacing/2) + spacing/2, 0]
+                # pos_start = [0,0,0]
+                for w in range(0, width):
+                    for h in range(0, height):
+                        if w == 0 and h == 0:
+                            xx = pos_start[0] + w*spacing
+                            yy = pos_start[1] + h*spacing
+                            objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
+                                        xx, yy, 0], radius_name=radius_name, m=m))
+                        if w == 0 and h == height-1:
+                            xx = pos_start[0] + w*spacing
+                            yy = pos_start[1] + h*spacing
+                            objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
+                                        xx, yy, 0], radius_name=radius_name, m=m))
+                        if w == width-1 and h == 0:
+                            xx = pos_start[0] + w*spacing
+                            yy = pos_start[1] + h*spacing
+                            objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
+                                        xx, yy, 0], radius_name=radius_name, m=m))
+                        if w == width-1 and h == height-1:
+                            xx = pos_start[0] + w*spacing
+                            yy = pos_start[1] + h*spacing
+                            objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
+                                        xx, yy, 0], radius_name=radius_name, m=m))
             if "perimeter" in holes:
                 # find the start point needs to be half the width_mm plus half osp
                 pos_start = [xx + -(width*spacing/2) + spacing/2,
@@ -1220,6 +1247,8 @@ def get_oobb_nut(loose=False, through=False, **kwargs):
     extra = kwargs.get("extra", "")
     rotX = kwargs.get("rotX", 0)
     overhang = kwargs.get("overhang", True)
+    zz = kwargs.get("zz", "")
+        
     if loose:
         l_string = "loose_"
     pos = kwargs.get("pos", [0, 0, 0])
@@ -1244,6 +1273,8 @@ def get_oobb_nut(loose=False, through=False, **kwargs):
             r = ob.gv(f"nut_radius_{l_string}{radius_name}{extra_str}", mode)
             p2.update({"r": r})
             depth = ob.gv(f"nut_depth_{l_string}{radius_name}", mode)
+            if zz == "top":
+                p2["pos"][2] = p2["pos"][2] - depth
             p2.update(
                 {"height": depth})
             return_value.append(opsc.opsc_easy(**p2))

@@ -22,6 +22,7 @@ def get_default_thing(**kwargs):
     type_dict.update({"hl": "holder"})
     type_dict.update({"jab": "jack basic"})
     type_dict.update({"ja": "jack"})
+    type_dict.update({"jg": "jig"})
     type_dict.update({"mps": "mounting plate single sided holes"})
     type_dict.update({"mpt": "mounting plate top and bottom holes"})
     type_dict.update({"mpu": "mounting plate u holes"})

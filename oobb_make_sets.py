@@ -10,8 +10,8 @@ import oobb_base
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
-    typs = ["bps", "bcs", "cis", "hls", "jas", "mps", "pls", "scs",
-            "shs", "sjs", "ths", "trs", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
+    typs = ["bps", "bcs", "cis", "hls", "jas", "jgs", "mps", "pls", "scs",
+             "shs", "sjs", "ths", "trs", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -67,7 +67,7 @@ def get_cis(size="oobb"):
     for s in circle_size:
         circles.append({"type": "ci", "diameter": s, "thickness": 3, "size": size})
     
-    circles.append({"type": "ci", "diameter": 1.5, "thickness": 9, "extra":"nut_m6", "size": size})
+    circles.append({"type": "ci", "diameter": 1.5, "thickness": 12, "extra":"nut_m6", "size": size})
 
 
     circles.append({"type": "ci_cap", "diameter": 3, "thickness": 9, "shaft":"electronics_potentiometer_17", "size": size})
@@ -148,6 +148,15 @@ def get_jas(size="oobb"):
                "thickness": 12, "size": size})
 
     return jas
+
+def get_jgs(size="oobb"):
+    jgs = []
+
+    jgs.append({"type": "jg", "extra": "tr_03_03","width": 5, "height": 5, "thickness": 6, "size": size})
+            
+
+
+    return jgs
 
 
 def get_mps(size="oobb"):

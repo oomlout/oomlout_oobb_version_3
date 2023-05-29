@@ -294,7 +294,6 @@ def get_bp(**kwargs):
 
     return thing
 
-
 def get_bp_shim(**kwargs):
     # this is a shim for the bearing plate
     bearing_type = kwargs.get("bearing_type", "6803")
@@ -333,7 +332,6 @@ def get_bpj(**kwargs):
 
 
     return thing
-
 
 def get_bpjb(**kwargs):
     thing = ob.get_default_thing(**kwargs)
@@ -388,7 +386,6 @@ def get_bpjb(**kwargs):
     thing["components"] = th    
 
     return thing
-
 
 def get_ci(**kwargs):
 
@@ -448,6 +445,13 @@ def get_ci(**kwargs):
         if extra == "nut_m6":
             th.extend(ob.oobb_easy(t="n", s="oobb_nut", pos=[0, 0, -thickness/2], radius_name="m6", rotZ=360/24, m=""))
 
+            #socket cap screw clearance
+            if thickness == 12:
+                dep = 3
+                th.extend(ob.oobb_easy(t="n", s="oobb_screw_socket_cap", depth=thickness, pos=[15/2, 0, dep], radius_name="m3", include_nut=False, rotZ=360/24, m="#"))
+                th.extend(ob.oobb_easy(t="n", s="oobb_screw_socket_cap", depth=thickness, pos=[-15/2, 0, dep], radius_name="m3", include_nut=False, rotZ=360/24, m="#"))
+            
+
 
 
     return thing
@@ -498,8 +502,6 @@ def get_ci_cap(**kwargs):
 
 
     return thing
-
-
 
 def get_ci_holes_center(**kwargs):
     th = []
@@ -589,9 +591,6 @@ def get_hl_motor_gearmotor_01(**kwargs):
 
     
     return thing
-
-
-
 
 def get_hl_motor_gearmotor_01_old_02(**kwargs):
     
@@ -727,7 +726,6 @@ def get_hl_motor_gearmotor_01_old_01(**kwargs):
               500, 500, 500], pos=[-500/2, -500/2, 0], inclusion=inclusion, m=""))
     ######old
     return thing
-
 
 def get_hl_motor_servo_micro_01(**kwargs):
 
@@ -887,7 +885,6 @@ def get_hl_motor_stepper_motor_nema_17_flat(**kwargs):
     
     return thing
 
-
 def get_hl_motor_stepper_motor_nema_17_jack(**kwargs):
     osp = ob.gv("osp")
     thing = ob.get_default_thing(**kwargs)
@@ -990,7 +987,6 @@ def get_hl_motor_stepper_motor_nema_17_both(**kwargs):
 
     return thing
 
-
 def get_hl_electronics_base_03_03(**kwargs):
     th = []
     width = kwargs.get("width", 10)
@@ -1076,7 +1072,6 @@ def get_hl_electronics_base_03_03(**kwargs):
 
     # add bearing size hole
     return th
-    
 
 def get_hl_electronics_mcu_atmega328_shennie(**kwargs):
     kwargs["spacer_clearance"] = True
@@ -1102,8 +1097,6 @@ def get_hl_electronics_mcu_atmega328_shennie(**kwargs):
 
     
     return thing
-
-
 
 def get_hl_electronics_microswitch_standard(**kwargs):
     kwargs["spacer_clearance"] = True
@@ -1136,7 +1129,6 @@ def get_hl_electronics_microswitch_standard(**kwargs):
         th.extend(ob.oobb_easy(t="n", s="oobb_electronics_microswitch_standard", width=width, height=height, holes="single", rotZ=switch[2], nut_offset=-0,clearance=True, pos=pos, m =""))
    
     return thing
-
 
 def get_hl_electronics_potentiometer_17(**kwargs):
     kwargs["spacer_clearance"] = True
@@ -1269,7 +1261,6 @@ def get_ja(**kwargs):
 
     return thing
 
-
 def get_jab(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
@@ -1322,6 +1313,71 @@ def get_jab(**kwargs):
 
     return thing
 
+def get_jg(**kwargs):
+    extra = kwargs.get("extra")
+    kwargs.pop("extra")
+    kwargs["type"] = f'jg_{extra}'
+    if extra != "":
+        # Get the module object for the current file
+        current_module = __import__(__name__)
+        function_name = "get_jg_" + extra
+        # Call the function using the string variable
+        function_to_call = getattr(current_module, function_name)
+        return function_to_call(**kwargs)
+    else:
+        Exception("No extra")
+
+def get_jg_tr_03_03(**kwargs):
+   
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    #add plate
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", pos=plate_pos, width=width, height=height, depth=thickness, m =""))
+
+    th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["perimeter"], m =""))
+    th.append(ob.oobb_easy(t="p", s="oobe_holes", pos=plate_pos, width=(width*2)-1, height=(height*2)-1, radius_name="m3", holes=["perimeter"], m =""))
+
+    
+    #inset 
+    inset_depth = 2
+    ex = 1
+    th.append(ob.oobb_easy(t="n", s="oobb_plate", pos=[plate_pos[0],plate_pos[1],plate_pos[2]+thickness-inset_depth], width=3+ex/15, height=3+ex/15, depth=inset_depth, m =""))
+    # flow inset
+    th.append(ob.oobb_easy(t="n", s="oobb_plate", pos=[plate_pos[0],plate_pos[1],plate_pos[2]+thickness-inset_depth], width=2.75, height=7, depth=inset_depth, m =""))
+
+
+    extra = "tr_03_03_jig"
+
+
+    th.extend(ob.oobb_easy(t="n", text=extra,concate=False,s="oobb_text", size=6, pos=[0,0,0.3], rotY=180, rotZ=90, m=""))
+
+    nuts = []
+    nuts.append([2,2])
+    nuts.append([4,2])
+    nuts.append([2,4])
+    nuts.append([4,4])
+    #for 3x2
+    nuts.append([3,4])
+    nuts.append([3,2])
+    for nut in nuts:
+    
+        x,y = ob.get_hole_pos(wid = width,hei=height, x=nut[0], y=nut[1])
+        z = thickness - 1
+        th.extend(ob.oe(t="n", s="oobb_nut", loose=True,pos=[x,y,z], radius_name="m3", zz="top", overhang=False,m=""))
+        th.extend(ob.oe(t="n", s="oobb_hole", pos=[x,y,z], radius_name="m3",m=""))
+    
+    
+    return thing
+
+
 
 def get_mp(**kwargs):
     thing = ob.get_default_thing(**kwargs)
@@ -1350,7 +1406,6 @@ def get_mp(**kwargs):
 
     return thing
 
-
 def get_mps(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
@@ -1378,7 +1433,6 @@ def get_mps(**kwargs):
         "osp")/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
 
     return thing
-
 
 def get_mpt(**kwargs):
     thing = ob.get_default_thing(**kwargs)
@@ -1410,7 +1464,6 @@ def get_mpt(**kwargs):
 
     return thing
 
-
 def get_mpu(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
@@ -1438,7 +1491,6 @@ def get_mpu(**kwargs):
               pos=[-width_mounting/2, -height_mounting/2+ob.gv("osp")/2, 0], radius_name=radius_hole, m=""))
 
     return thing
-
 
 def get_pl(**kwargs):
 
@@ -1477,7 +1529,6 @@ def get_pl(**kwargs):
 
 
     return thing
-
 
 def get_sc(**kwargs):
     thing = ob.get_default_thing(**kwargs)
@@ -1532,7 +1583,6 @@ def get_sh(**kwargs):
               radius_name="m3", pos=[0, 0, -1.5-.6], depth= thickness + 3, m="#"))
 
     return thing
-
 
 def get_sj(**kwargs):
     extra = kwargs.get("extra")
@@ -1694,7 +1744,6 @@ def get_th_tool_holder_basic_old_01(**kwargs):
 
     return thing
 
-
 def get_thv(**kwargs):
     kwargs["spacer_clearance"] = True
     thing = ob.get_default_thing(**kwargs)
@@ -1804,7 +1853,6 @@ def get_thv(**kwargs):
 
     return thing
 
-
 def get_tr(**kwargs):
 
     width = kwargs.get("width", 1)
@@ -1862,8 +1910,6 @@ def get_trl(**kwargs):
 
     return thing
 
-
-
 def get_wh(**kwargs):
     oring_type = kwargs.get("oring_type", "327")
     #figuring out radius
@@ -1892,8 +1938,6 @@ def get_wh(**kwargs):
     th.extend(ob.oe(t="n", s="oobb_oring", oring_type=oring_type, m="#"))
 
     return thing
-
-
 
 def get_wi(**kwargs):
     extra = kwargs.get("extra")
@@ -2058,7 +2102,6 @@ def get_ztj(**kwargs):
                   depth=height_cube, pos=[x, y, z], rotX=90, mode=mode, m=""))
 
     return thing
-
 
 def get_zt(**kwargs):
     thickness = 6
