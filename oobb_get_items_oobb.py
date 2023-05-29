@@ -1342,8 +1342,8 @@ def get_jg_tr_03_03(**kwargs):
     #add plate
     th.append(ob.oobb_easy(t="p", s="oobb_plate", pos=plate_pos, width=width, height=height, depth=thickness, m =""))
 
-    th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["perimeter"], m =""))
-    th.append(ob.oobb_easy(t="p", s="oobe_holes", pos=plate_pos, width=(width*2)-1, height=(height*2)-1, radius_name="m3", holes=["perimeter"], m =""))
+    th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["top","bottom"], m =""))
+    th.append(ob.oobb_easy(t="p", s="oobe_holes", pos=plate_pos, width=(width*2)-1, height=(height*2)-1, radius_name="m3", holes=["top","bottom"], m =""))
 
     
     #inset 
