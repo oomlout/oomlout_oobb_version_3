@@ -1,0 +1,89 @@
+{
+    "description": "tray 2x2x2",
+    "id": "oobb_trl_02_02_02",
+    "type": "trl",
+    "width": 2,
+    "height": 2,
+    "thickness": 2,
+    "width_mm": 29,
+    "thickness_mm": 2,
+    "height_mm": 29,
+    "components": [
+        {
+            "type": "p",
+            "shape": "rounded_rectangle",
+            "size": [
+                29,
+                29,
+                1
+            ],
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "height": 2,
+            "m": ""
+        },
+        {
+            "type": "p",
+            "shape": "rounded_rectangle",
+            "size": [
+                27.5,
+                27.5,
+                2
+            ],
+            "r": 6,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "m": ""
+        },
+        [
+            {
+                "type": "p",
+                "shape": "cylinder",
+                "r": 5,
+                "h": 1,
+                "pos": [
+                    14.5,
+                    0,
+                    0.0
+                ],
+                "inclusion": "laser",
+                "m": "",
+                "depth": 1
+            },
+            {
+                "type": "p",
+                "shape": "cylinder",
+                "r": 5,
+                "h": 1,
+                "pos": [
+                    14.5,
+                    0,
+                    0.0
+                ],
+                "inclusion": "3dpr",
+                "m": "",
+                "depth": 1
+            },
+            {
+                "type": "p",
+                "shape": "cylinder",
+                "r": 5,
+                "h": 1,
+                "pos": [
+                    14.5,
+                    0,
+                    0.0
+                ],
+                "inclusion": "true",
+                "m": "",
+                "depth": 1
+            }
+        ]
+    ]
+}

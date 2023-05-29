@@ -11,7 +11,7 @@ def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
     typs = ["bps", "bcs", "cis", "hls", "jas", "mps", "pls", "scs",
-            "shs", "ths", "trs", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
+            "shs", "sjs", "ths", "trs", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -317,12 +317,24 @@ def get_shs(size="oobb"):
 
     return shafts
 
+
 def get_scs(size="oobb"):
     couplers = []
     size = "oobb"
     couplers.append({"type": "sc", "diameter": 2, "thickness": 9,  "size": size})
     
     return couplers
+
+def get_sjs(size="oobb"):
+    sjs = []
+    
+    sjs.append({"type": "sj", "extra": "electronics_mcu_pi_pico_socket", "width": 3, "height": 5, "thickness": 9, "size": size})
+    
+
+
+
+    return sjs
+
 
 def get_ths(size="oobb"):
     tool_holders = []
@@ -379,8 +391,11 @@ def get_trs(size="oobb"):
 
     thicknesses = [12, 15, 18]
     for tray in ts:
+        trays.append({"type": "trl", "width": tray[0], "height": tray[1], "thickness": 2, "size": size})
         for thickness in thicknesses:
             trays.append({"type": "tr", "width": tray[0], "height": tray[1], "thickness": thickness, "size": size})
+            
+
 
     return trays
 

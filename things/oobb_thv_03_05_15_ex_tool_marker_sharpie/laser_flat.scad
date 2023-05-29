@@ -494,10 +494,10 @@ union() {
 								cylinder(h = 137, r = 6.5000000000);
 							}
 						}
-						translate(v = [0, 0, -0.7000000000]) {
-							rotate(a = [0, 180, 0]) {
+						#translate(v = [0, 3.5000000000, 6.2000000000]) {
+							rotate(a = [0, 0, 90]) {
 								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tms", valign = "center");
+									text(font = "Candara:Light", halign = "center", size = 6, text = "marker_sharpie", valign = "center");
 								}
 							}
 						}
@@ -998,10 +998,10 @@ union() {
 								cylinder(h = 137, r = 6.5000000000);
 							}
 						}
-						translate(v = [0, 0, -0.7000000000]) {
-							rotate(a = [0, 180, 0]) {
+						#translate(v = [0, 3.5000000000, 6.2000000000]) {
+							rotate(a = [0, 0, 90]) {
 								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tms", valign = "center");
+									text(font = "Candara:Light", halign = "center", size = 6, text = "marker_sharpie", valign = "center");
 								}
 							}
 						}
@@ -1502,10 +1502,10 @@ union() {
 								cylinder(h = 137, r = 6.5000000000);
 							}
 						}
-						translate(v = [0, 0, -0.7000000000]) {
-							rotate(a = [0, 180, 0]) {
+						#translate(v = [0, 3.5000000000, 6.2000000000]) {
+							rotate(a = [0, 0, 90]) {
 								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tms", valign = "center");
+									text(font = "Candara:Light", halign = "center", size = 6, text = "marker_sharpie", valign = "center");
 								}
 							}
 						}
@@ -2006,10 +2006,10 @@ union() {
 								cylinder(h = 137, r = 6.5000000000);
 							}
 						}
-						translate(v = [0, 0, -0.7000000000]) {
-							rotate(a = [0, 180, 0]) {
+						#translate(v = [0, 3.5000000000, 6.2000000000]) {
+							rotate(a = [0, 0, 90]) {
 								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tms", valign = "center");
+									text(font = "Candara:Light", halign = "center", size = 6, text = "marker_sharpie", valign = "center");
 								}
 							}
 						}
@@ -2510,10 +2510,10 @@ union() {
 								cylinder(h = 137, r = 6.5000000000);
 							}
 						}
-						translate(v = [0, 0, -0.7000000000]) {
-							rotate(a = [0, 180, 0]) {
+						#translate(v = [0, 3.5000000000, 6.2000000000]) {
+							rotate(a = [0, 0, 90]) {
 								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tms", valign = "center");
+									text(font = "Candara:Light", halign = "center", size = 6, text = "marker_sharpie", valign = "center");
 								}
 							}
 						}

@@ -264,10 +264,22 @@ def initialize_variables():
     vl["ziptie_height"] = [1.5, 1, 1.5]
     vl["ziptie_width"] = [4, 3, 4]
 
+    # electronics
+    ex = 0.2
+    vl["i2d54"] = [2.54, 2.54, 2.54+ex]
+    #lengths of i2d54
+    for x in range(1,50):
+        vl[f"i2d54x{x}"] = [2.54*x, 2.54*x, (2.54*x)+ex]
+    vl["electronics_socket_i2d54_depth"] = [8.5, 8.5, 8.5+ex]
+
     for var in vl:
         values = vl[var]
         for i in range(0, len(modes)):
             oobb_base.set_variable(var, values[i], modes[i])
+
+
+
+
 
 import os
 import csv

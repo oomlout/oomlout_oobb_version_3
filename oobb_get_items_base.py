@@ -116,8 +116,9 @@ def get_oobb_plate(**kwargs):
         kwargs.update(
             {"height_mm": (kwargs["height"] * ob.gv("osp")) - ob.gv("osp_minus")})
         # set the size
+        depth_mm = kwargs.get("depth_mm", kwargs.get("depth"))
         kwargs.update(
-            {"size": [kwargs["width_mm"], kwargs["height_mm"], kwargs["depth_mm"]]})
+            {"size": [kwargs["width_mm"], kwargs["height_mm"], depth_mm]})
 
         kwargs.update({"shape": "rounded_rectangle"})
         return opsc.opsc_easy(**kwargs)
@@ -1616,6 +1617,52 @@ def get_oobb_ziptie(**kwargs):
 
 ###### electronics
 
+
+def get_oobb_electronics_header_i2d54_20(**kwargs):
+    return_value = []
+
+    return return_value
+
+def get_oobb_electronics_socket_i2d54_20(**kwargs):
+    return_value = []
+    kwargs["pins"] = 20
+    return_value = get_oobb_electronics_socket_i2d54(**kwargs)
+    return return_value
+
+def get_oobb_electronics_socket_i2d54(**kwargs):
+    return_value = []
+    pins = kwargs.get("pins", 20)
+    clearance = kwargs.get("clearance", True)
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    pos = kwargs.get("pos", [0, 0, 0])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+    for mode in modes:
+        i2 = ob.gv("i2d54", mode)        
+        i2_true = ob.gv("i2d54", "true")        
+        width = i2
+        ex = 0.5
+        if mode == "3dpr":
+            ex = 1.2
+        height  = ob.gv(f"i2d54x{pins}", mode) + ex #datasheet says 0.5mm extra added more for corners etc
+        depth = ob.gv("electronics_socket_i2d54_depth", mode)
+        x = pos[0]
+        y = pos[1]-pins/2*i2_true + i2_true/2
+        z = pos[2]
+        zz = kwargs.get("zz", "")
+        if zz == "bottom":
+            z = z + 0            
+        elif zz == "top":
+            z = z - depth            
+        m = kwargs.get("m", "")
+        typ = kwargs.get("type", "p")
+        return_value.append(ob.oobb_easy(s="oobb_cube_center", type=typ, inclusion = mode, size = [width, height, depth], pos = [x, y, z], m = m))
+    return return_value
+
+        
+        
 def get_oobb_electronics_mcu_atmega328_shennie(**kwargs):
     part = kwargs.get("part", "all")    
 
@@ -1683,7 +1730,6 @@ def get_oobb_electronics_mcu_atmega328_shennie(**kwargs):
 
     return return_value
 
-
 def get_oobb_electronics_microswitch_standard(**kwargs):
     return_value = []
     clearance = kwargs.get("clearance", False)
@@ -1719,7 +1765,6 @@ def get_oobb_electronics_microswitch_standard(**kwargs):
 
 
     return return_value
-
 
 def get_oobb_electronics_potentiometer_17(**kwargs):
     part = kwargs.get("part", "all")    
@@ -1793,6 +1838,7 @@ def get_oobb_electronics_pushbutton_11(**kwargs):
     return_value = ob.shift(return_value, [0, 0, -depth_bottom])
 
     return return_value
+
 
 
 ###### tools

@@ -1533,6 +1533,56 @@ def get_sh(**kwargs):
 
     return thing
 
+
+def get_sj(**kwargs):
+    extra = kwargs.get("extra")
+    kwargs.pop("extra")
+    kwargs["type"] = f'sj_{extra}'
+    if extra != "":
+        # Get the module object for the current file
+        current_module = __import__(__name__)
+        function_name = "get_sj_" + extra
+        # Call the function using the string variable
+        function_to_call = getattr(current_module, function_name)
+        return function_to_call(**kwargs)
+    else:
+        Exception("No extra")
+
+def get_sj_electronics_mcu_pi_pico_socket(**kwargs):
+    
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    #add plate
+    kwargs["spacer_clearance"] = True
+    th.append(ob.oobb_easy(t="p", s="oobb_plate", pos=plate_pos, width=width, height=height, depth=thickness, m =""))
+
+    th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["left","right","top","bottom"], m =""))
+    th.append(ob.oobb_easy(t="p", s="oobe_holes", pos=plate_pos, width=(width*2)-1, height=(height*2)-1, radius_name="m3", holes=["left","right","top","bottom"], m =""))
+
+    i2 = ob.gv("i2d54", "true")
+    x = 3.5*i2
+    y = (20-1)/2*i2
+    z = thickness+1.5# lift ti up a bit
+    zz = "top"
+    th.append(ob.oobb_easy(t="n", s="oobb_electronics_socket_i2d54_20", pos=[x,y,z], zz = zz, m ="#"))
+    th.append(ob.oobb_easy(t="n", s="oobb_electronics_socket_i2d54_20", pos=[-x,y,z], zz = zz, m ="#"))
+
+    extra = "mcu_pi_pico_s"
+    
+
+    th.extend(ob.oobb_easy(t="n", text=extra,concate=False,s="oobb_text", size=6, pos=[0,0,0.3], rotY=180, rotZ=90, m="#"))
+
+    
+    return thing
+
 def get_th(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
@@ -1721,11 +1771,15 @@ def get_thv(**kwargs):
     if "wrench" in e:
         text = e.replace("tool_wrench_","tw")
         text = text.replace("_","")
-        th.extend(ob.oobb_easy(t="n", text=text,concate=False,s="oobb_text", pos=[0,0,plate_pos[2]], rotZ=90, m="#"))
-    elif "wera" in e or "tdpb_drill" in e:
-        th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+thickness/2-0.3], rotZ=90, m="#"))
+        th.extend(ob.oobb_easy(t="n", text=text,concate=False,s="oobb_text", pos=[0,0,plate_pos[2]], rotZ=90, m=""))
+    elif "wera" in e or "tdpb_drill" in e or "sharpie" in e:
+        concate = True        
+        if len(e) < 20:
+            concate = False
+            e = e.replace("tool_","")
+        th.extend(ob.oobb_easy(t="n", text=e,concate=concate,s="oobb_text", pos=[0,3.5,plate_pos[2]+thickness/2-0.3], rotZ=90, size=6, m="#"))
     else:
-        th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+0.3], rotY=180, m=""))
+        th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+0.3], rotY=180, m="#"))
 
     ## two faces
     if "jst" in e:
@@ -1777,6 +1831,34 @@ def get_tr(**kwargs):
         x,y = ob.get_hole_pos(h[0], h[1], width, height)
         th.extend(ob.oobb_easy(t="n", s=f"oobb_countersunk", top_clearance=True, width=width, height=height, radius_name="m3", depth=6, pos=[x, y, 3], include_nut=False, m=""))
 
+
+    return thing
+
+def get_trl(**kwargs):
+
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=1, pos=[0, 0, 0], m=""))
+
+    #inset for connection
+    inset = 3 - 0.5
+    wid=(width * 15)-inset
+    hei=(height*15)- inset
+    depth=thickness
+    th.append(ob.oobb_easy(t="p", s=f"rounded_rectangle", r=6, size = [wid,hei,depth],  pos=[0, 0, 0], m=""))
+
+    #add pull tab
+    x = (width * ob.gv("osp"))/2-0.5
+    depth = 1
+    th.append(ob.oe(t="p", s="oobb_cylinder", radius=5, depth=depth, pos=[x, 0, depth/2], m=""))
 
     return thing
 

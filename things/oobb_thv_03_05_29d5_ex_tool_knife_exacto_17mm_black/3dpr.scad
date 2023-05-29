@@ -489,7 +489,7 @@ difference() {
 				}
 			}
 		}
-		translate(v = [0, 0, -0.7000000000]) {
+		#translate(v = [0, 0, -0.7000000000]) {
 			rotate(a = [0, 180, 0]) {
 				linear_extrude(height = 0.3000000000) {
 					text(font = "Candara:Light", halign = "center", size = 7, text = "tke1b", valign = "center");
