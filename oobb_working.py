@@ -7,7 +7,7 @@ import oobb_dxf_laser_copy
 import copy
 
 
-filt = "jg"
+filt = "tr"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)

@@ -48,7 +48,7 @@ difference() {
 		translate(v = [0, 0, 0]) {
 			rotate(a = [0, 0, 0]) {
 				hull() {
-					translate(v = [-15.2500000000, 7.7500000000, 0]) {
+					translate(v = [-14.9500000000, 7.4500000000, 0]) {
 						rotate(a = [0, 0, 0]) {
 							translate(v = [0, 0, 0]) {
 								rotate(a = [0, 0, 0]) {
@@ -57,7 +57,7 @@ difference() {
 							}
 						}
 					}
-					translate(v = [15.2500000000, 7.7500000000, 0]) {
+					translate(v = [14.9500000000, 7.4500000000, 0]) {
 						rotate(a = [0, 0, 0]) {
 							translate(v = [0, 0, 0]) {
 								rotate(a = [0, 0, 0]) {
@@ -66,7 +66,7 @@ difference() {
 							}
 						}
 					}
-					translate(v = [-15.2500000000, -7.7500000000, 0]) {
+					translate(v = [-14.9500000000, -7.4500000000, 0]) {
 						rotate(a = [0, 0, 0]) {
 							translate(v = [0, 0, 0]) {
 								rotate(a = [0, 0, 0]) {
@@ -75,7 +75,7 @@ difference() {
 							}
 						}
 					}
-					translate(v = [15.2500000000, -7.7500000000, 0]) {
+					translate(v = [14.9500000000, -7.4500000000, 0]) {
 						rotate(a = [0, 0, 0]) {
 							translate(v = [0, 0, 0]) {
 								rotate(a = [0, 0, 0]) {
@@ -93,5 +93,13 @@ difference() {
 			}
 		}
 	}
-	union();
+	union() {
+		translate(v = [0, 0, 0.3000000000]) {
+			rotate(a = [0, 180, 90]) {
+				linear_extrude(height = 0.3000000000) {
+					text(font = "Candara:Light", halign = "center", size = 6, text = "3+0.1", valign = "center");
+				}
+			}
+		}
+	}
 }

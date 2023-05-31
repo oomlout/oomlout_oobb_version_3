@@ -106,6 +106,7 @@ def initialize_variables():
     vl["hole_radius_m2"] = [m["2"]/2, m["2"]/2, m["2_3dpr"]/2]
     vl["hole_radius_m2d5"] = [m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2]
     vl["hole_radius_m3"] = [m["3"]/2, m["3"]/2, m["3_3dpr"]/2]
+    vl["hole_radius_m3_sort"] = [m["3"]/2+0.5, m["3"]/2+0.5, m["3_3dpr"]/2+0.5]
     vl["hole_radius_m4"] = [m["4"]/2, m["4"]/2, m["4_3dpr"]/2]
     vl["hole_radius_m5"] = [m["5"]/2, m["5"]/2, m["5_3dpr"]/2]
     vl["hole_radius_m6"] = [m["6"]/2, m["6"]/2, m["6_3dpr"]/2]
@@ -244,6 +245,13 @@ def initialize_variables():
     vl["screw_socket_cap_radius_m3"] = [5.8/2, 5.8/2, 6/2]
     vl["screw_socket_cap_height_m3"] = [3, 3, 3.2]
     
+    #larger for a screw sort jig
+    ex = 0.5
+    vl["screw_radius_m3_sort"] = m["3"]/2+ex, m["3"]/2+ex, m["3_3dpr"]/2+ex
+    vl["screw_countersunk_radius_m3_sort"] = [4.8/2+ex, 5.8/2+ex, 7.2/2+ex]
+    vl["screw_countersunk_height_m3_sort"] = [1.7+ex, 1.7+ex, 1.9+ex]
+
+
     vl["screw_radius_m6"] = m["6"]/2, m["6"]/2, m["6_3dpr"]/2
     vl["screw_countersunk_radius_m6"] = [6/2, 6/2, 7.2/2]
     vl["screw_countersunk_height_m6"] = [3.3, 3.3, 3.7]

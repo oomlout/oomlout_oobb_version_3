@@ -1378,6 +1378,41 @@ def get_jg_tr_03_03(**kwargs):
     return thing
 
 
+def get_jg_screw_sorter_m3_03_03(**kwargs):
+   
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    
+
+    plate_pos = [0, 0, 0]
+
+    #add plate
+    thing["components"] = get_tr(**kwargs)["components"]
+    th = thing["components"]
+
+    extra = "tr_03_03_jig"
+
+
+    #th.extend(ob.oobb_easy(t="n", text=extra,concate=False,s="oobb_text", size=6, pos=[0,0,0.3], rotY=180, rotZ=90, m=""))
+
+    #do a grid width wide and height tall
+    for x in range(1, (width*2)):
+        for y in range(1, (height*2)): 
+            #skip corners   
+            if not (x == 1 and y == 1) and not (x == 1 and y == (height*2)-1) and not (x == (width*2)-1 and y == 1) and not (x == (width*2)-1 and y == (height*2)-1):            
+                xx,yy = ob.get_hole_pos(size="oobe", wid = (width*2)-1,hei=(height*2)-1, x=x, y=y)
+                zz = 3            
+                th.extend(ob.oe(t="n", s="oobb_countersunk", pos=[xx,yy,zz], radius_name="m3_sort",top_clearance=True, include_nut=False, m=""))           
+            
+    
+    
+    return thing
+
+
 
 def get_mp(**kwargs):
     thing = ob.get_default_thing(**kwargs)
@@ -1897,7 +1932,8 @@ def get_trl(**kwargs):
     height=height, depth_mm=1, pos=[0, 0, 0], m=""))
 
     #inset for connection
-    inset = 3 - 0.5
+    #positive for smaller
+    inset = 3 + 0.1
     wid=(width * 15)-inset
     hei=(height*15)- inset
     depth=thickness
@@ -1907,6 +1943,9 @@ def get_trl(**kwargs):
     x = (width * ob.gv("osp"))/2-0.5
     depth = 1
     th.append(ob.oe(t="p", s="oobb_cylinder", radius=5, depth=depth, pos=[x, 0, depth/2], m=""))
+
+    extra = "3+0.1"
+    th.extend(ob.oobb_easy(t="n", text=extra,concate=False,s="oobb_text", size=6, pos=[0,0,0.3], rotY=180, rotZ=90, m=""))
 
     return thing
 

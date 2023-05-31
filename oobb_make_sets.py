@@ -152,7 +152,8 @@ def get_jas(size="oobb"):
 def get_jgs(size="oobb"):
     jgs = []
 
-    jgs.append({"type": "jg", "extra": "tr_03_03","width": 5, "height": 5, "thickness": 6, "size": size})
+    jgs.append({"type": "jg", "extra": "tr_03_03","width": 5, "height": 5, "thickness": 6, "size": size})    
+    jgs.append({"type": "jg", "extra": "screw_sorter_m3_03_03","width": 3, "height": 3, "thickness": 15, "size": size})
             
 
 
@@ -318,7 +319,7 @@ def get_pls(size="oobb"):
 def get_shs(size="oobb"):
     shafts = []
     thinesses = [0, 0.5, 1, 3, 3.5, 4, 6, 9, 12, 15]
-    extras = ["","small", "countersunk", "countersunk_small", "nut"]
+    extras = ["","small", "countersunk", "countersunk_small", "nut", "nut_small"]
     for extra in extras:
         for dep in thinesses:
             shafts.append({"type": "sh", "thickness": dep, "size": size, "extra": extra})

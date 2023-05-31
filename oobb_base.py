@@ -153,9 +153,14 @@ def get_variable(name, mode=""):
     return rv
 
 
-def get_hole_pos(x, y, wid, hei):
-    x_mm = -(wid-1) * gv("osp") / 2 + (x - 1) * gv("osp")
-    y_mm = -(hei-1) * gv("osp") / 2 + (y - 1) * gv("osp")
+def get_hole_pos(x, y, wid, hei, size="oobb"):
+    sp = gv("osp")
+    if size == "oobe":
+        sp = gv("osp")/2
+        
+
+    x_mm = -(wid-1) * sp / 2 + (x - 1) * sp
+    y_mm = -(hei-1) * sp / 2 + (y - 1) * sp
     return x_mm, y_mm
 
 
