@@ -489,17 +489,10 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -26.5000000000, 0]) {
+						#translate(v = [0, -26.5000000000, 0]) {
 							rotate(a = [0, 0, 0]) {
 								linear_extrude(height = 7) {
 									polygon(points = [[-11.5000000000, 0], [-11.5000000000, 140], [11.5000000000, 140], [11.5000000000, 0]]);
-								}
-							}
-						}
-						translate(v = [0, 0, -1]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "twm10", valign = "center");
 								}
 							}
 						}
@@ -995,17 +988,10 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -26.5000000000, 0]) {
+						#translate(v = [0, -26.5000000000, 0]) {
 							rotate(a = [0, 0, 0]) {
 								linear_extrude(height = 7) {
 									polygon(points = [[-11.5000000000, 0], [-11.5000000000, 140], [11.5000000000, 140], [11.5000000000, 0]]);
-								}
-							}
-						}
-						translate(v = [0, 0, -1]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "twm10", valign = "center");
 								}
 							}
 						}
@@ -1501,17 +1487,10 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -26.5000000000, 0]) {
+						#translate(v = [0, -26.5000000000, 0]) {
 							rotate(a = [0, 0, 0]) {
 								linear_extrude(height = 7) {
 									polygon(points = [[-11.5000000000, 0], [-11.5000000000, 140], [11.5000000000, 140], [11.5000000000, 0]]);
-								}
-							}
-						}
-						translate(v = [0, 0, -1]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "twm10", valign = "center");
 								}
 							}
 						}

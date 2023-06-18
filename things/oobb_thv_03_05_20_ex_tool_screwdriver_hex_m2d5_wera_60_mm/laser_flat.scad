@@ -489,21 +489,14 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -25, -1]) {
+						#translate(v = [0, -25, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 60, r = 2.2500000000);
 							}
 						}
-						translate(v = [0, 35, -1]) {
+						#translate(v = [0, 35, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 98, r = 9);
-							}
-						}
-						translate(v = [0, 0, 8.7000000000]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tshmw6m", valign = "center");
-								}
 							}
 						}
 					}
@@ -998,21 +991,14 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -25, -1]) {
+						#translate(v = [0, -25, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 60, r = 2.2500000000);
 							}
 						}
-						translate(v = [0, 35, -1]) {
+						#translate(v = [0, 35, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 98, r = 9);
-							}
-						}
-						translate(v = [0, 0, 8.7000000000]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tshmw6m", valign = "center");
-								}
 							}
 						}
 					}
@@ -1507,21 +1493,14 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -25, -1]) {
+						#translate(v = [0, -25, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 60, r = 2.2500000000);
 							}
 						}
-						translate(v = [0, 35, -1]) {
+						#translate(v = [0, 35, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 98, r = 9);
-							}
-						}
-						translate(v = [0, 0, 8.7000000000]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tshmw6m", valign = "center");
-								}
 							}
 						}
 					}
@@ -2016,21 +1995,14 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -25, -1]) {
+						#translate(v = [0, -25, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 60, r = 2.2500000000);
 							}
 						}
-						translate(v = [0, 35, -1]) {
+						#translate(v = [0, 35, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 98, r = 9);
-							}
-						}
-						translate(v = [0, 0, 8.7000000000]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tshmw6m", valign = "center");
-								}
 							}
 						}
 					}
@@ -2525,21 +2497,14 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -25, -1]) {
+						#translate(v = [0, -25, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 60, r = 2.2500000000);
 							}
 						}
-						translate(v = [0, 35, -1]) {
+						#translate(v = [0, 35, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 98, r = 9);
-							}
-						}
-						translate(v = [0, 0, 8.7000000000]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tshmw6m", valign = "center");
-								}
 							}
 						}
 					}
@@ -3034,21 +2999,14 @@ union() {
 								cylinder(h = 250, r = 1.5000000000);
 							}
 						}
-						translate(v = [0, -25, -1]) {
+						#translate(v = [0, -25, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 60, r = 2.2500000000);
 							}
 						}
-						translate(v = [0, 35, -1]) {
+						#translate(v = [0, 35, -1]) {
 							rotate(a = [-90, 0, 0]) {
 								cylinder(h = 98, r = 9);
-							}
-						}
-						translate(v = [0, 0, 8.7000000000]) {
-							rotate(a = [0, 0, 90]) {
-								linear_extrude(height = 0.3000000000) {
-									text(font = "Candara:Light", halign = "center", size = 7, text = "tshmw6m", valign = "center");
-								}
 							}
 						}
 					}

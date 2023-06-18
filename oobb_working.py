@@ -7,7 +7,7 @@ import oobb_dxf_laser_copy
 import copy
 
 
-filt = "tr"
+filt = "th"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -33,13 +33,13 @@ save_type = "none"
 save_type = "all"
 
 #filter = "thv_07_05_20_ex_tool_screwdriver_hex_wera_60_mm"
-filter = ""
+filter = "stripper"
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
-oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)
+#oobb_base.build_things(overwrite=True, filter=filter, save_type=save_type)
 
 copy_files = True
-copy_files = False
+#copy_files = False
 if copy_files:
     oobb_markdown.make_markdown()
     # oobb_dxf_laser_copy.folders_to_folder_dxf()

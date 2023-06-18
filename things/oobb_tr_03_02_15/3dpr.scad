@@ -51,86 +51,86 @@ difference() {
 			rotate(a = [0, 0, 0]) {
 				hull() {
 					union() {
-						translate(v = [-15.0000000000, 7.5000000000, 6]) {
+						translate(v = [-17.0000000000, 9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
 								translate(v = [0, 0, 0]) {
 									rotate(a = [0, 0, 0]) {
-										cylinder(h = 23, r = 6);
+										cylinder(h = 27, r = 4);
 									}
 								}
 							}
 						}
-						translate(v = [-15.0000000000, 7.5000000000, 6]) {
+						translate(v = [-17.0000000000, 9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
-						translate(v = [-15.0000000000, 7.5000000000, 29]) {
+						translate(v = [-17.0000000000, 9.5000000000, 31]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
 					}
 					union() {
-						translate(v = [15.0000000000, 7.5000000000, 6]) {
+						translate(v = [17.0000000000, 9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
 								translate(v = [0, 0, 0]) {
 									rotate(a = [0, 0, 0]) {
-										cylinder(h = 23, r = 6);
+										cylinder(h = 27, r = 4);
 									}
 								}
 							}
 						}
-						translate(v = [15.0000000000, 7.5000000000, 6]) {
+						translate(v = [17.0000000000, 9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
-						translate(v = [15.0000000000, 7.5000000000, 29]) {
+						translate(v = [17.0000000000, 9.5000000000, 31]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
 					}
 					union() {
-						translate(v = [-15.0000000000, -7.5000000000, 6]) {
+						translate(v = [-17.0000000000, -9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
 								translate(v = [0, 0, 0]) {
 									rotate(a = [0, 0, 0]) {
-										cylinder(h = 23, r = 6);
+										cylinder(h = 27, r = 4);
 									}
 								}
 							}
 						}
-						translate(v = [-15.0000000000, -7.5000000000, 6]) {
+						translate(v = [-17.0000000000, -9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
-						translate(v = [-15.0000000000, -7.5000000000, 29]) {
+						translate(v = [-17.0000000000, -9.5000000000, 31]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
 					}
 					union() {
-						translate(v = [15.0000000000, -7.5000000000, 6]) {
+						translate(v = [17.0000000000, -9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
 								translate(v = [0, 0, 0]) {
 									rotate(a = [0, 0, 0]) {
-										cylinder(h = 23, r = 6);
+										cylinder(h = 27, r = 4);
 									}
 								}
 							}
 						}
-						translate(v = [15.0000000000, -7.5000000000, 6]) {
+						translate(v = [17.0000000000, -9.5000000000, 4]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
-						translate(v = [15.0000000000, -7.5000000000, 29]) {
+						translate(v = [17.0000000000, -9.5000000000, 31]) {
 							rotate(a = [0, 0, 0]) {
-								sphere(r = 6);
+								sphere(r = 4);
 							}
 						}
 					}

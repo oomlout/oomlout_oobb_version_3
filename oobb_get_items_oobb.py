@@ -1535,22 +1535,24 @@ def get_pl(**kwargs):
     holes = kwargs.get("holes", True)
     both_holes = kwargs.get("both_holes", False)
     extra = kwargs.get("extra", "")
-
+    hole_type = kwargs.get("hole_type", "all")
 
     size = kwargs.get("size", "oobb")
 
     thing = ob.get_default_thing(**kwargs)
     th = thing["components"]
 
+    pos = kwargs.get("pos", [0, 0, 0])
+
     th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width,
-              height=height, depth_mm=thickness, pos=[0, 0, 0], m=""))
+              height=height, depth_mm=thickness, pos=pos, m=""))
     # find the start point needs to be half the width_mm plus half ob.gv("osp")
     if holes:
-        th.extend(ob.oobb_easy(t="n", s=f"{size}_holes", width=width, height=height))
+        th.extend(ob.oobb_easy(t="n", s=f"{size}_holes", pos=pos, width=width, holes=hole_type, height=height))
     if both_holes:
         #already added with hooles True
         #th.extend(ob.oobb_easy(t="n", s=f"oobb_holes", width=width, height=height, m="#"))
-        th.extend(ob.oobb_easy(t="n", s=f"oobe_holes", width=(width*2)-1, height=(height*2)-1, m="#"))
+        th.extend(ob.oobb_easy(t="n", s=f"oobe_holes",  holes=hole_type,  pos=pos, width=(width*2)-1, height=(height*2)-1,m="#"))
         
     ##extra
     if "gorm" in extra:
@@ -1803,26 +1805,70 @@ def get_thv(**kwargs):
     extra = kwargs.get("extra", [])
     shift = 15
     cur_x = 0
-    if extra == "tool_screwdriver_hex_wera_60_mm":
+    if extra == "tool_screwdriver_hex_wera_60_mm_x4":
         extra = []
-        extra.append("tool_screwdriver_hex_m1d5_wera_60_mm")
-        extra.append("tool_screwdriver_hex_m2_wera_60_mm")
         extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
         extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
-        shift = 25
+        extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
+        extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
+        shift = 25/2
         cur_x = -37.5
-
-    
+    if extra == "tool_screwdriver_hex_wera_60_mm_x2":
+        extra = []
+        extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
+        extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
+        shift = 15
+        cur_x = -15
+    if extra == "tool_marker_sharpie_x2":
+        extra = []
+        extra.append("tool_marker_sharpie")
+        extra.append("tool_marker_sharpie")
+        shift = 15
+        cur_x = -15
+    if extra == "tool_wrench_m10_x2":
+        extra = []
+        extra.append("tool_wrench_m10")
+        extra.append("tool_wrench_m10")
+        shift = 15
+        cur_x = -15
+    if extra == "tool_wrench_m10_x3":
+        extra = []
+        extra.append("tool_wrench_m10")
+        extra.append("tool_wrench_m10")
+        extra.append("tool_wrench_m10")
+        shift = 15
+        cur_x = -30
+    if extra == "tool_wrench_m10_x4":
+        extra = []
+        extra.append("tool_wrench_m10")
+        extra.append("tool_wrench_m10")
+        extra.append("tool_wrench_m10")
+        extra.append("tool_wrench_m10")
+        shift = 15
+        cur_x = -45
+    if extra == "tool_tdpb_glue_stick_prit_medium_knife":
+        extra = []        
+        extra.append("tool_knife_exacto_17mm_black")
+        extra.append("tool_tdpb_glue_stick_prit_medium")
+        shift = 13
+        cur_x = -15
+    if extra == "tool_screwdriver_multi_quikpik_200_mm_knife":
+        extra = []        
+        extra.append("tool_knife_exacto_17mm_black")
+        extra.append("tool_screwdriver_multi_quikpik_200_mm")
+        shift = 15
+        cur_x = -15
     
     if isinstance(extra, str):
         extra = [extra]
     
 
-    default_y = -30
-    default_z = 0
+    
     
     
     for e in extra:
+        default_y = -30
+        default_z = 0
         if "wera_60_mm" in e:
             default_y = -25
             default_z = -1
@@ -1841,10 +1887,19 @@ def get_thv(**kwargs):
             default_z = -1
         elif "jst" in e:
             default_y = -25
-            default_z = 1.5            
+            default_z = 1.5      
+        elif "tool_tdpb_glue_stick_prit_medium" in e:
+            default_y = -25
+            default_z = 28/2      
+        elif "tool_screwdriver_multi_quikpik_200_mm" in e:
+            default_y = -25
+            default_z = 36/2       
+        elif "tool_knife_exacto_17mm_black" in e:
+            default_y = -37.5
+            default_z = 0      
 
 
-        th.extend(ob.oobb_easy(t="n", s=f"oobb_{e}", rotX=-90, pos=[cur_x, default_y, default_z], m =""))
+        th.extend(ob.oobb_easy(t="n", s=f"oobb_{e}", rotX=-90, pos=[cur_x, default_y, default_z], m ="#"))
         cur_x += shift
 
         ##test for drawing tools
@@ -1855,15 +1910,16 @@ def get_thv(**kwargs):
     if "wrench" in e:
         text = e.replace("tool_wrench_","tw")
         text = text.replace("_","")
-        th.extend(ob.oobb_easy(t="n", text=text,concate=False,s="oobb_text", pos=[0,0,plate_pos[2]], rotZ=90, m=""))
+        #th.extend(ob.oobb_easy(t="n", text=text,concate=False,s="oobb_text", pos=[0,0,plate_pos[2]], rotZ=90, m=""))
     elif "wera" in e or "tdpb_drill" in e or "sharpie" in e:
         concate = True        
         if len(e) < 20:
             concate = False
             e = e.replace("tool_","")
-        th.extend(ob.oobb_easy(t="n", text=e,concate=concate,s="oobb_text", pos=[0,3.5,plate_pos[2]+thickness/2-0.3], rotZ=90, size=6, m="#"))
+        #th.extend(ob.oobb_easy(t="n", text=e,concate=concate,s="oobb_text", pos=[0,3.5,plate_pos[2]+thickness/2-0.3], rotZ=90, size=6, m="#"))
     else:
-        th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+0.3], rotY=180, m="#"))
+        pass
+        #th.extend(ob.oobb_easy(t="n", text=e,concate=True,s="oobb_text", pos=[0,0,plate_pos[2]+0.3], rotY=180, m="#"))
 
     ## two faces
     if "jst" in e:
@@ -1905,7 +1961,7 @@ def get_tr(**kwargs):
     height=height, depth_mm=thickness, pos=[0, 0, 0], m=""))
 
     #take out the inside    
-    th.append(ob.oobb_easy(t="n", s=f"sphere_rectangle", size=[(width*15)-3,(height*15)-3,thickness+20], pos=[0, 0, 3], r=6, m=""))
+    th.append(ob.oobb_easy(t="n", s=f"sphere_rectangle", size=[(width*15)-3,(height*15)-3,thickness+20], pos=[0, 0, 3], r=4, m=""))
 
 
     #add countersunk to four corners
@@ -1949,6 +2005,86 @@ def get_trl(**kwargs):
 
     return thing
 
+def get_trt(**kwargs):
+
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=thickness, pos=[0, 0, 0], m=""))
+
+    #take out the inside    
+    wall_thickness = 1
+    radius = 9.5/2
+    th.append(ob.oobb_easy(t="n", s=f"sphere_rectangle", size=[(width*15)-1-wall_thickness,(height*15)-1-wall_thickness,thickness+20], pos=[0, 0, wall_thickness], r=radius, m=""))
+
+
+    #add countersunk to four corners
+    holes = [[1,1],[width,1],[1,height],[width,height]]
+    for h in holes:            
+        x,y = ob.get_hole_pos(h[0], h[1], width, height)
+        th.extend(ob.oobb_easy(t="n", s=f"oobb_screw_socket_cap", radius_name="m3", depth=10, pos=[x, y, wall_thickness], include_nut=False, m=""))
+
+
+    return thing
+
+def get_trv(**kwargs):
+    width = kwargs.get("width", 1)
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    thing["components"] = get_tr(**kwargs)["components"]
+    th = thing["components"]
+    
+    thick = 3
+    x=-width*15/2+thick/2
+    y=0
+    z=15
+    
+    wid = 2 * 15
+    hei = height * 15
+    rotY=90
+    th.append(opsc.opsc_easy(type="p", shape="rounded_rectangle", size = [wid,hei,thick],  pos=[x, y, z], rotY=rotY, m=""))
+    ### add holes
+    for xx in range(0, height):
+        x = -width * 15 / 2 - 15
+        y = -(height/2*15) + 7.5 + xx * 15
+        z = 15 + 7.5
+        rotY=90
+        th.extend(ob.oe(type="n", shape="oobb_hole", radius_name="m6",  pos=[x, y, z], rotY=rotY, depth = 300, m="#"))
+
+
+    """
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=thickness, pos=[0, 0, 0], m=""))
+
+    #take out the inside    
+    th.append(ob.oobb_easy(t="n", s=f"sphere_rectangle", size=[(width*15)-3,(height*15)-3,thickness+20], pos=[0, 0, 3], r=6, m=""))
+
+
+    #add countersunk to four corners
+    holes = [[1,1],[width,1],[1,height],[width,height]]
+    for h in holes:            
+        x,y = ob.get_hole_pos(h[0], h[1], width, height)
+        th.extend(ob.oobb_easy(t="n", s=f"oobb_countersunk", top_clearance=True, width=width, height=height, radius_name="m3", depth=6, pos=[x, y, 3], include_nut=False, m=""))
+    """
+
+    return thing
+
+
 def get_wh(**kwargs):
     oring_type = kwargs.get("oring_type", "327")
     #figuring out radius
@@ -1982,6 +2118,9 @@ def get_wi(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
     kwargs["type"] = f'wi_{extra}'
+    
+    clearance = kwargs.get("clearance", False)
+
     if extra != "":
         osp = ob.gv("osp")
         thing = ob.get_default_thing(**kwargs)
@@ -1990,12 +2129,14 @@ def get_wi(**kwargs):
         height = kwargs.get("height", 2)
         thickness = kwargs.get("thickness", 3)
         
-
+        
 
         pos = kwargs.get("pos", [0, 0, 0])
         shift = width/2 * osp
+        base_pos = copy.deepcopy(pos)
         plate_pos = kwargs.get("pos", [pos[0]+shift, pos[1], 0])
-        wi_pos = [0,0,0]
+        wi_pos =  [plate_pos[0]-22.5, plate_pos[1], plate_pos[2]]
+        
 
         type = kwargs.get("type", "")        
         extra_code = f'{type}'.replace("_base", "")
@@ -2012,8 +2153,8 @@ def get_wi(**kwargs):
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=(width*2)-1, height=(height*2)-1, pos=plate_pos, holes=["left","right","bottom"], radius_name="m3", size="oobe", m=""))
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes="single", loc = [3,2],radius_name="m6", m=""))            
             poss = []
-            poss.append([7.5+15,15,0])
-            poss.append([7.5+15,-15,0])
+            poss.append([plate_pos[0],base_pos[1]+15,base_pos[2]])
+            poss.append([plate_pos[0],base_pos[1]-15,base_pos[2]])
             
             for pos in poss:
                 #main joining countersunk or standoffs
@@ -2027,7 +2168,8 @@ def get_wi(**kwargs):
                     th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", include_nut=False, depth=thickness, m=""))
                     
                 else:
-                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=pos, holes="single", radius_name = "m3", m=""))
+                    posa = [pos[0], pos[1], pos[2]]
+                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=posa, holes="single", depth=thickness, radius_name = "m3", m=""))
 
         else:
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes=["left","right"], radius_name="m6", size="oobb",m=""))
@@ -2079,15 +2221,15 @@ def get_wi(**kwargs):
                 posa = [pos[0] + hole[0], pos[1] + hole[1], pos[2] + 3]
                 th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", rotY=180, include_nut=False, depth=thickness, m=""))
         
-        #add a cube foor wire clearnce using pos and size arrays
-        if "holder" in extra or "cap" in extra:
+        #add a cube for wire clearnce using pos and size arrays
+        if "holder" in extra or "cap" in extra or clearance:
             pos = [29.544,0,0]
             size = [7, 10, thickness]
             th.append(ob.oe(t="n", s="oobb_cube_center", holes="none", pos=pos, size=size, mode="all", m=""))
 
 
         #wire piece
-        if "base" not in extra and "cap" not in extra or "_" in extra:
+        if "base" not in extra and "cap" not in extra or "_" in extra and "base_cap" not in extra:
             through = True
             if "_base" in extra:
                 through = False

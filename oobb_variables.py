@@ -91,6 +91,8 @@ def initialize_variables():
     m["5_3dpr"] = 5.5
     m["6"] = 6
     m["6_3dpr"] = 6.5
+    m["7"] = 7
+    m["7_3dpr"] = 7.5
     m["8"] = 8
     m["8_3dpr"] = 8.5
     m["10"] = 10
@@ -110,6 +112,7 @@ def initialize_variables():
     vl["hole_radius_m4"] = [m["4"]/2, m["4"]/2, m["4_3dpr"]/2]
     vl["hole_radius_m5"] = [m["5"]/2, m["5"]/2, m["5_3dpr"]/2]
     vl["hole_radius_m6"] = [m["6"]/2, m["6"]/2, m["6_3dpr"]/2]
+    vl["hole_radius_m7"] = [m["7"]/2, m["7"]/2, m["7_3dpr"]/2]
     vl["hole_radius_m8"] = [m["8"]/2, m["8"]/2, m["8_3dpr"]/2]
     vl["hole_radius_m10"] = [m["10"]/2, m["10"]/2, m["10_3dpr"]/2]
     vl["hole_radius_m12"] = [m["12"]/2, m["12"]/2, m["12_3dpr"]/2]

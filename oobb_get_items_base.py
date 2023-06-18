@@ -420,6 +420,10 @@ def get_oobe_holes(**kwargs):
     y = kwargs["pos"][1]
     z = kwargs["pos"][2]
     spacing = ob.gv("osp") / 2
+    #make holes an array if its a string
+    if isinstance(holes, str):
+        holes = [holes]
+
     for hole in holes:
         for mode in modes:        
             # find the start point needs to be half the width_mm plus half osp
@@ -1596,11 +1600,83 @@ def get_oobb_wi_spacer(**kwargs):
     for mode in modes:
         ##wire back piece
         p2 = copy.deepcopy(kwargs)
-        wid = 27
+        wid = 24
         hei = 24
         depth = depth
         size = [wid, hei, depth]
-        x = 20
+        x = 21.5
+        y = 0
+        z = 0 
+        pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
+        p2["shape"] = "rounded_rectangle"
+        p2["pos"] = pos
+        p2["size"] = size    
+        p2["inclusion"] = mode    
+        ##wire escape =             
+        return_value.append(ob.oe(**p2))
+
+    return return_value
+
+
+def get_oobb_wi_spacer_long(**kwargs):
+    pos = kwargs.get("pos", [0, 0, 0])    
+    kwargs.update({"polarized": False})
+    depth = kwargs.get("depth", 3)
+
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+    return_value = []
+
+
+
+    return_value = get_oobb_wi_base(**kwargs)
+    for mode in modes:
+        ##wire back piece
+        p2 = copy.deepcopy(kwargs)
+        wid = 36
+        hei = 22
+        depth = depth
+        size = [wid, hei, depth]
+        x = 22.5
+        y = 0
+        z = 0 
+        pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
+        p2["shape"] = "rounded_rectangle"
+        p2["pos"] = pos
+        p2["size"] = size    
+        p2["inclusion"] = mode    
+        ##wire escape =             
+        return_value.append(ob.oe(**p2))
+
+    return return_value
+
+def get_oobb_wi_spacer_u(**kwargs):
+    pos = kwargs.get("pos", [0, 0, 0])    
+    kwargs.update({"polarized": False})
+    depth = kwargs.get("depth", 3)
+
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+    return_value = []
+
+
+
+    return_value = get_oobb_wi_base(**kwargs)
+    for mode in modes:
+        ##wire back piece
+        p2 = copy.deepcopy(kwargs)
+        wid = 51
+
+        hei = 22
+        depth = depth
+        size = [wid, hei, depth]
+        x = 30
         y = 0
         z = 0 
         pos = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
@@ -2033,7 +2109,7 @@ def get_oobb_tool_screwdriver_hex_m2_wera_60_mm(**kwargs):
     return get_oobb_tool_screwdriver_hex_wera_60_mm(**kwargs)
 
 def get_oobb_tool_screwdriver_hex_m2d5_wera_60_mm(**kwargs):
-    kwargs["wera_r"] = 4.5/2
+    kwargs["wera_r"] = 5/2
     return get_oobb_tool_screwdriver_hex_wera_60_mm(**kwargs)
     
 
@@ -2168,6 +2244,18 @@ def get_oobb_tool_tdpb_drill_cleaner_m6(**kwargs):
         return_value = (get_tool_cylinders(**p2))
         
     return return_value
+
+def get_oobb_tool_tdpb_glue_stick_prit_medium(**kwargs):
+    extra = kwargs.get("extra", "cutout")
+    if extra == "cutout":
+        clearance_up = 10
+        p2 = copy.deepcopy(kwargs)        
+        p2["r"] = [28/2]
+        p2["h"] = [96]
+        return_value = (get_tool_cylinders(**p2))
+        
+    return return_value
+
 
 def get_tool_generic(**kwargs):
     depth = kwargs.get("depth", 3)

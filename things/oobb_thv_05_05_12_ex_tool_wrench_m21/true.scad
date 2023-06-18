@@ -552,17 +552,10 @@ difference() {
 				cylinder(h = 250, r = 1.5000000000);
 			}
 		}
-		translate(v = [0, -25.0000000000, 0]) {
+		#translate(v = [0, -25.0000000000, 0]) {
 			rotate(a = [0, 0, 0]) {
 				linear_extrude(height = 10) {
 					polygon(points = [[-22.0000000000, 0], [-22.0000000000, 140], [22.0000000000, 140], [22.0000000000, 0]]);
-				}
-			}
-		}
-		translate(v = [0, 0, -1]) {
-			rotate(a = [0, 0, 90]) {
-				linear_extrude(height = 0.3000000000) {
-					text(font = "Candara:Light", halign = "center", size = 7, text = "twm21", valign = "center");
 				}
 			}
 		}

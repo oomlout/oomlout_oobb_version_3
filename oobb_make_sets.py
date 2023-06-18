@@ -214,7 +214,13 @@ def get_pls(size="oobb"):
         premo_plates.append([7,1])
         premo_plates.append([9,1])
         premo_plates.append([10,1])
+        premo_plates.append([11,1])
+        premo_plates.append([12,1])
+        premo_plates.append([13,1])
         premo_plates.append([15,1])
+        premo_plates.append([17,1])
+        premo_plates.append([19,1])
+        premo_plates.append([20,1])
         premo_plates.append([2,1])
         premo_plates.append([3,3])
         premo_plates.append([5,5])
@@ -229,50 +235,35 @@ def get_pls(size="oobb"):
             plates.append({"type": "pl", "width": len, "height": 1,
                         "thickness": 3, "size": size})
 
-        plates.append({"type": "pl", "width": 7, "height": 3,
+        #03s, 05s
+        widths = [7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+        heights = [3,5]
+        for w in widths:
+            for h in heights:
+                plates.append({"type": "pl", "width": w, "height": h,
+                        "thickness": 3, "size": size})
+        
+        #squares
+        widths = range(10,21)
+        for w in widths:
+            plates.append({"type": "pl", "width": w, "height": w,
                     "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 8, "height": 3,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 9, "height": 3,
-                    "thickness": 3, "size": size})
-
-        plates.append({"type": "pl", "width": 7, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 8, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 9, "height": 5,
-                    "thickness": 3, "size": size})
-
-        plates.append({"type": "pl", "width": 12, "height": 12,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 13, "height": 13,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 14, "height": 14,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 15, "height": 15,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 20, "height": 20,
-                    "thickness": 3, "size": size})
-
+        
         # larger plates of desire
         plates.append({"type": "pl", "width": 15, "height": 9,
                     "thickness": 3, "size": size})
 
-        # extra fives
-        plates.append({"type": "pl", "width": 15, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 14, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 13, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 12, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 11, "height": 5,
-                    "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 10, "height": 5,
-                    "thickness": 3, "size": size})
-
+        
         # extra fifteens
+        widths = range(1,21)        
+        for w in widths:
+                if w < 15:
+                    plates.append({"type": "pl", "width": 15, "height": w,
+                        "thickness": 3, "size": size})
+                else:
+                    plates.append({"type": "pl", "width": w, "height": 15,
+                        "thickness": 3, "size": size})
+        
         plates.append({"type": "pl", "width": 15, "height": 14,
                     "thickness": 3, "size": size})
         plates.append({"type": "pl", "width": 15, "height": 13,
@@ -293,7 +284,12 @@ def get_pls(size="oobb"):
                 "thickness": 3, "size": size, "name": "oobb_pl_a6"})
 
 
-
+    size = "oobe"
+    thicknesses = [3]
+    for thickness in thicknesses:
+        plates.append({"type": "pl", "width": 28, "height": 20, "thickness": thickness, "size": size, "name": "oobe_warehouse_box"})
+        plates.append({"type": "pl", "width": 24, "height": 24, "thickness": thickness, "size": size, "name": "oobe_shelf_tray_24_24"})
+    
 
     #add oobe holes to all oobb plates
     for plate in plates:
@@ -359,12 +355,17 @@ def get_ths(size="oobb"):
     extra_thick = 2
 
     tools.append(["tool_pliers_needlenose_generic_130_mm_blue",5,5,10+extra_thick])
-    tools.append(["tool_screwdriver_hex_wera_60_mm",7,5,18+extra_thick])  
+    
+    ## screwdriver
+    tools.append(["tool_screwdriver_hex_wera_60_mm_x4",7,5,18+extra_thick])  
+    tools.append(["tool_screwdriver_hex_wera_60_mm_x2",5,5,18+extra_thick])  
     tools.append(["tool_screwdriver_hex_m1d5_wera_60_mm",3,5,18+extra_thick])  
     tools.append(["tool_screwdriver_hex_m2_wera_60_mm",3,5,18+extra_thick])  
-    tools.append(["tool_screwdriver_hex_m2d5_wera_60_mm",3,5,18+extra_thick]) 
+    tools.append(["tool_screwdriver_hex_m2d5_wera_60_mm",3,5,18+extra_thick])
+    tools.append(["tool_screwdriver_multi_quikpik_200_mm_knife",5,5,36+extra_thick]) 
 
     tools.append(["tool_marker_sharpie",3,5,13+extra_thick])
+    tools.append(["tool_marker_sharpie_x2",5,5,13+extra_thick])
 
     #tools.append(["tool_knife_exacto_17mm_black",3,5,12]) # too thick
     tools.append(["tool_side_cutters_generic_110_mm_red",5,5,11+extra_thick])
@@ -372,6 +373,9 @@ def get_ths(size="oobb"):
     tools.append(["tool_wrench_m7",3,5,4.5+extra_thick])
     tools.append(["tool_wrench_m8",3,5,5.5+extra_thick])
     tools.append(["tool_wrench_m10",3,5,7+extra_thick])
+    tools.append(["tool_wrench_m10_x2",5,5,7+extra_thick])
+    tools.append(["tool_wrench_m10_x3",7,5,7+extra_thick])
+    tools.append(["tool_wrench_m10_x4",9,5,7+extra_thick])
     tools.append(["tool_wrench_m13",3,5,8+extra_thick])
     tools.append(["tool_wrench_m21",5,5,10+extra_thick])
     
@@ -381,6 +385,8 @@ def get_ths(size="oobb"):
     tools.append(["tool_tdpb_nozzle_changer",3,5,12+extra_thick])
     tools.append(["tool_tdpb_drill_cleaner_m3",3,5,15+extra_thick])
     tools.append(["tool_tdpb_drill_cleaner_m6",3,5,15+extra_thick])
+    tools.append(["tool_tdpb_glue_stick_prit_medium_knife",5,5,28+extra_thick])
+    tools.append(["tool_tdpb_glue_stick_prit_medium",4,5,28+extra_thick])
 
     #specialty tools
     tools.append(["tool_electronics_crimp_jst_wc_260",5,5,24+extra_thick])
@@ -392,19 +398,32 @@ def get_ths(size="oobb"):
 def get_trs(size="oobb"):
     trays = []
 
-    ts = []
-    ts.append([3,3])    
-    ts.append([3,2])    
+    ts = []    
     ts.append([3,1])    
     ts.append([2,1])
     ts.append([2,2])    
+    ts.append([3,2])
+    ts.append([4,2])
+    ts.append([5,2])
+    ts.append([2,2.5])
+    ts.append([3,2.5])
+    ts.append([4,2.5])
+    ts.append([5,3])
+    ts.append([4,3])
+    ts.append([3,3])
+    ts.append([4,4])
+    ts.append([5,5])
 
-    thicknesses = [12, 15, 18]
+
+    thicknesses = [12, 15, 18, 21, 24, 27, 30]
     for tray in ts:
         trays.append({"type": "trl", "width": tray[0], "height": tray[1], "thickness": 2, "size": size})
         for thickness in thicknesses:
             trays.append({"type": "tr", "width": tray[0], "height": tray[1], "thickness": thickness, "size": size})
-            
+            #trv vertical ones with oobb added for mounting on a wall
+            trays.append({"type": "trv", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
+            #trt thin trays for faster printing
+            trays.append({"type": "trt", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
 
 
     return trays
@@ -443,7 +462,9 @@ def get_wis(size="oobb"):
     
     #base plates
     wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 2, "height": 3, "size": size})                    
-    wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 
+    3, "height": 3, "size": size})                    
+    wis.append({"type": "wi", "extra": "base_cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     #wis.append({"type": "wi", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     
     #cap    
@@ -452,7 +473,11 @@ def get_wis(size="oobb"):
     
     
     #spacer    
-    wis.append({"type": "wi", "extra": "spacer", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    thicknesses = [3,6,9,12]
+    for thickness in thicknesses:
+        wis.append({"type": "wi", "extra": "spacer", "thickness": thickness, "width": 3, "height": 3, "size": size})  
+        wis.append({"type": "wi", "extra": "spacer_long", "thickness": thickness, "width": 3, "height": 3, "size": size}) 
+        wis.append({"type": "wi", "extra": "spacer_u", "thickness": thickness, "width": 3, "height": 3, "size": size})                    
     
 
     return wis

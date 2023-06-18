@@ -1057,21 +1057,14 @@ difference() {
 				cylinder(h = 250, r = 1.5000000000);
 			}
 		}
-		translate(v = [-19.5000000000, -25.0000000000, 1.5000000000]) {
+		#translate(v = [-19.5000000000, -25.0000000000, 1.5000000000]) {
 			rotate(a = [0, 0, 0]) {
 				cube(size = [39, 75, 14]);
 			}
 		}
-		translate(v = [-9.0000000000, -10.0000000000, 1.5000000000]) {
+		#translate(v = [-9.0000000000, -10.0000000000, 1.5000000000]) {
 			rotate(a = [0, 0, 0]) {
 				cube(size = [18, 60, 21]);
-			}
-		}
-		translate(v = [0, 0, -0.7000000000]) {
-			rotate(a = [0, 180, 0]) {
-				linear_extrude(height = 0.3000000000) {
-					text(font = "Candara:Light", halign = "center", size = 7, text = "tecjw2", valign = "center");
-				}
 			}
 		}
 	}

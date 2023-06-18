@@ -482,16 +482,9 @@ difference() {
 				cylinder(h = 250, r = 1.8000000000);
 			}
 		}
-		translate(v = [0, -25, -1]) {
+		#translate(v = [0, -25, -1]) {
 			rotate(a = [-90, 0, 0]) {
 				cylinder(h = 100, r = 1.8000000000);
-			}
-		}
-		#translate(v = [0, 0, 7.2000000000]) {
-			rotate(a = [0, 0, 90]) {
-				linear_extrude(height = 0.3000000000) {
-					text(font = "Candara:Light", halign = "center", size = 7, text = "ttdcm", valign = "center");
-				}
 			}
 		}
 		translate(v = [-250, -250, 7.5000000000]) {
