@@ -288,7 +288,7 @@ def get_pls(size="oobb"):
     thicknesses = [3]
     for thickness in thicknesses:
         plates.append({"type": "pl", "width": 28, "height": 20, "thickness": thickness, "size": size, "name": "oobe_warehouse_box"})
-        plates.append({"type": "pl", "width": 24, "height": 24, "thickness": thickness, "size": size, "name": "oobe_shelf_tray_24_24"})
+        plates.append({"type": "pl", "width": 21, "height": 21, "thickness": thickness, "size": size, "name": "oobe_shelf_tray"})
     
 
     #add oobe holes to all oobb plates
@@ -363,6 +363,12 @@ def get_ths(size="oobb"):
     tools.append(["tool_screwdriver_hex_m2_wera_60_mm",3,5,18+extra_thick])  
     tools.append(["tool_screwdriver_hex_m2d5_wera_60_mm",3,5,18+extra_thick])
     tools.append(["tool_screwdriver_multi_quikpik_200_mm_knife",5,5,36+extra_thick]) 
+    tools.append(["tool_screwdriver_driver_bit",3,3,8+extra_thick])
+    tools.append(["tool_screwdriver_driver_bit_x4",5,3,8+extra_thick])
+    tools.append(["tool_screwdriver_driver_bit_x6",7,3,8+extra_thick])
+    tools.append(["tool_screwdriver_driver_bit_x8",9,3,8+extra_thick])
+    tools.append(["tool_screwdriver_hex_key_set_small",5,5,6+extra_thick])
+    tools.append(["tool_screwdriver_hex_key_set_small_reverse",5,5,6+extra_thick])
 
     tools.append(["tool_marker_sharpie",3,5,13+extra_thick])
     tools.append(["tool_marker_sharpie_x2",5,5,13+extra_thick])
@@ -399,8 +405,10 @@ def get_trs(size="oobb"):
     trays = []
 
     ts = []    
+    
     ts.append([3,1])    
     ts.append([2,1])
+    ts.append([3,1.5])    
     ts.append([2,2])    
     ts.append([3,2])
     ts.append([4,2])
@@ -413,17 +421,22 @@ def get_trs(size="oobb"):
     ts.append([3,3])
     ts.append([4,4])
     ts.append([5,5])
-
-
+    """
+    ts.append([3,3])
+    """
     thicknesses = [12, 15, 18, 21, 24, 27, 30]
     for tray in ts:
         trays.append({"type": "trl", "width": tray[0], "height": tray[1], "thickness": 2, "size": size})
+        trays.append({"type": "trlt", "width": tray[0], "height": tray[1], "thickness": 4, "size": size})
+        trays.append({"type": "trlts", "width": tray[0], "height": tray[1], "thickness": 4, "size": size})
         for thickness in thicknesses:
             trays.append({"type": "tr", "width": tray[0], "height": tray[1], "thickness": thickness, "size": size})
             #trv vertical ones with oobb added for mounting on a wall
             trays.append({"type": "trv", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
             #trt thin trays for faster printing
             trays.append({"type": "trt", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
+            #trts thin trays for faster printing with a screw holder
+            trays.append({"type": "trts", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
 
 
     return trays

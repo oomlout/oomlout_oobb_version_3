@@ -85,6 +85,8 @@ def initialize_variables():
     m["2d5_3dpr"] = 2.7
     m["3"] = 3
     m["3_3dpr"] = 3.6
+    m["3d5"] = 3.5
+    m["3d5_3dpr"] = 3.9
     m["4"] = 4
     m["4_3dpr"] = 4.5
     m["5"] = 5
@@ -108,6 +110,7 @@ def initialize_variables():
     vl["hole_radius_m2"] = [m["2"]/2, m["2"]/2, m["2_3dpr"]/2]
     vl["hole_radius_m2d5"] = [m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2]
     vl["hole_radius_m3"] = [m["3"]/2, m["3"]/2, m["3_3dpr"]/2]
+    vl["hole_radius_m3d5"] = [m["3d5"]/2, m["3d5"]/2, m["3d5_3dpr"]/2]
     vl["hole_radius_m3_sort"] = [m["3"]/2+0.5, m["3"]/2+0.5, m["3_3dpr"]/2+0.5]
     vl["hole_radius_m4"] = [m["4"]/2, m["4"]/2, m["4_3dpr"]/2]
     vl["hole_radius_m5"] = [m["5"]/2, m["5"]/2, m["5_3dpr"]/2]
@@ -204,32 +207,34 @@ def initialize_variables():
     """
     directory_oring = "data/oring"
     #loat oring data from directory
-    oring_data = read_csv_files(directory_oring)
-    oring_d = {}
-    id_e_default = 4
-    for oring in oring_data:
-        try:
-            oring_name = oring["Size"]
-            id = float(oring.get("I.D. MM", oring.get("I.D.", 0.0)))
-            od = float(oring.get("O.D. MM", oring.get("O.D.", 0.0)))
-            id_e_default = int(id / 10)
-            depth = float(oring.get("C.S. MM", oring.get("C.S.", 0.0)))
-            oring_d[oring_name] = {"id":id, "id_e":id_e_default, "od":od, "od_e":0.2, "depth":depth, "depth_e":0, "inner_holes":0}
-        except:
-            print(f"error reading oring data {oring_name}")
-
-
-
-
-
-    for bn in oring_d:
-        vl[f'oring_{bn}_id'] = [oring_d[bn]["id"]/2, oring_d[bn]["id"]/2, oring_d[bn]["id"]/2]
-        vl[f'oring_{bn}_id_tight'] = [oring_d[bn]["id"]/2 + oring_d[bn]["id_e"], oring_d[bn]["id"]/2 + oring_d[bn]["id_e"], oring_d[bn]["id"]/2 + oring_d[bn]["id_e"]]
-        vl[f'oring_{bn}_od'] = [oring_d[bn]["od"]/2, oring_d[bn]["od"]/2, oring_d[bn]["od"]/2 + oring_d[bn]["od_e"]]
-        vl[f'oring_{bn}_depth'] = [oring_d[bn]["depth"], oring_d[bn]["depth"], oring_d[bn]["depth"]]
-        vl[f'oring_{bn}_inner_holes'] = [oring_d[bn]["inner_holes"], oring_d[bn]["inner_holes"], oring_d[bn]["inner_holes"]]
+    try:
+        oring_data = read_csv_files(directory_oring)
+        oring_d = {}
+        id_e_default = 4
+        for oring in oring_data:
+            try:
+                oring_name = oring["Size"]
+                id = float(oring.get("I.D. MM", oring.get("I.D.", 0.0)))
+                od = float(oring.get("O.D. MM", oring.get("O.D.", 0.0)))
+                id_e_default = int(id / 10)
+                depth = float(oring.get("C.S. MM", oring.get("C.S.", 0.0)))
+                oring_d[oring_name] = {"id":id, "id_e":id_e_default, "od":od, "od_e":0.2, "depth":depth, "depth_e":0, "inner_holes":0}
+            except:
+                print(f"error reading oring data {oring_name}")
     
 
+
+
+
+        for bn in oring_d:
+            vl[f'oring_{bn}_id'] = [oring_d[bn]["id"]/2, oring_d[bn]["id"]/2, oring_d[bn]["id"]/2]
+            vl[f'oring_{bn}_id_tight'] = [oring_d[bn]["id"]/2 + oring_d[bn]["id_e"], oring_d[bn]["id"]/2 + oring_d[bn]["id_e"], oring_d[bn]["id"]/2 + oring_d[bn]["id_e"]]
+            vl[f'oring_{bn}_od'] = [oring_d[bn]["od"]/2, oring_d[bn]["od"]/2, oring_d[bn]["od"]/2 + oring_d[bn]["od_e"]]
+            vl[f'oring_{bn}_depth'] = [oring_d[bn]["depth"], oring_d[bn]["depth"], oring_d[bn]["depth"]]
+            vl[f'oring_{bn}_inner_holes'] = [oring_d[bn]["inner_holes"], oring_d[bn]["inner_holes"], oring_d[bn]["inner_holes"]]
+    
+    except:
+            pass
 
     # screw variables
     screws = ["m1d5", "m3", "m6"]

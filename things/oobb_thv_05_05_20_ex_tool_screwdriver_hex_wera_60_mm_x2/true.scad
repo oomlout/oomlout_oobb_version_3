@@ -554,7 +554,7 @@ difference() {
 		}
 		#translate(v = [-15, -25, -1]) {
 			rotate(a = [-90, 0, 0]) {
-				cylinder(h = 60, r = 2.2500000000);
+				cylinder(h = 60, r = 2.5000000000);
 			}
 		}
 		#translate(v = [-15, 35, -1]) {
@@ -564,7 +564,7 @@ difference() {
 		}
 		#translate(v = [15, -25, -1]) {
 			rotate(a = [-90, 0, 0]) {
-				cylinder(h = 60, r = 2.2500000000);
+				cylinder(h = 60, r = 2.5000000000);
 			}
 		}
 		#translate(v = [15, 35, -1]) {

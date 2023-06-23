@@ -308,13 +308,17 @@ def get_oobb_holes(holes=["all"], **kwargs):
                                    x, y, 0], radius_name=radius_name, m=m))
     if "single" in holes:
         # find the start point needs to be half the width_mm plus half osp
-        loc = kwargs.get("loc", [0, 0])
-        pos_start = [xx + -(width*spacing/2) + spacing/2,
-                     yy + -(height*spacing/2) + spacing/2, 0]
-        x = pos_start[0] + (loc[0]-1)*spacing
-        y = pos_start[1] + (loc[1]-1)*spacing
-        objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
-                       x, y, 0], radius_name=radius_name, m=m))
+        locs = kwargs.get("loc", [0, 0])
+        #if loc isn't an array of arrays then make it one
+        if not isinstance(locs[0], list):
+            locs = [locs]
+        for loc in locs:
+            pos_start = [xx + -(width*spacing/2) + spacing/2,
+                        yy + -(height*spacing/2) + spacing/2, 0]
+            x = pos_start[0] + (loc[0]-1)*spacing
+            y = pos_start[1] + (loc[1]-1)*spacing
+            objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=[
+                        x, y, 0], radius_name=radius_name, m=m))
     if "missing_middle" in holes:
         # find the start point needs to be half the width_mm plus half osp
         pos_start = [xx + -(width*spacing/2) + spacing/2,
@@ -1123,6 +1127,74 @@ def get_oobb_hole(**kwargs):
             return_value.append(opsc.opsc_easy(**kwargs))
     return return_value
 
+def get_oobb_tube(**kwargs):
+    # flip positivity for the hole
+    if kwargs["type"] == "p" or kwargs["type"] == "positive":
+        kwargs["type"] = "negative"
+    else:
+        kwargs["type"] = "positive"
+    kwargs["wall_thickness"] = kwargs.get("wall_thickness", 0.5)
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+
+    z = kwargs.get("z", 0)
+    if z == 0:
+        pos = kwargs.get("pos", [0, 0, 0])
+        pos = copy.deepcopy(pos)
+    return_value = []
+    try:
+        depth = kwargs["depth"]
+    except:
+        depth = 250
+        try:
+            kwargs["pos"][2] = pos[2] - depth / 2
+        except:
+            kwargs["z"] = z - depth / 2
+
+    try:
+        radius_name = kwargs["radius_name"]
+        for mode in modes:
+            kwargs["shape"] = "cylinder"
+            try:
+                kwargs.update({"r": ob.gv("hole_radius_"+radius_name, mode)})
+            except:
+                r = ob.gv(radius_name, mode)
+                kwargs.update({"r": r})                
+            kwargs.update({"h": depth})
+            kwargs.update({"inclusion": mode})
+            return_value.append(opsc.opsc_easy(**kwargs))
+            #tube innard
+            p2 = copy.deepcopy(kwargs)
+            if p2["type"] == "p" or p2["type"] == "positive":
+                p2["type"] = "negative"
+            else:
+                p2["type"] = "positive"
+            p2["r"] = p2["r"] + p2["wall_thickness"]
+            return_value.append(opsc.opsc_easy(**p2))
+
+    except:
+        for mode in modes:
+            r = kwargs.get("r", kwargs.get("radius", 0))
+            kwargs["shape"] = "cylinder"
+            kwargs.update({"r": r})
+            kwargs.update({"h": depth})
+            kwargs.update({"inclusion": mode})
+            return_value.append(opsc.opsc_easy(**kwargs))
+            #tube innard
+            p2 = copy.deepcopy(kwargs)
+            if p2["type"] == "p" or p2["type"] == "positive":
+                p2["type"] = "negative"
+            else:
+                p2["type"] = "positive"
+            p2["r"] = p2["r"] + p2["wall_thickness"] 
+            return_value.append(opsc.opsc_easy(**p2))
+    return return_value
+
+
+
 def get_oobb_slot(**kwargs):
     modes = kwargs.get("mode", ["laser", "3dpr", "true"])
     if modes == "all":
@@ -1298,8 +1370,11 @@ def get_oobb_nut(loose=False, through=False, **kwargs):
         if mode == "3dpr" and rotX == 0:
             #kwargs["m"] = "#"
             height_layer = 0.3
-            adjusters = [[depth, depth + height_layer]]
-            adjusters.append([-height_layer, -height_layer*2])
+            extra_z = 0
+            if zz == "top":
+                extra_z = -depth
+            adjusters = [[depth+extra_z, depth + height_layer + extra_z]]
+            adjusters.append([-height_layer + extra_z, -height_layer*2 + extra_z])
             if overhang:
                 for adjuster in adjusters:
                     p2 = copy.deepcopy(kwargs)
@@ -1311,6 +1386,7 @@ def get_oobb_nut(loose=False, through=False, **kwargs):
                     
                     p2["size"] = [3.5, 6.5, height_layer] 
                     p2["pos"] = [p2["pos"][0], p2["pos"][1], p2["pos"][2] + adjuster[0]]            
+                    
                     #p2["m"] = "#"
                     return_value.append(ob.oe(**p2))
                     p2 = copy.deepcopy(kwargs)
@@ -1958,77 +2034,79 @@ def get_oobb_tool_allen_key_set_small_generic(**kwargs):
     
     p2 = copy.deepcopy(kwargs)
     p2["pos"] = [p2["pos"][0]+start_offset+spacing*0, p2["pos"][1], p2["pos"][2]]    
-    return_value.extend(tool_allen_key_hex_m1d5_small_generic(**p2))
+    return_value.extend(get_oobb_tool_allen_key_hex_m1d5_small_generic(**p2))
 
     p2 = copy.deepcopy(kwargs)
     p2["pos"] = [p2["pos"][0]+start_offset+spacing*1, p2["pos"][1], p2["pos"][2]- 5*1]
-    return_value.extend(tool_allen_key_hex_m2_small_generic(**p2))
+    return_value.extend(get_oobb_tool_allen_key_hex_m2_small_generic(**p2))
     
     p2 = copy.deepcopy(kwargs)
     p2["pos"] = [p2["pos"][0]+start_offset+spacing*2, p2["pos"][1], p2["pos"][2]- 5*2]
-    return_value.extend(tool_allen_key_hex_m2d5_small_generic(**p2))
+    return_value.extend(get_oobb_tool_allen_key_hex_m2d5_small_generic(**p2))
     
     p2 = copy.deepcopy(kwargs)
     p2["pos"] = [p2["pos"][0]+start_offset+spacing*3, p2["pos"][1], p2["pos"][2]- 5*3]
-    return_value.extend(tool_allen_key_hex_m3_small_generic(**p2))
+    return_value.extend(get_oobb_tool_allen_key_hex_m3_small_generic(**p2))
 
     p2 = copy.deepcopy(kwargs)
     p2["pos"] = [p2["pos"][0]+start_offset+spacing*4, p2["pos"][1], p2["pos"][2]- 5*4]
-    return_value.extend(tool_allen_key_hex_m4_small_generic(**p2))
+    return_value.extend(get_oobb_tool_allen_key_hex_m4_small_generic(**p2))
 
     return return_value
 
-def tool_allen_key_hex_m1d5_small_generic(**kwargs):
-    return_value = []
-    p2 = copy.deepcopy(kwargs)
-    p2["hex_r"] = "m1d5"
-    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
-    return return_value
-
-def tool_allen_key_hex_m2_small_generic(**kwargs):
-    return_value = []
-    p2 = copy.deepcopy(kwargs)
-    p2["hex_r"] = "m2"
-    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
-    return return_value
-
-def tool_allen_key_hex_m2d5_small_generic(**kwargs):
+def get_oobb_tool_allen_key_hex_m1d5_small_generic(**kwargs):
     return_value = []
     p2 = copy.deepcopy(kwargs)
     p2["hex_r"] = "m2d5"
     return_value.extend(get_oobb_tool_allen_key_generic(**p2))
     return return_value
 
-def tool_allen_key_hex_m3_small_generic(**kwargs):
+def get_oobb_tool_allen_key_hex_m2_small_generic(**kwargs):
     return_value = []
     p2 = copy.deepcopy(kwargs)
     p2["hex_r"] = "m3"
     return_value.extend(get_oobb_tool_allen_key_generic(**p2))
     return return_value
 
-def tool_allen_key_hex_m4_small_generic(**kwargs):
+def get_oobb_tool_allen_key_hex_m2d5_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m3d5"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def get_oobb_tool_allen_key_hex_m3_small_generic(**kwargs):
     return_value = []
     p2 = copy.deepcopy(kwargs)
     p2["hex_r"] = "m4"
     return_value.extend(get_oobb_tool_allen_key_generic(**p2))
     return return_value
 
+def get_oobb_tool_allen_key_hex_m4_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m5"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
+def get_oobb_tool_allen_key_hex_m5_small_generic(**kwargs):
+    return_value = []
+    p2 = copy.deepcopy(kwargs)
+    p2["hex_r"] = "m6"
+    return_value.extend(get_oobb_tool_allen_key_generic(**p2))
+    return return_value
+
 def get_oobb_tool_allen_key_generic(**kwargs):
     hex_r = kwargs.get("hex_r", 1.5)
-    hex_dic = {}
-    clearance = 0.25
-    hex_dic["m1d5"] = {"r": 1.5+clearance, "depth": 55}
-    hex_dic["m2"] = {"r": 2+clearance, "depth": 60}
-    hex_dic["m2d5"] = {"r": 2.5+clearance, "depth": 65}
-    hex_dic["m3"] = {"r": 3+clearance, "depth": 70}
-    hex_dic["m4"] = {"r": 4+clearance, "depth": 75}
     extra = kwargs.get("extra", "cutout")
+    hex_dic = {}
+    
     
     if extra == "cutout":
         clearance_up = 10
         p2 = copy.deepcopy(kwargs)        
-        p2["r"] = [hex_dic[hex_r]["r"]/2]
-        p2["h"] = [hex_dic[hex_r]["depth"]-clearance_up]
+        p2["r"] = [ob.gv(f"hole_radius_{hex_r}", "3dpr")]
+        p2["h"] = [100]
         return_value = (get_tool_cylinders(**p2))
         
     return return_value
@@ -2099,6 +2177,19 @@ def get_oobb_tool_pliers_needlenose_generic_130_mm_blue(**kwargs):
         return_value.append(get_tool_generic(**p2))
         
     return return_value
+
+def get_oobb_tool_screwdriver_driver_bit(**kwargs):
+    extra = kwargs.get("extra", "cutout")
+    
+    if extra == "cutout":
+        
+        p2 = copy.deepcopy(kwargs)        
+        p2["r"] = [8/2]
+        p2["h"] = [60]
+        return_value = (get_tool_cylinders(**p2))
+        
+    return return_value
+
 
 def get_oobb_tool_screwdriver_hex_m1d5_wera_60_mm(**kwargs):
     kwargs["wera_r"] = 3.5/2
