@@ -39,10 +39,10 @@ filter = ""
 #filter = filt
 overwrite = True
 overwrite = False
-oobb_base.build_things(overwrite=overwrite, filter=filter, save_type=save_type)
+#oobb_base.build_things(overwrite=overwrite, filter=filter, save_type=save_type)
 
 copy_files = True
-copy_files = False
+#copy_files = False
 if copy_files:
     oobb_markdown.make_markdown()
     # oobb_dxf_laser_copy.folders_to_folder_dxf()

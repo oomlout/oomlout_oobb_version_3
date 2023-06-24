@@ -14,7 +14,7 @@ difference(){
     }
     union(){//indent
         translate([0,0,3-1]){
-            linear_extrude(1){
+            linear_extrude(1.1){
                 import("indent.svg");
             }
         }
