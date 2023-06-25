@@ -46,7 +46,7 @@ def make_svgs():
     #go through all folders in things
     folder_things = "things"
     for folder in os.listdir(folder_things):
-        files = ["outline_neg"]
+        files = ["outline_neg","outline_pos","indent",]
         for file in files:
             formats  =["svg"]
             for format in formats:
