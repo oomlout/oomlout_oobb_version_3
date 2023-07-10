@@ -1,0 +1,91 @@
+{
+    "description": "screw countersunk m3x25",
+    "id": "hardware_screw_countersunk_m3_25",
+    "type": "screw_countersunk",
+    "radius_name": "m3",
+    "depth": 25,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r1": 2.4,
+            "r2": 2.4,
+            "h": 3,
+            "pos": [
+                0,
+                0,
+                -3
+            ],
+            "inclusion": "laser",
+            "depth": 25
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r1": 1.8,
+            "r2": 3.6,
+            "h": 1.9,
+            "pos": [
+                0,
+                0,
+                -1.9
+            ],
+            "inclusion": "3dpr",
+            "depth": 25
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r1": 1.5,
+            "r2": 2.9,
+            "h": 1.7,
+            "pos": [
+                0,
+                0,
+                -1.7
+            ],
+            "inclusion": "true",
+            "depth": 25
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 25,
+            "pos": [
+                0,
+                0,
+                -25
+            ],
+            "inclusion": "laser",
+            "depth": 25
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.8,
+            "h": 25,
+            "pos": [
+                0,
+                0,
+                -25
+            ],
+            "inclusion": "3dpr",
+            "depth": 25
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 25,
+            "pos": [
+                0,
+                0,
+                -25
+            ],
+            "inclusion": "true",
+            "depth": 25
+        }
+    ],
+    "depth_mm": 25
+}

@@ -1,0 +1,56 @@
+{
+    "description": "bearing 6824",
+    "id": "hardware_bearing_6824",
+    "type": "bearing",
+    "bearing_name": "6824",
+    "components": [
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 75.0,
+            "h": 16,
+            "inclusion": "laser",
+            "depth": "bearing_6824_depth"
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 75.2,
+            "h": 16,
+            "inclusion": "3dpr",
+            "depth": "bearing_6824_depth"
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 75.0,
+            "h": 16,
+            "inclusion": "true",
+            "depth": "bearing_6824_depth"
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 60.0,
+            "h": 16,
+            "inclusion": "laser",
+            "depth": "bearing_6824_depth"
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 60.0,
+            "h": 16,
+            "inclusion": "3dpr",
+            "depth": "bearing_6824_depth"
+        },
+        {
+            "type": "negative",
+            "shape": "cylinder",
+            "r": 60.0,
+            "h": 16,
+            "inclusion": "true",
+            "depth": "bearing_6824_depth"
+        }
+    ]
+}

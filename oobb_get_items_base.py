@@ -1469,7 +1469,7 @@ def get_oobb_standoff(loose=False, hole=False, **kwargs):
 
 
 
-def get_oobb_wi_base(**kwargs):
+def get_oobb_wire_base(**kwargs):
 
     width = kwargs.get("width", 2)
     height = kwargs.get("height", 2)
@@ -1537,7 +1537,7 @@ def get_oobb_wi_base(**kwargs):
         x = 0.5
         shape = kwargs.get("shape", "")
         y = -9 #default for ba
-        if shape == "oobb_wi_ba":
+        if shape == "oobb_wire_basic":
             y = -9
         z = 3/2
         p2["pos"] = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2] + z]
@@ -1550,27 +1550,27 @@ def get_oobb_wi_base(**kwargs):
     return return_value
 
 # basic
-def get_oobb_wi_ba(**kwargs):
+def get_oobb_wire_basic(**kwargs):
     kwargs["num_pins"] = 3
     kwargs.update({"polarized": True})
-    return get_oobb_wi_generic(**kwargs)
+    return get_oobb_wire_generic(**kwargs)
 # hv
-def get_oobb_wi_hv(**kwargs):
+def get_oobb_wire_higher_voltage(**kwargs):
     kwargs["num_pins"] = 2
     kwargs.update({"polarized": True})
-    return get_oobb_wi_generic(**kwargs)
+    return get_oobb_wire_generic(**kwargs)
 # i2c
-def get_oobb_wi_i2(**kwargs):
+def get_oobb_wire_i2c(**kwargs):
     kwargs["num_pins"] = 4
     kwargs.update({"polarized": True})
-    return get_oobb_wi_generic(**kwargs)
+    return get_oobb_wire_generic(**kwargs)
 
-def get_oobb_wi_m2(**kwargs):
+def get_oobb_wire_motor(**kwargs):
     kwargs["num_pins"] = 2
     kwargs.update({"polarized": False})
-    return get_oobb_wi_generic(**kwargs)
+    return get_oobb_wire_generic(**kwargs)
 
-def get_oobb_wi_generic(**kwargs):
+def get_oobb_wire_generic(**kwargs):
     pos = kwargs.get("pos", [0, 0, 0])      
     num_pins = kwargs.get("num_pins", 2)
     polarized = kwargs.get("polarized", False)
@@ -1585,7 +1585,7 @@ def get_oobb_wi_generic(**kwargs):
         pole_extra = 1
     shift = 2 - num_pins
 
-    return_value = get_oobb_wi_base(**kwargs)
+    return_value = get_oobb_wire_base(**kwargs)
     for mode in modes:
         #depth = ob.gv("wi_depth", mode) 
         depth = 3
@@ -1658,7 +1658,7 @@ def get_oobb_wi_generic(**kwargs):
 # 2 wire unpolarized 
 
 # space
-def get_oobb_wi_spacer(**kwargs):
+def get_oobb_wire_spacer(**kwargs):
     pos = kwargs.get("pos", [0, 0, 0])    
     kwargs.update({"polarized": False})
     depth = kwargs.get("depth", 3)
@@ -1672,7 +1672,7 @@ def get_oobb_wi_spacer(**kwargs):
 
 
 
-    return_value = get_oobb_wi_base(**kwargs)
+    return_value = get_oobb_wire_base(**kwargs)
     for mode in modes:
         ##wire back piece
         p2 = copy.deepcopy(kwargs)
@@ -1694,7 +1694,7 @@ def get_oobb_wi_spacer(**kwargs):
     return return_value
 
 
-def get_oobb_wi_spacer_long(**kwargs):
+def get_oobb_wire_spacer_long(**kwargs):
     pos = kwargs.get("pos", [0, 0, 0])    
     kwargs.update({"polarized": False})
     depth = kwargs.get("depth", 3)
@@ -1708,7 +1708,7 @@ def get_oobb_wi_spacer_long(**kwargs):
 
 
 
-    return_value = get_oobb_wi_base(**kwargs)
+    return_value = get_oobb_wire_base(**kwargs)
     for mode in modes:
         ##wire back piece
         p2 = copy.deepcopy(kwargs)
@@ -1729,7 +1729,7 @@ def get_oobb_wi_spacer_long(**kwargs):
 
     return return_value
 
-def get_oobb_wi_spacer_u(**kwargs):
+def get_oobb_wire_spacer_u(**kwargs):
     pos = kwargs.get("pos", [0, 0, 0])    
     kwargs.update({"polarized": False})
     depth = kwargs.get("depth", 3)
@@ -1743,7 +1743,7 @@ def get_oobb_wi_spacer_u(**kwargs):
 
 
 
-    return_value = get_oobb_wi_base(**kwargs)
+    return_value = get_oobb_wire_base(**kwargs)
     for mode in modes:
         ##wire back piece
         p2 = copy.deepcopy(kwargs)

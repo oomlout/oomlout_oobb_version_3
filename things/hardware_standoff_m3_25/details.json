@@ -1,0 +1,96 @@
+{
+    "description": "standoff m3x25x25",
+    "id": "hardware_standoff_m3_25",
+    "type": "standoff",
+    "radius_name": "m3",
+    "depth": 25,
+    "components": [
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 25,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "laser",
+            "m": "",
+            "depth": 25
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.8,
+            "h": 25,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "3dpr",
+            "m": "",
+            "depth": 25
+        },
+        {
+            "type": "n",
+            "shape": "cylinder",
+            "r": 1.5,
+            "h": 25,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "true",
+            "m": "",
+            "depth": 25
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 3.3465999999999996,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "laser",
+            "sides": 6,
+            "height": 25,
+            "depth": 25
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 3.6350999999999996,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "3dpr",
+            "sides": 6,
+            "height": 25,
+            "depth": 25
+        },
+        {
+            "type": "p",
+            "shape": "polyg",
+            "r": 3.3465999999999996,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "true",
+            "sides": 6,
+            "height": 25,
+            "depth": 25
+        }
+    ],
+    "width_mm": 3.1734999999999998,
+    "depth_mm": 25,
+    "height_mm": 2.75
+}

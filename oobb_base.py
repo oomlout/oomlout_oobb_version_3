@@ -96,7 +96,10 @@ def get_default_thing(**kwargs):
     return thing
 
 def get_default_thing_old_1(**kwargs):
-
+    ######################## old #########################
+    ######################## old #########################
+    ######################## old #########################
+    ######################## old #########################
     thing = {}
 
     type_dict = {}
@@ -263,6 +266,8 @@ def dump(mode="json"):
             json.dump(oobb.variables, outfile)
     elif mode == "folder":
         for thing in oobb.things:
+            #print a single dot with no new line
+            print(".", end="", flush=True)
             filename = f'things/{thing}/details.json'
             if not os.path.exists(os.path.dirname(filename)):
                 os.makedirs(os.path.dirname(filename))

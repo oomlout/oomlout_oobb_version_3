@@ -10,8 +10,7 @@ import oobb_base
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
-    typs = ["bps", "bcs", "cis", "hls", "jas", "jgs", "mps", "pls", "scs",
-             "shs", "sjs", "ths", "trs", "zts", "nuts", "wis", "whs", "screws", "bearings", "nuts", "tests"]
+    typs = ["bearing_plates", "bearing_circles", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -37,155 +36,155 @@ def make_all(filter=""):
 
 # oobb makes
 
-def get_bps(size="oobb"):
+def get_bearing_plates(size="oobb"):
     bps = []
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
-    bps.append({"type": "bpj", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
-    bps.append({"type": "bpjb", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704","size": size})
-    bps.append({"type": "bp_shim", "thickness": 2, "bearing_type": "6704", "size": size})
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6803", "size": size})
-    bps.append({"type": "bp", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6804", "size": size})
-    bps.append({"type": "bp", "width": 5, "height": 5, "thickness": 12, "bearing_type": "6808", "size": size})
-    bps.append({"type": "bp", "width": 7, "height": 5, "thickness": 12, "bearing_type": "6810", "size": size})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bps.append({"type": "bearing_plate_jack", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bps.append({"type": "bearing_plate_jack_basic", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704","size": size})
+    bps.append({"type": "bearing_plate_shim", "thickness": 2, "bearing_type": "6704", "size": size})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6803", "size": size})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6804", "size": size})
+    bps.append({"type": "bearing_plate", "width": 5, "height": 5, "thickness": 12, "bearing_type": "6808", "size": size})
+    bps.append({"type": "bearing_plate", "width": 7, "height": 5, "thickness": 12, "bearing_type": "6810", "size": size})
 
     return bps
 
-def get_bcs(size="oobb"):
+def get_bearing_circles(size="oobb"):
     bcs = []
-    bcs.append({"type": "bc", "diameter": 3, "thickness": 12, "bearing_type": "606","size": size})
+    bcs.append({"type": "bearing_circle", "diameter": 3, "thickness": 12, "bearing_type": "606","size": size})
 
     return bcs
 
 
 
-def get_cis(size="oobb"):
+def get_circles(size="oobb"):
     circles = []
     circle_size = [1.5,3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
     for s in circle_size:
-        circles.append({"type": "ci", "diameter": s, "thickness": 3, "size": size})
+        circles.append({"type": "circle", "diameter": s, "thickness": 3, "size": size})
     
-    circles.append({"type": "ci", "diameter": 1.5, "thickness": 12, "extra":"nut_m6", "size": size})
+    circles.append({"type": "circle", "diameter": 1.5, "thickness": 12, "extra":"nut_m6", "size": size})
 
 
-    circles.append({"type": "ci_cap", "diameter": 3, "thickness": 9, "shaft":"electronics_potentiometer_17", "size": size})
-    circles.append({"type": "ci_cap", "diameter": 1.5, "thickness": 6, "shaft":"electronics_potentiometer_17", "size": size})
+    circles.append({"type": "circle_captive", "diameter": 3, "thickness": 9, "shaft":"electronics_potentiometer_17", "size": size})
+    circles.append({"type": "circle_captive", "diameter": 1.5, "thickness": 6, "shaft":"electronics_potentiometer_17", "size": size})
     
-    circles.append({"type": "ci_cap", "diameter": 3, "thickness": 9, "shaft":"motor_gearmotor_01", "size": size})
-    circles.append({"type": "ci_cap", "diameter": 1.5, "thickness": 9, "shaft":"motor_gearmotor_01", "size": size})
+    circles.append({"type": "circle_captive", "diameter": 3, "thickness": 9, "shaft":"motor_gearmotor_01", "size": size})
+    circles.append({"type": "circle_captive", "diameter": 1.5, "thickness": 9, "shaft":"motor_gearmotor_01", "size": size})
 
     return circles
 
 
-def get_hls(size="oobb"):
+def get_holders(size="oobb"):
     hls = []
     #### gearmotor
-    hls.append({"type": "hl", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 6, "size": size})
+    hls.append({"type": "holder", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 6, "size": size})
     #### micro servo
-    hls.append({"type": "hl", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "holder", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
     
     #### nema 17
     thicknesses = [3,6]
     for t in thicknesses:
         ##shifted nema 17s    
-        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
+        hls.append({"type": "holder", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
         "thickness": t, "size": size, "bearing_type": "shifted"})
-        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 5, 
+        hls.append({"type": "holder", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 5, 
         "thickness": t, "size": size, "bearing_type": "shifted"})
         ##normal nema 17s
-        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
+        hls.append({"type": "holder", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 3, 
         "thickness": t, "size": size})
-        hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 5, 
+        hls.append({"type": "holder", "extra": "motor_stepper_motor_nema_17_flat","width": 5, "height": 5, 
         "thickness": t, "size": size})
-    hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_jack","width": 3, "height": 3, "thickness": 12, "size": size})
-    hls.append({"type": "hl", "extra": "motor_stepper_motor_nema_17_both","width": 4, "height": 3, "thickness": 12, "size": size})
+    hls.append({"type": "holder", "extra": "motor_stepper_motor_nema_17_jack","width": 3, "height": 3, "thickness": 12, "size": size})
+    hls.append({"type": "holder", "extra": "motor_stepper_motor_nema_17_both","width": 4, "height": 3, "thickness": 12, "size": size})
 
 
     #electronics
         #microswitch_standard
-    hls.append({"type": "hl", "extra": "electronics_microswitch_standard","width": 3, "height": 3, "thickness": 3, "size": size}) 
-    hls.append({"type": "hl", "extra": "electronics_microswitch_standard","width": 3, "height": 3, "thickness": 6, "size": size})            
+    hls.append({"type": "holder", "extra": "electronics_microswitch_standard","width": 3, "height": 3, "thickness": 3, "size": size}) 
+    hls.append({"type": "holder", "extra": "electronics_microswitch_standard","width": 3, "height": 3, "thickness": 6, "size": size})            
         #potentimeter_17
-    hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 3, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 12, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_potentiometer_17","width": 3, "height": 4, "thickness": 12, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_potentiometer_17","width": 3, "height": 3, "thickness": 12, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_potentiometer_17","width": 3, "height": 4, "thickness": 12, "size": size})
         #pushbutton_11
-    hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 3, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 21, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_pushbutton_11","width": 3, "height": 4, "thickness": 21, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 3, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 21, "size": size})
-    hls.append({"type": "hl", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 4, "thickness": 21, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_pushbutton_11","width": 3, "height": 3, "thickness": 21, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_pushbutton_11","width": 3, "height": 4, "thickness": 21, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 3, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 3, "thickness": 21, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 4, "thickness": 21, "size": size})
         #mcu
-    hls.append({"type": "hl", "extra": "electronics_mcu_atmega328_shennie","width": 3, "height": 4, "thickness": 6, "size": size})
+    hls.append({"type": "holder", "extra": "electronics_mcu_atmega328_shennie","width": 3, "height": 4, "thickness": 6, "size": size})
 
 
     return hls
 
 
-def get_jas(size="oobb"):
+def get_jacks(size="oobb"):
     jas = []
 
-    types = ["ja", "jab"]
+    types = ["jack", "jack_basic"]
 
     for typ in types:
         for wid in range(3, 10+1):
             jas.append({"type": typ, "width": wid, "height": 1,
                     "thickness": 12, "size": size})
 
-    jas.append({"type": "ja", "width": 3, "height": 2,
+    jas.append({"type": "jack", "width": 3, "height": 2,
                "thickness": 12, "size": size})
-    jas.append({"type": "ja", "width": 5, "height": 2,
+    jas.append({"type": "jack", "width": 5, "height": 2,
                "thickness": 12, "size": size})
-    jas.append({"type": "ja", "width": 3, "height": 3,
+    jas.append({"type": "jack", "width": 3, "height": 3,
                "thickness": 12, "size": size})
 
-    jas.append({"type": "jab", "width": 2, "height": 1,
+    jas.append({"type": "jack_basic", "width": 2, "height": 1,
                "thickness": 12, "size": size})
-    jas.append({"type": "jab", "width": 1, "height": 1,
+    jas.append({"type": "jack_basic", "width": 1, "height": 1,
                "thickness": 12, "size": size})
 
     return jas
 
-def get_jgs(size="oobb"):
+def get_jigs(size="oobb"):
     jgs = []
 
-    jgs.append({"type": "jg", "extra": "tr_03_03","width": 5, "height": 5, "thickness": 6, "size": size})    
-    jgs.append({"type": "jg", "extra": "screw_sorter_m3_03_03","width": 3, "height": 3, "thickness": 15, "size": size})
+    jgs.append({"type": "jig", "extra": "tray_03_03","width": 5, "height": 5, "thickness": 6, "size": size})    
+    jgs.append({"type": "jig", "extra": "screw_sorter_m3_03_03","width": 3, "height": 3, "thickness": 15, "size": size})
             
 
 
     return jgs
 
 
-def get_mps(size="oobb"):
+def get_mounting_plates(size="oobb"):
     mounting_plates = []
     # bigtree octopur driver board
-    mounting_plates.append({"type": "mp", "width": 13, "height": 9, "thickness": 3, "width_mounting": 150,
+    mounting_plates.append({"type": "mounting_plate", "width": 13, "height": 9, "thickness": 3, "width_mounting": 150,
                            "height_mounting": 90, "radius_hole": "m3", "name": "bigtreetech_octopus", "size": size})
 
     # e3d titan extruder
-    mounting_plates.append({"type": "mpu", "width": 6, "height": 3, "thickness": 3, "width_mounting": 54,
+    mounting_plates.append({"type": "mounting_plate_u", "width": 6, "height": 3, "thickness": 3, "width_mounting": 54,
                            "height_mounting": 15, "radius_hole": "m4", "name": "e3d_extruder_titan", "size": size})
-    mounting_plates.append({"type": "mps", "width": 5, "height": 3, "thickness": 3, "width_mounting": 54,
+    mounting_plates.append({"type": "mounting_plate_side", "width": 5, "height": 3, "thickness": 3, "width_mounting": 54,
                            "height_mounting": 15, "radius_hole": "m4", "name": "e3d_extruder_titan", "size": size})
-    mounting_plates.append({"type": "mpt", "width": 6, "height": 2, "thickness": 3, "width_mounting": 54,
+    mounting_plates.append({"type": "mounting_plate_top", "width": 6, "height": 2, "thickness": 3, "width_mounting": 54,
                            "height_mounting": 15, "radius_hole": "m4", "name": "e3d_extruder_titan", "size": size})
 
     # aliexpress motor controller
-    mounting_plates.append({"type": "mp", "width": 4, "height": 4, "thickness": 3, "width_mounting": 26,
+    mounting_plates.append({"type": "mounting_plate", "width": 4, "height": 4, "thickness": 3, "width_mounting": 26,
                            "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
-    mounting_plates.append({"type": "mpu", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
+    mounting_plates.append({"type": "mounting_plate_u", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
                            "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
-    mounting_plates.append({"type": "mps", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
+    mounting_plates.append({"type": "mounting_plate_side", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
                            "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
 
     return mounting_plates
 
 
-def get_pls(size="oobb"):
+def get_plates(size="oobb"):
     plates = []
     
     
@@ -196,13 +195,13 @@ def get_pls(size="oobb"):
         for wid in range(1, 10):
             for hei in range(1, 10):
                 if wid >= hei:
-                    plates.append({"type": "pl", "width": wid,
+                    plates.append({"type": "plate", "width": wid,
                                 "height": hei, "thickness": 3, "size": size})
 
         #all thicknesses 1x1
         depths = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
         for dep in depths:
-            plates.append({"type": "pl", "width": 1, "height": 1,
+            plates.append({"type": "plate", "width": 1, "height": 1,
                     "thickness": dep, "size": size})
         
         #various plates that also have extra thicknesses
@@ -227,12 +226,12 @@ def get_pls(size="oobb"):
         premo_thicknesses = [6, 9, 12, 15,21,30]
         for plate in premo_plates:
             for thickness in premo_thicknesses:
-                plates.append({"type": "pl", "width": plate[0], "height": plate[1],
+                plates.append({"type": "plate", "width": plate[0], "height": plate[1],
                     "thickness": thickness, "size": size})
 
         #one widers
         for len in range(2, 35):
-            plates.append({"type": "pl", "width": len, "height": 1,
+            plates.append({"type": "plate", "width": len, "height": 1,
                         "thickness": 3, "size": size})
 
         #03s, 05s
@@ -240,17 +239,17 @@ def get_pls(size="oobb"):
         heights = [3,5]
         for w in widths:
             for h in heights:
-                plates.append({"type": "pl", "width": w, "height": h,
+                plates.append({"type": "plate", "width": w, "height": h,
                         "thickness": 3, "size": size})
         
         #squares
         widths = range(10,21)
         for w in widths:
-            plates.append({"type": "pl", "width": w, "height": w,
+            plates.append({"type": "plate", "width": w, "height": w,
                     "thickness": 3, "size": size})
         
         # larger plates of desire
-        plates.append({"type": "pl", "width": 15, "height": 9,
+        plates.append({"type": "plate", "width": 15, "height": 9,
                     "thickness": 3, "size": size})
 
         
@@ -258,37 +257,37 @@ def get_pls(size="oobb"):
         widths = range(1,21)        
         for w in widths:
                 if w < 15:
-                    plates.append({"type": "pl", "width": 15, "height": w,
+                    plates.append({"type": "plate", "width": 15, "height": w,
                         "thickness": 3, "size": size})
                 else:
-                    plates.append({"type": "pl", "width": w, "height": 15,
+                    plates.append({"type": "plate", "width": w, "height": 15,
                         "thickness": 3, "size": size})
         
-        plates.append({"type": "pl", "width": 15, "height": 14,
+        plates.append({"type": "plate", "width": 15, "height": 14,
                     "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 15, "height": 13,
+        plates.append({"type": "plate", "width": 15, "height": 13,
                     "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 15, "height": 12,
+        plates.append({"type": "plate", "width": 15, "height": 12,
                     "thickness": 3, "size": size})
-        plates.append({"type": "pl", "width": 15, "height": 11,
+        plates.append({"type": "plate", "width": 15, "height": 11,
                     "thickness": 3, "size": size})
 
     size = "oobb"
-    plates.append({"type": "pl", "width": 28, "height": 20,
+    plates.append({"type": "plate", "width": 28, "height": 20,
                 "thickness": 3, "size": size, "name": "oobb_pl_a3"})
-    plates.append({"type": "pl", "width": 20, "height": 14,
+    plates.append({"type": "plate", "width": 20, "height": 14,
                 "thickness": 3, "size": size, "name": "oobb_pl_a4"})
-    plates.append({"type": "pl", "width": 14, "height": 10,
+    plates.append({"type": "plate", "width": 14, "height": 10,
                 "thickness": 3, "size": size, "name": "oobb_pl_a5"})
-    plates.append({"type": "pl", "width": 10, "height": 7,
+    plates.append({"type": "plate", "width": 10, "height": 7,
                 "thickness": 3, "size": size, "name": "oobb_pl_a6"})
 
 
     size = "oobe"
     thicknesses = [3]
     for thickness in thicknesses:
-        plates.append({"type": "pl", "width": 28, "height": 20, "thickness": thickness, "size": size, "name": "oobe_warehouse_box"})
-        plates.append({"type": "pl", "width": 21, "height": 21, "thickness": thickness, "size": size, "name": "oobe_shelf_tray"})
+        plates.append({"type": "plate", "width": 28, "height": 20, "thickness": thickness, "size": size, "name": "oobe_warehouse_box"})
+        plates.append({"type": "plate", "width": 21, "height": 21, "thickness": thickness, "size": size, "name": "oobe_shelf_tray"})
     
 
     #add oobe holes to all oobb plates
@@ -303,49 +302,46 @@ def get_pls(size="oobb"):
 
     #non both_holes ones
     #gorm plates
-    plates.append({"type": "pl", "width": 7, "height": 4,
+    plates.append({"type": "plate", "width": 7, "height": 4,
                   "thickness": 3, "extra":"gorm", "size": size})
-    plates.append({"type": "pl", "width": 5, "height": 2,
+    plates.append({"type": "plate", "width": 5, "height": 2,
                   "thickness": 3, "extra":"gorm", "size": size})
 
 
     return plates
 
 
-def get_shs(size="oobb"):
+def get_shafts(size="oobb"):
     shafts = []
     thinesses = [0, 0.5, 1, 3, 3.5, 4, 6, 9, 12, 15]
     extras = ["","small", "countersunk", "countersunk_small", "nut", "nut_small"]
     for extra in extras:
         for dep in thinesses:
-            shafts.append({"type": "sh", "thickness": dep, "size": size, "extra": extra})
+            shafts.append({"type": "shaft", "thickness": dep, "size": size, "extra": extra})
     
 
     return shafts
 
 
-def get_scs(size="oobb"):
+def get_shaft_couplers(size="oobb"):
     couplers = []
     size = "oobb"
-    couplers.append({"type": "sc", "diameter": 2, "thickness": 9,  "size": size})
+    couplers.append({"type": "shaft_coupler", "diameter": 2, "thickness": 9,  "size": size})
     
     return couplers
 
-def get_sjs(size="oobb"):
+def get_soldering_jigs(size="oobb"):
     sjs = []
     
-    sjs.append({"type": "sj", "extra": "electronics_mcu_pi_pico_socket", "width": 3, "height": 5, "thickness": 9, "size": size})
+    sjs.append({"type": "soldering_jig", "extra": "electronics_mcu_pi_pico_socket", "width": 3, "height": 5, "thickness": 9, "size": size})
     
-
-
-
     return sjs
 
 
-def get_ths(size="oobb"):
+def get_tool_holders(size="oobb"):
     tool_holders = []
     size = "oobb"
-    tool_holders.append({"type": "th", "width": 7, "height": 10,  "thickness": 66, "extra": "tool_holder_basic", "size": size})
+    tool_holders.append({"type": "tool_holder", "width": 7, "height": 10,  "thickness": 66, "extra": "tool_holder_basic", "size": size})
 
 
     #C:\DB\Dropbox\bbbb_product_working\tool\tool_holder
@@ -398,10 +394,10 @@ def get_ths(size="oobb"):
     tools.append(["tool_electronics_crimp_jst_wc_260",5,5,24+extra_thick])
 
     for tool in tools:
-        tool_holders.append({"type": "thv", "width": tool[1], "height": tool[2],  "thickness": tool[3], "extra": tool[0], "size": size})
+        tool_holders.append({"type": "tool_holder_vertical", "width": tool[1], "height": tool[2],  "thickness": tool[3], "extra": tool[0], "size": size})
     return tool_holders
 
-def get_trs(size="oobb"):
+def get_trays(size="oobb"):
     trays = []
 
     ts = []    
@@ -426,24 +422,24 @@ def get_trs(size="oobb"):
     """
     thicknesses = [12, 15, 18, 21, 24, 27, 30]
     for tray in ts:
-        trays.append({"type": "trl", "width": tray[0], "height": tray[1], "thickness": 2, "size": size})
-        trays.append({"type": "trlt", "width": tray[0], "height": tray[1], "thickness": 4, "size": size})
-        trays.append({"type": "trlts", "width": tray[0], "height": tray[1], "thickness": 4, "size": size})
+        trays.append({"type": "tray_lid", "width": tray[0], "height": tray[1], "thickness": 2, "size": size})
+        trays.append({"type": "tray_lid_thin", "width": tray[0], "height": tray[1], "thickness": 4, "size": size})
+        trays.append({"type": "tray_lid_thin_spin", "width": tray[0], "height": tray[1], "thickness": 4, "size": size})
         for thickness in thicknesses:
-            trays.append({"type": "tr", "width": tray[0], "height": tray[1], "thickness": thickness, "size": size})
+            trays.append({"type": "tray", "width": tray[0], "height": tray[1], "thickness": thickness, "size": size})
             #trv vertical ones with oobb added for mounting on a wall
-            trays.append({"type": "trv", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
+            trays.append({"type": "tray_vertical", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
             #trt thin trays for faster printing
-            trays.append({"type": "trt", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
+            trays.append({"type": "tray_thin", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
             #trts thin trays for faster printing with a screw holder
-            trays.append({"type": "trts", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
+            trays.append({"type": "tray_thin_spin", "width": tray[1], "height": tray[0], "thickness": thickness, "size": size})
 
 
     return trays
 
-def get_whs(size="oobb"):
+def get_wheels(size="oobb"):
     wheels = []
-    types = [["wh",6],["bw",9],["bw",15]]
+    types = [["wheel",6],["bearing_wheel",9],["bearing_wheel",15]]
     for t in types:
         type, thickness = t
         wheels.append({"type": type, "thickness": thickness, "oring_type":"314", "size": size})        
@@ -461,59 +457,59 @@ def get_whs(size="oobb"):
     return wheels
 
 
-def get_wis(size="oobb"):
+def get_wires(size="oobb"):
     wis = []
     thicknesses = [3,6]
     widths = [2,3]
-    extras = ["m2","ba","hv","i2"]
+    extras = ["motor","basic","higher_voltage","i2c"]
     for thickness in thicknesses:        
         for width in widths:
             for extra in extras:
-                wis.append({"type": "wi", "extra": extra, "thickness": thickness, "width": width, "height": 3, "size": size})
+                wis.append({"type": "wire", "extra": extra, "thickness": thickness, "width": width, "height": 3, "size": size})
     for extra in extras:
-        wis.append({"type": "wi", "extra": f'{extra}_base', "thickness": 6, "width": 3, "height": 3, "size": size})  
+        wis.append({"type": "wire", "extra": f'{extra}_base', "thickness": 6, "width": 3, "height": 3, "size": size})  
     
     #base plates
-    wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 2, "height": 3, "size": size})                    
-    wis.append({"type": "wi", "extra": "base", "thickness": 3, "width": 
+    wis.append({"type": "wire", "extra": "base", "thickness": 3, "width": 2, "height": 3, "size": size})                    
+    wis.append({"type": "wire", "extra": "base", "thickness": 3, "width": 
     3, "height": 3, "size": size})                    
-    wis.append({"type": "wi", "extra": "base_cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    
-    #wis.append({"type": "wi", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    wis.append({"type": "wire", "extra": "base_cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    #wis.append({"type": "wire", "extra": "base_holder", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     
     #cap    
-    wis.append({"type": "wi", "extra": "cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    
+    wis.append({"type": "wire", "extra": "cap", "thickness": 3, "width": 3, "height": 3, "size": size})                    
     
     
     
     #spacer    
     thicknesses = [3,6,9,12]
     for thickness in thicknesses:
-        wis.append({"type": "wi", "extra": "spacer", "thickness": thickness, "width": 3, "height": 3, "size": size})  
-        wis.append({"type": "wi", "extra": "spacer_long", "thickness": thickness, "width": 3, "height": 3, "size": size}) 
-        wis.append({"type": "wi", "extra": "spacer_u", "thickness": thickness, "width": 3, "height": 3, "size": size})                    
+        wis.append({"type": "wire", "extra": "spacer", "thickness": thickness, "width": 3, "height": 3, "size": size})  
+        wis.append({"type": "wire", "extra": "spacer_long", "thickness": thickness, "width": 3, "height": 3, "size": size}) 
+        wis.append({"type": "wire", "extra": "spacer_u", "thickness": thickness, "width": 3, "height": 3, "size": size})                    
     
 
     return wis
 
-def get_zts(size="oobb"):
+def get_ziptie_holders(size="oobb"):
 
     zts = []
 
-    zts.append({"type": "ztj", "width": 1, "thickness": 12, "size": size})
-    zts.append({"type": "ztj", "width": 1, "height": 2,
+    zts.append({"type": "ziptie_holder_jack", "width": 1, "thickness": 12, "size": size})
+    zts.append({"type": "ziptie_holder_jack", "width": 1, "height": 2,
                "thickness": 12, "size": size})
-    zts.append({"type": "ztj", "width": 2, "thickness": 12, "size": size})
-    zts.append({"type": "ztj", "width": 2, "height": 2,
+    zts.append({"type": "ziptie_holder_jack", "width": 2, "thickness": 12, "size": size})
+    zts.append({"type": "ziptie_holder_jack", "width": 2, "height": 2,
                "thickness": 12, "size": size})
-    zts.append({"type": "ztj", "width": 2, "height": 3,
+    zts.append({"type": "ziptie_holder_jack", "width": 2, "height": 3,
                "thickness": 12, "size": size})
-    zts.append({"type": "ztj", "width": 3, "thickness": 12, "size": size})
+    zts.append({"type": "ziptie_holder_jack", "width": 3, "thickness": 12, "size": size})
 
-    zts.append({"type": "zt", "width": 2, "height": 3,
+    zts.append({"type": "ziptie_holder", "width": 2, "height": 3,
                "thickness": 6, "size": size})
-    zts.append({"type": "zt", "width": 2, "height": 4,
+    zts.append({"type": "ziptie_holder", "width": 2, "height": 4,
                "thickness": 6, "size": size})
-    zts.append({"type": "zt", "width": 2, "height": 5,
+    zts.append({"type": "ziptie_holder", "width": 2, "height": 5,
                "thickness": 6, "size": size})
 
     return zts

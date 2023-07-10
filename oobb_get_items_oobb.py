@@ -16,7 +16,7 @@ def get_bearing_circle(**kwargs):
     kwargs.update({"exclude_d3_holes": True})
     kwargs.update({"exclude_center_holes": True})
     
-    th.extend(get_ci(**kwargs)["components"])
+    th.extend(get_circle(**kwargs)["components"])
     # adding connecting screws
     connecting_screws = []
     a = 10.607
@@ -75,7 +75,7 @@ def get_bearing_wheel(**kwargs):
     kwargs.update({"diameter": diameter_big})
     kwargs.update({"exclude_center_holes": True})
     kwargs.update({"exclude_d3_holes": True})
-    th.extend(get_ci(**kwargs)["components"])
+    th.extend(get_circle(**kwargs)["components"])
 
     
 
@@ -309,7 +309,7 @@ def get_bearing_plate_shim(**kwargs):
 
     return thing
 
-def get_bearing_pplate_jack(**kwargs):
+def get_bearing_plate_jack(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     osp = ob.gv("osp")
@@ -319,12 +319,12 @@ def get_bearing_pplate_jack(**kwargs):
     th = thing["components"]
 
     p2 = copy.deepcopy(kwargs)
-    bp = get_bp(**p2)["components"]
+    bp = get_bearing_plate(**p2)["components"]
     th.extend(bp)
     p2 = copy.deepcopy(kwargs)
     p2["height"] = 1
     p2["holes"] = True
-    ja = get_ja(**p2)["components"]
+    ja = get_jack(**p2)["components"]
     shift = [0, -osp * 2+ 1.5, 0]
     #ja = oobb_base.highlight(ja)
     ja = oobb_base.shift(ja, shift)
@@ -343,12 +343,12 @@ def get_bearing_plate_jack_basic(**kwargs):
     th = thing["components"]
 
     p2 = copy.deepcopy(kwargs)
-    bp = get_bp(**p2)["components"]
+    bp = get_bearing_plate(**p2)["components"]
     th.extend(bp)
     p2 = copy.deepcopy(kwargs)
     p2["height"] = 1
     p2["holes"] = False
-    ja = get_jab(**p2)["components"]
+    ja = get_jack_basic(**p2)["components"]
     shift = [0, -osp * 2+ 1.5, 0]
     #ja = oobb_base.highlight(ja)
     ja = oobb_base.shift(ja, shift)
@@ -475,7 +475,7 @@ def get_circle_captive(**kwargs):
     holes = kwargs.get("holes", True)
 
     thing = ob.get_default_thing(**kwargs)
-    thing["components"] = get_ci(**kwargs)["components"]    
+    thing["components"] = get_circle(**kwargs)["components"]    
     th = thing["components"]   
     #remove center hole
     th = oobb_base.remove_if(th, "pos", [0,0,-125]) 
@@ -527,7 +527,7 @@ def get_ci_holes_center(**kwargs):
 def get_holder(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
-    kwargs["type"] = f'hl_{extra}'
+    kwargs["type"] = f'holder_{extra}'
     if extra != "":
         # Get the module object for the current file
         current_module = __import__(__name__)
@@ -705,8 +705,8 @@ def get_holder_motor_gearmotor_01_old_01(**kwargs):
     p3.update({"only_screws": True})
     add_items = []
     p2.update({"no_screws": True})
-    add_items.extend(get_bp(**p2)["components"])    
-    add_items.extend(get_bp(**p3)["components"])
+    add_items.extend(get_bearing_plate(**p2)["components"])    
+    add_items.extend(get_bearing_plate(**p3)["components"])
     add_items_output = []
     for item in add_items:
         inclusion = item.get("inclusion", "all")
@@ -794,7 +794,7 @@ def get_holder_motor_servo_micro_01(**kwargs):
             "only_screws": True,  
             "m": "#"          
             }
-    add_items.extend(get_bp(**p2)["components"])    
+    add_items.extend(get_bearing_plate(**p2)["components"])    
     add_items_output = []
     #only add 3dpr and remove back hole
     for item in add_items:
@@ -1316,18 +1316,18 @@ def get_jack_basic(**kwargs):
 def get_jig(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
-    kwargs["type"] = f'jg_{extra}'
+    kwargs["type"] = f'jig_{extra}'
     if extra != "":
         # Get the module object for the current file
         current_module = __import__(__name__)
-        function_name = "get_jg_" + extra
+        function_name = "get_jig_" + extra
         # Call the function using the string variable
         function_to_call = getattr(current_module, function_name)
         return function_to_call(**kwargs)
     else:
         Exception("No extra")
 
-def get_jig_tr_03_03(**kwargs):
+def get_jig_tray_03_03(**kwargs):
    
     thing = ob.get_default_thing(**kwargs)
 
@@ -1391,7 +1391,7 @@ def get_jig_screw_sorter_m3_03_03(**kwargs):
     plate_pos = [0, 0, 0]
 
     #add plate
-    thing["components"] = get_tr(**kwargs)["components"]
+    thing["components"] = get_tray(**kwargs)["components"]
     th = thing["components"]
 
     extra = "tr_03_03_jig"
@@ -1580,7 +1580,7 @@ def get_shaft_coupler(**kwargs):
     #kwargs.update({"exclude_d3_holes": True})
     kwargs.update({"exclude_center_holes": True})
     
-    th.extend(get_ci(**kwargs)["components"])
+    th.extend(get_circle(**kwargs)["components"])
     # adding connecting screws
     spac = 7.5
     holes = [[0,spac],[spac,0],[-spac,0],[0,-spac]]
@@ -1624,11 +1624,11 @@ def get_shaft(**kwargs):
 def get_soldering_jig(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
-    kwargs["type"] = f'sj_{extra}'
+    kwargs["type"] = f'soldering_jig_{extra}'
     if extra != "":
         # Get the module object for the current file
         current_module = __import__(__name__)
-        function_name = "get_sj_" + extra
+        function_name = "get_soldering_jig_" + extra
         # Call the function using the string variable
         function_to_call = getattr(current_module, function_name)
         return function_to_call(**kwargs)
@@ -1670,14 +1670,14 @@ def get_soldering_jig_electronics_mcu_pi_pico_socket(**kwargs):
     
     return thing
 
-def get_th(**kwargs):
+def get_tool_holder(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
     kwargs["type"] = f'th_{extra}'
     if extra != "":
         # Get the module object for the current file
         current_module = __import__(__name__)
-        function_name = "get_th_" + extra
+        function_name = "get_tool_holder_" + extra
         # Call the function using the string variable
         function_to_call = getattr(current_module, function_name)
         return function_to_call(**kwargs)
@@ -2449,7 +2449,7 @@ def get_tray_vertical(**kwargs):
     size = kwargs.get("size", "oobb")
 
     thing = ob.get_default_thing(**kwargs)
-    thing["components"] = get_tr(**kwargs)["components"]
+    thing["components"] = get_tray(**kwargs)["components"]
     th = thing["components"]
     
     thick = 3
@@ -2511,7 +2511,7 @@ def get_wheel(**kwargs):
     #kwargs.update({"exclude_center_holes": True})
     
     kwargs.update({"diameter": diameter_big})
-    th.extend(get_ci(**kwargs)["components"])
+    th.extend(get_circle(**kwargs)["components"])
 
     th.extend(ob.oe(t="n", s="oobb_oring", oring_type=oring_type, m="#"))
 
@@ -2520,7 +2520,7 @@ def get_wheel(**kwargs):
 def get_wire(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
-    kwargs["type"] = f'wi_{extra}'
+    kwargs["type"] = f'wire_{extra}'
     
     clearance = kwargs.get("clearance", False)
 
@@ -2643,7 +2643,7 @@ def get_wire(**kwargs):
         
         return thing
 
-def get_zip_tie_jack(**kwargs):
+def get_ziptie_holder_jack(**kwargs):
     thickness = 12
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2687,7 +2687,7 @@ def get_zip_tie_jack(**kwargs):
 
     return thing
 
-def get_zip_tie(**kwargs):
+def get_ziptie_holder(**kwargs):
     thickness = 6
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
