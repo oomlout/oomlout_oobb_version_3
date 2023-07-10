@@ -19,7 +19,8 @@ def main():
             #if there's a file called laser.cdr
             if os.path.isfile(os.path.join(folder_things, folder, "outline.cdr")):
                 #check if all expected svg files outline_neg outline_pos and indent are there
-                file_check_array = ["outline_neg.svg", "outline_pos.svg", "indent.svg"]
+                file_check_arra
+                y = ["outline_neg.svg", "outline_pos.svg", "indent.svg"]
                 for file_check in file_check_array:
                     if not os.path.isfile(os.path.join(folder_things, folder, file_check)):
                         print(f"    missing {file_check}")

@@ -12,6 +12,93 @@ def get_default_thing(**kwargs):
 
     thing = {}
 
+    type = kwargs["type"]
+    type_string = type.replace("_"," ")
+    width = kwargs.get("width", "0")
+    height = kwargs.get("height", "0")
+    thickness = kwargs.get("thickness", "0")
+    try:        
+        thing.update({"description": f"{type_string} {width}x{height}x{thickness}"})
+    except:
+        thing.update({"description": f"{type_string}"})
+
+    var_names = ["type", "width", "height", "diameter", "thickness", "radius_name", "depth",
+                 "radius_hole", "width_mounting", "name", "bearing_name", "bearing_type", "oring_type","extra","shaft"]
+    zfill_values = ["width", "height", "thickness", "depth", "diameter"]
+    acronyms = {"width": "", "height": "", "diameter": "", "thickness": "", "depth": "", "size": "", "type": "", "radius_hole": "rh","radius_name": "", "width_mounting": "mo", "height_mounting": "hm","name": "nm", "bearing_name": "", "bearing_type": "","oring_type":"or", "extra":"ex", "shaft": "sh"}
+
+    if type == "test":
+        var_names.append("radius_name")
+        acronyms.update({"radius_name": "rn"})
+        var_names.append("shape")
+        acronyms.update({"shape": "sh"})
+        var_names.append("style")
+        acronyms.update({"style": "st"})
+
+    
+
+
+    deets = {}
+    for var in var_names:
+        deets[var] = {}
+
+        # if zfill
+        if var in zfill_values:
+            val = kwargs.get(var, "")
+            if val != "":
+                deets[var].update({"value": str(kwargs.get(var, "")).zfill(2)})
+            else:
+                deets[var].update({"value": kwargs.get(var, "")})
+        else:
+            deets[var].update({"value": kwargs.get(var, "")})
+        deets[var].update({"acronym": acronyms[var]})
+        if deets[var]["acronym"] != "":
+            deets[var]["str"] = f"_{deets[var]['acronym']}_{deets[var]['value']}"
+        else:
+            deets[var]["str"] = f"_{deets[var]['value']}"
+
+    id = kwargs.get("size", "")
+    for var in deets:
+        if deets[var]["value"] != "":
+            if deets[var]["value"] != "":
+                id += deets[var]["str"]
+    id = id.replace(".","d")
+    print(id)
+    thing.update({"id": id})
+    thing.update({"type": f"{type}"})
+    try:
+        thing.update({"type_oobb": f"{type_dict[type]}"})
+    except:
+        pass
+
+    for var in var_names:
+        try:
+            thing.update({var: kwargs[var]})
+        except:
+            pass
+    try:
+        thing.update(
+            {"width_mm": kwargs["width"] * ob.gv("osp") - ob.gv("osp_minus")})
+    except:
+        pass
+    try:
+        if thickness != "":
+            thing.update({"thickness_mm": kwargs["thickness"]})
+    except:
+        pass
+    try:
+        thing.update(
+            {"height_mm": kwargs["height"] * ob.gv("osp") - ob.gv("osp_minus")})
+    except:
+        pass
+    thing.update({"components": []})
+
+    return thing
+
+def get_default_thing_old_1(**kwargs):
+
+    thing = {}
+
     type_dict = {}
     type_dict.update({"bc": "bearing circle"})
     type_dict.update({"bp": "bearing plate"})
@@ -50,7 +137,7 @@ def get_default_thing(**kwargs):
     type_dict.update({"washer": "washer"})
     type_dict.update({"bolt": "bolt"})
 
-    type = kwargs["type"]
+    type = kwargs["type"].replace("_", " ")
     width = kwargs.get("width", "0")
     height = kwargs.get("height", "0")
     thickness = kwargs.get("thickness", "0")

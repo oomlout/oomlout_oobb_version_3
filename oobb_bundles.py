@@ -10,6 +10,10 @@ import os
 import shutil
 
 def main():
+
+    render = False
+    render = True
+
     pass
     folder_things = "things"
     details = []    
@@ -17,6 +21,44 @@ def main():
                         "matches": ["oobb_decoration"]})
     details.append({    "name":"oomlout_oobe_bundle_decorations",
                         "matches": ["oobe_decoration"]})
+    #plates_basic
+    sizes = ["oobb", "oobe"]
+
+    for size in sizes:
+        plates = {  "name":f"oomlout_{size}_bundle_plates_basic"}        
+        plates["shift_x"] = 10*15
+        plates["shift_y"] = 10*15
+        if size == "oobe":            
+            plates["shift_x"] = 10*15/2
+            plates["shift_y"] = 10*15/2
+        includes = []
+        #widths etc
+        widths = [1,2,3,5,7,9]
+        heights = [1,3,5,7,9]
+        thicknesses = [3]
+        for width in widths:
+            for height in heights:
+                for thickness in thicknesses:
+                    includes.append([width,height,thickness])
+        #squares
+        for i in range(1,10):
+            includes.append([i,i,3])
+
+        
+
+        
+
+        includes_string = []
+        for include in includes:
+            width = str(include[0]).zfill(2)
+            height = str(include[1]).zfill(2)
+            thickness = str(include[2]).zfill(2)
+            #oobb_pl_{width}_{height}_{thickness}
+            includes_string.append(f"{size}_pl_{width}_{height}_{thickness}")
+
+        plates["matches"] = includes_string
+        details.append(plates)
+
 
 
     for detail in details:
@@ -31,9 +73,13 @@ def main():
             for match in matches:
                 if match in folder:
                     copy_folder(folder_things, folder, folder_bundle, name, )
-        make_all_3dpr_file(folder_bundle)
+        shift_x = detail.get("shift_x", 140)
+        shift_y = detail.get("shift_y", 75)
+        #render
+        if render:
+            make_all_3dpr_file(folder_bundle, shift_x, shift_y)
     
-def make_all_3dpr_file(folder_bundle):
+def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
     #get a list of all the files in scad/ that end with _3dpr.scad
     files = []
     for file in os.listdir(os.path.join(folder_bundle, "3dpr")):
@@ -42,9 +88,7 @@ def make_all_3dpr_file(folder_bundle):
     #go through each file
 
 
-    # Define your shift values
-    shift_x = 140
-    shift_y = 75
+    
 
     # List of SCAD files
     stl_files = files  # replace these with your actual file names
@@ -72,6 +116,8 @@ def make_all_3dpr_file(folder_bundle):
 
     #only if.stl of it doesnt exist
     if not os.path.isfile(f"{file_out_base}.stl"):
+        #print what's haapening
+        print(f"    processing {file_out}")
         os.system(f"openscad -o {file_out_base}.stl -o {file_out_base}.png {file_out}")
 
 
