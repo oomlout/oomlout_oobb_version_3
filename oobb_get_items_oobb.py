@@ -1,7 +1,7 @@
 from oobb_get_items_base import *
 import oobb_base as ob
 
-def get_bc(**kwargs):
+def get_bearing_circle(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     diameter = kwargs.get("diameter", "")
@@ -46,7 +46,7 @@ def get_bc(**kwargs):
     
     return thing
 
-def get_bw(**kwargs):
+def get_bearing_wheel(**kwargs):
     oring_type = kwargs.get("oring_type", "327")
     #figuring out radius
     thickness = kwargs.get("thickness", 9)
@@ -121,7 +121,7 @@ def get_bw(**kwargs):
 
     return thing
 
-def get_bp(**kwargs):
+def get_bearing_plate(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     shaft = kwargs.get("shaft", "m6")
@@ -294,7 +294,7 @@ def get_bp(**kwargs):
 
     return thing
 
-def get_bp_shim(**kwargs):
+def get_bearing_plate_shim(**kwargs):
     # this is a shim for the bearing plate
     bearing_type = kwargs.get("bearing_type", "6803")
     thickness = kwargs.get("thickness", 3)
@@ -309,7 +309,7 @@ def get_bp_shim(**kwargs):
 
     return thing
 
-def get_bpj(**kwargs):
+def get_bearing_pplate_jack(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     osp = ob.gv("osp")
@@ -333,7 +333,7 @@ def get_bpj(**kwargs):
 
     return thing
 
-def get_bpjb(**kwargs):
+def get_bearing_plate_jack_basic(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     osp = ob.gv("osp")
@@ -387,7 +387,7 @@ def get_bpjb(**kwargs):
 
     return thing
 
-def get_ci(**kwargs):
+def get_circle(**kwargs):
 
     diameter_big = kwargs.get("diameter", 1)
     
@@ -456,7 +456,7 @@ def get_ci(**kwargs):
 
     return thing
 
-def get_ci_cap(**kwargs):
+def get_circle_captive(**kwargs):
     shaft = kwargs.get("shaft", "")
     width = kwargs.get("diameter", 3)
     height = kwargs.get("diameter", 3)
@@ -524,21 +524,21 @@ def get_ci_holes_center(**kwargs):
                     radius_name="m3", pos=pos, m="",w=0.5,rotZ=0))            
     return th
 
-def get_hl(**kwargs):
+def get_holder(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
     kwargs["type"] = f'hl_{extra}'
     if extra != "":
         # Get the module object for the current file
         current_module = __import__(__name__)
-        function_name = "get_hl_" + extra
+        function_name = "get_holder_" + extra
         # Call the function using the string variable
         function_to_call = getattr(current_module, function_name)
         return function_to_call(**kwargs)
     else:
         Exception("No extra")
 
-def get_hl_motor_gearmotor_01(**kwargs):
+def get_holder_motor_gearmotor_01(**kwargs):
     
     thing = ob.get_default_thing(**kwargs)
 
@@ -592,7 +592,7 @@ def get_hl_motor_gearmotor_01(**kwargs):
     
     return thing
 
-def get_hl_motor_gearmotor_01_old_02(**kwargs):
+def get_holder_motor_gearmotor_01_old_02(**kwargs):
     
     thing = ob.get_default_thing(**kwargs)
 
@@ -643,7 +643,7 @@ def get_hl_motor_gearmotor_01_old_02(**kwargs):
     
     return thing
 
-def get_hl_motor_gearmotor_01_old_01(**kwargs):
+def get_holder_motor_gearmotor_01_old_01(**kwargs):
     ######old
     thing = ob.get_default_thing(**kwargs)
 
@@ -727,7 +727,7 @@ def get_hl_motor_gearmotor_01_old_01(**kwargs):
     ######old
     return thing
 
-def get_hl_motor_servo_micro_01(**kwargs):
+def get_holder_motor_servo_micro_01(**kwargs):
 
     thing = ob.get_default_thing(**kwargs)
 
@@ -819,7 +819,7 @@ def get_hl_motor_servo_micro_01(**kwargs):
     
     return thing
 
-def get_hl_motor_stepper_motor_nema_17_flat(**kwargs):
+def get_holder_motor_stepper_motor_nema_17_flat(**kwargs):
 
     thing = ob.get_default_thing(**kwargs)
 
@@ -885,7 +885,7 @@ def get_hl_motor_stepper_motor_nema_17_flat(**kwargs):
     
     return thing
 
-def get_hl_motor_stepper_motor_nema_17_jack(**kwargs):
+def get_holder_motor_stepper_motor_nema_17_jack(**kwargs):
     osp = ob.gv("osp")
     thing = ob.get_default_thing(**kwargs)
 
@@ -948,7 +948,7 @@ def get_hl_motor_stepper_motor_nema_17_jack(**kwargs):
 
     return thing
 
-def get_hl_motor_stepper_motor_nema_17_both(**kwargs):
+def get_holder_motor_stepper_motor_nema_17_both(**kwargs):
     
     osp = ob.gv("osp")  
 
@@ -962,7 +962,7 @@ def get_hl_motor_stepper_motor_nema_17_both(**kwargs):
     # solid piece
     p2 = copy.deepcopy(kwargs)
     p2["width"] = p2["width"] - 1
-    thing["components"] = get_hl_motor_stepper_motor_nema_17_jack(**p2)["components"]
+    thing["components"] = get_holder_motor_stepper_motor_nema_17_jack(**p2)["components"]
     th = thing["components"]
 
 
@@ -987,7 +987,7 @@ def get_hl_motor_stepper_motor_nema_17_both(**kwargs):
 
     return thing
 
-def get_hl_electronics_base_03_03(**kwargs):
+def get_holder_electronics_base_03_03(**kwargs):
     th = []
     width = kwargs.get("width", 10)
     height = kwargs.get("height", 10)
@@ -1073,7 +1073,7 @@ def get_hl_electronics_base_03_03(**kwargs):
     # add bearing size hole
     return th
 
-def get_hl_electronics_mcu_atmega328_shennie(**kwargs):
+def get_holder_electronics_mcu_atmega328_shennie(**kwargs):
     kwargs["spacer_clearance"] = True
     thing = ob.get_default_thing(**kwargs)
 
@@ -1086,7 +1086,7 @@ def get_hl_electronics_mcu_atmega328_shennie(**kwargs):
     plate_pos = [0, 0, 0]
 
     #add plate
-    #th.extend(get_hl_electronics_base_03_03(**kwargs))
+    #th.extend(get_holder_electronics_base_03_03(**kwargs))
     #add oobb_pl
     th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
     #add u holes
@@ -1098,7 +1098,7 @@ def get_hl_electronics_mcu_atmega328_shennie(**kwargs):
     
     return thing
 
-def get_hl_electronics_microswitch_standard(**kwargs):
+def get_holder_electronics_microswitch_standard(**kwargs):
     kwargs["spacer_clearance"] = True
     kwargs["holes"] = "top"
     thing = ob.get_default_thing(**kwargs)
@@ -1112,7 +1112,7 @@ def get_hl_electronics_microswitch_standard(**kwargs):
     plate_pos = [0, 0, 0]
 
     #add plate
-    th.extend(get_hl_electronics_base_03_03(**kwargs))
+    th.extend(get_holder_electronics_base_03_03(**kwargs))
     shift = 0
     if thickness == 12:
         shift = 1.5
@@ -1130,7 +1130,7 @@ def get_hl_electronics_microswitch_standard(**kwargs):
    
     return thing
 
-def get_hl_electronics_potentiometer_17(**kwargs):
+def get_holder_electronics_potentiometer_17(**kwargs):
     kwargs["spacer_clearance"] = True
     thing = ob.get_default_thing(**kwargs)
 
@@ -1143,7 +1143,7 @@ def get_hl_electronics_potentiometer_17(**kwargs):
     plate_pos = [0, 0, 0]
 
     #add plate
-    th.extend(get_hl_electronics_base_03_03(**kwargs))
+    th.extend(get_holder_electronics_base_03_03(**kwargs))
     shift = 0
     if thickness == 12:
         shift = 1.5
@@ -1153,7 +1153,7 @@ def get_hl_electronics_potentiometer_17(**kwargs):
     
     return thing
 
-def get_hl_electronics_pushbutton_11(**kwargs):
+def get_holder_electronics_pushbutton_11(**kwargs):
     
     thing = ob.get_default_thing(**kwargs)
 
@@ -1167,7 +1167,7 @@ def get_hl_electronics_pushbutton_11(**kwargs):
 
     #add plate
     kwargs["spacer_clearance"] = True
-    th.extend(get_hl_electronics_base_03_03(**kwargs))
+    th.extend(get_holder_electronics_base_03_03(**kwargs))
     shift = 0
     if thickness == 18:
         shift = 1.5
@@ -1177,7 +1177,7 @@ def get_hl_electronics_pushbutton_11(**kwargs):
     
     return thing
 
-def get_hl_electronics_pushbutton_11_x4(**kwargs):
+def get_holder_electronics_pushbutton_11_x4(**kwargs):
     
     thing = ob.get_default_thing(**kwargs)
 
@@ -1191,7 +1191,7 @@ def get_hl_electronics_pushbutton_11_x4(**kwargs):
 
     #add plate
     kwargs["spacer_clearance"] = True
-    th.extend(get_hl_electronics_base_03_03(**kwargs))
+    th.extend(get_holder_electronics_base_03_03(**kwargs))
     shift = 0
     if thickness == 18:
         shift = 1.5
@@ -1211,7 +1211,7 @@ def get_hl_electronics_pushbutton_11_x4(**kwargs):
     
     return thing
 
-def get_ja(**kwargs):
+def get_jack(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 2)
@@ -1261,7 +1261,7 @@ def get_ja(**kwargs):
 
     return thing
 
-def get_jab(**kwargs):
+def get_jack_basic(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 2)
@@ -1313,7 +1313,7 @@ def get_jab(**kwargs):
 
     return thing
 
-def get_jg(**kwargs):
+def get_jig(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
     kwargs["type"] = f'jg_{extra}'
@@ -1327,7 +1327,7 @@ def get_jg(**kwargs):
     else:
         Exception("No extra")
 
-def get_jg_tr_03_03(**kwargs):
+def get_jig_tr_03_03(**kwargs):
    
     thing = ob.get_default_thing(**kwargs)
 
@@ -1378,7 +1378,7 @@ def get_jg_tr_03_03(**kwargs):
     return thing
 
 
-def get_jg_screw_sorter_m3_03_03(**kwargs):
+def get_jig_screw_sorter_m3_03_03(**kwargs):
    
     thing = ob.get_default_thing(**kwargs)
 
@@ -1414,7 +1414,7 @@ def get_jg_screw_sorter_m3_03_03(**kwargs):
 
 
 
-def get_mp(**kwargs):
+def get_mounting_plate(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 2)
@@ -1441,7 +1441,7 @@ def get_mp(**kwargs):
 
     return thing
 
-def get_mps(**kwargs):
+def get_mounting_plate_side(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 1)
@@ -1469,7 +1469,7 @@ def get_mps(**kwargs):
 
     return thing
 
-def get_mpt(**kwargs):
+def get_mounting_plate_top(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 1)
@@ -1499,7 +1499,7 @@ def get_mpt(**kwargs):
 
     return thing
 
-def get_mpu(**kwargs):
+def get_mounting_plate_u(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 1)
@@ -1527,7 +1527,7 @@ def get_mpu(**kwargs):
 
     return thing
 
-def get_pl(**kwargs):
+def get_plate(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -1567,7 +1567,7 @@ def get_pl(**kwargs):
 
     return thing
 
-def get_sc(**kwargs):
+def get_shaft_coupler(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     diameter = kwargs.get("diameter", "")
@@ -1590,7 +1590,7 @@ def get_sc(**kwargs):
 
     return thing
 
-def get_sh(**kwargs):
+def get_shaft(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 1)
@@ -1621,7 +1621,7 @@ def get_sh(**kwargs):
 
     return thing
 
-def get_sj(**kwargs):
+def get_soldering_jig(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
     kwargs["type"] = f'sj_{extra}'
@@ -1635,7 +1635,7 @@ def get_sj(**kwargs):
     else:
         Exception("No extra")
 
-def get_sj_electronics_mcu_pi_pico_socket(**kwargs):
+def get_soldering_jig_electronics_mcu_pi_pico_socket(**kwargs):
     
     thing = ob.get_default_thing(**kwargs)
 
@@ -1684,7 +1684,7 @@ def get_th(**kwargs):
     else:
         Exception("No extra")
 
-def get_th_tool_holder_basic(**kwargs):
+def get_tool_holder_tool_holder_basic(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
 
@@ -1734,7 +1734,7 @@ def get_th_tool_holder_basic(**kwargs):
 
     return thing
 
-def get_th_tool_holder_basic_old_01(**kwargs):
+def get_tool_holder_tool_holder_basic_old_01(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
 
@@ -1781,7 +1781,7 @@ def get_th_tool_holder_basic_old_01(**kwargs):
 
     return thing
 
-def get_thv(**kwargs):
+def get_tool_holder_vertical(**kwargs):
     kwargs["spacer_clearance"] = True
     thing = ob.get_default_thing(**kwargs)
 
@@ -1794,7 +1794,7 @@ def get_thv(**kwargs):
     plate_pos = [0, 0, -1]
 
     #add plate
-    #th.extend(get_hl_electronics_base_03_03(**kwargs))
+    #th.extend(get_holder_electronics_base_03_03(**kwargs))
     #add oobb_pl
     th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
     #add u holes
@@ -2021,7 +2021,7 @@ def get_thv(**kwargs):
 
     return thing
 
-def get_tr(**kwargs):
+def get_tray(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2050,7 +2050,7 @@ def get_tr(**kwargs):
 
     return thing
 
-def get_trl(**kwargs):
+def get_tray_lid(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2082,7 +2082,7 @@ def get_trl(**kwargs):
 
     return thing
 
-def get_trlt(**kwargs):
+def get_tray_lid_thin(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2203,7 +2203,7 @@ def get_trlt(**kwargs):
 
         return thing
 
-def get_trlts(**kwargs):
+def get_tray_lid_thin_spin(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2301,7 +2301,7 @@ def get_trlts(**kwargs):
         return thing
 
 
-def get_trt(**kwargs):
+def get_tray_thin(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2339,7 +2339,7 @@ def get_trt(**kwargs):
     return thing
 
 
-def get_trts(**kwargs):
+def get_tray_thin_spin(**kwargs):
 
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2439,7 +2439,7 @@ def get_trt_old(**kwargs):
     return thing
 
 
-def get_trv(**kwargs):
+def get_tray_vertical(**kwargs):
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
     thickness = kwargs.get("thickness", 3)
@@ -2488,7 +2488,7 @@ def get_trv(**kwargs):
     return thing
 
 
-def get_wh(**kwargs):
+def get_wheel(**kwargs):
     oring_type = kwargs.get("oring_type", "327")
     #figuring out radius
     od = ob.gv(f"oring_{oring_type}_od", "true")
@@ -2517,7 +2517,7 @@ def get_wh(**kwargs):
 
     return thing
 
-def get_wi(**kwargs):
+def get_wire(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")
     kwargs["type"] = f'wi_{extra}'
@@ -2643,7 +2643,7 @@ def get_wi(**kwargs):
         
         return thing
 
-def get_ztj(**kwargs):
+def get_zip_tie_jack(**kwargs):
     thickness = 12
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
@@ -2687,7 +2687,7 @@ def get_ztj(**kwargs):
 
     return thing
 
-def get_zt(**kwargs):
+def get_zip_tie(**kwargs):
     thickness = 6
     width = kwargs.get("width", 1)
     height = kwargs.get("height", 1)
