@@ -34,7 +34,8 @@ save_type = "none"
 save_type = "all"
 
 #filter = "thv_07_05_20_ex_tool_screwdriver_hex_wera_60_mm"
-filter = "alphabet_13"
+filter = ""
+
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
 overwrite = True

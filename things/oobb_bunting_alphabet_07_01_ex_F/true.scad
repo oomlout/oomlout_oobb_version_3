@@ -48,7 +48,7 @@ difference() {
 		translate(v = [0, 0, 0]) {
 			rotate(a = [0, 0, 0]) {
 				linear_extrude(height = 1) {
-					text(font = "DejaVu Sans Mono:style=Bold", halign = "center", size = 95, text = "F", valign = "top");
+					text(font = "DejaVu Sans Mono:style=Bold", halign = "center", size = 95.0000000000, text = "F", valign = "top");
 				}
 			}
 		}

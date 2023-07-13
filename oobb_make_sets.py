@@ -64,7 +64,7 @@ def get_buntings(size="oobb"):
     #letters = "HELEN"
     letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     #letters = "AZO"
-    widths = [7,13]
+    widths = [3,5,7,13]
     #widths = [13]
 
     for width in widths:

@@ -1,5 +1,5 @@
 # hardware_screw_countersunk_m3_10  
-![true.png](true.png)  
+  
 screw countersunk m3x10
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -23,10 +23,5 @@ screw countersunk m3x10
 | components  | list with 6 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | depth_mm    | 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
-| PNG Images |
-| --- |
-| ![3dpr.png](3dpr.png) |
-| ![laser.png](laser.png) |
-| ![laser_flat.png](laser_flat.png) |
-| ![true.png](true.png) |
+# images
 

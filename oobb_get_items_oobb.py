@@ -405,12 +405,18 @@ def get_bunting_alphabet(**kwargs):
     th.append(get_plate(**p2)["components"])
     # find the start point needs to be half the width_mm plus half ob.gv("osp")
     
+    shift_y = 0
+    if width == 3:
+        shift_y = -5
+    if width == 5:
+        shift_y = -5
+
     p2 = copy.deepcopy(kwargs)
     p2["type"] = "p"
     p2["shape"] = "text"
     p2["text"] = extra
     p2["size"] = text_size
-    p2["pos"] = [0,0,0]
+    p2["pos"] = [0,shift_y,0]
     p2["height"] = thickness
     p2["valign"] = "top"
     p2["halign"] = "center"

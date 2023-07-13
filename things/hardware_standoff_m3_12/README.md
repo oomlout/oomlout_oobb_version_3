@@ -1,5 +1,5 @@
 # hardware_standoff_m3_12  
-![true.png](true.png)  
+  
 standoff m3x12x12
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -27,10 +27,5 @@ standoff m3x12x12
 | depth_mm    | 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | height_mm   | 2.75                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-| PNG Images |
-| --- |
-| ![3dpr.png](3dpr.png) |
-| ![laser.png](laser.png) |
-| ![laser_flat.png](laser_flat.png) |
-| ![true.png](true.png) |
+# images
 

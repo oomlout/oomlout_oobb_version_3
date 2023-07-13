@@ -1,5 +1,5 @@
 # hardware_bolt_m5_60  
-![true.png](true.png)  
+  
 bolt m5x60
 # details
 | Key         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -23,10 +23,5 @@ bolt m5x60
 | components  | list with 6 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | depth_mm    | 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
-| PNG Images |
-| --- |
-| ![3dpr.png](3dpr.png) |
-| ![laser.png](laser.png) |
-| ![laser_flat.png](laser_flat.png) |
-| ![true.png](true.png) |
+# images
 

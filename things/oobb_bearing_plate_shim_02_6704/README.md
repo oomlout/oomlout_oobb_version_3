@@ -1,5 +1,5 @@
 # oobb_bearing_plate_shim_02_6704  
-![true.png](true.png)  
+  
 bearing plate shim 0x0x2
 # details
 | Key          | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -23,10 +23,5 @@ bearing plate shim 0x0x2
 | thickness_mm | 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | components   | list with 6 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
-| PNG Images |
-| --- |
-| ![3dpr.png](3dpr.png) |
-| ![laser.png](laser.png) |
-| ![laser_flat.png](laser_flat.png) |
-| ![true.png](true.png) |
+# images
 

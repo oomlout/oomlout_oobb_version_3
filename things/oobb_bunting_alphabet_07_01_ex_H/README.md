@@ -1,5 +1,5 @@
 # oobb_bunting_alphabet_07_01_ex_H  
-![true.png](true.png)  
+  
 bunting alphabet 7x0x1
 # details
 | Key          | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -32,5 +32,4 @@ bunting alphabet 7x0x1
 | ![3dpr.png](3dpr.png) |
 | ![laser.png](laser.png) |
 | ![laser_flat.png](laser_flat.png) |
-| ![true.png](true.png) |
 
