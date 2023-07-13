@@ -17,10 +17,12 @@ def main():
     pass
     folder_things = "things"
     details = []    
-    details.append({    "name":"oomlout_oobb_bundle_decorations",
-                        "matches": ["oobb_decoration"]})
-    details.append({    "name":"oomlout_oobe_bundle_decorations",
-                        "matches": ["oobe_decoration"]})
+    details.append({    "name":"oomlout_oobb_bundle_decorations", "matches": ["oobb_decoration"]})
+    details.append({    "name":"oomlout_oobe_bundle_decorations", "matches": ["oobe_decoration"]})
+    details.append({    "name":"oomlout_oobb_bundle_bunting_alphabet",
+                        "matches": ["oobb_bunting_alphabet"],
+                        "shift_x": 13*15,
+                        "shift_y": 15*15})
     #plates_basic
     sizes = ["oobb", "oobe"]
 
@@ -72,7 +74,7 @@ def main():
         for folder in os.listdir(folder_things):
             for match in matches:
                 if match in folder:
-                    copy_folder(folder_things, folder, folder_bundle, name, )
+                    copy_folder(folder_things, folder, folder_bundle, name )
         shift_x = detail.get("shift_x", 140)
         shift_y = detail.get("shift_y", 75)
         #render
@@ -99,8 +101,9 @@ def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
     
     #fill shift values to make a square grid of the number of files in scad_files
     shift_values = []
+    sqr = int(sqrt(len(stl_files)))
     for i in range(len(stl_files)):
-        shift_values.append([shift_x * (i % 4), shift_y * (i // 4), 0])
+        shift_values.append([shift_x * (i % sqr), shift_y * (i // sqr), 0])
 
 
     
@@ -168,6 +171,8 @@ def copy_folder(folder_things, folder, folder_bundle, name):
                 #print a dot with no new line
                 print(".", end="")
                 #print (f"        copied {src} to {dst}")
+            else:
+                print(f"        {src} does not exist")
     
 
 
