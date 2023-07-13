@@ -10,7 +10,7 @@ import oobb_base
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
-    typs = ["bearing_plates", "bearing_circles", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests"]
+    typs = ["bearing_plates", "bearing_circles", "buntings", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -58,7 +58,20 @@ def get_bearing_circles(size="oobb"):
 
     return bcs
 
+def get_buntings(size="oobb"):
+    items = []
+    
+    #letters = "HELEN"
+    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    letters = "AZO"
+    widths = [7,13]
+    widths = [13]
 
+    for width in widths:
+        for letter in letters:
+            items.append({"type": "bunting_alphabet", "width": width, "thickness": 1, "extra":letter, "size": size})
+  
+    return items
 
 def get_circles(size="oobb"):
     circles = []

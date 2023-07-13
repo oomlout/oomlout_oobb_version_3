@@ -267,7 +267,7 @@ def dump(mode="json"):
     elif mode == "folder":
         for thing in oobb.things:
             #print a single dot with no new line
-            print(".", end="", flush=True)
+            print(".", end="")
             filename = f'things/{thing}/details.json'
             if not os.path.exists(os.path.dirname(filename)):
                 os.makedirs(os.path.dirname(filename))

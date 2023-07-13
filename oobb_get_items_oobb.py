@@ -387,6 +387,40 @@ def get_bearing_plate_jack_basic(**kwargs):
 
     return thing
 
+def get_bunting_alphabet(**kwargs):
+   
+    thickness = kwargs.get("thickness", 3)
+    width = kwargs.get("width", 7)
+    thing = ob.get_default_thing(**kwargs)    
+    th = thing["components"]
+    extra = kwargs.get("extra", "")
+
+    width_working = width - 2
+    text_size = width_working * 95/5
+
+
+    p2 = copy.deepcopy(kwargs)
+    p2["height"] = thickness
+    p2["hole_type"] = ["top","bottom","just_middle"]
+    th.append(get_plate(**p2)["components"])
+    # find the start point needs to be half the width_mm plus half ob.gv("osp")
+    
+    p2 = copy.deepcopy(kwargs)
+    p2["type"] = "p"
+    p2["shape"] = "text"
+    p2["text"] = extra
+    p2["size"] = text_size
+    p2["pos"] = [0,0,0]
+    p2["height"] = thickness
+    p2["valign"] = "top"
+    p2["halign"] = "center"
+    p2["font"] = "DejaVu Sans Mono:style=Bold"
+    thinga = ob.oe(**p2)
+    th.append(thinga)
+
+
+    return thing 
+
 def get_circle(**kwargs):
 
     diameter_big = kwargs.get("diameter", 1)
