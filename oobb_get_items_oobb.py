@@ -1854,6 +1854,16 @@ def get_tool_holder_vertical(**kwargs):
         extra.append("tool_screwdriver_hex_m2d5_wera_60_mm")
         shift = 15
         cur_x = -15
+    if extra == "tool_marker_bic_clear_lid_x6":
+        extra = []
+        extra.append("tool_marker_bic_clear_lid")
+        extra.append("tool_marker_bic_clear_lid")
+        extra.append("tool_marker_bic_clear_lid")
+        extra.append("tool_marker_bic_clear_lid")
+        extra.append("tool_marker_bic_clear_lid")
+        extra.append("tool_marker_bic_clear_lid")
+        shift = 15/2
+        cur_x = -37.5      
     if extra == "tool_marker_sharpie_x2":
         extra = []
         extra.append("tool_marker_sharpie")
@@ -1971,6 +1981,9 @@ def get_tool_holder_vertical(**kwargs):
             default_z = -1
 
         elif "sharpie" in e:
+            default_y = -25
+            default_z = -1
+        elif "bic" in e:
             default_y = -25
             default_z = -1
         elif "jst" in e:
