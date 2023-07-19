@@ -383,7 +383,11 @@ def get_tool_holders(size="oobb"):
     tools.append(["tool_marker_sharpie_x2",5,5,13+extra_thick])
     tools.append(["tool_marker_sharpie_x2",5,5,13+extra_thick])
 
+    tools.append(["tool_marker_bic_clear_lid",3,5,9+extra_thick])
     tools.append(["tool_marker_bic_clear_lid_x6",8,5,9+extra_thick])
+
+    tools.append(["tool_marker_german_big",3,5,20+extra_thick])
+    tools.append(["tool_marker_german_big_x4",8,5,20+extra_thick])
 
     #tools.append(["tool_knife_exacto_17mm_black",3,5,12]) # too thick
     tools.append(["tool_side_cutters_generic_110_mm_red",5,5,11+extra_thick])

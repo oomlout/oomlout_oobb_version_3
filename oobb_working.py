@@ -8,7 +8,7 @@ import copy
 import opsc
 
 
-filt = "bunting"
+filt = "tool_holder"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -34,10 +34,11 @@ save_type = "none"
 save_type = "all"
 
 #filter = "thv_07_05_20_ex_tool_screwdriver_hex_wera_60_mm"
-filter = ""
+filter = "tool_marker_german_big_x4"
 
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
+
 overwrite = True
 #overwrite = False
 oobb_base.build_things(overwrite=overwrite, filter=filter, save_type=save_type)

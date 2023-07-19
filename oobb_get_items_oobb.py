@@ -1869,7 +1869,15 @@ def get_tool_holder_vertical(**kwargs):
         extra.append("tool_marker_bic_clear_lid")
         extra.append("tool_marker_bic_clear_lid")
         shift = 15/2
-        cur_x = -37.5      
+        cur_x = -37.5    
+    if extra == "tool_marker_german_big_x4":
+        extra = []
+        extra.append("tool_marker_german_big")
+        extra.append("tool_marker_german_big")
+        extra.append("tool_marker_german_big")
+        extra.append("tool_marker_german_big")
+        shift = 25/2
+        cur_x = -37.5    
     if extra == "tool_marker_sharpie_x2":
         extra = []
         extra.append("tool_marker_sharpie")
@@ -1990,6 +1998,9 @@ def get_tool_holder_vertical(**kwargs):
             default_y = -25
             default_z = -1
         elif "bic" in e:
+            default_y = -25
+            default_z = -1
+        elif "tool_marker_german_big" in e:
             default_y = -25
             default_z = -1
         elif "jst" in e:
