@@ -1877,6 +1877,15 @@ def get_tool_holder_vertical(**kwargs):
         extra.append("tool_marker_german_big")
         extra.append("tool_marker_german_big")
         shift = 25/2
+        cur_x = -37.5       
+    if extra == "tool_marker_ikea_mala_x5":
+        extra = []
+        extra.append("tool_marker_ikea_mala")
+        extra.append("tool_marker_ikea_mala")
+        extra.append("tool_marker_ikea_mala")
+        extra.append("tool_marker_ikea_mala")
+        extra.append("tool_marker_ikea_mala")
+        shift = 18.75/2
         cur_x = -37.5    
     if extra == "tool_marker_sharpie_x2":
         extra = []
@@ -2001,6 +2010,9 @@ def get_tool_holder_vertical(**kwargs):
             default_y = -25
             default_z = -1
         elif "tool_marker_german_big" in e:
+            default_y = -25
+            default_z = -1
+        elif "tool_marker_ikea_mala" in e:
             default_y = -25
             default_z = -1
         elif "jst" in e:

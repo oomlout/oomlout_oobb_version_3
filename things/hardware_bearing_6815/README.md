@@ -1,5 +1,5 @@
 # hardware_bearing_6815  
-  
+![true.png](true.png)  
 bearing 6815
 # details
 | Key          | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -19,5 +19,10 @@ bearing 6815
 | bearing_name | 6815                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | components   | list with 6 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
+| ![true.png](true.png) |
 

@@ -2170,6 +2170,17 @@ def get_oobb_tool_marker_german_big(**kwargs):
         
     return return_value
 
+def get_oobb_tool_marker_ikea_mala(**kwargs):
+    extra = kwargs.get("extra", "cutout")
+    if extra == "cutout":
+        clearance_up = 10
+        p2 = copy.deepcopy(kwargs)        
+        p2["r"] = [14/2]
+        p2["h"] = [136.5]
+        return_value = (get_tool_cylinders(**p2))
+        
+    return return_value
+
 def get_oobb_tool_marker_sharpie(**kwargs):
     extra = kwargs.get("extra", "cutout")
     if extra == "cutout":

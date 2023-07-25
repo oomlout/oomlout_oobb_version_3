@@ -389,6 +389,9 @@ def get_tool_holders(size="oobb"):
     tools.append(["tool_marker_german_big",3,5,20+extra_thick])
     tools.append(["tool_marker_german_big_x4",8,5,20+extra_thick])
 
+    tools.append(["tool_marker_ikea_mala",3,5,14+extra_thick])
+    tools.append(["tool_marker_ikea_mala_x5",8,5,14+extra_thick])
+
     #tools.append(["tool_knife_exacto_17mm_black",3,5,12]) # too thick
     tools.append(["tool_side_cutters_generic_110_mm_red",5,5,11+extra_thick])
     tools.append(["tool_wire_strippers_generic_120_red",5,5,11+extra_thick])
