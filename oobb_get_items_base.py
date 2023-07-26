@@ -2153,7 +2153,7 @@ def get_oobb_tool_marker_bic_clear_lid(**kwargs):
     if extra == "cutout":
         clearance_up = 10
         p2 = copy.deepcopy(kwargs)        
-        p2["r"] = [9/2,11/2]
+        p2["r"] = [10/2,12/2]
         p2["h"] = [112, 35]
         return_value = (get_tool_cylinders(**p2))
         
