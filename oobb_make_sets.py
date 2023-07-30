@@ -243,9 +243,11 @@ def get_plates(size="oobb"):
                     "thickness": thickness, "size": size})
 
         #one widers
-        for len in range(2, 35):
-            plates.append({"type": "plate", "width": len, "height": 1,
-                        "thickness": 3, "size": size})
+        thicknesses = [3, 6, 9, 12]
+        for thickness in thicknesses:
+            for len in range(2, 35):
+                plates.append({"type": "plate", "width": len, "height": 1,
+                            "thickness": thickness, "size": size})
 
         #03s, 05s
         widths = [7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
