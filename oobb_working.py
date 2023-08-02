@@ -8,7 +8,7 @@ import copy
 import opsc
 
 
-filt = "plate"
+filt = "tool_holder"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -25,7 +25,7 @@ oobb_base.dump("json")
 oobb_base.dump("folder")
 # oobb_base.load("folder")
 # oobb_base.load("json")
-
+ 
 overwrite = True
 overwrite = False
 
@@ -34,7 +34,7 @@ save_type = "none"
 save_type = "all"
 
 #filter = "thv_07_05_20_ex_tool_screwdriver_hex_wera_60_mm"
-filter = "oobb_plate_08_01_09"
+filter = "ex_tool_marker_patterned_thicker_x6"
 
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
