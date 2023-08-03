@@ -2455,3 +2455,18 @@ def get_points_tool_poly(w,h,pos):
         points.append([w[i]+pos[0], h[i]+pos[2]])
     return points
     
+
+
+######### oomp items
+def get_oobb_oomp_l5(**kwargs):
+    return get_oobb_oomp_electronic_led_5_mm(**kwargs)
+
+def get_oobb_oomp_electronic_led_5_mm(**kwargs):        
+    p2 = copy.deepcopy(kwargs)        
+    p2["r"] = [6/2,5/2]
+    p2["h"] = [1, 8]
+    return_value = (get_tool_cylinders(**p2))
+    return return_value
+
+
+
