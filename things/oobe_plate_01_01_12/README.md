@@ -1,5 +1,5 @@
 # oobe_plate_01_01_12  
-  
+![true.png](true.png)  
 plate 1x1x12
 # details
 | Key          | Value                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -29,5 +29,10 @@ plate 1x1x12
 | height_mm    | 14                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | components   | list with 4 items                                                                                                                                                                                                                                                                                                                                                                                                        |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
+| ![true.png](true.png) |
 
