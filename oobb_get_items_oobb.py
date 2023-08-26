@@ -1462,6 +1462,7 @@ def get_mounting_plate(**kwargs):
     depth = kwargs.get("depth", 3)
     width_mounting = kwargs.get("width_mounting", 10)
     height_mounting = kwargs.get("height_mounting", 10)
+    mounting_holes = kwargs.get("mounting_holes", "")
     radius_hole = kwargs.get("radius_hole", "m3")
 
     th = thing["components"]
@@ -1470,14 +1471,19 @@ def get_mounting_plate(**kwargs):
     th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0, 0, 0], holes="perimeter", radius_name="m6"))
     th.extend(ob.oobb_easy(t="n", s="oobe_holes", width=(width*2)-1, height=(height*2)-1, pos=[0, 0, 0], holes="perimeter", radius_name="m3", m=""))
     # add mounting holes
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-              width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole",
-              pos=[-width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-              width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole",
-              pos=[-width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
+    if mounting_holes == "":
+        th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
+                width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
+        th.extend(ob.oobb_easy(t="n", s="oobb_hole",
+                pos=[-width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
+        th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
+                width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
+        th.extend(ob.oobb_easy(t="n", s="oobb_hole",
+                pos=[-width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
+    else:
+        for hole in mounting_holes:
+            pos = [hole["x"], hole["y"], 0]
+            th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=pos, radius_name=radius_hole, m=""))
 
     return thing
 
@@ -1903,6 +1909,16 @@ def get_tool_holder_vertical(**kwargs):
         extra.append("tool_marker_sharpie")
         shift = 15
         cur_x = -15
+    if extra == "tool_marker_sharpie_x5":
+        extra = []
+        extra.append("tool_marker_sharpie")
+        extra.append("tool_marker_sharpie")
+        extra.append("tool_marker_sharpie")
+        extra.append("tool_marker_sharpie")
+        extra.append("tool_marker_sharpie")
+        shift = 18.75/2
+        cur_x = -37.5    
+    
     if extra == "tool_wrench_m10_x2":
         extra = []
         extra.append("tool_wrench_m10")

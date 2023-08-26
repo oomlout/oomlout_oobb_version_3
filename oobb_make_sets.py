@@ -194,6 +194,15 @@ def get_mounting_plates(size="oobb"):
     mounting_plates.append({"type": "mounting_plate_side", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
                            "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
 
+    # aliexpress motor controller
+    mounting_holes = []
+    mounting_holes.append({"x": -32.5, "y": 10})
+    mounting_holes.append({"x": 31.5, "y": 10})
+    mounting_holes.append({"x": -24.5, "y": -10})
+    mounting_holes.append({"x": 31.5, "y": -10})
+    mounting_plates.append({"type": "mounting_plate", "width": 7, "height": 4, "thickness": 3, "mounting_holes": mounting_holes, "radius_hole": "m3", "name": "electrolama_basic_hub", "size": size})
+    
+
     return mounting_plates
 
 
@@ -383,7 +392,7 @@ def get_tool_holders(size="oobb"):
 
     tools.append(["tool_marker_sharpie",3,5,13+extra_thick])
     tools.append(["tool_marker_sharpie_x2",5,5,13+extra_thick])
-    tools.append(["tool_marker_sharpie_x2",5,5,13+extra_thick])
+    tools.append(["tool_marker_sharpie_x5",8,5,13+extra_thick])
 
     tools.append(["tool_marker_bic_clear_lid",3,5,9+extra_thick])
     tools.append(["tool_marker_bic_clear_lid_x6",8,5,9+extra_thick])

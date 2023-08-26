@@ -8,7 +8,7 @@ import copy
 import opsc
 
 
-filt = "tool_holder"
+filt = "mounting_plate"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -34,7 +34,7 @@ save_type = "none"
 save_type = "all"
 
 #filter = "thv_07_05_20_ex_tool_screwdriver_hex_wera_60_mm"
-filter = "ex_tool_marker_patterned_thicker_x6"
+filter = "electrolama"
 
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
