@@ -8,7 +8,7 @@ import copy
 import opsc
 
 
-filt = "mounting_plate"
+filt = ""
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)

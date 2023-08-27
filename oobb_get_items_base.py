@@ -1127,6 +1127,51 @@ def get_oobb_hole(**kwargs):
             return_value.append(opsc.opsc_easy(**kwargs))
     return return_value
 
+def get_oobb_hole_standoff(**kwargs):
+    modes = kwargs.get("mode", ["laser", "3dpr", "true"])
+    if modes == "all":
+        modes = ["laser", "3dpr", "true"]
+    if type(modes) == str:
+        modes = [modes]
+
+    z = kwargs.get("z", 0)
+    if z == 0:
+        pos = kwargs.get("pos", [0, 0, 0])
+        pos = copy.deepcopy(pos)
+    return_value = []
+    try:
+        depth = kwargs["depth"]
+    except:
+        depth = 250
+        try:
+            kwargs["pos"][2] = pos[2] - depth / 2
+        except:
+            kwargs["z"] = z - depth / 2
+
+    try:
+        radius_name = kwargs["radius_name"]
+        for mode in modes:
+            kwargs["shape"] = "cylinder"
+            try:
+                new_radius = ob.gv("hole_radius_"+radius_name, mode) + 2.5/2
+                kwargs.update({"r": new_radius})
+            except:
+                r = ob.gv(radius_name, mode)
+                kwargs.update({"r": r})
+            kwargs.update({"h": depth})
+            kwargs.update({"inclusion": mode})
+            return_value.append(opsc.opsc_easy(**kwargs))
+    except:
+        for mode in modes:
+            r = kwargs.get("r", kwargs.get("radius", 0))
+            kwargs["shape"] = "cylinder"
+            kwargs.update({"r": r})
+            kwargs.update({"h": depth})
+            kwargs.update({"inclusion": mode})
+            return_value.append(opsc.opsc_easy(**kwargs))
+    return return_value
+
+
 def get_oobb_tube(**kwargs):
     # flip positivity for the hole
     if kwargs["type"] == "p" or kwargs["type"] == "positive":

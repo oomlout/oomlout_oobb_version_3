@@ -1484,7 +1484,12 @@ def get_mounting_plate(**kwargs):
         for hole in mounting_holes:
             pos = [hole["x"], hole["y"], 0]
             th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=pos, radius_name=radius_hole, m=""))
-
+            pos = [hole["x"], hole["y"], 0]
+            depth2 = depth +3
+            th.extend(ob.oobb_easy(t="p", s="oobb_hole_standoff", pos=pos, radius_name=radius_hole, depth = depth2, m=""))
+            pos = [hole["x"], hole["y"], depth2]
+            th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", rotY=180, pos=pos, radius_name=radius_hole, depth=depth2, include_nut=False, m=""))
+            
     return thing
 
 def get_mounting_plate_side(**kwargs):
