@@ -259,6 +259,7 @@ def add_thing(thing):
 
 
 def dump(mode="json"):
+    print(f"dumping {mode}")
     if mode == "json":
         with open('things.json', 'w') as outfile:
             json.dump(oobb.things, outfile)
