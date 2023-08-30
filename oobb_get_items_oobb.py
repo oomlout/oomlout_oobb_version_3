@@ -1672,6 +1672,107 @@ def get_shaft(**kwargs):
 
     return thing
 
+def get_smd_magazine(**kwargs):
+
+    width = kwargs.get("width", 1)
+    width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=thickness, pos=plate_pos, m=""))
+    #add holes
+    holes = []
+    holes.append([1,1])
+    holes.append([1,height])
+    holes.append([width,1])
+    
+    if extra <= 2:
+         #holes.append([width,height])
+         pass
+    for h in holes:
+        if h[0] == 1:
+            x = -((width) / 2 * ob.gv("osp")) + h[0] * ob.gv("osp") - ob.gv("osp") /2
+            y = -((height) / 2 * ob.gv("osp")) + h[1] *  ob.gv("osp") - ob.gv("osp") /2
+            z = -125
+            w = 15
+            x= x - w/2
+            depth = 250
+            pos = [x,y,z]
+            rotZ = 0
+            th.append(ob.oobb_easy(t="n", s="oobb_slot", radius_name="m6", pos=pos, rotZ=rotZ, depth=depth, w=w, m =""))
+        else:
+            th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["single"], loc=h, m =""))
+
+    #cutout
+    diameter = width*ob.gv("osp")-ob.gv("osp_minus")-3
+    thickness_wall = 1
+    cosmetic_extra = 3
+    thickness_cylinder = thickness-thickness_wall + cosmetic_extra
+    z_cylinder = thickness_cylinder/2 + thickness_wall
+    #extra cutout for 3x3
+    if width == 3:
+        diameter = diameter - 7
+        th.append(ob.oobb_easy(t="n", s="oobb_cube_center", size=[11,8,thickness_cylinder], pos = [5.5,15,z_cylinder-thickness_cylinder/2], rotZ=0, m="") )
+    
+    
+    th.append(ob.oobb_easy(t="n", s=f"oobb_cylinder", radius=diameter/2, 
+    height=height, depth_mm=thickness_cylinder, pos=[0, 0, z_cylinder], m=""))
+    # center cylinder
+    s = "oobb_cylinder"
+    diameter = 20
+    thi = thickness
+    pos = [0,0,0]
+    th.append(ob.oobb_easy(t="n", s=s, radius=diameter/2, depth=thi, pos=pos, m=""))
+
+    #escape
+    s = "oobb_cube_center"
+    height_escape = extra
+    top_space = 3
+    #      main    
+    wid = width_mm/2 
+    hei = height_escape
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 4
+    y = width_mm/2 - top_space - height_escape/2
+    z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    #      top cutout    
+    wid = width_mm/8 
+    hei = height_escape + top_space
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 16 * 7
+    y = width_mm/2 - hei / 2
+    #z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    #      ape escape
+    wid = 7.5
+    hei = 1.5
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 6
+    y = width_mm/2+1.5
+    #z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, rotZ=-45, m="")) 
+
+
+    return thing
+
+
 def get_soldering_jig(**kwargs):
     extra = kwargs.get("extra")
     kwargs.pop("extra")

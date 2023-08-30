@@ -10,7 +10,7 @@ import oobb_base
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
-    typs = ["bearing_plates", "bearing_circles", "buntings", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests"]
+    typs = ["bearing_plates", "bearing_circles", "buntings", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "smd_magazines", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests"]
    
     all_things = []
 
@@ -345,6 +345,44 @@ def get_shafts(size="oobb"):
     
 
     return shafts
+
+def get_smd_magazines(size="oobb"):
+    magazines = []
+    
+    sizes = [3,4,5,7,9]
+    #sizes = [3]
+    
+    thicknesses = []
+    wids = [8]
+    this = [1.5,2,3]
+    #this = [1.5]
+    for wid in wids:
+        for thi in this:
+            thicknesses.append({"thickness": wid + 2, "extra": thi, "name":f"{wid}_mm_tape_width_{str(thi).replace('.','_')}_mm_tape_thickness"})
+    
+    
+    
+
+    for size in sizes:
+        for thickness in thicknesses:
+            magazines.append({"type": "smd_magazine", 
+                          "width": size, 
+                          "height": size,
+                          "thickness": thickness["thickness"], 
+                          "name" : thickness["name"], 
+                          "extra": thickness["extra"],
+                          "size": "oobb"})
+    #full reel        
+    magazines.append({"type": "smd_magazine", 
+                          "width": 12, 
+                          "height": 12,
+                          "thickness": 12, 
+                          "name" : "8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness", 
+                          "extra": 1.5,
+                          "size": "oobb"})
+
+
+    return magazines
 
 
 def get_shaft_couplers(size="oobb"):
