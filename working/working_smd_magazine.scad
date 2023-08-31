@@ -1,4 +1,6 @@
 
+//importing
+/*
 projection(){
     intersection(){
         import("working_smd_magazine.stl");
@@ -7,3 +9,14 @@ projection(){
         }
     }
 }
+*/
+
+difference(){
+    translate([-1,-1,0]){
+        cube([25,8,2]);
+    }
+        
+    linear_extrude(0.3){
+        import("working_smd_magazine_1.svg");
+        }
+    }

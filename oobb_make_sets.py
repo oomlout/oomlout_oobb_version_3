@@ -353,7 +353,7 @@ def get_smd_magazines(size="oobb"):
     #sizes = [3]
     
     thicknesses = []
-    wids = [8]
+    wids = [8,12]
     this = [1.5,2,3]
     #this = [1.5]
     for wid in wids:
@@ -381,7 +381,9 @@ def get_smd_magazines(size="oobb"):
                           "extra": 1.5,
                           "size": "oobb"})
 
-
+    magazines.append({"type": "smd_magazine_refiller", 
+                          "width": 3,                           
+                          "size": "oobb"})
     return magazines
 
 

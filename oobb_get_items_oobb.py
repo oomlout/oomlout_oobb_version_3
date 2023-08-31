@@ -1772,6 +1772,60 @@ def get_smd_magazine(**kwargs):
 
     return thing
 
+def get_smd_magazine_refiller(**kwargs):
+
+    width = kwargs.get("width", 1)
+    width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
+    height = width
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    
+
+    thickness_knob = 12
+    plate_pos = [0, 0, thickness_knob/2]
+    th.append(ob.oobb_easy(t="p", s=f"oobb_cylinder", radius=width_mm/2, depth_mm=thickness_knob, pos=plate_pos, m=""))
+    #add holes
+    holes = []
+    holes.append([1,2])
+    holes.append([2,1])
+    holes.append([2,3])
+    holes.append([3,2])
+    holes.append([2,2])  
+    
+    for h in holes:
+        th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["single"], loc=h, m =""))
+    
+    ##catcher
+    thickness_catcher = 20
+    diameter_catcher = 20-2
+    pos = [0,0,thickness_catcher/2+thickness_knob/2]
+    plate_pos = copy.deepcopy(plate_pos)
+    th.append(ob.oobb_easy(t="p", s=f"oobb_cylinder", radius=diameter_catcher/2, depth_mm=thickness_catcher, pos=pos, m=""))
+    
+
+    #cutout for tape
+    #escape
+    s = "oobb_cube_center"
+    #      main    
+    
+    wid = width_mm + 10
+    hei = 3
+    thi = thickness_catcher
+    size = [wid,hei,thi]
+    x = 0
+    y = 0
+    z = thickness_knob
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))  
+
+    return thing
 
 def get_soldering_jig(**kwargs):
     extra = kwargs.get("extra")
