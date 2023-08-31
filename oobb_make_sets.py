@@ -384,6 +384,16 @@ def get_smd_magazines(size="oobb"):
     magazines.append({"type": "smd_magazine_refiller", 
                           "width": 3,                           
                           "size": "oobb"})
+
+    widths = [3,5]
+    thicknesses = [8,12]
+    for width in widths:
+        for thickness in thicknesses:
+            magazines.append({"type": "smd_magazine_label_holder", 
+                          "width": width,
+                          "thickness": thickness +2,
+                          "name": f"{thickness}_mm_tape_width",                           
+                          "size": "oobb"})
     return magazines
 
 

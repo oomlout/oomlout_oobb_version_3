@@ -17,12 +17,18 @@ def main():
     pass
     folder_things = "things"
     details = []    
+    details.append({    "name":"oomlout_oobb_bundle_smd_magazine", "matches": ["smd_magazine"],
+                        "shift_x": 12*15,
+                        "shift_y": 12*15
+                        })
     details.append({    "name":"oomlout_oobb_bundle_decorations", "matches": ["oobb_decoration"]})
     details.append({    "name":"oomlout_oobe_bundle_decorations", "matches": ["oobe_decoration"]})
     details.append({    "name":"oomlout_oobb_bundle_bunting_alphabet",
                         "matches": ["oobb_bunting_alphabet"],
                         "shift_x": 13*15,
-                        "shift_y": 15*15})
+                        "shift_y": 15*15
+                        })
+    
     #plates_basic
     sizes = ["oobb", "oobe"]
 
@@ -56,7 +62,7 @@ def main():
             height = str(include[1]).zfill(2)
             thickness = str(include[2]).zfill(2)
             #oobb_pl_{width}_{height}_{thickness}
-            includes_string.append(f"{size}_pl_{width}_{height}_{thickness}")
+            includes_string.append(f"{size}_plate_{width}_{height}_{thickness}")
 
         plates["matches"] = includes_string
         details.append(plates)
@@ -66,8 +72,12 @@ def main():
     for detail in details:
         name = detail["name"]
         matches = detail["matches"]
-        folder_bundle = f"git/{name}"
-        folder_bundle_src = f"git/{name}/src"
+        #folder_bundle = f"git/{name}"
+        folder_bundle = f"C:/GH/oobb_bundle/{name}"
+        #if folder_bundle doesnt exists then make it
+        if not os.path.isdir(folder_bundle):
+            os.makedirs(folder_bundle)
+        
         
         print(f"processing {name}")
         #go through each folder in things   
@@ -82,6 +92,11 @@ def main():
             make_all_3dpr_file(folder_bundle, shift_x, shift_y)
     
 def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
+    #if folder_bundl doesnt exists then make it
+    if not os.path.isdir(folder_bundle):
+        os.makedirs(folder_bundle)
+    
+
     #get a list of all the files in scad/ that end with _3dpr.scad
     files = []
     for file in os.listdir(os.path.join(folder_bundle, "3dpr")):
@@ -128,7 +143,7 @@ def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
 def copy_folder(folder_things, folder, folder_bundle, name):
     print(f"    processing {folder}")
     #copy the folder to folder_bundle/src
-    folder_bundle_src = f"git/{name}/src"
+    folder_bundle_src = f"C:/GH/oobb_bundle/{name}/src"
     folder_bundle_src_folder = os.path.join(folder_bundle_src, folder)
     if not os.path.isdir(folder_bundle_src_folder):
         shutil.copytree(os.path.join(folder_things, folder), folder_bundle_src_folder)

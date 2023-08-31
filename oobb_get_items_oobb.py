@@ -1672,7 +1672,7 @@ def get_shaft(**kwargs):
 
     return thing
 
-def get_smd_magazine(**kwargs):
+def get_smd_magazine_old_1(**kwargs):
 
     width = kwargs.get("width", 1)
     width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
@@ -1772,6 +1772,138 @@ def get_smd_magazine(**kwargs):
 
     return thing
 
+def get_smd_magazine(**kwargs):
+
+    width = kwargs.get("width", 1)
+    width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=thickness, pos=plate_pos, m=""))
+    #add holes
+    holes = []
+    holes.append([1,1])
+    #holes.append([1,height])
+    holes.append([width,1])
+    for h in holes:
+        if h[0] == 1:
+            x = -((width) / 2 * ob.gv("osp")) + h[0] * ob.gv("osp") - ob.gv("osp") /2
+            y = -((height) / 2 * ob.gv("osp")) + h[1] *  ob.gv("osp") - ob.gv("osp") /2
+            z = -125
+            w = 15
+            x= x - w/2
+            depth = 250
+            pos = [x,y,z]
+            rotZ = 0
+            th.append(ob.oobb_easy(t="n", s="oobb_slot", radius_name="m6", pos=pos, rotZ=rotZ, depth=depth, w=w, m =""))
+        else:
+            th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["single"], loc=h, m =""))
+
+    #add hole for label bracket
+    hole_depth = 9
+    x = -width_mm/2
+    y = width_mm/2 - (15-1)/2
+    z = thickness/2
+    dep = hole_depth    
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s="oobb_hole", pos=pos, rotY=90, depth = dep, radius_name="m3", m =""))
+    #add cube for nut insertion
+    s = "oobb_cube_center"   
+    wid = 3
+    hei = 6
+    thi = thickness/2 + 3.5
+    size = [wid,hei,thi]
+    x = x + hole_depth - wid / 2
+    y = y
+    z = thickness - thi
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    
+
+
+
+    #cutout
+    diameter = width*ob.gv("osp")-ob.gv("osp_minus")-3
+    thickness_wall = 1
+    cosmetic_extra = 3
+    thickness_cylinder = thickness-thickness_wall + cosmetic_extra
+    z_cylinder = thickness_cylinder/2 + thickness_wall
+    #extra cutout for 3x3
+    if width == 3:
+        diameter = diameter - 7
+        th.append(ob.oobb_easy(t="n", s="oobb_cube_center", size=[11,8,thickness_cylinder], pos = [5.5,15,z_cylinder-thickness_cylinder/2], rotZ=0, m="") )
+    
+    
+    th.append(ob.oobb_easy(t="n", s=f"oobb_cylinder", radius=diameter/2, 
+    height=height, depth_mm=thickness_cylinder, pos=[0, 0, z_cylinder], m=""))
+    # center cylinder
+    s = "oobb_cylinder"
+    diameter = 20
+    thi = thickness
+    pos = [0,0,0]
+    th.append(ob.oobb_easy(t="n", s=s, radius=diameter/2, depth=thi, pos=pos, m=""))
+
+    #escape
+    s = "oobb_cube_center"
+    height_escape = extra
+    top_space = 3
+    #      main    
+    wid = width_mm/2 
+    hei = height_escape
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 4
+    y = width_mm/2 - top_space - height_escape/2
+    z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    #      top cutout    
+    wid = width_mm/8 
+    hei = height_escape + top_space
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 16 * 7
+    y = width_mm/2 - hei / 2
+    #z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    #      cutout to allow tape to peel back
+    wid = width_mm/2.5 
+    hei = height_escape + top_space
+    thi = 1.5
+    size = [wid,hei,thi]
+    x = width_mm  * 0.3
+    y = width_mm/2 - hei / 2
+    z = thickness - thi
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+
+    #      tape escape
+    wid = 7.5
+    hei = 1.5
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 6
+    y = width_mm/2+1.5
+    z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, rotZ=-45, m="")) 
+
+
+    return thing
+
+
+
 def get_smd_magazine_refiller(**kwargs):
 
     width = kwargs.get("width", 1)
@@ -1804,7 +1936,7 @@ def get_smd_magazine_refiller(**kwargs):
     
     ##catcher
     thickness_catcher = 20
-    diameter_catcher = 20-2
+    diameter_catcher = 20-1
     pos = [0,0,thickness_catcher/2+thickness_knob/2]
     plate_pos = copy.deepcopy(plate_pos)
     th.append(ob.oobb_easy(t="p", s=f"oobb_cylinder", radius=diameter_catcher/2, depth_mm=thickness_catcher, pos=pos, m=""))
@@ -1824,6 +1956,88 @@ def get_smd_magazine_refiller(**kwargs):
     z = thickness_knob
     pos = [x,y,z]
     th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))  
+
+    return thing
+
+def get_smd_magazine_label_holder(**kwargs):
+
+    width = kwargs.get("width", 1)
+    width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
+    height = width
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    
+
+    #cutout for tape
+    #escape
+    s = "oobb_cube_center"
+    #      main    
+    
+    width_holder = 35
+    height_holder = thickness
+    thickness_holder = 2
+
+    wid = width_holder
+    hei = height_holder
+    thi = thickness_holder
+    size = [wid,hei,thi]
+    x = 0
+    y = 0
+    z = 0
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="p", s=s, size=size, pos=pos, m=""))  
+
+
+    s = "oobb_cube_center"
+    #      window
+    
+    wid = width_holder - 4
+    hei = height_holder   -4 
+    thi = thickness_holder
+    size = [wid,hei,thi]
+    x = 0
+    y = 0
+    z = 0
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))  
+
+    #label_curout
+    wid = width_holder - 1
+    hei = height_holder   - 2
+    thi = thickness_holder- 1
+    size = [wid,hei,thi]
+    x = -0.5
+    y = 0
+    z = 1
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))  
+
+    #bracket_bit
+    width_bracket = 3    
+    wid = width_bracket
+    hei = height_holder
+    thi = 15
+    size = [wid,hei,thi]
+    x = -width_holder/2 - width_bracket / 2
+    y = 0
+    z = 0
+    pos = [x,y,z]
+
+    #hole
+    x = -width_holder/2 - 10
+    y = 0
+    z = 9
+    dep = 20
+    th.append(ob.oobb_easy(t="n", s="oobb_hole", pos=[x,y,z], rotY=90, depth=dep, radius_name="m3", m="#"))
+
+    th.append(ob.oobb_easy(t="p", s=s, size=size, pos=pos, m=""))  
 
     return thing
 
