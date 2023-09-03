@@ -374,8 +374,8 @@ def get_smd_magazines(size="oobb"):
                           "size": "oobb"})
     #full reel        
     magazines.append({"type": "smd_magazine", 
-                          "width": 12, 
-                          "height": 12,
+                          "width": 13, 
+                          "height": 13,
                           "thickness": 12, 
                           "name" : "8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness", 
                           "extra": 1.5,

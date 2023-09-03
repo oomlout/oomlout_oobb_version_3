@@ -1716,6 +1716,8 @@ def get_smd_magazine_old_1(**kwargs):
     #cutout
     diameter = width*ob.gv("osp")-ob.gv("osp_minus")-3
     thickness_wall = 1
+    
+
     cosmetic_extra = 3
     thickness_cylinder = thickness-thickness_wall + cosmetic_extra
     z_cylinder = thickness_cylinder/2 + thickness_wall
@@ -1833,14 +1835,17 @@ def get_smd_magazine(**kwargs):
 
 
     #cutout
-    diameter = width*ob.gv("osp")-ob.gv("osp_minus")-3
-    thickness_wall = 1
+    diameter = width*ob.gv("osp")-ob.gv("osp_minus")-6
+    #thickness_wall = 1 # 4 layers maybe
+    thickness_wall = 0.6 # two layers
+    #if width == 13:
+    #    thickness_wall = 0.3 # two maybe one layer
     cosmetic_extra = 3
     thickness_cylinder = thickness-thickness_wall + cosmetic_extra
     z_cylinder = thickness_cylinder/2 + thickness_wall
     #extra cutout for 3x3
     if width == 3:
-        diameter = diameter - 7
+        diameter = diameter -4
         th.append(ob.oobb_easy(t="n", s="oobb_cube_center", size=[11,8,thickness_cylinder], pos = [5.5,15,z_cylinder-thickness_cylinder/2], rotZ=0, m="") )
     
     
@@ -1899,6 +1904,61 @@ def get_smd_magazine(**kwargs):
     pos = [x,y,z]
     th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, rotZ=-45, m="")) 
 
+
+
+    # tape guidance cylinder
+    s = "oobb_slot"
+    diameter = 2
+    if width == 3:
+        diameter = 5
+    w = 5
+    thi = thickness    
+    start_x = 8.811
+    shift_x = w/2 + 3
+    shift_x_per = 2
+    
+    start_y = 25
+    shift_y = -diameter/2
+    shift_y_per = 7.5
+    dot_guide_loc = {}
+    dot_guide_loc[3] = [14,15]
+    sh = 0
+    x = start_x + shift_x + shift_x_per * sh
+    y = start_y + shift_y + shift_y_per * sh
+    dot_guide_loc[4] = [x,y]
+    sh = 1
+    dot_guide_loc[5] = [start_x+shift_x+shift_x_per*sh,start_y+shift_y+ shift_y_per * sh]
+    sh = 3
+    dot_guide_loc[7] = [start_x+shift_x+shift_x_per*sh,start_y+shift_y+ shift_y_per * sh]
+    sh = 5
+    x = start_x+shift_x+shift_x_per*sh -3
+    dot_guide_loc[9] = [x,start_y+shift_y+ shift_y_per * sh]
+    sh = 9
+    x = start_x+shift_x+shift_x_per*sh -7
+    dot_guide_loc[13] = [x,start_y+shift_y+ shift_y_per * sh]
+    try:
+        x = dot_guide_loc[width][0]
+        y = dot_guide_loc[width][1]    
+    except:
+        x = 0
+        y = 0
+    z = 0
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="pp", s=s, radius=diameter/2, depth=thi, pos=pos, w=w, m=""))
+
+    # extra cutout square for tape guiadance
+    s = "oobb_cube_center"
+    wid = (w + diameter)/2 + 4
+    hei = diameter
+    thi = thickness - thickness_wall
+    size = [wid,hei,thi]
+    x = x -wid + 2
+    y = y
+    z = z + thickness_wall
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+
+    
 
     return thing
 

@@ -8,7 +8,7 @@ import copy
 import opsc
 
 
-filt = "smd_magazine"
+filt = "plate"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -34,7 +34,11 @@ save_type = "none"
 save_type = "all"
 
 filter = ""
-filter = "holder"
+filter = "13_13"
+#filter = "smd_magazine_07_07_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
+#filter = "smd_magazine_05_05_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
+#filter = "smd_magazine_04_04_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
+#filter = "smd_magazine_03_03_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = filt
