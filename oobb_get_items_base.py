@@ -945,6 +945,8 @@ def get_oobb_screw_socket_cap(include_nut=True, **kwargs):
             shifts = [0, -depth, -depth]
         
 
+        p2.pop("radius_name", None)
+        p2.pop("radius", None)
 
         
         p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0]]

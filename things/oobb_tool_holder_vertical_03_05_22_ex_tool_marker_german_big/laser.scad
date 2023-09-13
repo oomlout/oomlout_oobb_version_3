@@ -482,7 +482,7 @@ difference() {
 				cylinder(h = 250, r = 1.5000000000);
 			}
 		}
-		#translate(v = [0, -30, 0]) {
+		#translate(v = [0, -25, -1]) {
 			rotate(a = [-90, 0, 0]) {
 				cylinder(h = 115, r = 10.0000000000);
 			}

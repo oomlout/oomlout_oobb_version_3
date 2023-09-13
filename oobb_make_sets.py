@@ -349,14 +349,14 @@ def get_shafts(size="oobb"):
 def get_smd_magazines(size="oobb"):
     magazines = []
     
-    sizes = [3,4,5,7,9]
+    sizes = [2,3,4,5,7,9]
     #sizes = [3]
     
     thicknesses = []
     wids = [8,12]
     this = [1.5,2,3]
     #this = [1.5]
-    for wid in wids:
+    for wid in wids:        
         for thi in this:
             thicknesses.append({"thickness": wid + 2, "extra": thi, "name":f"{wid}_mm_tape_width_{str(thi).replace('.','_')}_mm_tape_thickness"})
     
@@ -364,6 +364,10 @@ def get_smd_magazines(size="oobb"):
     
 
     for size in sizes:
+        magazines.append({"type": "smd_magazine_lid", 
+                        "width": size, 
+                        "height": size,                        
+                        "size": "oobb"})
         for thickness in thicknesses:
             magazines.append({"type": "smd_magazine", 
                           "width": size, 
@@ -376,7 +380,7 @@ def get_smd_magazines(size="oobb"):
     magazines.append({"type": "smd_magazine", 
                           "width": 13, 
                           "height": 13,
-                          "thickness": 12, 
+                          "thickness": 14, 
                           "name" : "8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness", 
                           "extra": 1.5,
                           "size": "oobb"})
@@ -389,11 +393,22 @@ def get_smd_magazines(size="oobb"):
     thicknesses = [8,12]
     for width in widths:
         for thickness in thicknesses:
+            label_length = 26
+            if width == 5:
+                label_length = 36
             magazines.append({"type": "smd_magazine_label_holder", 
                           "width": width,
                           "thickness": thickness +2,
-                          "name": f"{thickness}_mm_tape_width",                           
+                          "name": f"{thickness}_mm_tape_width_{thickness}_mm_x_{label_length}_mm_label",                           
                           "size": "oobb"})
+    
+    widths = [4,5,7,9,13]
+    for width in widths:
+        magazines.append({"type": "smd_magazine_joiner", 
+                    "width": width,
+                    "thickness": 9,                    
+                    "size": "oobb"})
+    
     return magazines
 
 

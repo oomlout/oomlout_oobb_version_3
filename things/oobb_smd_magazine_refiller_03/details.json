@@ -11,7 +11,7 @@
                 "shape": "cylinder",
                 "r": 22.0,
                 "radius": 22.0,
-                "h": 12,
+                "h": 6,
                 "pos": [
                     0,
                     0,
@@ -25,7 +25,7 @@
                 "shape": "cylinder",
                 "r": 22.0,
                 "radius": 22.0,
-                "h": 12,
+                "h": 6,
                 "pos": [
                     0,
                     0,
@@ -39,7 +39,7 @@
                 "shape": "cylinder",
                 "r": 22.0,
                 "radius": 22.0,
-                "h": 12,
+                "h": 6,
                 "pos": [
                     0,
                     0,
@@ -215,56 +215,15 @@
         ],
         [
             {
-                "type": "negative",
-                "shape": "cylinder",
-                "r": 3.0,
-                "h": 250,
-                "pos": [
-                    0.0,
-                    0.0,
-                    -125.0
-                ],
-                "inclusion": "laser",
-                "m": ""
-            },
-            {
-                "type": "negative",
-                "shape": "cylinder",
-                "r": 3.25,
-                "h": 250,
-                "pos": [
-                    0.0,
-                    0.0,
-                    -125.0
-                ],
-                "inclusion": "3dpr",
-                "m": ""
-            },
-            {
-                "type": "negative",
-                "shape": "cylinder",
-                "r": 3.0,
-                "h": 250,
-                "pos": [
-                    0.0,
-                    0.0,
-                    -125.0
-                ],
-                "inclusion": "true",
-                "m": ""
-            }
-        ],
-        [
-            {
                 "type": "p",
                 "shape": "cylinder",
-                "r": 9.5,
-                "radius": 9.5,
+                "r": 6.0,
+                "radius": 6.0,
                 "h": 20,
                 "pos": [
                     0,
                     0,
-                    6.0
+                    3.0
                 ],
                 "inclusion": "laser",
                 "m": ""
@@ -272,13 +231,13 @@
             {
                 "type": "p",
                 "shape": "cylinder",
-                "r": 9.5,
-                "radius": 9.5,
+                "r": 6.0,
+                "radius": 6.0,
                 "h": 20,
                 "pos": [
                     0,
                     0,
-                    6.0
+                    3.0
                 ],
                 "inclusion": "3dpr",
                 "m": ""
@@ -286,13 +245,13 @@
             {
                 "type": "p",
                 "shape": "cylinder",
-                "r": 9.5,
-                "radius": 9.5,
+                "r": 6.0,
+                "radius": 6.0,
                 "h": 20,
                 "pos": [
                     0,
                     0,
-                    6.0
+                    3.0
                 ],
                 "inclusion": "true",
                 "m": ""
@@ -303,13 +262,13 @@
             "shape": "cube",
             "size": [
                 54,
-                3,
+                1.75,
                 20
             ],
             "pos": [
                 -27.0,
-                -1.5,
-                12
+                -0.875,
+                6
             ],
             "m": ""
         }
