@@ -12,7 +12,7 @@ import shutil
 def main():
 
     render = False
-    render = True
+    #render = True
 
     pass
     folder_things = "things"
@@ -93,6 +93,9 @@ def main():
         #render
         if render:
             make_all_3dpr_file(folder_bundle, shift_x, shift_y)
+        import oom_git
+        directory = folder_bundle
+        oom_git.push_to_git(directory = directory)
     
 def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
     #if folder_bundl doesnt exists then make it
