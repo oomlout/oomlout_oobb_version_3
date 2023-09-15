@@ -1872,7 +1872,9 @@ def get_smd_magazine_lid(**kwargs):
     return thing
 
 def get_smd_magazine(**kwargs):
-    #label size 25 x thickness - 1
+    #label size 4 + 25 x thickness - 1
+    # 3 25 x 9
+    # 2 
     # 8mm tape 25 x 9 
     #   
     width = kwargs.get("width", 1)
@@ -1886,6 +1888,7 @@ def get_smd_magazine(**kwargs):
     holes = kwargs.get("holes", False)
     both_holes = kwargs.get("both_holes", False)
     extra = kwargs.get("extra", "")
+    tape_thickness = extra
     size = kwargs.get("size", "oobb")
 
     thing = ob.get_default_thing(**kwargs)
@@ -1912,17 +1915,18 @@ def get_smd_magazine(**kwargs):
     #label_inset
     s = "oobb_cube_center"
     inset = 0.5
-    wid = 25
+    wid = 32
     if width == 3:
         wid = 25
     hei = 1
-    thi = thickness - inset * 2
+    thi = min(thickness - inset * 2, 16)
     size = [wid,hei,thi]
-    x = plate_pos[0] - width_mm / 2 + wid/2 + inset
+    centering_extra = (thickness - thi - inset * 2) / 2
+    x = plate_pos[0] - width_mm / 2 + wid/2 + inset + centering_extra
     y = width_mm/2 - hei/2
     z = pos[2]+inset
     pos = [x,y,z]
-    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m="#"))
     
     
     
@@ -2007,13 +2011,15 @@ def get_smd_magazine(**kwargs):
     # center cylinder
     s = "oobb_cylinder"
     diameter = 13
+    if width > 7:
+        diameter = 30
     thi = thickness
     pos = [0,0,0]
     th.append(ob.oobb_easy(t="n", s=s, radius=diameter/2, depth=thi, pos=pos, m=""))
 
     #escape
     s = "oobb_cube_center"
-    height_escape = extra
+    height_escape = tape_thickness
     top_space = 3
     #      main    
     wid = width_mm/2 
@@ -2102,8 +2108,11 @@ def get_smd_magazine(**kwargs):
         x = 0
         y = 0
     z = 0
+
+    ####add extra for thickness
+    y = y - tape_thickness + 1.5
     pos = [x,y,z]
-    th.append(ob.oobb_easy(t="pp", s=s, radius=diameter/2, depth=thi, pos=pos, w=w, m=""))
+    th.append(ob.oobb_easy(t="pp", s=s, radius=diameter/2, depth=thi, pos=pos, w=w, m="#"))
 
     # extra cutout square for tape guiadance
     s = "oobb_cube_center"
@@ -2551,9 +2560,12 @@ def get_smd_magazine_joiner(**kwargs):
     th = thing["components"]
 
     plate_pos = [0,0,0]
+
     #long joiing plate
     th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
     height=height, depth_mm=thickness, pos=plate_pos, m=""))
+
+    
     #covering the side plate   
     pos =  [7.5, (width-1)/2*15-7.5, 0]
     width_minus= width - 1
@@ -2568,6 +2580,11 @@ def get_smd_magazine_joiner(**kwargs):
         pos =  [30, 60, 0]
     th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width_minus, 
     height=width_minus, depth_mm=thickness, pos=pos, m=""))
+    
+    
+    
+    
+    
     #add holes
     th.append(ob.oobb_easy(t="p", s=f"oobb_holes", width=width, 
     height=height, depth_mm=thickness, pos=plate_pos, m=""))
@@ -2576,14 +2593,17 @@ def get_smd_magazine_joiner(**kwargs):
     x = (width-1) / 2 * 15
     th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=1, 
     height=1, depth_mm=thickness+6, pos=[x,0,0], m=""))
+    
     #long extension
-    x = -x + 7.5
-    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=2,                            
+    wid = width - width_minus + 1 
+    x = -x  + ((wid /2) * 15)  - 7.5
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=wid,                            
     height=1, depth_mm=thickness+6, pos=[x,0,0], m=""))
+    
     #nut clearance
-    x=(-width/2*15)+7.5+15
+    x=(-width/2*15) +7.5 + ((width - width_minus) * 15)
     z= 9
-    th.append(ob.oobb_easy(t="n", s=f"oobb_nut_loose", radius_name="m6", depth_mm=thickness+3, pos=[x,0,z], zz="top", m=""))
+    th.append(ob.oobb_easy(t="n", s=f"oobb_nut_loose", radius_name="m6", depth_mm=thickness+3, pos=[x,0,z], zz="top", m="#"))
     
     return thing
 
@@ -2608,18 +2628,26 @@ def get_smd_magazine_refiller(**kwargs):
     th.append(ob.oobb_easy(t="p", s=f"oobb_cylinder", radius=width_mm/2, depth_mm=thickness_knob, pos=plate_pos, m=""))
     #add holes
     holes = []
-    holes.append([1,2])
-    holes.append([2,1])
-    holes.append([2,3])
-    holes.append([3,2])
+    if width == 3:
+        holes.append([1,2])
+        holes.append([2,1])
+        holes.append([2,3])
+        holes.append([3,2])
     #holes.append([2,2])  
-    
+    if width == 4:
+        holes.append([2.5,1])
+        holes.append([2.5,4])
+        holes.append([4,2.5])
+        holes.append([1,2.5])
+
     for h in holes:
         th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["single"], loc=h, m =""))
     
     ##catcher
     thickness_catcher = 20
     diameter_catcher = 13-1
+    if extra == "big":
+        diameter_catcher = 30-1
     pos = [0,0,thickness_catcher/2+thickness_knob/2]
     plate_pos = copy.deepcopy(plate_pos)
     th.append(ob.oobb_easy(t="p", s=f"oobb_cylinder", radius=diameter_catcher/2, depth_mm=thickness_catcher, pos=pos, m=""))
@@ -2632,6 +2660,8 @@ def get_smd_magazine_refiller(**kwargs):
     
     wid = width_mm + 10
     hei = 1.75
+    if extra == "big":
+        hei = 4.5
     thi = thickness_catcher
     size = [wid,hei,thi]
     x = 0

@@ -8,7 +8,7 @@ import copy
 import opsc
 
 
-filt = ""
+filt = "smd_magazine"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -40,10 +40,14 @@ filter = ""
 #filter = "smd_magazine_03_03_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 #filter = "02_02_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 #filter = ["m2", "ba", "i2", "hv"]
+#filter = "oobb_smd_magazine_13_13_14_nm_8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness_ex_1d5"
+#filter = "oobb_smd_magazine_05_05_18_nm_16_mm_tape_width_3_mm_tape_thickness_ex_4"
+#filter = "refiller_03_ex"
+#filter = "oobb_smd_magazine_09_09_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 #filter = filt
 
 overwrite = True
-overwrite = False
+#overwrite = False
 oobb_base.build_things(overwrite=overwrite, filter=filter, save_type=save_type)
 
 copy_files = True

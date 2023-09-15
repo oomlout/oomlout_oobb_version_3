@@ -17,10 +17,13 @@ def main():
     pass
     folder_things = "things"
     details = []    
-    details.append({    "name":"oomlout_oobb_bundle_smd_magazine", "matches": ["smd_magazine"],
+    #smd
+    details.append({    "name":"oomlout_oobb_bundle_smd_magazine", "matches": ["smd"],
                         "shift_x": 12*15,
                         "shift_y": 12*15
                         })
+    
+    # decorations
     details.append({    "name":"oomlout_oobb_bundle_decorations", "matches": ["oobb_decoration"]})
     details.append({    "name":"oomlout_oobe_bundle_decorations", "matches": ["oobe_decoration"]})
     details.append({    "name":"oomlout_oobb_bundle_bunting_alphabet",
