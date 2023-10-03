@@ -8,7 +8,10 @@ import copy
 import opsc
 
 
-filt = "smd_magazine"
+#filt = ""
+filt = "holder"
+#filt = "bearing_plate"
+#filt = "circle"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -36,14 +39,14 @@ filter = ""
 filter = "" 
 #filter = "smd_magazine_07_07_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 #filter = "smd_magazine_05_05_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
-filter = ""
+#filter = "8_mm_tape_thickness"
 #filter = "smd_magazine_03_03_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 #filter = "02_02_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = "oobb_smd_magazine_13_13_14_nm_8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness_ex_1d5"
-#filter = "oobb_smd_magazine_05_05_18_nm_16_mm_tape_width_3_mm_tape_thickness_ex_4"
+#filter = "oobb_circle_1d5_06"
 #filter = "refiller_03_ex"
-#filter = "oobb_smd_magazine_09_09_10_nm_8_mm_tape_width_1_5_mm_tape_thickness_ex_1d5"
+filter = "servo_standard"
 #filter = filt
 
 overwrite = True

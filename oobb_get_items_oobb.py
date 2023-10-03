@@ -139,10 +139,12 @@ def get_bearing_plate(**kwargs):
 
     pos = kwargs.get("pos", [0, 0, 0])
 
+    extra_mm = 1 / ob.gv("osp")
+
     # solid piece
     th = thing["components"]
-    th.append(ob.oe(t="p", s="oobb_plate", width=width, height=height,
-              depth_mm=thickness, pos=[pos[0],pos[1],pos[2]-thickness/2], holes=False, mode="all"))
+    th.append(ob.oe(t="p", s="oobb_plate", width=width + extra_mm, height=height + extra_mm, depth_mm=thickness, pos=[pos[0],pos[1],pos[2]-thickness/2], holes=False, mode="all"))
+    
     # for 6804 laser make plate bigger
     if bearing_type == "6804":
         pass
@@ -182,6 +184,10 @@ def get_bearing_plate(**kwargs):
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_micro_01",
                   part="shaft", pos=pos, m=""))
         joint_dis = 15
+    elif shaft == "motor_servo_standard_01":
+        th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01",
+                  part="shaft", pos=pos, m=""))
+        joint_dis = 15
         
 
     # adding connecting screws
@@ -202,9 +208,11 @@ def get_bearing_plate(**kwargs):
         adjc = 1
     # hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
     #outer connecting screws
-    hole_positions = [width+adja-adjc, mid_h-adjb], [mid_w-adjb, 1-adja],  [1-adja+adjc, mid_h+adjb], [mid_w+adjb, height+adja]
+    r = 360/24
+    hole_positions = [width+adja-adjc, mid_h-adjb, r], [mid_w-adjb, 1-adja, 0],  [1-adja+adjc, mid_h+adjb, r], [mid_w+adjb, height+adja,0]
     rot_current = 0
-    rotz_current = 360/12
+    
+    
     times_through = 0
     #added to allow gearmotor retaininer to have 3 nuts on top
     gearmotor_screw_twist = True
@@ -214,8 +222,8 @@ def get_bearing_plate(**kwargs):
         type = "oobb_countersunk"
         if no_screws:
             type = "oobb_hole"
-        connecting_screws.extend(ob.oobb_easy(t="n", s=type, sandwich=True, radius_name="m3", depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=rotz_current))
-        micro_servo_screws.extend(ob.oobb_easy(t="n", s="oobb_hole", sandwich=True, radius_name="m3",depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=rotz_current))
+        connecting_screws.extend(ob.oobb_easy(t="n", s=type, sandwich=True, radius_name="m3", depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=posa[2]))
+        micro_servo_screws.extend(ob.oobb_easy(t="n", s="oobb_hole", sandwich=True, radius_name="m3",depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=posa[2]))
         if rot_current == 0:
             #added to allow gearmotor retaininer to have 3 nuts on top
             if shaft == "motor_gearmotor_01" and gearmotor_screw_twist:
@@ -229,7 +237,7 @@ def get_bearing_plate(**kwargs):
         if times_through == 1 or times_through == 2:
             rotz_current = 0
         else:
-            rotz_current = 360/12
+            rotz_current = 360/24
         times_through += 1
     th.extend(connecting_screws)
 
@@ -274,10 +282,15 @@ def get_bearing_plate(**kwargs):
                     hole=True, depth=thickness, pos=[x, y, z], m="", rotY=rotY, mode=mode,extra=extra))
     
     bearing_id = ob.gv(f'bearing_{bearing_type}_id',"true")
+    ## the holes in the middle
     if bearing_id * 2 > 15 and not no_screws:
         p2 = copy.deepcopy(kwargs)
         p2["holes"] = False
-        p2["slots"] = True
+        if shaft == "m6":
+            p2["slots"] = True
+        else:
+            p2["slots"] = False
+            p2["inserts"] = True
         th.extend(get_ci_holes_center(**p2))
 
 
@@ -384,6 +397,30 @@ def get_bearing_plate_jack_basic(**kwargs):
     th.extend(ob.oobb_easy(t="n", s="oobb_slice", pos=[0,0,-506], mode="3dpr", m="")) 
 
     thing["components"] = th    
+
+    return thing
+
+def get_bracket_2020_aluminium_extrusion(**kwargs):
+    
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    #add m6 holes
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width,
+              height=height, depth_mm=thickness, pos=plate_pos, mode="all"))
+    
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, holes="all", pos=plate_pos, m=""))
+    th.extend(ob.oobb_easy(t="n", s=f"oobe_holes",  holes="all",  pos=plate_pos, width=(width*2)-1, height=(height*2)-1,m="#"))
+   
+    #add oobb_cube_center 25x40xthickness at 37.5 22.5 0
+    
 
     return thing
 
@@ -548,6 +585,7 @@ def get_ci_holes_center(**kwargs):
     pos = kwargs.get("pos", [0, 0, 0])
     slots = kwargs.get("slots", True)
     holes = kwargs.get("holes", True)
+    inserts = kwargs.get("inserts", False)
     # add m3 holes
     if holes:    
         a = 7.5        
@@ -561,7 +599,13 @@ def get_ci_holes_center(**kwargs):
         positions = [a, 0, 0], [-a, 0, 0]
         for pos in positions:
             th.extend(ob.oobb_easy(t="n", s="oobb_slot",
-                    radius_name="m3", pos=pos, m="",w=0.5,rotZ=0))            
+                    radius_name="m3", pos=pos, m="",w=0.5,rotZ=0)) 
+    if inserts:
+        a = 7.5        
+        positions = [a, 0, 0], [-a, 0, 0]
+        for pos in positions:
+            th.extend(ob.oobb_easy(t="n", s="oobb_threaded_insert",
+                    radius_name="m3", pos=pos, m="")) 
     return th
 
 def get_holder(**kwargs):
@@ -767,6 +811,223 @@ def get_holder_motor_gearmotor_01_old_01(**kwargs):
     ######old
     return thing
 
+def get_holder_motor_servo_standard_01(**kwargs):
+
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+    pos = kwargs.get("pos", [0, 0, 0])
+    #set pos
+    kwargs["pos"] = pos
+    th = thing["components"]
+
+    plate_depth = 0
+    plate_pos = [-ob.gv("osp"), 0, plate_depth]
+
+    extra_mm = 1 / ob.gv("osp") 
+    
+    #thin full plate
+    pos = [plate_pos[0], plate_pos[1], plate_pos[2]]
+    #th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness-9, pos=pos, mode="all"))
+    #3x3 plate
+    thickness_base_plate = 6
+    pos = [plate_pos[0], plate_pos[1], plate_pos[2]-thickness_base_plate]
+    
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width+ extra_mm, height=height+ extra_mm, depth_mm=thickness_base_plate, pos=pos, mode="all"))
+    
+    #add 01_03s top and bottom
+    thickness_full = 15
+    pos = [plate_pos[0]+15*2, plate_pos[1], plate_pos[2]-thickness_full]
+    piece_thickness = 12
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=1+ extra_mm, height=height+ extra_mm, depth_mm=piece_thickness, pos=pos, mode="all"))
+
+    wid = 1.5+ extra_mm
+    pos = [plate_pos[0]-15*2+(wid-1)*7.5, plate_pos[1], plate_pos[2]-thickness_full]
+    piece_thickness = 15
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=wid, height=height+ extra_mm, depth_mm=piece_thickness, pos=pos, mode="all"))
+
+
+
+    #add m6 holes
+    #m6 holes
+    holes = []
+    #m6 holes
+    x = [1,2,3,5]
+    y = [1,3]
+    #add bottom and top row
+    for x1 in x:
+        for y1 in y:
+            holes.append([x1,y1,"m6"])
+    #add middle row
+    holes.append([1,2,"m6"])
+    # m3 holes
+    x = [1.5,2.5]
+    y = [1,3]
+    #add bottom and top row
+    for x1 in x:
+        for y1 in y:
+            holes.append([x1,y1,"m3"])
+    #add middle row
+    holes.append([1,1.5,"m3"])
+    holes.append([1,2.5,"m3"])
+    
+    for hole in holes:
+        loc = hole
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, loc=loc, height=height, holes="single", radius_name=hole[2], pos=plate_pos, m=""))
+
+    # add bearing size hole
+
+    # circle clearance
+    
+    
+
+    #bearing clearance
+    radius = 24/2
+    depth = 250
+    pos = [0, 0, -depth/2]
+    th.extend(ob.oobb_easy(t="n", s="oobb_cylinder", radius=radius, pos=pos, depth=depth, m=""))
+    
+    #top clearance
+
+    # servo cutout
+    # zero is base of shaft
+    pos = [0, 0, -2]
+    th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01", part="all", bottom_clearance=True, include_screws=True, top_clearance=True, overhang=True, pos=pos, m=""))
+
+    # bearing attachments
+    holes = []
+    holes.append([0,18,0,"m3"])
+    holes.append([0,-18,0,"m3"])
+    for hole in holes:
+        p2 = copy.deepcopy(kwargs)
+        p2.pop("size")
+        p2["type"] = "n"
+        p2["shape"] = "oobb_screw_socket_cap"
+        p2["radius_name"] = hole[3]
+        p2["pos"][0] = hole[0]
+        p2["pos"][1] = hole[1]
+        p2["pos"][2] = hole[2]-4
+        p2["depth"] = 16
+        p2["rotY"] = 180        
+        #p2["top_clearance"] = True
+        p2["include_nut"] = False
+        #p2["m"] = "#"
+        th.append(ob.oobb_easy(**p2))
+
+
+
+    
+    return thing
+
+def get_holder_motor_servo_standard_01_old(**kwargs):
+
+    thing = ob.get_default_thing(**kwargs)
+
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    th = thing["components"]
+
+    plate_depth = -(thickness + 6)
+    plate_pos = [-ob.gv("osp"), 0, plate_depth]
+
+    
+    #thin full plate
+    pos = [plate_pos[0], plate_pos[1], plate_pos[2]]
+    #th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness-9, pos=pos, mode="all"))
+    #3x3 plate
+    pos = [plate_pos[0], plate_pos[1], plate_pos[2]]
+    piece_thickness = 9
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=piece_thickness, pos=pos, mode="all"))
+    
+    #add m6 holes
+    #m6 holes
+    holes = []
+    #m6 holes
+    x = [1,2,3,5]
+    y = [1,3]
+    #add bottom and top row
+    for x1 in x:
+        for y1 in y:
+            holes.append([x1,y1,"m6"])
+    #add middle row
+    holes.append([1,2,"m6"])
+    # m3 holes
+    x = [1.5,2.5]
+    y = [1,3]
+    #add bottom and top row
+    for x1 in x:
+        for y1 in y:
+            holes.append([x1,y1,"m3"])
+    #add middle row
+    holes.append([1,1.5,"m3"])
+    holes.append([1,2.5,"m3"])
+    
+    for hole in holes:
+        loc = hole
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, loc=loc, height=height, holes="single", radius_name=hole[2], pos=plate_pos, m=""))
+
+    # add bearing size hole
+
+    # circle clearance
+    
+    
+
+    #bearing clearance
+    radius = 26/2
+    depth = 6
+    pos = [0, 0, -depth/2]
+    th.extend(ob.oobb_easy(t="n", s="oobb_cylinder", radius=radius, pos=pos, depth=depth, m=""))
+    
+    #top clearance
+
+    # servo cutout
+    # zero is base of shaft
+    pos = [0, 0, 2]
+    th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01", part="all", bottom_clearance=True, include_screws=True, pos=pos, m=""))
+
+    #bp screws
+    #adding half a bearing face to 3dpr version
+    add_items = []
+    p2 = {  "type": "bp", 
+            "width": 3, 
+            "height": 3, 
+            "pos": [0,0,-3],
+            "thickness": 12,
+            "bearing_type": "6704", 
+            "size": "oobb", 
+            "only_screws": True,  
+            "m": "#"          
+            }
+    add_items.extend(get_bearing_plate(**p2)["components"])    
+    add_items_output = []
+    #only add 3dpr and remove back hole
+    for item in add_items:
+        #3dpr
+        inclusion = item.get("inclusion", "all")
+        if inclusion == "all" or inclusion == "3dpr":
+            #include
+            item.update({"inclusion": "3dpr"})
+            #item.update({"m": "#"})
+            pos = item.get("pos", [0,0,0])
+            if pos[1] == 0 and pos[0] < 0:
+                #exclude
+                pass
+            else:
+                add_items_output.append(item)
+        else:
+            #exclude
+            pass
+        
+    th.extend(add_items_output)
+
+    
+    return thing
+
+
 def get_holder_motor_servo_micro_01(**kwargs):
 
     thing = ob.get_default_thing(**kwargs)
@@ -819,7 +1080,7 @@ def get_holder_motor_servo_micro_01(**kwargs):
     # servo cutout
     # zero is base of shaft
     pos = [0, 0, 0]
-    th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_micro_01", part="all", bottom_clearance=True, pos=pos, m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_micro_01", part="all", bottom_clearance=True, pos=pos, m="#"))
 
     #bp screws
     #adding half a bearing face to 3dpr version
@@ -858,6 +1119,7 @@ def get_holder_motor_servo_micro_01(**kwargs):
 
     
     return thing
+
 
 def get_holder_motor_stepper_motor_nema_17_flat(**kwargs):
 
@@ -1881,6 +2143,8 @@ def get_smd_magazine(**kwargs):
     
     if width < 3:
         return get_smd_magazine_small(**kwargs)
+    elif width > 12:
+        return get_smd_magazine_large(**kwargs)
     
     width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
     height = kwargs.get("height", 1)
@@ -1926,7 +2190,7 @@ def get_smd_magazine(**kwargs):
     y = width_mm/2 - hei/2
     z = pos[2]+inset
     pos = [x,y,z]
-    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m="#"))
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
     
     
     
@@ -2077,6 +2341,285 @@ def get_smd_magazine(**kwargs):
     if width == 3:
         diameter = 5
     w = 5
+    
+    thi = thickness    
+    start_x = 8.811
+    shift_x = w/2 + 3
+    shift_x_per = 2
+    
+    start_y = 25
+    shift_y = -diameter/2
+    shift_y_per = 7.5
+    dot_guide_loc = {}
+    dot_guide_loc[3] = [14,15]
+    sh = 0
+    x = start_x + shift_x + shift_x_per * sh
+    
+    y = start_y + shift_y + shift_y_per * sh
+    dot_guide_loc[4] = [x,y]
+    sh = 1
+    dot_guide_loc[5] = [start_x+shift_x+shift_x_per*sh,start_y+shift_y+ shift_y_per * sh]
+    sh = 3
+    dot_guide_loc[7] = [start_x+shift_x+shift_x_per*sh,start_y+shift_y+ shift_y_per * sh]
+    sh = 5
+    x = start_x+shift_x+shift_x_per*sh -3
+    dot_guide_loc[9] = [x,start_y+shift_y+ shift_y_per * sh]
+    sh = 9
+    x = start_x+shift_x+shift_x_per*sh -7
+    dot_guide_loc[13] = [x,start_y+shift_y+ shift_y_per * sh]
+    try:
+        x = dot_guide_loc[width][0]
+        y = dot_guide_loc[width][1]    
+    except:
+        x = 0
+        y = 0
+    z = 0
+
+    ####add extra for thickness
+    y = y - tape_thickness + 1.5
+    if tape_thickness >= 8:
+        x = x + 8
+
+
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="pp", s=s, radius=diameter/2, depth=thi, pos=pos, w=w, m="#"))
+
+    # extra cutout square for tape guiadance
+    s = "oobb_cube_center"
+    wid = (w + diameter)/2 + 4
+    hei = diameter
+    thi = thickness - thickness_wall
+    size = [wid,hei,thi]
+    x = x -wid + 2
+    y = y
+    z = z + thickness_wall
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+
+    
+
+    return thing
+
+
+def get_smd_magazine_large(**kwargs):
+    #label size 4 + 25 x thickness - 1
+    # 3 25 x 9
+    # 2 
+    # 8mm tape 25 x 9 
+    #   
+    width = kwargs.get("width", 1)
+    
+    if width < 3:
+        return get_smd_magazine_small(**kwargs)
+    
+    width_mm = width * ob.gv("osp") - ob.gv("osp_minus")
+    height = kwargs.get("height", 1)
+    thickness = kwargs.get("thickness", 3)
+    holes = kwargs.get("holes", False)
+    both_holes = kwargs.get("both_holes", False)
+    extra = kwargs.get("extra", "")
+    tape_thickness = extra
+    size = kwargs.get("size", "oobb")
+
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+
+    plate_pos = [0, 0, 0]
+
+    #main_plate
+    th.append(ob.oobb_easy(t="p", s=f"{size}_plate", width=width, 
+    height=height, depth_mm=thickness, pos=plate_pos, m=""))
+    
+    #topcorner square off cube
+    s = "oobb_cube_center"
+    wid = 6
+    hei = 6
+    thi = thickness
+    size = [wid,hei,thi]
+    x = plate_pos[0] - width_mm / 2 + wid/2
+    y = width_mm/2 - hei/2
+    z = 0
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="p", s=s, size=size, pos=pos, m=""))
+    
+    #label_inset
+    s = "oobb_cube_center"
+    inset = 0.5
+    wid = 32
+    if width == 3:
+        wid = 25
+    hei = 1
+    thi = min(thickness - inset * 2, 16)
+    size = [wid,hei,thi]
+    centering_extra = (thickness - thi - inset * 2) / 2
+    x = plate_pos[0] + width_mm/2  - 45
+    y = width_mm/2 - hei/2
+    z = pos[2]+inset
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    
+    
+    
+    #add holes
+    holes = []
+    holes.append([1,1])
+    holes.append([1,height])
+    holes.append([width,1])
+    if width == 13:
+        minus = [1,2]
+        for minu in minus:
+            holes.append([1+minu,1])
+            holes.append([1,1+minu])
+
+            holes.append([width-minu,1])
+            holes.append([width,1+minu])
+
+            holes.append([1+minu,height])
+            holes.append([1,height-minu])
+            
+            #holes.append([width-minu,height])
+            holes.append([width,height-minu])
+        
+
+    for h in holes:
+        if h[0] == 1 and h[1] == 1 or h[0] == 1 and h[1] == height:
+            x = -((width) / 2 * ob.gv("osp")) + h[0] * ob.gv("osp") - ob.gv("osp") /2
+            y = -((height) / 2 * ob.gv("osp")) + h[1] *  ob.gv("osp") - ob.gv("osp") /2
+            z = -125
+            w = 15
+            x= x - w/2
+            depth = 250
+            pos = [x,y,z]
+            rotZ = 0
+            th.append(ob.oobb_easy(t="n", s="oobb_slot", radius_name="m6", pos=pos, rotZ=rotZ, depth=depth, w=w, m =""))
+        else:
+            th.append(ob.oobb_easy(t="p", s="oobb_holes", pos=plate_pos, width=width, height=height, holes=["single"], loc=h, m =""))
+
+    """
+    label bracket not used anymore
+    #add hole for label bracket
+    hole_depth = 9
+    x = -width_mm/2
+    y = width_mm/2 - (15-1)/2
+    z = thickness/2
+    dep = hole_depth    
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s="oobb_hole", pos=pos, rotY=90, depth = dep, radius_name="m3", m =""))
+    #add cube for nut insertion
+    s = "oobb_cube_center"   
+    wid = 3
+    hei = 6
+    thi = thickness/2 + 3.5
+    size = [wid,hei,thi]
+    x = x + hole_depth - wid / 2
+    y = y
+    z = thickness - thi
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    """
+
+
+
+    #cutout
+    diameter = width*ob.gv("osp")-ob.gv("osp_minus")-6
+    #thickness_wall = 1 # 4 layers maybe
+    thickness_wall = 0.6 # two layers
+    #if width == 13:
+    #    thickness_wall = 0.3 # two maybe one layer
+    cosmetic_extra = 3
+    thickness_cylinder = thickness-thickness_wall + cosmetic_extra
+    z_cylinder = thickness_cylinder/2 + thickness_wall
+    #extra cutout for 3x3
+    if width == 3:
+        diameter = diameter -4
+        th.append(ob.oobb_easy(t="n", s="oobb_cube_center", size=[11,8,thickness_cylinder], pos = [5.5,15,z_cylinder-thickness_cylinder/2], rotZ=0, m="") )
+    
+    
+    
+    th.append(ob.oobb_easy(t="n", s=f"oobb_cylinder", radius=diameter/2, 
+    height=height, depth_mm=thickness_cylinder, pos=[0,0,z_cylinder],m=""))
+
+    w = 100
+    rotZ = -20
+    dep = thickness_cylinder
+    # shift x and y based on the angle in rotZ and the width of the cutout use trigonometry 
+    x = -w/2 * math.cos(math.radians(rotZ))
+    y = -w/2 * math.sin(math.radians(rotZ))
+    z = z_cylinder - dep/2
+    dia = diameter - 10
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=f"oobb_slot", radius=dia/2, 
+    height=height, depth=dep, w=w, pos=pos, rotZ = rotZ,m=""))
+    
+    # center cylinder
+    s = "oobb_cylinder"
+    diameter = 13
+    if width > 7:
+        diameter = 30
+    thi = thickness
+    pos = [0,0,0]
+    th.append(ob.oobb_easy(t="n", s=s, radius=diameter/2, depth=thi, pos=pos, m=""))
+
+    #escape
+    s = "oobb_cube_center"
+    height_escape = tape_thickness
+    top_space = 3
+    #      main    
+    wid = width_mm/2 
+    hei = height_escape
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 4
+    y = width_mm/2 - top_space - height_escape/2
+    z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    #      top cutout    
+    wid = 10
+    if width == 3:
+        wid = 6 
+    hei = height_escape + top_space
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm / 2 - wid / 2
+    y = width_mm/2 - hei / 2
+    #z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+    #      cutout to allow tape to peel back
+    wid = 20+1
+    if width == 3:
+        wid = 15 + 1
+    hei = height_escape + top_space
+    thi = 1.5
+    size = [wid,hei,thi]
+    x = width_mm  / 2 - wid / 2
+    y = width_mm/2 - hei / 2
+    z = thickness - thi
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, m=""))
+
+    #      tape escape
+    wid = 7.5
+    hei = 1.5
+    thi = thickness_cylinder
+    size = [wid,hei,thi]
+    x = width_mm /2 - 20
+    if width == 3:
+        x = width_mm /2 - 15
+    y = width_mm/2+1.5
+    z = thickness_wall 
+    pos = [x,y,z]
+    th.append(ob.oobb_easy(t="n", s=s, size=size, pos=pos, rotZ=-45, m="")) 
+
+
+
+    # tape guidance cylinder
+    s = "oobb_slot"
+    diameter = 2
+    if width == 3:
+        diameter = 5
+    w = 5
     thi = thickness    
     start_x = 8.811
     shift_x = w/2 + 3
@@ -2112,7 +2655,7 @@ def get_smd_magazine(**kwargs):
     ####add extra for thickness
     y = y - tape_thickness + 1.5
     pos = [x,y,z]
-    th.append(ob.oobb_easy(t="pp", s=s, radius=diameter/2, depth=thi, pos=pos, w=w, m="#"))
+    th.append(ob.oobb_easy(t="pp", s=s, radius=diameter/2, depth=thi, pos=pos, w=w, m=""))
 
     # extra cutout square for tape guiadance
     s = "oobb_cube_center"
@@ -2321,6 +2864,8 @@ def get_smd_magazine_small(**kwargs):
       
 
     return thing
+
+
 
 def get_smd_magazine_small_old(**kwargs):
     #label size 12 x thickness - 1
@@ -2603,7 +3148,7 @@ def get_smd_magazine_joiner(**kwargs):
     #nut clearance
     x=(-width/2*15) +7.5 + ((width - width_minus) * 15)
     z= 9
-    th.append(ob.oobb_easy(t="n", s=f"oobb_nut_loose", radius_name="m6", depth_mm=thickness+3, pos=[x,0,z], zz="top", m="#"))
+    th.append(ob.oobb_easy(t="n", s=f"oobb_nut_loose", radius_name="m6", depth_mm=thickness+3, pos=[x,0,z], zz="top", m=""))
     
     return thing
 
@@ -3135,7 +3680,10 @@ def get_tool_holder_vertical(**kwargs):
             default_z = -1
         elif "jst" in e:
             default_y = -25
-            default_z = 1.5      
+            default_z = 1.5
+        elif "molex" in e:
+            default_y = -25
+            default_z = 0      
         elif "tool_tdpb_glue_stick_prit_medium" in e:
             default_y = -25
             default_z = 28/2      

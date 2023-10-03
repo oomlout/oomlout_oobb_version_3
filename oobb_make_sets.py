@@ -10,7 +10,7 @@ import oobb_base
 def make_all(filter=""):
     # typs = ["bps","jas","mps","pls","nuts","screws_countersunk","tests","zts"]
     # add orings make a nice summary page maybe tables of details add 2020 maybe
-    typs = ["bearing_plates", "bearing_circles", "buntings", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "smd_magazines", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests"]
+    typs = ["bearing_plates", "bearing_circles", "buntings", "circles", "holders", "jacks", "jigs", "mounting_plates", "plates", "shaft_couplers","shafts", "soldering_jigs", "smd_magazines", "tool_holders", "trays", "ziptie_holders", "nuts", "wires", "wheels", "screws", "bearings", "nuts", "tests", "bracket_2020_aluminium_extrusions"]
    
     all_things = []
 
@@ -45,6 +45,7 @@ def get_bearing_plates(size="oobb"):
     bps.append({"type": "bearing_plate_shim", "thickness": 2, "bearing_type": "6704", "size": size})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6803", "size": size})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6804", "size": size})
     bps.append({"type": "bearing_plate", "width": 5, "height": 5, "thickness": 12, "bearing_type": "6808", "size": size})
@@ -73,12 +74,34 @@ def get_buntings(size="oobb"):
   
     return items
 
+def get_bracket_2020_aluminium_extrusions(size="oobb"):
+    items = []
+    
+    items.append({"type": "bracket_2020_aluminium_extrusion", 
+                  "width": 9, 
+                  "height": 5,
+                  "thickness": 12, 
+                  "extra":"top_side",
+                  "size": size
+                })
+  
+    return items
+
+
 def get_circles(size="oobb"):
     circles = []
     circle_size = [1.5,3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
     for s in circle_size:
         circles.append({"type": "circle", "diameter": s, "thickness": 3, "size": size})
     
+    #extra thicknesses
+    circle_size = [1.5,3, 5]
+    thicknesses = [6, 9, 12, 15]
+    for s in circle_size:
+        for t in thicknesses:
+            circles.append({"type": "circle", "diameter": s, "thickness": t, "size": size})
+
+
     circles.append({"type": "circle", "diameter": 1.5, "thickness": 12, "extra":"nut_m6", "size": size})
 
 
@@ -95,8 +118,11 @@ def get_holders(size="oobb"):
     hls = []
     #### gearmotor
     hls.append({"type": "holder", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 6, "size": size})
-    #### micro servo
+    # servo
+    #      micro
     hls.append({"type": "holder", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
+    #      standard
+    hls.append({"type": "holder", "extra": "motor_servo_standard_01","width": 5, "height": 3, "thickness": 3, "size": size})
     
     #### nema 17
     thicknesses = [3,6]
@@ -376,6 +402,20 @@ def get_smd_magazines(size="oobb"):
                           "name" : thickness["name"], 
                           "extra": thickness["extra"],
                           "size": "oobb"})
+    
+    #5 x 5 16 width 8mm thickness
+    size = 5
+    wid = 16
+    thi = 8
+    thickness = {"thickness": wid + 2, "extra": thi, "name":f"{wid}_mm_tape_width_{str(thi).replace('.','_')}_mm_tape_thickness"}
+    magazines.append({"type": "smd_magazine", 
+                          "width": size, 
+                          "height": size,
+                          "thickness": thickness["thickness"], 
+                          "name" : thickness["name"], 
+                          "extra": thickness["extra"],
+                          "size": "oobb"})
+
     #full reel        
     magazines.append({"type": "smd_magazine", 
                           "width": 13, 
@@ -498,6 +538,7 @@ def get_tool_holders(size="oobb"):
 
     #specialty tools
     tools.append(["tool_electronics_crimp_jst_wc_260",5,5,24+extra_thick])
+    tools.append(["tool_electronics_crimp_molex_11010185",7,5,18+extra_thick])
 
     for tool in tools:
         tool_holders.append({"type": "tool_holder_vertical", "width": tool[1], "height": tool[2],  "thickness": tool[3], "extra": tool[0], "size": size})

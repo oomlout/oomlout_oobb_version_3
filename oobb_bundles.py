@@ -12,7 +12,7 @@ import shutil
 def main():
 
     render = False
-    #render = True
+    render = True
 
     pass
     folder_things = "things"
@@ -92,12 +92,13 @@ def main():
         shift_y = detail.get("shift_y", 75)
         #render
         if render:
-            make_all_3dpr_file(folder_bundle, shift_x, shift_y)
+            make_all_3dpr_file(folder_bundle, shift_x, shift_y, overwrite=True)
         import oom_git
         directory = folder_bundle
         oom_git.push_to_git(directory = directory)
     
-def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
+def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75, **kwargs):
+    overwrite = kwargs.get("overwrite", False)
     #if folder_bundl doesnt exists then make it
     if not os.path.isdir(folder_bundle):
         os.makedirs(folder_bundle)
@@ -139,7 +140,7 @@ def make_all_3dpr_file(folder_bundle, shift_x = 140, shift_y = 75):
     #use the command line openscad.exe to create an stl and png of this file
 
     #only if.stl of it doesnt exist
-    if not os.path.isfile(f"{file_out_base}.stl"):
+    if not os.path.isfile(f"{file_out_base}.stl")  or overwrite:
         #print what's haapening
         print(f"    processing {file_out}")
         os.system(f"openscad -o {file_out_base}.stl -o {file_out_base}.png {file_out}")

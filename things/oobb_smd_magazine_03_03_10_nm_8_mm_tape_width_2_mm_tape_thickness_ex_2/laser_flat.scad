@@ -60,7 +60,7 @@ union() {
 							}
 						}
 						union() {
-							#translate(v = [-21.5000000000, 21.0000000000, 0.5000000000]) {
+							translate(v = [-21.5000000000, 21.0000000000, 0.5000000000]) {
 								rotate(a = [0, 0, 0]) {
 									cube(size = [25, 1, 9.0000000000]);
 								}
@@ -166,7 +166,7 @@ union() {
 								hull() {
 									translate(v = [2.5000000000, 0, 0]) {
 										rotate(a = [0, 0, 0]) {
-											#translate(v = [0, 0, 0]) {
+											translate(v = [0, 0, 0]) {
 												rotate(a = [0, 0, 0]) {
 													cylinder(h = 10, r = 2.5000000000);
 												}
@@ -175,7 +175,7 @@ union() {
 									}
 									translate(v = [-2.5000000000, 0, 0]) {
 										rotate(a = [0, 0, 0]) {
-											#translate(v = [0, 0, 0]) {
+											translate(v = [0, 0, 0]) {
 												rotate(a = [0, 0, 0]) {
 													cylinder(h = 10, r = 2.5000000000);
 												}
@@ -248,7 +248,7 @@ union() {
 							}
 						}
 						union() {
-							#translate(v = [-21.5000000000, 21.0000000000, 0.5000000000]) {
+							translate(v = [-21.5000000000, 21.0000000000, 0.5000000000]) {
 								rotate(a = [0, 0, 0]) {
 									cube(size = [25, 1, 9.0000000000]);
 								}
@@ -354,7 +354,7 @@ union() {
 								hull() {
 									translate(v = [2.5000000000, 0, 0]) {
 										rotate(a = [0, 0, 0]) {
-											#translate(v = [0, 0, 0]) {
+											translate(v = [0, 0, 0]) {
 												rotate(a = [0, 0, 0]) {
 													cylinder(h = 10, r = 2.5000000000);
 												}
@@ -363,7 +363,7 @@ union() {
 									}
 									translate(v = [-2.5000000000, 0, 0]) {
 										rotate(a = [0, 0, 0]) {
-											#translate(v = [0, 0, 0]) {
+											translate(v = [0, 0, 0]) {
 												rotate(a = [0, 0, 0]) {
 													cylinder(h = 10, r = 2.5000000000);
 												}
@@ -436,7 +436,7 @@ union() {
 							}
 						}
 						union() {
-							#translate(v = [-21.5000000000, 21.0000000000, 0.5000000000]) {
+							translate(v = [-21.5000000000, 21.0000000000, 0.5000000000]) {
 								rotate(a = [0, 0, 0]) {
 									cube(size = [25, 1, 9.0000000000]);
 								}
@@ -542,7 +542,7 @@ union() {
 								hull() {
 									translate(v = [2.5000000000, 0, 0]) {
 										rotate(a = [0, 0, 0]) {
-											#translate(v = [0, 0, 0]) {
+											translate(v = [0, 0, 0]) {
 												rotate(a = [0, 0, 0]) {
 													cylinder(h = 10, r = 2.5000000000);
 												}
@@ -551,7 +551,7 @@ union() {
 									}
 									translate(v = [-2.5000000000, 0, 0]) {
 										rotate(a = [0, 0, 0]) {
-											#translate(v = [0, 0, 0]) {
+											translate(v = [0, 0, 0]) {
 												rotate(a = [0, 0, 0]) {
 													cylinder(h = 10, r = 2.5000000000);
 												}
