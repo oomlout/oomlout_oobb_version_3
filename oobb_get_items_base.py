@@ -136,6 +136,8 @@ def get_oobb_holes(holes=["all"], **kwargs):
     size = kwargs.get("size", "oobb")
     both_holes = kwargs.get("both_holes", False)
 
+    
+
     x = pos[0]
     y = pos[1]
     z = pos[2]
@@ -338,6 +340,17 @@ def get_oobb_holes(holes=["all"], **kwargs):
         pos = [0,0,0]
         objects.extend(ob.oobb_easy(type="negative", shape="oobb_hole", pos=pos, radius_name=radius_name, m=m))
 
+    if both_holes:
+        p2 = copy.deepcopy(kwargs)
+        p2["shape"] = "oobe_hole"
+        p2["radius_name"] = "m3"
+        #make width two times minus one
+        p2["width"] = width*2-1
+        p2["height"] = height*2-1
+        #add holes
+        p2["holes"] = [holes]
+        objects.extend(get_oobe_holes(**p2))
+
     return objects
 
 
@@ -389,6 +402,42 @@ def get_oobb_slot_old(**kwargs):
         objects.append(opsc.opsc_easy(**kwargs))
 
     return objects
+
+def get_oobb_fan_120_mm(**kwargs):
+    objects = []
+    
+    off_center = 105
+    holes = []
+    holes.append([off_center/2, off_center/2])
+    holes.append([off_center/2, -off_center/2])
+    holes.append([-off_center/2, off_center/2])
+    holes.append([-off_center/2, -off_center/2])
+    
+    #screw holes
+    for hole in holes:
+        p2 = copy.deepcopy(kwargs)
+        p2["shape"] = "oobb_hole"
+        p2["radius_name"] = "m3"
+        #start with pos then add hole[0]
+        p2["pos"] = [p2["pos"][0] + hole[0], p2["pos"][1] + hole[1], p2["pos"][2]]        
+        objects.extend(ob.oobb_easy(**p2))
+
+    p2 = copy.deepcopy(kwargs)
+    
+
+    p2 = copy.deepcopy(kwargs)
+    x = 0
+    y = 0
+    z = 0
+    p2["pos"] = [p2["pos"][0] + x, p2["pos"][1] + y, p2["pos"][2] + z]
+    p2["shape"] = "oobb_cylinder"
+    p2["r"] = 120/2
+    p2["depth"] = 120
+    objects.append(ob.oobb_easy(**p2))
+
+
+    return objects
+
 
 
 def get_oobb_holes_old(**kwargs):
@@ -866,7 +915,7 @@ def get_oobb_motor_servo_standard_01(**kwargs):
             objects.extend(ob.oobb_easy(**p4))
             if include_screws:
                 p4 = copy.deepcopy(kwargs)
-                p4["pos"] = [xx+pos[0], yy+pos[1], zz+pos[2]-6] #the thickness of a socket head screw plus a bit
+                p4["pos"] = [xx+pos[0], yy+pos[1], zz+pos[2]-4] #the thickness of a socket head screw plus a bit
                 p4["shape"] = "oobb_screw_socket_cap"
                 p4["radius_name"] = "m3"
                 p4["include_nut"] = False
@@ -990,6 +1039,38 @@ def get_oobb_motor_servo_standard_01(**kwargs):
         p3["pos"] = [x, y,-6+horn_height+0.3]
         objects.extend(get_oobb_overhang(**p3))
         return objects
+
+def get_oobb_powerbank_anker_323(**kwargs):
+    objects = []
+    # shaft hole
+    p2 = copy.deepcopy(kwargs)
+    
+    x = 0
+    y = 0
+    z = 0
+    p2["pos"] = [p2["pos"][0] + x, p2["pos"][1] + y, p2["pos"][2] + z]    
+    p2["shape"] = "oobb_cube_center"
+    width = 81
+    height = 161
+    depth = 17
+    extra = 1
+    
+    p2["size"] = [width+extra, height+extra, depth+extra]
+    
+    objects.append(ob.oobb_easy(**p2))
+    
+    p2 = copy.deepcopy(kwargs)
+    x = 0
+    y = 64
+    z = 0
+    p2["pos"] = [p2["pos"][0] + x, p2["pos"][1] + y, p2["pos"][2] + z]
+    p2["shape"] = "oobb_cylinder"
+    p2["r"] = 20/2
+    p2["depth"] = 120
+    objects.append(ob.oobb_easy(**p2))
+
+
+    return objects
 
 
 

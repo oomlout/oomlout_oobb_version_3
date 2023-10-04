@@ -116,6 +116,13 @@ def get_circles(size="oobb"):
 
 def get_holders(size="oobb"):
     hls = []
+    
+    
+    # fan
+
+    #      120_mm
+    hls.append({"type": "holder", "extra": "fan_120_mm","width": 10, "height": 10, "thickness": 3, "size": size})
+
     #### gearmotor
     hls.append({"type": "holder", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 6, "size": size})
     # servo
@@ -158,6 +165,10 @@ def get_holders(size="oobb"):
     hls.append({"type": "holder", "extra": "electronics_pushbutton_11_x4","width": 3, "height": 4, "thickness": 21, "size": size})
         #mcu
     hls.append({"type": "holder", "extra": "electronics_mcu_atmega328_shennie","width": 3, "height": 4, "thickness": 6, "size": size})
+
+    # powerbank
+    #      anker_323
+    hls.append({"type": "holder", "extra": "powerbank_anker_323","width": 7, "height": 13, "thickness": 6, "size": size})
 
 
     return hls
@@ -357,6 +368,18 @@ def get_plates(size="oobb"):
     plates.append({"type": "plate", "width": 5, "height": 2,
                   "thickness": 3, "extra":"gorm", "size": size})
 
+    # slip_center and slip_end
+    widths = [3,5, 7]
+    thicknesses = [8.5]
+    extras = ["slip_center", "slip_end"]
+    for width in widths:
+        for thickness in thicknesses:
+            for extra in extras:
+                plates.append({"type": "plate", "width": width, "height": 1, "thickness": thickness, "extra":extra, "size": size})
+
+    plates.append({"type": "plate", "width": 3, "height": 3, "thickness": thickness, "extra":"slip_corner", "size": size})
+
+
 
     return plates
 
@@ -364,7 +387,7 @@ def get_plates(size="oobb"):
 def get_shafts(size="oobb"):
     shafts = []
     thinesses = [0, 0.5, 1, 3, 3.5, 4, 6, 9, 12, 15]
-    extras = ["","small", "countersunk", "countersunk_small", "nut", "nut_small"]
+    extras = ["","small", "countersunk", "countersunk_small", "nut", "nut_small", "washer"]
     for extra in extras:
         for dep in thinesses:
             shafts.append({"type": "shaft", "thickness": dep, "size": size, "extra": extra})
