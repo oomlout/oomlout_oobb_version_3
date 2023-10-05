@@ -53,6 +53,18 @@ def get_screw_countersunk(**kwargs):
 
     return thing
 
+def get_screw_self_tapping(**kwargs):
+    wid = kwargs["radius_name"]
+    depth = kwargs["depth"]
+    thing = ob.get_default_thing(**kwargs)
+    thing.update({"description": f"screw self tapping {wid}x{depth}"})
+    thing.update({"depth_mm": depth})
+
+    thing.update({"components": []})
+    thing["components"].extend(ob.oe(
+        t="positive", s="oobb_screw_self_tapping", rn=wid, depth=depth, include_nut=False))
+
+    return thing
 
 def get_screw_socket_cap(**kwargs):
     wid = kwargs["radius_name"]

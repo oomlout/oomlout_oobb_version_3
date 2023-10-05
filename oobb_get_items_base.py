@@ -141,8 +141,10 @@ def get_oobb_holes(holes=["all"], **kwargs):
     x = pos[0]
     y = pos[1]
     z = pos[2]
-    if isinstance(holes, str):
+    #if holes is not an array make it one
+    if not isinstance(holes, list):
         holes = [holes]
+    
     if isinstance(holes, bool):
         if holes:
             holes = ["all"]
@@ -348,7 +350,7 @@ def get_oobb_holes(holes=["all"], **kwargs):
         p2["width"] = width*2-1
         p2["height"] = height*2-1
         #add holes
-        p2["holes"] = [holes]
+        p2["holes"] = holes
         objects.extend(get_oobe_holes(**p2))
 
     return objects
@@ -473,9 +475,10 @@ def get_oobe_holes(**kwargs):
     y = kwargs["pos"][1]
     z = kwargs["pos"][2]
     spacing = ob.gv("osp") / 2
-    #make holes an array if its a string
-    if isinstance(holes, str):
+    #if holes isn't an array make it one
+    if not isinstance(holes, list):
         holes = [holes]
+    
 
     for hole in holes:
         for mode in modes:        
@@ -878,13 +881,14 @@ def get_oobb_motor_servo_standard_01(**kwargs):
     top_clearance = kwargs.get("top_clearance", False)
     #z zero is base of shaft
     part = kwargs.get("part", "all")
+    thickness = kwargs.get("thickness", 3)   
     if part == "all" or part == "only_holes":
         objects = []
         pos = kwargs.get("pos", [0, 0, 0])
         xx = pos[0]
         yy = pos[1]
         zz = pos[2]
-        thickness = kwargs.get("thickness", 3)        
+             
         bottom_clearance = kwargs.get("bottom_clearance", False)
 
         # kwargs["m"] = "#"
@@ -985,41 +989,22 @@ def get_oobb_motor_servo_standard_01(**kwargs):
 
         return objects
     elif part == "shaft":
-        """ waiting to be able to do intersects and multi level things
-        objects = []    
-        pos = kwargs.get("pos", [0,0,0])
-        x = pos[0]
-        y = pos[1]
-        z = pos[2]
         
-        shaft_dia = 5.5
-        p2 = copy.deepcopy(kwargs)
-        p2["shape"] = "oobb_hole"
-        p2["radius"] = shaft_dia /2
-        objects.extend(ob.oobb_easy(**p2))
-
-        p3 = copy.deepcopy(kwargs)
-        p3["shape"] = "oobb_cube_center"
-        p3["size"] = [shaft_dia,0.875,100]
-        p3["pos"] = [x,y+2.313,-50]
-        objects.append(ob.oobb_easy(**p3))
-
-        p4 = copy.deepcopy(p3)
-        p4["pos"] = [x,y-2.313,-50]
-        objects.append(ob.oobb_easy(**p4))
-        """
         objects = []
         pos = kwargs.get("pos", [0, 0, 0])
         x = pos[0]
         y = pos[1]
         z = pos[2]
 
-        horn_dia_bottom = 6.1
+        #horn_dia_bottom = 6.1
+        #horn_dia_top = horn_dia_bottom - 0.2
+        horn_dia_bottom = 5.8
         horn_dia_top = horn_dia_bottom - 0.2
-        
+
         horn_height = 4
         screw_radius_name = "m2d5"
 
+         
         p3 = copy.deepcopy(kwargs)
         p3["shape"] = "oobb_cylinder"
         p3["r2"] = horn_dia_top / 2
@@ -1028,16 +1013,42 @@ def get_oobb_motor_servo_standard_01(**kwargs):
         p3["pos"] = [x, y,-6+horn_height/2]
         #p3["m"] = "#"
         objects.extend(ob.oobb_easy(**p3))
+
+        p3 = copy.deepcopy(kwargs)
+        p3["m"] = "#"
+        p3["pos"] = [x, y,-6+horn_height+0.3]
+        objects.extend(get_oobb_overhang(**p3))
         
+        
+
+        # middle hole
         p4 = copy.deepcopy(kwargs)        
         p4["shape"] = "oobb_hole"
         p4["radius_name"] = screw_radius_name
         objects.extend(ob.oobb_easy(**p4))
         
-        p3 = copy.deepcopy(kwargs)
-        p3["m"] = "#"
-        p3["pos"] = [x, y,-6+horn_height+0.3]
-        objects.extend(get_oobb_overhang(**p3))
+
+        # add screw holes
+        p4 = copy.deepcopy(kwargs)        
+        p4["shape"] = "oobb_screw_self_tapping"
+        p4["radius_name"] = "m2"
+        x = -5.215
+        y = -5.215
+        z = 0
+        rot_y = 180
+        p4["flush_top"] = True
+        p4["rotY"] = rot_y
+        #p4["m"] = "#"
+
+        p4["pos"] = [p4["pos"][0] + x, p4["pos"][1] + y, p4["pos"][2]+z]
+        objects.extend(ob.oobb_easy(**p4))
+        p5 = copy.deepcopy(p4)
+        x = -x
+        y = -y
+        p5["pos"] = [kwargs["pos"][0] + x, kwargs["pos"][1] + y, kwargs["pos"][2]+z]
+        objects.extend(ob.oobb_easy(**p5))
+        
+
         return objects
 
 def get_oobb_powerbank_anker_323(**kwargs):
@@ -1196,6 +1207,96 @@ def get_oobb_countersunk(**kwargs):
             p2["mode"] = ["3dpr", "true"]
             # p2["rotZ"] = 360/12
             objects.extend(ob.oobb_easy(**p2))
+
+    return objects
+
+
+def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
+    objects = []
+    modes = ["laser", "3dpr", "true"]
+    shifts = []    
+    flush_top = kwargs.get("flush_top", False)
+    
+    hole = kwargs.get("hole", True)
+    top_clearance = kwargs.get("top_clearance", False)
+    overhang = kwargs.get("overhang", False)
+
+    for mode in modes:
+        radius = kwargs["radius_name"]
+        # countersink bit
+        p2 = copy.deepcopy(kwargs)
+        h = ob.gv(f'screw_self_tapping_height_{radius}', mode)
+        depth = kwargs.get("depth", 250)
+        kwargs["depth"] = depth
+        rot = kwargs.get("rotY", 0)        
+        pos = kwargs.get("pos", [0, 0, 0])
+        pos = copy.deepcopy(pos)
+
+        if flush_top:
+            pass
+            shift = ob.gv(f'screw_self_tapping_height_{radius}', mode)
+            pos[2] = pos[2] - shift
+            if rot == 180:
+                pos[2] = pos[2] + shift * 2
+            depth = depth - ob.gv(f'screw_self_tapping_height_{radius}', mode)       
+        pos1 = copy.deepcopy(pos)
+
+        if rot == 180:
+            shifts = [0, depth, depth]
+        else:
+            shifts = [0, -depth, -depth]
+        
+
+        p2.pop("radius_name", None)
+        p2.pop("radius", None)
+
+        
+        p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0]]
+
+        p2["r"] = ob.gv(f"screw_self_tapping_washer_radius_{radius}", mode)
+        p2["h"] = h
+
+        p2["shape"] = "cylinder"
+        p2["inclusion"] = mode
+        
+        
+        if top_clearance and mode == "3dpr":            
+            p2["h"] = p2["h"] + 250
+
+        #objects.extend(ob.oobb_easy(**p2))
+        objects.append(ob.oobb_easy(**p2))
+
+          
+        
+    # hole
+    if hole:
+        p2 = copy.deepcopy(kwargs)
+        p2.pop("radius_name", None)
+        p2["r"] = ob.gv(f"screw_self_tapping_hole_radius_{radius}", mode)
+        p2["shape"] = "oobb_hole"
+        p2["inclusion"] = mode
+
+        p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[1]]
+        objects.extend(ob.oobb_easy(**p2))
+    # nut
+    if include_nut:
+        p2 = copy.deepcopy(kwargs)
+        # maybe add a nut level argument later
+        p2["shape"] = "oobb_nut"
+        p2["inclusion"] = mode
+        pos1 = kwargs.get("pos", [0, 0, 0])
+        p2["pos"] = [pos[0], pos[1], pos[2] + shifts[2]]
+        # p2["rotZ"] = 360/12
+        objects.extend(ob.oobb_easy(**p2))
+    # overhang    
+    if overhang:
+        p2 = copy.deepcopy(kwargs)
+        p2["shape"] = "oobb_overhang"
+        p2["orientation"] = "top"
+        p2["inclusion"] = "3dpr"        
+        p2["pos"] = [pos[0], pos[1], pos[2]-0.3]  
+        #p2["m"]       = "#"
+        objects.extend(ob.oobb_easy(**p2))
 
     return objects
 

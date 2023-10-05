@@ -9,9 +9,9 @@ import opsc
 
 
 #filt = ""
-filt = "holder"
+#filt = "holder"
 #filt = "bearing_plate"
-#filt = "shaft"
+filt = "mounting_plate"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -46,7 +46,7 @@ filter = ""
 #filter = "oobb_smd_magazine_13_13_14_nm_8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness_ex_1d5"
 #filter = "oobb_circle_1d5_06"
 #filter = "refiller_03_ex"
-filter = "powerbank"
+filter = "bus_pirate"
 #filter = filt
 
 overwrite = True

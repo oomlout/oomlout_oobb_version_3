@@ -185,8 +185,10 @@ def get_bearing_plate(**kwargs):
                   part="shaft", pos=pos, m=""))
         joint_dis = 15
     elif shaft == "motor_servo_standard_01":
+        posa = copy.deepcopy(pos)
+        posa[2] = posa[2] - thickness/2
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01",
-                  part="shaft", pos=pos, m=""))
+                  part="shaft", pos=posa, m=""))
         joint_dis = 15
         
 
@@ -1861,6 +1863,32 @@ def get_jig_screw_sorter_m3_03_03(**kwargs):
 
 
 def get_mounting_plate(**kwargs):
+    kwargs = copy.deepcopy(kwargs)
+    kwargs["hole_pattern"] = "perimeter"
+    #make x_shift 0
+    kwargs["x_shift"] = 0
+    kwargs["y_shift"] = 0
+    return get_mounting_plate_generic(**kwargs)
+
+def get_mounting_plate_side(**kwargs):
+    kwargs = copy.deepcopy(kwargs)
+    kwargs["hole_pattern"] = "top"
+    #make x_shift 0
+    kwargs["x_shift"] = ob.gv("osp")/2    
+    kwargs["y_shift"] = 0
+    return get_mounting_plate_generic(**kwargs)
+
+def get_mounting_plate_top(**kwargs):
+    kwargs = copy.deepcopy(kwargs)
+    kwargs["hole_pattern"] = "left"
+    #make x_shift 0
+    kwargs["x_shift"] = 0
+    kwargs["y_shift"] = ob.gv("osp")/2    
+    return get_mounting_plate_generic(**kwargs)
+
+
+
+def get_mounting_plate_generic(**kwargs):
     thing = ob.get_default_thing(**kwargs)
 
     width = kwargs.get("width", 2)
@@ -1870,91 +1898,49 @@ def get_mounting_plate(**kwargs):
     height_mounting = kwargs.get("height_mounting", 10)
     mounting_holes = kwargs.get("mounting_holes", "")
     radius_hole = kwargs.get("radius_hole", "m3")
+    hole_pattern = kwargs.get("hole_pattern", "perimeter")
+    x_shift = kwargs.get("x_shift", 0)
+    y_shift = kwargs.get("y_shift", 0)
 
     th = thing["components"]
     th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width,
               height=height, depth_mm=depth, pos=[0, 0, 0]))
-    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0, 0, 0], holes="perimeter", radius_name="m6"))
-    th.extend(ob.oobb_easy(t="n", s="oobe_holes", width=(width*2)-1, height=(height*2)-1, pos=[0, 0, 0], holes="perimeter", radius_name="m3", m=""))
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[0, 0, 0], holes=hole_pattern, radius_name="m6", both_holes=True))
+    
     # add mounting holes
     if mounting_holes == "":
-        th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-                width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-        th.extend(ob.oobb_easy(t="n", s="oobb_hole",
-                pos=[-width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-        th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-                width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-        th.extend(ob.oobb_easy(t="n", s="oobb_hole",
-                pos=[-width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-    else:
-        for hole in mounting_holes:
-            pos = [hole["x"], hole["y"], 0]
-            th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=pos, radius_name=radius_hole, m=""))
-            pos = [hole["x"], hole["y"], 0]
-            depth2 = depth +3
-            th.extend(ob.oobb_easy(t="p", s="oobb_hole_standoff", pos=pos, radius_name=radius_hole, depth = depth2, m=""))
-            pos = [hole["x"], hole["y"], depth2]
-            th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", rotY=180, pos=pos, radius_name=radius_hole, depth=depth2, include_nut=False, m=""))
+        mounting_holes = []
+        hole = {}
+        hole["x"] = width_mounting/2
+        hole["y"] = height_mounting/2
+        mounting_holes.append(hole)
+        hole = {}
+        hole["x"] = -width_mounting/2
+        hole["y"] = height_mounting/2
+        mounting_holes.append(hole)
+        hole = {}
+        hole["x"] = width_mounting/2
+        hole["y"] = -height_mounting/2
+        mounting_holes.append(hole)
+        hole = {}
+        hole["x"] = -width_mounting/2
+        hole["y"] = -height_mounting/2
+        mounting_holes.append(hole)
+        
+    for hole in mounting_holes:
+        hole["x"] = hole["x"] + x_shift
+        hole["y"] = hole["y"] + y_shift
+        pos = [hole["x"], hole["y"], 0]
+        th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=pos, radius_name=radius_hole, m=""))
+        pos = [hole["x"], hole["y"], 0]
+        depth2 = depth +6
+        th.extend(ob.oobb_easy(t="p", s="oobb_hole_standoff", pos=pos, radius_name=radius_hole, depth = depth2, m=""))
+        pos = [hole["x"], hole["y"], depth2]
+        th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", rotY=180, pos=pos, radius_name=radius_hole, depth=depth2, include_nut=False, m=""))
             
     return thing
 
-def get_mounting_plate_side(**kwargs):
-    thing = ob.get_default_thing(**kwargs)
 
-    width = kwargs.get("width", 1)
-    height = kwargs.get("height", 1)
-    thickness = kwargs.get("thickness", 3)
-    width_mounting = kwargs.get("width_mounting", 10)
-    height_mounting = kwargs.get("height_mounting", 10)
-    radius_hole = kwargs.get("radius_hole", "m3")
-    overwrite = kwargs.get("overwrite", True)
-
-    th = thing["components"]
-    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width,
-              height=height, depth_mm=thickness, pos=[0, 0, 0]))
-    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[
-              0, 0, 0], holes="top", radius_name=radius_hole))
-    # add mounting holes
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-              width_mounting/2+ob.gv("osp")/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2+ob.gv(
-        "osp")/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-              width_mounting/2+ob.gv("osp")/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[-width_mounting/2+ob.gv(
-        "osp")/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-
-    return thing
-
-def get_mounting_plate_top(**kwargs):
-    thing = ob.get_default_thing(**kwargs)
-
-    width = kwargs.get("width", 1)
-    height = kwargs.get("height", 1)
-    thickness = kwargs.get("thickness", 3)
-    width_mounting = kwargs.get("width_mounting", 10)
-    height_mounting = kwargs.get("height_mounting", 10)
-    radius_hole = kwargs.get("radius_hole", "m3")
-    overwrite = kwargs.get("overwrite", True)
-
-    th = thing["components"]
-    th.append(ob.oobb_easy(t="p", s="oobb_plate", width=width,
-              height=height, depth_mm=thickness, pos=[0, 0, 0]))
-    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[
-              0, 0, 0], holes="top", radius_name=radius_hole))
-    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=[
-              0, 0, 0], holes="bottom", radius_name=radius_hole))
-    # add mounting holes
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-              width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole",
-              pos=[-width_mounting/2, height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole", pos=[
-              width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-    th.extend(ob.oobb_easy(t="n", s="oobb_hole",
-              pos=[-width_mounting/2, -height_mounting/2, 0], radius_name=radius_hole, m=""))
-
-    return thing
 
 def get_mounting_plate_u(**kwargs):
     thing = ob.get_default_thing(**kwargs)

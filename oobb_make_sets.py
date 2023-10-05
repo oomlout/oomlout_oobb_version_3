@@ -41,11 +41,17 @@ def get_bearing_plates(size="oobb"):
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
     bps.append({"type": "bearing_plate_jack", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
     bps.append({"type": "bearing_plate_jack_basic", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
+    
+    
+    # 6704
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704","size": size})
     bps.append({"type": "bearing_plate_shim", "thickness": 2, "bearing_type": "6704", "size": size})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01"})
+    
+
+
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6803", "size": size})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6804", "size": size})
     bps.append({"type": "bearing_plate", "width": 5, "height": 5, "thickness": 12, "bearing_type": "6808", "size": size})
@@ -210,35 +216,8 @@ def get_jigs(size="oobb"):
 
 
 def get_mounting_plates(size="oobb"):
-    mounting_plates = []
-    # bigtree octopur driver board
-    mounting_plates.append({"type": "mounting_plate", "width": 13, "height": 9, "thickness": 3, "width_mounting": 150,
-                           "height_mounting": 90, "radius_hole": "m3", "name": "bigtreetech_octopus", "size": size})
-
-    # e3d titan extruder
-    mounting_plates.append({"type": "mounting_plate_u", "width": 6, "height": 3, "thickness": 3, "width_mounting": 54,
-                           "height_mounting": 15, "radius_hole": "m4", "name": "e3d_extruder_titan", "size": size})
-    mounting_plates.append({"type": "mounting_plate_side", "width": 5, "height": 3, "thickness": 3, "width_mounting": 54,
-                           "height_mounting": 15, "radius_hole": "m4", "name": "e3d_extruder_titan", "size": size})
-    mounting_plates.append({"type": "mounting_plate_top", "width": 6, "height": 2, "thickness": 3, "width_mounting": 54,
-                           "height_mounting": 15, "radius_hole": "m4", "name": "e3d_extruder_titan", "size": size})
-
-    # aliexpress motor controller
-    mounting_plates.append({"type": "mounting_plate", "width": 4, "height": 4, "thickness": 3, "width_mounting": 26,
-                           "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
-    mounting_plates.append({"type": "mounting_plate_u", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
-                           "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
-    mounting_plates.append({"type": "mounting_plate_side", "width": 3, "height": 3, "thickness": 3, "width_mounting": 26,
-                           "height_mounting": 26, "radius_hole": "m3", "name": "aliexpress_motor_controller_speed", "size": size})
-
-    # aliexpress motor controller
-    mounting_holes = []
-    mounting_holes.append({"x": -32.5, "y": 10})
-    mounting_holes.append({"x": 31.5, "y": 10})
-    mounting_holes.append({"x": -24.5, "y": -10})
-    mounting_holes.append({"x": 31.5, "y": -10})
-    mounting_plates.append({"type": "mounting_plate", "width": 7, "height": 4, "thickness": 3, "mounting_holes": mounting_holes, "radius_hole": "m3", "name": "electrolama_basic_hub", "size": size})
-    
+    import oobb_make_sets_mounting_plates
+    mounting_plates = oobb_make_sets_mounting_plates.get_mounting_plates(size="oobb")
 
     return mounting_plates
 
@@ -741,6 +720,16 @@ def get_screws():
         for depth in sizes[size]:
             screws.append({"type": "bolt", "radius_name": size,
                           "depth": depth, "size": "hardware"})
+
+    sizes = {}
+    sizes["m2"] = [6, 8, 10, 12]
+    for size in sizes:
+        for depth in sizes[size]:
+            screws.append({"type": "screw_self_tapping",
+                          "radius_name": size, "depth": depth, "size": "hardware"})
+            
+
+    
 
     return screws
 
