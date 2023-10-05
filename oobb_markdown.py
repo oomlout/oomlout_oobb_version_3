@@ -37,27 +37,29 @@ def make_markdown():
                 # Write the directory link
                 f.write(f"- [{directory}](./{directory}/README.md)\n")
                 
-                try:
-                    # Load the details from the details.json file
-                    with open(os.path.join(base_dir, directory, "details.json"), "r") as json_file:
-                        details = json.load(json_file)
-                    
-                    # Create the directory markdown file
-                    with open(os.path.join(base_dir, directory, "README.md"), "w") as md_file:
-                        # Write the details
-                        md_file.write(f"# {directory}  \n")                        
-                        image_string = get_directory_details(os.path.join(base_dir, directory))[1]
-                        md_file.write(f"{image_string}  \n")                        
-                        description_string = details["description"]
-                        md_file.write(f"{description_string}\n")
-                        detail_string = markdown_format(details)
-                        md_file.write(f"{detail_string}\n")                        
-                        md_file.write(f"{detail_string}\n")
-                        directory_details = get_directory_details(os.path.join(base_dir, directory))[0]
-                        md_file.write(directory_details)
-                        print(f"Created {os.path.join(base_dir, directory, 'README.md')}")
-                except FileNotFoundError:
-                    pass
+    for directory in os.listdir(base_dir):
+        try:
+            # Load the details from the details.json file
+            with open(os.path.join(base_dir, directory, "details.json"), "r") as json_file:
+                details = json.load(json_file)
+            
+            # Create the directory markdown file
+            file_readme = os.path.join(base_dir, directory, "README.md")
+            with open(file_readme, "w") as md_file:
+                # Write the details
+                md_file.write(f"# {directory}  \n")                        
+                image_string = get_directory_details(os.path.join(base_dir, directory))[1]
+                md_file.write(f"{image_string}  \n")                        
+                description_string = details["description"]
+                md_file.write(f"{description_string}\n")
+                detail_string = markdown_format(details)
+                md_file.write(f"{detail_string}\n")                        
+                md_file.write(f"{detail_string}\n")
+                directory_details = get_directory_details(os.path.join(base_dir, directory))[0]
+                md_file.write(directory_details)
+                print(f"Created {file_readme}")
+        except FileNotFoundError:
+            pass
 
 def markdown_format(data_dict):   
     """Takes in a dictionary and returns a string representing a Markdown table"""

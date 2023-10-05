@@ -1,0 +1,88 @@
+{
+    "description": "screw self tapping m2x8",
+    "id": "hardware_screw_self_tapping_m2_08",
+    "type": "screw_self_tapping",
+    "radius_name": "m2",
+    "depth": 8,
+    "components": [
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.5,
+            "h": 0.625,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "laser",
+            "depth": 8
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.6,
+            "h": 0.75,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "3dpr",
+            "depth": 8
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 2.5,
+            "h": 0.65,
+            "pos": [
+                0,
+                0,
+                0
+            ],
+            "inclusion": "true",
+            "depth": 8
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 0.75,
+            "h": 8,
+            "pos": [
+                0,
+                0,
+                -8
+            ],
+            "inclusion": "laser",
+            "depth": 8
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 0.75,
+            "h": 8,
+            "pos": [
+                0,
+                0,
+                -8
+            ],
+            "inclusion": "3dpr",
+            "depth": 8
+        },
+        {
+            "type": "positive",
+            "shape": "cylinder",
+            "r": 0.75,
+            "h": 8,
+            "pos": [
+                0,
+                0,
+                -8
+            ],
+            "inclusion": "true",
+            "depth": 8
+        }
+    ],
+    "depth_mm": 8
+}

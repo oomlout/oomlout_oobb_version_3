@@ -1217,7 +1217,7 @@ def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
     modes = ["laser", "3dpr", "true"]
     shifts = []    
     flush_top = kwargs.get("flush_top", False)
-    
+    loose = kwargs.get("loose", True)
     hole = kwargs.get("hole", True)
     top_clearance = kwargs.get("top_clearance", False)
     overhang = kwargs.get("overhang", False)
@@ -1254,7 +1254,7 @@ def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
         
         p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[0]]
 
-        p2["r"] = ob.gv(f"screw_self_tapping_washer_radius_{radius}", mode)
+        p2["r"] = ob.gv(f"screw_self_tapping_washer_radius_{radius}", mode)        
         p2["h"] = h
 
         p2["shape"] = "cylinder"
@@ -1274,6 +1274,8 @@ def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
         p2 = copy.deepcopy(kwargs)
         p2.pop("radius_name", None)
         p2["r"] = ob.gv(f"screw_self_tapping_hole_radius_{radius}", mode)
+        if loose:
+            p2["r"] = ob.gv(f"screw_self_tapping_hole_loose_radius_{radius}", mode)
         p2["shape"] = "oobb_hole"
         p2["inclusion"] = mode
 

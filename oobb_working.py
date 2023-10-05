@@ -9,9 +9,9 @@ import opsc
 
 
 
-#filt = ""
+filt = ""
 #filt = "holder"
-filt = "bearing_plate"
+#filt = "bearing_plate"
 #filt = "mounting_plate"
 #filt = ["bp","wh","bc"]
 #filt=""

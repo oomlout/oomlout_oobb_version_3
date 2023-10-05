@@ -392,8 +392,10 @@
 - [oobb_mounting_plate_07_04_03_rh_m3_nm_electrolama_basic_hub](./oobb_mounting_plate_07_04_03_rh_m3_nm_electrolama_basic_hub/README.md)
 - [oobb_mounting_plate_13_09_03_rh_m3_mo_150_nm_bigtreetech_octopus](./oobb_mounting_plate_13_09_03_rh_m3_mo_150_nm_bigtreetech_octopus/README.md)
 - [oobb_mounting_plate_side_03_03_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed](./oobb_mounting_plate_side_03_03_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed/README.md)
+- [oobb_mounting_plate_side_04_04_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed](./oobb_mounting_plate_side_04_04_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed/README.md)
 - [oobb_mounting_plate_top_05_06_03_rh_m3_mo_52_nm_dangerousprototypes_bus_pirate_version_5](./oobb_mounting_plate_top_05_06_03_rh_m3_mo_52_nm_dangerousprototypes_bus_pirate_version_5/README.md)
 - [oobb_mounting_plate_u_03_03_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed](./oobb_mounting_plate_u_03_03_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed/README.md)
+- [oobb_mounting_plate_u_04_04_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed](./oobb_mounting_plate_u_04_04_03_rh_m3_mo_26_nm_aliexpress_motor_controller_speed/README.md)
 ## oobb_plate
 - [oobb_plate_01_01_03](./oobb_plate_01_01_03/README.md)
 - [oobb_plate_01_01_06](./oobb_plate_01_01_06/README.md)
@@ -478,6 +480,7 @@
 - [oobb_plate_07_01_21](./oobb_plate_07_01_21/README.md)
 - [oobb_plate_07_01_30](./oobb_plate_07_01_30/README.md)
 - [oobb_plate_07_01_8d5_ex_slip_center](./oobb_plate_07_01_8d5_ex_slip_center/README.md)
+- [oobb_plate_07_01_8d5_ex_slip_end](./oobb_plate_07_01_8d5_ex_slip_end/README.md)
 - [oobb_plate_07_02_03](./oobb_plate_07_02_03/README.md)
 - [oobb_plate_07_03_03](./oobb_plate_07_03_03/README.md)
 - [oobb_plate_07_04_03](./oobb_plate_07_04_03/README.md)
