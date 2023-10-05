@@ -35,5 +35,6 @@ tool holder vertical 8x5x14
 | --- |
 | ![3dpr.png](3dpr.png) |
 | ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
 | ![true.png](true.png) |
 

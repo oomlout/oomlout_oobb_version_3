@@ -1,5 +1,5 @@
 # oobb_plate_01_01_15  
-  
+![true.png](true.png)  
 plate 1x1x15
 # details
 | Key          | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -29,5 +29,10 @@ plate 1x1x15
 | height_mm    | 14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | components   | list with 7 items                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
-# images
+| PNG Images |
+| --- |
+| ![3dpr.png](3dpr.png) |
+| ![laser.png](laser.png) |
+| ![laser_flat.png](laser_flat.png) |
+| ![true.png](true.png) |
 
