@@ -1032,6 +1032,7 @@ def get_oobb_motor_servo_standard_01(**kwargs):
         p4 = copy.deepcopy(kwargs)        
         p4["shape"] = "oobb_screw_self_tapping"
         p4["radius_name"] = "m2"
+        p4["overhang"] = True
         x = -5.215
         y = -5.215
         z = 0
@@ -1293,9 +1294,11 @@ def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
         p2 = copy.deepcopy(kwargs)
         p2["shape"] = "oobb_overhang"
         p2["orientation"] = "top"
+        if rot == 180:
+            p2["orientation"] = "bottom"
         p2["inclusion"] = "3dpr"        
-        p2["pos"] = [pos[0], pos[1], pos[2]-0.3]  
-        #p2["m"]       = "#"
+        p2["pos"] = [pos[0], pos[1], pos[2]+0.3]  
+        p2["m"]       = "#"
         objects.extend(ob.oobb_easy(**p2))
 
     return objects
