@@ -12,6 +12,47 @@ def get_mounting_plates(size="oobb"):
 def get_mounting_plates_aliexpress(size="oobb"):
     mounting_plates = []
     # company : aliexpress 
+
+    #      dc to dc converter
+    #            step up step down xl6009 48 mm width 25 mm height
+    #       motor controller
+    mounting_holes = []
+    mounting_holes.append({"x": 18, "y": -9})
+    mounting_holes.append({"x": -18, "y": 9})
+    pl = {"type": "mounting_plate", 
+          "name": "aliexpress_dc_to_dc_converter_xl6009_48_mm_width_25_mm_height",
+          "width": 5, 
+          "height": 4, 
+          "thickness": 3,           
+          "radius_hole": "m3", 
+          "size": size,
+          "mounting_holes": mounting_holes}    
+    mounting_plates.append(pl)
+    pl2 = copy.deepcopy(pl)
+    pl2["type"] = "mounting_plate_top"    
+    pl2["height"] = pl2["height"]-1
+    pl2["width"] = pl2["width"]-1
+    mounting_plates.append(pl2)
+
+
+    #       i2c
+    #            servo driver pca9685
+    pl = {"type": "mounting_plate", 
+          "name": "aliexpress_i2c_servo_driver_pca9685", 
+          "width": 6, 
+          "height": 4, 
+          "thickness": 3, 
+          "width_mounting": 56,
+          "height_mounting": 19, 
+          "radius_hole": "m2d5", 
+          "size": size}
+    mounting_plates.append(pl)
+    pl2 = copy.deepcopy(pl)
+    pl2["type"] = "mounting_plate_top"    
+    pl2["height"] = pl2["height"]-1
+    pl2["width"] = pl2["width"]-1
+    mounting_plates.append(pl2)
+    
     #       motor controller
     pl = {"type": "mounting_plate", 
           "name": "aliexpress_motor_controller_speed", 
@@ -30,6 +71,27 @@ def get_mounting_plates_aliexpress(size="oobb"):
     pl["type"] = "mounting_plate_side"
     mounting_plates.append(pl)
 
+    #      usb
+    #            usb_micro_breakout
+    mounting_holes = []
+    mounting_holes.append({"x": 4.25, "y": -2.5})
+    mounting_holes.append({"x": -4.25, "y": -2.5})
+    pl = {"type": "mounting_plate", 
+          "name": "aliexpress_usb_micro_breakout_01",
+          "width": 3, 
+          "height": 3, 
+          "thickness": 3,           
+          "radius_hole": "m3", 
+          "size": size,
+          "mounting_holes": mounting_holes}    
+    mounting_plates.append(pl)
+    pl2 = copy.deepcopy(pl)
+    pl2["type"] = "mounting_plate_top"    
+    pl2["height"] = pl2["height"]-1
+    pl2["width"] = pl2["width"]-1
+    mounting_plates.append(pl2)
+
+    
     return mounting_plates
 
 def get_mounting_plates_bigtreetech(size="oobb"):

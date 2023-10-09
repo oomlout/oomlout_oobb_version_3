@@ -135,6 +135,7 @@ def get_bearing_plate(**kwargs):
     only_screws = kwargs.get("only_screws", False)
     no_screws = kwargs.get("no_screws", False)
     exclude_clearance = kwargs.get("exclude_clearance", False)
+    extra2 = kwargs.get("extra", "")
     
 
     pos = kwargs.get("pos", [0, 0, 0])
@@ -142,8 +143,23 @@ def get_bearing_plate(**kwargs):
     extra_mm = 1 / ob.gv("osp")
 
     # solid piece
+    # don't print for servo_standard hotn adapter screws
     th = thing["components"]
-    th.append(ob.oe(t="p", s="oobb_plate", width=width + extra_mm, height=height + extra_mm, depth_mm=thickness, pos=[pos[0],pos[1],pos[2]-thickness/2], holes=False, mode="all"))
+    if extra2 != "horn_adapter_screws":        
+        th.append(ob.oe(t="p", s="oobb_plate", width=width + extra_mm, height=height + extra_mm, depth_mm=thickness, pos=[pos[0],pos[1],pos[2]-thickness/2], holes=False, mode="all"))
+    else: 
+        #add a 24mm cylinder thickness thick
+        p1 = copy.deepcopy(kwargs)
+        p1.pop("size","")
+        p1["t"] = "p"
+        p1["s"] = "oobb_cylinder"
+        p1["depth"] = thickness
+        p1["radius"] = 24/2
+        p1["height"] = thickness
+        p1["pos"] = [pos[0],pos[1],pos[2]]
+        p1["mode"] = "all"
+        th.extend(ob.oe(**p1))
+        
     
     # for 6804 laser make plate bigger
     if bearing_type == "6804":
@@ -184,7 +200,13 @@ def get_bearing_plate(**kwargs):
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_micro_01",
                   part="shaft", pos=pos, m=""))
         joint_dis = 15
-    elif shaft == "motor_servo_standard_01":
+    elif shaft == "motor_servo_standard_01" and extra2 == "horn_adapter_printed":
+        posa = copy.deepcopy(pos)
+        posa[2] = posa[2] - thickness/2
+        th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01",
+                  part="shaft", pos=posa, m=""))
+        joint_dis = 15
+    elif shaft == "motor_servo_standard_01" and extra2 == "horn_adapter_screws":
         posa = copy.deepcopy(pos)
         posa[2] = posa[2] - thickness/2
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01",
@@ -192,81 +214,82 @@ def get_bearing_plate(**kwargs):
         joint_dis = 15
         
 
+    if extra2 != "horn_adapter_screws": ## don't add connecting screws for screw servo horn
     # adding connecting screws
-    connecting_screws = []
-    micro_servo_screws = []
-    mid_w = (width - 1) / 2 + 1
-    mid_h = (height - 1) / 2 + 1
-    adja = 0 / ob.gv("osp")
-    adjb = 0
-    adjc = 0
-    if bearing_type == "6803":
-        adja = 2 / ob.gv("osp")
-    elif bearing_type == "6804" or bearing_type == "6704":
-        #spacing is 18
-        adja = 3 / ob.gv("osp")
-    elif bearing_type == "6810":
-        adjb = 22 / ob.gv("osp")
-        adjc = 1
-    # hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
-    #outer connecting screws
-    r = 360/24
-    hole_positions = [width+adja-adjc, mid_h-adjb, r], [mid_w-adjb, 1-adja, 0],  [1-adja+adjc, mid_h+adjb, r], [mid_w+adjb, height+adja,0]
-    rot_current = 0
-    
-    
-    times_through = 0
-    #added to allow gearmotor retaininer to have 3 nuts on top
-    gearmotor_screw_twist = True
-    for posa in hole_positions:
-        x, y = ob.get_hole_pos(pos[0]+posa[0], pos[1]+posa[1], width, height)
-        z = pos[2]+thickness/2
-        type = "oobb_countersunk"
-        if no_screws:
-            type = "oobb_hole"
-        connecting_screws.extend(ob.oobb_easy(t="n", s=type, sandwich=True, radius_name="m3", depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=posa[2]))
-        micro_servo_screws.extend(ob.oobb_easy(t="n", s="oobb_hole", sandwich=True, radius_name="m3",depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=posa[2]))
-        if rot_current == 0:
-            #added to allow gearmotor retaininer to have 3 nuts on top
-            if shaft == "motor_gearmotor_01" and gearmotor_screw_twist:
+        connecting_screws = []
+        micro_servo_screws = []
+        mid_w = (width - 1) / 2 + 1
+        mid_h = (height - 1) / 2 + 1
+        adja = 0 / ob.gv("osp")
+        adjb = 0
+        adjc = 0
+        if bearing_type == "6803":
+            adja = 2 / ob.gv("osp")
+        elif bearing_type == "6804" or bearing_type == "6704":
+            #spacing is 18
+            adja = 3 / ob.gv("osp")
+        elif bearing_type == "6810":
+            adjb = 22 / ob.gv("osp")
+            adjc = 1
+        # hole_positions = [1-adj,mid_h],[mid_w,height+adj],[mid_w,1-adj],[width+adj,mid_h]
+        #outer connecting screws
+        r = 360/24
+        hole_positions = [width+adja-adjc, mid_h-adjb, r], [mid_w-adjb, 1-adja, 0],  [1-adja+adjc, mid_h+adjb, r], [mid_w+adjb, height+adja,0]
+        rot_current = 0
+        
+        
+        times_through = 0
+        #added to allow gearmotor retaininer to have 3 nuts on top
+        gearmotor_screw_twist = True
+        for posa in hole_positions:
+            x, y = ob.get_hole_pos(pos[0]+posa[0], pos[1]+posa[1], width, height)
+            z = pos[2]+thickness/2
+            type = "oobb_countersunk"
+            if no_screws:
+                type = "oobb_hole"
+            connecting_screws.extend(ob.oobb_easy(t="n", s=type, sandwich=True, radius_name="m3", depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=posa[2]))
+            micro_servo_screws.extend(ob.oobb_easy(t="n", s="oobb_hole", sandwich=True, radius_name="m3",depth=thickness, pos=[x, y, z], m="", rotY=rot_current, rotZ=posa[2]))
+            if rot_current == 0:
+                #added to allow gearmotor retaininer to have 3 nuts on top
+                if shaft == "motor_gearmotor_01" and gearmotor_screw_twist:
+                    rot_current = 0
+                    gearmotor_screw_twist = False
+                else:
+                    rot_current = 180
+            else:
                 rot_current = 0
-                gearmotor_screw_twist = False
+            # doing nut twist on the outside ones
+            if times_through == 1 or times_through == 2:
+                rotz_current = 0
             else:
-                rot_current = 180
-        else:
-            rot_current = 0
-        # doing nut twist on the outside ones
-        if times_through == 1 or times_through == 2:
-            rotz_current = 0
-        else:
-            rotz_current = 360/24
-        times_through += 1
-    th.extend(connecting_screws)
+                rotz_current = 360/24
+            times_through += 1
+        th.extend(connecting_screws)
 
-    
-    # middle holes
-    
-    hole_positions_mm = []
-    
-    joint_dis = 15
-    joint_dis_laser = 13
+        
+        # middle holes
+        
+        hole_positions_mm = []
+        
+        joint_dis = 15
+        joint_dis_laser = 13
 
-    # add the inset connecting standoffs needed for 6704 and 6804 20mm id to laser only
-    if not no_screws:
-        if bearing_type == "6704" or bearing_type == "6804":
-            if shaft == "motor_gearmotor_01" or shaft == "motor_servo_micro_01":
-                hole_positions_mm = [
-                [pos[0]+0, pos[1]+joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 0], 
-                [pos[0]+0, pos[1]-joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 180], 
-                [pos[0]+0, pos[1]+joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 0], 
-                [pos[0]+0, pos[1]-joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 180],
-                ### bottom nuts intead of threaded inserts
-                [pos[0]+joint_dis/2, 0, pos[2]+z, ["3dpr"], "oobb_countersunk", "tight"], 
-                [pos[0]-joint_dis/2, 0, pos[2]+z, ["3dpr"], "oobb_countersunk", "tight"], 
-                ]
-            else:
-                hole_positions_mm = [[pos[0]+0, pos[1]+joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 0], [pos[0]+0, pos[1]-joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 180], [pos[0]+0, pos[1]+joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 0], [pos[0]+0, pos[1]-joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 0]]
-    
+        # add the inset connecting standoffs needed for 6704 and 6804 20mm id to laser only
+        if not no_screws:
+            if bearing_type == "6704" or bearing_type == "6804":
+                if shaft == "motor_gearmotor_01" or shaft == "motor_servo_micro_01":
+                    hole_positions_mm = [
+                    [pos[0]+0, pos[1]+joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 0], 
+                    [pos[0]+0, pos[1]-joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 180], 
+                    [pos[0]+0, pos[1]+joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 0], 
+                    [pos[0]+0, pos[1]-joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 180],
+                    ### bottom nuts intead of threaded inserts
+                    [pos[0]+joint_dis/2, 0, pos[2]+z, ["3dpr"], "oobb_countersunk", "tight"], 
+                    [pos[0]-joint_dis/2, 0, pos[2]+z, ["3dpr"], "oobb_countersunk", "tight"], 
+                    ]
+                else:
+                    hole_positions_mm = [[pos[0]+0, pos[1]+joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 0], [pos[0]+0, pos[1]-joint_dis/2, pos[2]+z, ["true", "3dpr"], "oobb_countersunk", 180], [pos[0]+0, pos[1]+joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 0], [pos[0]+0, pos[1]-joint_dis_laser/2, pos[2]+z, ["laser"], "oobb_countersunk", 0]]
+        
         # add head insets 180 to keep them out of the 3dpr one currently and 0 for laser one so both are in the bottom, need to double slice 3dpr one to get it working properly in the middle
         #z = 3 #put threaded insert in the middle onl;y really works if insert is 6mm deep
         #hole_positions_mm.append(
@@ -298,8 +321,13 @@ def get_bearing_plate(**kwargs):
 
     # halfing it if 3dpr
     inclusion = "3dpr"
-    th.append(ob.oobb_easy(t="n", s="cube", size=[
+    
+    if extra2 != "horn_adapter_screws":   
+        th.append(ob.oobb_easy(t="n", s="cube", size=[
               500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 0], inclusion=inclusion, m=""))
+    else: # add an extra 1.5 mm
+        th.append(ob.oobb_easy(t="n", s="cube", size=[
+              500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 0.5], inclusion=inclusion, m=""))
     #only include the screws if only_scres
     if only_screws:
         if not micro_servo:
@@ -606,8 +634,7 @@ def get_ci_holes_center(**kwargs):
         a = 7.5        
         positions = [a, 0, 0], [-a, 0, 0]
         for pos in positions:
-            th.extend(ob.oobb_easy(t="n", s="oobb_threaded_insert",
-                    radius_name="m3", pos=pos, m="")) 
+            th.extend(ob.oobb_easy(t="n", s="oobb_threaded_insert", insertion_cone=False, radius_name="m3", pos=pos, m="")) 
     return th
 
 def get_holder(**kwargs):
@@ -859,6 +886,38 @@ def get_holder_motor_gearmotor_01_old_01(**kwargs):
     th.append(ob.oobb_easy(t="n", s="cube", size=[
               500, 500, 500], pos=[-500/2, -500/2, 0], inclusion=inclusion, m=""))
     ######old
+
+    return thing
+
+def get_holder_motor_servo_standard_01_bottom(**kwargs):
+    height = kwargs.get("height", 10)
+    width = kwargs.get("width", 10)
+    thickness = kwargs.get("thickness", 3)
+
+    thickness_base_plate = thickness - 12
+
+
+    thing =  get_holder_motor_servo_standard_01(**kwargs)
+    th = thing["components"]
+    #remove all things with type p or positive
+    for items in th:
+        #if item isn't an array make it one skip if a dict
+        if isinstance(items, dict):
+            items = [items]
+            for item in items:
+                #invert the positive pieces
+                if item["type"] == "p" or item["type"] == "p":
+                    #th.remove(item)
+                    item["type"] = "n"
+
+    plate_depth = 0
+    plate_pos = [-ob.gv("osp"), 0, plate_depth]
+
+    extra_mm = 1 / ob.gv("osp") 
+    pos = [plate_pos[0], plate_pos[1], plate_pos[2]-thickness_base_plate]
+    
+    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width+ extra_mm, height=height+ extra_mm, depth_mm=thickness_base_plate, pos=pos, mode="all"))
+
     return thing
 
 def get_holder_motor_servo_standard_01(**kwargs):
@@ -869,6 +928,8 @@ def get_holder_motor_servo_standard_01(**kwargs):
     height = kwargs.get("height", 10)
     thickness = kwargs.get("thickness", 3)
     pos = kwargs.get("pos", [0, 0, 0])
+    extra = kwargs.get("extra", "")
+    t = kwargs.get("type", "n")
     #set pos
     kwargs["pos"] = pos
     th = thing["components"]
@@ -882,21 +943,22 @@ def get_holder_motor_servo_standard_01(**kwargs):
     pos = [plate_pos[0], plate_pos[1], plate_pos[2]]
     #th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width, height=height, depth_mm=thickness-9, pos=pos, mode="all"))
     #3x3 plate
-    thickness_base_plate = 6
+    #thickness_base_plate = 6
+    thickness_base_plate = 15
     pos = [plate_pos[0], plate_pos[1], plate_pos[2]-thickness_base_plate]
     
     th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width+ extra_mm, height=height+ extra_mm, depth_mm=thickness_base_plate, pos=pos, mode="all"))
     
     #add 01_03s top and bottom
     thickness_full = 15
-    pos = [plate_pos[0]+15*2, plate_pos[1], plate_pos[2]-thickness_full]
-    piece_thickness = 12
-    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=1+ extra_mm, height=height+ extra_mm, depth_mm=piece_thickness, pos=pos, mode="all"))
+    #pos = [plate_pos[0]+15*2, plate_pos[1], plate_pos[2]-thickness_full]
+    #piece_thickness = 12
+    #th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=1+ extra_mm, height=height+ extra_mm, depth_mm=piece_thickness, pos=pos, mode="all"))
 
-    wid = 1.5+ extra_mm
-    pos = [plate_pos[0]-15*2+(wid-1)*7.5-.5, plate_pos[1], plate_pos[2]-thickness_full]
-    piece_thickness = 15
-    th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=wid, height=height+ extra_mm, depth_mm=piece_thickness, pos=pos, mode="all"))
+    #wid = 1.5+ extra_mm
+    #pos = [plate_pos[0]-15*2+(wid-1)*7.5-.5, plate_pos[1], plate_pos[2]#-thickness_full]
+    #piece_thickness = 15
+    #th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=wid, height=height+ extra_mm, depth_mm=piece_thickness, pos=pos, mode="all"))
 
 
 
@@ -959,11 +1021,20 @@ def get_holder_motor_servo_standard_01(**kwargs):
         p2["pos"][0] = hole[0]
         p2["pos"][1] = hole[1]
         p2["pos"][2] = hole[2]-4
-        p2["depth"] = 16
+        p2["depth"] = 25
         p2["rotY"] = 180        
-        #p2["top_clearance"] = True
+        p2["top_clearance"] = True
         p2["include_nut"] = False
         #p2["m"] = "#"
+        if "bottom" in t: #the type passed to the routine but not type                         
+            screw_extra = 15 # 40 mm screw
+            p2["depth"] = p2["depth"] + screw_extra #go to 30
+            #p2["m"] = "#"            
+            p2["pos"][2] = p2["pos"][2] - screw_extra
+            p2["overhang"] = True
+
+
+
         th.append(ob.oobb_easy(**p2))
 
 

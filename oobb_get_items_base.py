@@ -1033,9 +1033,13 @@ def get_oobb_motor_servo_standard_01(**kwargs):
         p4["shape"] = "oobb_screw_self_tapping"
         p4["radius_name"] = "m2"
         p4["overhang"] = True
-        x = -5.215
-        y = -5.215
+        #x = -5.215
+        #y = -5.215
+        #z = 0
+        x = -0
+        y = -7.375
         z = 0
+        
         rot_y = 180
         p4["flush_top"] = True
         p4["rotY"] = rot_y
@@ -1269,18 +1273,18 @@ def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
 
           
         
-    # hole
-    if hole:
-        p2 = copy.deepcopy(kwargs)
-        p2.pop("radius_name", None)
-        p2["r"] = ob.gv(f"screw_self_tapping_hole_radius_{radius}", mode)
-        if loose:
-            p2["r"] = ob.gv(f"screw_self_tapping_hole_loose_radius_{radius}", mode)
-        p2["shape"] = "oobb_hole"
-        p2["inclusion"] = mode
+        # hole
+        if hole:
+            p2 = copy.deepcopy(kwargs)
+            p2.pop("radius_name", None)
+            p2["r"] = ob.gv(f"screw_self_tapping_hole_radius_{radius}", mode)
+            if loose:
+                p2["r"] = ob.gv(f"screw_self_tapping_hole_loose_radius_{radius}", mode)
+            p2["shape"] = "oobb_hole"
+            p2["inclusion"] = mode
 
-        p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[1]]
-        objects.extend(ob.oobb_easy(**p2))
+            p2["pos"] = [pos1[0], pos1[1], pos1[2] + shifts[1]]
+            objects.extend(ob.oobb_easy(**p2))
     # nut
     if include_nut:
         p2 = copy.deepcopy(kwargs)
@@ -1296,10 +1300,12 @@ def get_oobb_screw_self_tapping(include_nut=False, **kwargs):
         p2 = copy.deepcopy(kwargs)
         p2["shape"] = "oobb_overhang"
         p2["orientation"] = "top"
+        sh = 0.3
         if rot == 180:
             p2["orientation"] = "bottom"
+            sh = 0.9
         p2["inclusion"] = "3dpr"        
-        p2["pos"] = [pos[0], pos[1], pos[2]+0.3]  
+        p2["pos"] = [pos[0], pos[1], pos[2]+sh]  
         p2["m"]       = "#"
         objects.extend(ob.oobb_easy(**p2))
 
@@ -1379,13 +1385,16 @@ def get_oobb_screw_socket_cap(include_nut=True, **kwargs):
         # p2["rotZ"] = 360/12
         objects.extend(ob.oobb_easy(**p2))
     # overhang    
-    if overhang:
+    if overhang:        
         p2 = copy.deepcopy(kwargs)
         p2["shape"] = "oobb_overhang"
         p2["orientation"] = "top"
         p2["inclusion"] = "3dpr"        
         p2["pos"] = [pos[0], pos[1], pos[2]-0.3]  
-        #p2["m"]       = "#"
+        #p2["m"] = "#"
+        if rot == 180:
+            p2["orientation"] = "bottom"     
+            p2["pos"] = [pos[0], pos[1], pos[2]+0.3]  
         objects.extend(ob.oobb_easy(**p2))
 
     return objects
@@ -1480,6 +1489,8 @@ def get_oobb_threaded_insert(**kwargs):
         #insertion cone
         if insertion_cone:
             if mode == "3dpr":
+                #kwargs["m"] = "#"
+                
                 insertion_cone_extra = ob.gv(f'threaded_insert_{style}_insertion_cone_{radius}', mode)
                 p2 = copy.deepcopy(kwargs)
                 p2["shape"] = "cylinder"
@@ -1493,6 +1504,7 @@ def get_oobb_threaded_insert(**kwargs):
                 p3["pos"][2] = p3["pos"][2] + insertion_cone_extra
                 p3["r2"] = ob.gv(f'threaded_insert_{style}_radius_{radius}', mode)
                 p3["r1"] = ob.gv(f'threaded_insert_{style}_radius_{radius}', mode) + insertion_cone_extra  
+                
                 objects.append(ob.oobb_easy(**p3))              
                 
     return objects

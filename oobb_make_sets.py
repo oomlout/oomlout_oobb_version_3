@@ -48,7 +48,8 @@ def get_bearing_plates(size="oobb"):
     bps.append({"type": "bearing_plate_shim", "thickness": 2, "bearing_type": "6704", "size": size})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_gearmotor_01"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
-    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01", "extra": "horn_adapter_printed"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01", "extra": "horn_adapter_screws"})
     
 
 
@@ -136,7 +137,10 @@ def get_holders(size="oobb"):
     hls.append({"type": "holder", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
     #      standard
     hls.append({"type": "holder", "extra": "motor_servo_standard_01","width": 5, "height": 3, "thickness": 3, "size": size})
-    
+    #            bottom    
+    hls.append({"type": "holder", "extra": "motor_servo_standard_01_bottom","width": 5, "height": 3, "thickness": 55, "size": size})
+
+
     #### nema 17
     thicknesses = [3,6]
     for t in thicknesses:

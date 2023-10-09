@@ -82,7 +82,7 @@ def initialize_variables():
     m["2"] = 2
     m["2_3dpr"] = 2.2
     m["2d5"] = 2.5
-    m["2d5_3dpr"] = 2.7
+    m["2d5_3dpr"] = 3.1
     m["3"] = 3
     m["3_3dpr"] = 3.6
     m["3d5"] = 3.5
@@ -139,7 +139,7 @@ def initialize_variables():
     vl["nut_radius_m3"] = [5.5*1.154/2, 5.5*1.154/2, 6 * 1.154/2]
     vl["standoff_radius_m3"] = [5.8*1.154/2, 5.8*1.154/2, 6.3 * 1.154/2]
     #style 01
-    vl["threaded_insert_01_radius_m3"] = [3.8/2, 4.2/2, 4/2]
+    vl["threaded_insert_01_radius_m3"] = [3.8/2, 4.2/2, 4.2/2]
     vl["threaded_insert_01_depth_m3"] = [6, 6, 6]
     vl["nut_depth_m3"] = [2.5, 2.5, 3]
     vl["threaded_insert_01_insertion_cone_m3"] = [0, 0, 0.5]
@@ -245,14 +245,14 @@ def initialize_variables():
     
 
     vl["screw_radius_m2"] = m["2"]/2, m["2"]/2, m["2_3dpr"]/2
-    vl["screw_self_tapping_hole_radius_m2"] = 1.5/2, 1.5/2, 2.0/2
-    vl["screw_self_tapping_hole_loose_radius_m2"] = 2/2, 2/2, 2.5/2
+    vl["screw_self_tapping_hole_radius_m2"] = [1.5/2, 1.5/2, 2.0/2]
+    vl["screw_self_tapping_hole_loose_radius_m2"] = [2/2, 2/2, 2.5/2]
     vl["screw_self_tapping_washer_radius_m2"] = [5/2, 5/2, 5.2/2]    
-    vl["screw_self_tapping_height_m2"] = [1.25/2, 1.3/2, 1.5/2]
+    vl["screw_self_tapping_height_m2"] = [1.25/2, 1.3/2, 3/2]
 
 
     vl["screw_radius_m2d5"] = m["2d5"]/2, m["2d5"]/2, m["2d5_3dpr"]/2
-    vl["screw_countersunk_radius_m2d5"] = [3.1/2, 4.5/2, 4.9/2]    
+    vl["screw_countersunk_radius_m2d5"] = [3.1/2, 4.5/2, 6.5/2]    #added 1.8 to m3 so trying adding 1.8 here
     vl["screw_countersunk_height_m2d5"] = [1.5/2, 1.5/2, 1.7/2]
 
     vl["screw_radius_m3"] = m["3"]/2, m["3"]/2, m["3_3dpr"]/2

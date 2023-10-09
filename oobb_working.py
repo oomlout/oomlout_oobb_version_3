@@ -9,8 +9,8 @@ import opsc
 
 
 
-filt = ""
-#filt = "holder"
+#filt = ""
+filt = "holder"
 #filt = "bearing_plate"
 #filt = "mounting_plate"
 #filt = ["bp","wh","bc"]
@@ -48,6 +48,7 @@ filter = ""
 #filter = "oobb_circle_1d5_06"
 #filter = "refiller_03_ex"
 filter = "servo_standard"
+#filter = "oobb_holder_motor_servo_standard_01_bottom_05_03_55"
 #filter = filt
 
 overwrite = True
