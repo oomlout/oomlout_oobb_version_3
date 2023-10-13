@@ -336,23 +336,21 @@ def oe(**kwargs):
 
 
 def oobb_easy(**kwargs):
-    try:
-        kwargs["type"] = kwargs["t"]
-        del kwargs["t"]
-    except KeyError:
-        pass
-    try:
-        kwargs["shape"] = kwargs["s"]
-        del kwargs["s"]
-    except KeyError:
-        pass
-    try:
-        kwargs["radius_name"] = kwargs["rn"]
-        del kwargs["rn"]
-    except KeyError:
-        pass
+    
+    # sort out shortcut names
+    key_mappings = {"type": "t", "shape": "s", "radius_name": "rn"}
 
-    if "oobb" in kwargs["shape"] or "oobe" in kwargs["shape"]:
+    for new_key, old_key in key_mappings.items():
+        value = kwargs.get(old_key)
+        if value is not None:
+            kwargs[new_key] = value
+            del kwargs[old_key]
+
+
+    shape = kwargs.get('shape',"")
+
+
+    if "oobb" in shape or "oobe" in shape:
         # if its an oobb_plat then call get_oobb_plate
         shape = kwargs["shape"]
         if shape == "oobb_pl":
@@ -372,7 +370,11 @@ def oobb_easy(**kwargs):
             func = globals()[f'get_{shape}']
             return func(**kwargs)
     else:
-        return opsc.opsc_easy(**kwargs)
+        return_value = opsc.opsc_easy(**kwargs)
+        #if return value is a dict
+        if type(return_value) == dict:
+            return_value = [return_value]
+        return return_value
 
 
 def oobb_easy_array(**kwargs):
@@ -399,12 +401,17 @@ def oobb_easy_array(**kwargs):
 def shift(thing,shift):
     # iterate through by index
     for i in range(0,len(thing)):
-        component = thing[i]
-        component = copy.deepcopy(component)
-        thing[i] = component
-        component["pos"][0] += shift[0]
-        component["pos"][1] += shift[1]
-        component["pos"][2] += shift[2]
+        things = thing[i]
+        #if thing isn't a list make it one
+        if type(things) != list:
+            things = [things]
+        # iterate through each component
+        for component in things:
+            component = copy.deepcopy(component)
+            thing[i] = component
+            component["pos"][0] += shift[0]
+            component["pos"][1] += shift[1]
+            component["pos"][2] += shift[2]
     return thing
 
 def highlight(thing):
@@ -412,10 +419,14 @@ def highlight(thing):
     return thing
 
 def remove_if(thing, name, value):
-    thing2 = copy.deepcopy(thing)
-    for component in thing2:
-        if component.get(name,"") == value:
-            thing.remove(component)
+    #thing2 = copy.deepcopy(thing)
+    #for component in thing2:
+    #    things = component
+    #    if type(things) != list:
+    #        things = [things]
+    #    for component in things:
+    #        if component.get(name,"") == value:
+    #            thing.remove(component)
     return thing
 
 def add_all(thing, name, value):

@@ -1,4 +1,5 @@
 from oobb_get_items_base import *
+from oobb_get_item_common import *
 import oobb_base as ob
 
 def get_bearing_circle(**kwargs):
@@ -143,9 +144,9 @@ def get_bearing_plate(**kwargs):
     extra_mm = 1 / ob.gv("osp")
 
     # solid piece
-    # don't print for servo_standard hotn adapter screws
+    # don't print for shaft ones
     th = thing["components"]
-    if extra2 != "horn_adapter_screws":        
+    if shaft == "":        
         th.append(ob.oe(t="p", s="oobb_plate", width=width + extra_mm, height=height + extra_mm, depth_mm=thickness, pos=[pos[0],pos[1],pos[2]-thickness/2], holes=False, mode="all"))
     else: 
         #add a 24mm cylinder thickness thick
@@ -192,10 +193,19 @@ def get_bearing_plate(**kwargs):
     if shaft == "m6":
         posa = copy.deepcopy(pos)
         th.extend(ob.oobb_easy(t="n", s="oobb_holes", pos=pos, radius_name=radius_name, width=width, height=height, m="", holes="just_middle"))
+    elif shaft == "motor_building_block_large_01":
+        posa = copy.deepcopy(pos)
+        posa[2] = posa[2] - thickness/2
+        th.extend(ob.oobb_easy(t="n", s="oobb_motor_building_block_large_01",
+                  part="shaft", pos=posa, m=""))        
     elif shaft == "motor_gearmotor_01":
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_gearmotor_01",
                   part="shaft", pos=pos, m=""))
         joint_dis = 15
+    elif shaft == "motor_n20":
+        th.extend(ob.oobb_easy(t="n", s="oobb_motor_n20",
+                  part="shaft", pos=pos, m=""))
+        joint_dis = 15        
     elif shaft == "motor_servo_micro_01":
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_micro_01",
                   part="shaft", pos=pos, m=""))
@@ -212,9 +222,11 @@ def get_bearing_plate(**kwargs):
         th.extend(ob.oobb_easy(t="n", s="oobb_motor_servo_standard_01",
                   part="shaft", pos=posa, m=""))
         joint_dis = 15
+    
+        
         
 
-    if extra2 != "horn_adapter_screws": ## don't add connecting screws for screw servo horn
+    if extra2 != "horn_adapter_screws" and shaft != "motor_building_block_large_01": ## don't add connecting screws for screw servo horn
     # adding connecting screws
         connecting_screws = []
         micro_servo_screws = []
@@ -316,18 +328,27 @@ def get_bearing_plate(**kwargs):
         else:
             p2["slots"] = False
             p2["inserts"] = True
+        #p2["m"] = "#"
         th.extend(get_ci_holes_center(**p2))
 
 
     # halfing it if 3dpr
     inclusion = "3dpr"
     
-    if extra2 != "horn_adapter_screws":   
-        th.append(ob.oobb_easy(t="n", s="cube", size=[
-              500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 0], inclusion=inclusion, m=""))
+    if extra2 == "horn_adapter_screws":   
+        th.append(ob.oobb_easy(t="n", s="cube", size=[500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 0.5], inclusion=inclusion, m=""))
+        
+    elif shaft == "motor_building_block_large_01":
+        #th.append(ob.oobb_easy(t="n", s="cube", size=[500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 4], inclusion=inclusion, m=""))
+        # add extra bearing clearance so it can slide in from the top
+        # bearing
+        pos = [0,0,-3]
+        th.extend(ob.oobb_easy(t="n", s="oobb_bearing", bearing_type=bearing_type, pos=pos, mode="all", exclude_clearance=exclude_clearance, overwrite=overwrite, m=""))
+        pos = [0,0,-6]
+        th.extend(ob.oobb_easy(t="n", s="oobb_bearing", bearing_type=bearing_type, pos=pos, mode="all", exclude_clearance=exclude_clearance, overwrite=overwrite, m=""))
+        
     else: # add an extra 1.5 mm
-        th.append(ob.oobb_easy(t="n", s="cube", size=[
-              500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 0.5], inclusion=inclusion, m=""))
+        th.append(ob.oobb_easy(t="n", s="cube", size=[500, 500, 500], pos=[pos[0]-500/2, pos[1]-500/2, 0], inclusion=inclusion, m=""))
     #only include the screws if only_scres
     if only_screws:
         if not micro_servo:
@@ -698,6 +719,145 @@ def get_holder_fan_120_mm(**kwargs):
 
     
     return thing
+
+def get_holder_motor_building_block_large_01_bottom(**kwargs):
+    kwargs["bottom"] = True
+    return get_holder_motor_building_block_large_01(**kwargs)
+
+def get_holder_motor_building_block_small_01_bottom(**kwargs):
+    kwargs["bottom"] = True
+    kwargs["small"] = True
+    return get_holder_motor_building_block_large_01(**kwargs)
+
+def get_holder_motor_building_block_large_01(**kwargs):
+
+    #load in kwargs
+    width = kwargs.get("width", 10)
+    height = kwargs.get("height", 10)
+    thickness = kwargs.get("thickness", 3)
+    pos = kwargs.get("pos", [0, 0, 0])
+    kwargs["pos"] = pos
+    size = kwargs.get("size", "oobb")
+    extra = kwargs.get("extra", "")    
+    bottom = kwargs.get("bottom", False)
+    small = kwargs.get("small", False)
+
+    # get the default thing
+    thing = ob.get_default_thing(**kwargs)
+    th = thing["components"]
+    kwargs.pop("size", "") #remove oobb as size to stop error later on with kwargs
+    kwargs.pop("type", "") #remove the id as type to avoiderrors later on
+
+    # setting variables
+    plate_pos = [0, 0, 0]
+    
+
+    thickness_wing = 6
+    # add 3x3 tall base plate
+    # if bottom is true then add a 3x3 plate to the bottom    
+    if bottom:
+        thi = thickness - thickness_wing
+        pos = [plate_pos[0], plate_pos[1], plate_pos[2]+ thickness_wing]      
+        extra_mm = 1 / ob.gv("osp")     
+        th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width+ extra_mm, height=height+ extra_mm, depth_mm=thi, pos=pos, mode="all"))
+    else: # if it's the top
+        thi = thickness_wing
+        pos = [plate_pos[0], plate_pos[1], plate_pos[2]]      
+        extra_mm = 1 / ob.gv("osp")     
+        th.extend(ob.oe(t="p", s="oobb_pl", holes=False, width=width+ extra_mm, height=height+ extra_mm, depth_mm=thickness_wing, pos=pos, mode="all"))
+    
+    # add m6 holes
+    # add the 3x3 ones
+    th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=3, height=3, holes="corner", both_holes= True, pos=plate_pos,radius_name="m6", m=""))
+    # add the extra for 5
+    if width > 3:
+        th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, holes=["top","bottom"], both_holes= True, pos=plate_pos,radius_name="m6", m=""))
+    
+
+    # add holes to join to a 6704 bearing plate
+    bearing_plate_mount_hole_spacing = 18
+    z = 50 - 12 #(use a 25 mm socket cap)
+    poss = [[0,bearing_plate_mount_hole_spacing,z], [0,-bearing_plate_mount_hole_spacing,z]]
+    for pos in poss:
+        #add scoket_cap screw 25-12 from the top roty 180  and top clearance
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "n"
+        p3["shape"] = "oobb_screw_socket_cap"
+        p3["radius_name"] = "m3"
+        p3["pos"] = pos
+        p3["rotY"] = 0
+        p3["include_nut"] = False
+        p3["top_clearance"] = True
+        p3["overhang"] = True
+        p3["m"] = ""
+        th.extend(ob.oobb_easy(**p3))
+    
+    ## add a 34mm diameter cutout 3mm off the bottom
+    p3 = copy.deepcopy(kwargs)
+    p3["type"] = "n"
+    p3["shape"] = "oobb_cylinder"
+    p3["radius"] = 34/2
+    if small:
+        p3["radius"] = 27/2
+    if bottom:        
+        p3["depth_mm"] = thickness - 2 + 1
+        p3["pos"] = [0, 0, (thickness-2)/2 - 1/2]
+    else: #all the way through if top
+        p3["depth_mm"] = 40
+        p3["pos"] = [0, 0, (40-2)/2]
+    p3["m"] = ""
+    th.extend(ob.oobb_easy(**p3))
+    ## add an 8mm hole at the bottom
+    p3 = copy.deepcopy(kwargs)
+    p3["s"] = "oobb_wire_clearance_square"
+    p3["depth"] = 10
+    p3["pos"] = [0, 0, thickness-2]
+    p3["m"] = "#"    
+    th.append(get_common(**p3))
+    p3 = copy.deepcopy(p3)
+    p3["pos"] = [5, 0, thickness-2]
+    th.append(get_common(**p3))
+    #add a tube to support the motor
+    if bottom:
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "pp"
+        p3["shape"] = "oobb_cylinder"
+        p3["radius"] = 12/2
+        dep =4.5
+        p3["depth"] = dep
+        p3["pos"] = [0, 0, thickness - dep]    
+        #p3["m"] = ""
+        th.extend(ob.oobb_easy(**p3))
+        p3 = copy.deepcopy(p3)
+        p3["type"] = "nn"
+        p3["radius"] = 8/2
+        #p3["m"] = "#"
+        th.extend(ob.oobb_easy(**p3))
+
+    # add the connecting nuts for the wire piece
+    poss = []
+    z = 41
+    poss.append([-7.5, 7.5, z])
+    poss.append([-7.5, -7.5, z])
+
+    for pos in poss:
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "n"
+        p3["shape"] = "oobb_nut"
+        p3["radius_name"] = "m3"
+        p3["pos"] = pos
+        p3["zz"] = "top"
+        p3["overhang"] = False
+        p3["hole"]  = True
+        p3["m"] = ""
+        th.extend(ob.oobb_easy(**p3))
+
+
+
+    return thing
+
+
+
 
 def get_holder_motor_gearmotor_01(**kwargs):
     
@@ -4515,7 +4675,10 @@ def get_wire(**kwargs):
         if width == 3 and height == 3:
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes=["corners"], radius_name="m6", m=""))
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=(width*2)-1, height=(height*2)-1, pos=plate_pos, holes=["left","right","bottom"], radius_name="m3", size="oobe", m=""))
-            th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes="single", loc = [3,2],radius_name="m6", m=""))            
+
+            th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes="single", loc = [[3,2]],radius_name="m6", m=""))   
+            # add the side ones to3d printed ones
+            th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes="single", loc = [[2,1],[2,3]],radius_name="m6", m="", inclusion = ["true","3dpr"]))            
             poss = []
             poss.append([plate_pos[0],base_pos[1]+15,base_pos[2]])
             poss.append([plate_pos[0],base_pos[1]-15,base_pos[2]])
@@ -4526,14 +4689,14 @@ def get_wire(**kwargs):
                     thi = 4.5
                     posa = [pos[0], pos[1], pos[2]+thickness-thi]
                     #posa = [pos[0], pos[1], pos[2]+thickness-thi+20]
-                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=posa, holes="single", radius_name = "m3", extra="support_bottom", depth=thi, m=""))
+                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=posa, holes="single", inclusion="laser", radius_name = "m3", extra="support_bottom", depth=thi, m=""))
                 elif "base" in extra:                    
                     posa = [pos[0], pos[1], pos[2]+thickness]
                     th.extend(ob.oobb_easy(t="n", s="oobb_countersunk", width=width, height=height, pos=posa, holes="single", radius_name = "m3", include_nut=False, depth=thickness, m=""))
                     
                 else:
                     posa = [pos[0], pos[1], pos[2]]
-                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=posa, holes="single", depth=thickness, radius_name = "m3", m=""))
+                    th.extend(ob.oobb_easy(t="n", s="oobb_standoff", width=width, height=height, pos=posa, holes="single", inclusion="laser", depth=thickness, radius_name = "m3", m=""))
 
         else:
             th.extend(ob.oobb_easy(t="n", s="oobb_holes", width=width, height=height, pos=plate_pos, holes=["left","right"], radius_name="m6", size="oobb",m=""))
@@ -4549,7 +4712,8 @@ def get_wire(**kwargs):
         y = 7.5
         con_string = "oobb_nut"
         con_z = 3
-        if "base" in extra and "_base" not in extra:
+        #if "base" in extra and "_base" not in extra:
+        if "base" in extra:
             con_string = "oobb_countersunk"
             con_z = thickness
         holes.extend([[x,y,0,"m3","oobb_hole"],
@@ -4587,10 +4751,11 @@ def get_wire(**kwargs):
         
         #add a cube for wire clearnce using pos and size arrays
         if "holder" in extra or "cap" in extra or clearance:
-            pos = [29.544,0,0]
-            size = [7, 10, thickness]
-            th.append(ob.oe(t="n", s="oobb_cube_center", holes="none", pos=pos, size=size, mode="all", m=""))
-
+            p3 = copy.deepcopy(kwargs)
+            p3["s"] = "oobb_wire_clearance_square"
+            p3["depth"] = thickness
+            #p3["m"] = "#"
+            th.append(get_common(**p3))
 
         #wire piece
         if "base" not in extra and "cap" not in extra or "_" in extra and "base_cap" not in extra:

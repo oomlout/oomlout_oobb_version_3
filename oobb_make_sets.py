@@ -43,6 +43,7 @@ def get_bearing_plates(size="oobb"):
     bps.append({"type": "bearing_plate_jack_basic", "width": 3, "height": 3, "thickness": 12, "bearing_type": "606","size": size})
     
     
+
     # 6704
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704","size": size})
     bps.append({"type": "bearing_plate_shim", "thickness": 2, "bearing_type": "6704", "size": size})
@@ -50,6 +51,8 @@ def get_bearing_plates(size="oobb"):
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_micro_01"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01", "extra": "horn_adapter_printed"})
     bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_servo_standard_01", "extra": "horn_adapter_screws"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_building_block_large_01"})
+    bps.append({"type": "bearing_plate", "width": 3, "height": 3, "thickness": 12, "bearing_type": "6704", "size": size, "shaft": "motor_n20"})
     
 
 
@@ -130,14 +133,25 @@ def get_holders(size="oobb"):
     #      120_mm
     hls.append({"type": "holder", "extra": "fan_120_mm","width": 10, "height": 10, "thickness": 3, "size": size})
 
-    #### gearmotor
+    # motor
+    #      building_block
+    #            large_01
+    hls.append({"type": "holder", "extra": "motor_building_block_large_01","width": 5, "height": 3, "thickness": 6, "size": size})
+    hls.append({"type": "holder", "extra": "motor_building_block_large_01_bottom","width": 3, "height": 3, "thickness": 42, "size": size})
+        #            small_01
+    hls.append({"type": "holder", "extra": "motor_building_block_small_01_bottom","width": 3, "height": 3, "thickness": 48, "size": size})
+
+
+    #       gear
     hls.append({"type": "holder", "extra": "motor_gearmotor_01","width": 6, "height": 3, "thickness": 6, "size": size})
-    # servo
-    #      micro
+    
+    #      servo
+    #           micro
     hls.append({"type": "holder", "extra": "motor_servo_micro_01","width": 4, "height": 3, "thickness": 3, "size": size})
-    #      standard
+    
+    #           standard
     hls.append({"type": "holder", "extra": "motor_servo_standard_01","width": 5, "height": 3, "thickness": 3, "size": size})
-    #            bottom    
+    #                 bottom    
     hls.append({"type": "holder", "extra": "motor_servo_standard_01_bottom","width": 5, "height": 3, "thickness": 55, "size": size})
 
 

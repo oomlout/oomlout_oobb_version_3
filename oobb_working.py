@@ -10,9 +10,10 @@ import opsc
 
 
 #filt = ""
-filt = "holder"
-#filt = "bearing_plate"
+#filt = "holder"
+filt = "bearing_plate"
 #filt = "mounting_plate"
+#filt = "wire"
 #filt = ["bp","wh","bc"]
 #filt=""
 filts = copy.deepcopy(filt)
@@ -29,12 +30,12 @@ oobb_make_sets.make_all(filter=filts)
 #oobb_base.dump("folder")
 
 # oobb_base.load("folder")
-# oobb_bas-e.load("json")
+# oobb_base.load("json")
  
 
 save_type = "none"
 #save_type = "laser"
-save_type = "all"
+#save_type = "all"
 
 filter = ""
 filter = "" 
@@ -46,8 +47,8 @@ filter = ""
 #filter = ["m2", "ba", "i2", "hv"]
 #filter = "oobb_smd_magazine_13_13_14_nm_8_mm_tape_width_on_10_mm_reel_1_5_mm_tape_thickness_ex_1d5"
 #filter = "oobb_circle_1d5_06"
-#filter = "refiller_03_ex"
-filter = "servo_standard"
+#filter = "oobb_wire_basic_03_03_03"
+filter = "n20"
 #filter = "oobb_holder_motor_servo_standard_01_bottom_05_03_55"
 #filter = filt
 
